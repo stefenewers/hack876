@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hack 876
 
-## Getting Started
+Website for Hack 876, a one-day secondary-school hackathon in Kingston, Jamaica.
 
-First, run the development server:
+Next.js (App Router) · TypeScript · Tailwind CSS v4. No animation library. Motion is CSS + a few small `requestAnimationFrame` loops, all respecting `prefers-reduced-motion`.
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run lint
+npm run typecheck
+npm test           # validation unit tests (node --test)
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Updating content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Almost everything lives in **`src/data/event.ts`**:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| What | Where | Notes |
+| --- | --- | --- |
+| Date | `event.date` / `event.dateLabel` | `null` shows “Date TBA” |
+| Contact email, socials | `event.contactEmail`, `event.socials` | hidden until set |
+| Venue | `venue` | set `confirmed: true` to drop the “Proposed” label |
+| Schools + crests | `schools`, `schoolLogos` | crests live in `public/schools/` (St. Andrew is missing one) |
+| Application status | `applications.status` | `"open" \| "coming-soon" \| "closed"` |
+| Schedule | `schedule` | `highlight: true` makes a row pop |
+| Tracks, principles, judging | `tracks`, `principles`, `judging` | |
+| Judges / speakers / mentors | `people` | **only `confirmed: true` renders** |
+| Prizes | `prizes` | `reward: null` shows “Prize announced soon” |
+| Sponsors | `sponsors` | **only `confirmed: true` renders** |
+| FAQ, parents info | `faqs`, `parents` | `pending: true` adds a “details coming” tag |
 
-## Learn More
+## Form submissions
 
-To learn more about Next.js, take a look at the following resources:
+Applications (`/apply`) and partner enquiries (`/partner`) are validated in the browser and again on the server (`src/lib/application.ts`), then saved by `src/lib/submissions.ts`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **`SUBMISSIONS_WEBHOOK_URL` set** → each submission is POSTed as JSON (optional `SUBMISSIONS_WEBHOOK_SECRET` sent as a Bearer token). Use this in production.
+- **Not set** → appended to `.data/applications.jsonl` / `.data/partners.jsonl` (git-ignored). Good for local review and self-hosting; won't persist on serverless hosts.
