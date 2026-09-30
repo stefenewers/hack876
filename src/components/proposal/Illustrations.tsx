@@ -937,3 +937,56 @@ export function MentorRoom({ teams, mentors, mentorColor = "#ffca42", className 
     </svg>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Abstract device silhouettes for prize cards (no product photography)      */
+/* -------------------------------------------------------------------------- */
+
+export function DeviceArt({ kind, className = "" }: { kind: "tablet" | "earbuds" | "card" | "ribbon"; className?: string }) {
+  return (
+    <svg viewBox="0 0 160 120" aria-hidden className={className} overflow="visible">
+      {kind === "tablet" && (
+        <g>
+          <rect x="30" y="10" width="100" height="100" rx="12" fill={INK} />
+          <rect x="37" y="17" width="86" height="86" rx="6" fill={C.skyLight} />
+          <path d="M44 88 C 64 60, 84 74, 116 34" fill="none" stroke={C.emerald} strokeWidth="6" strokeLinecap="round" />
+          <path d="M48 94 C 68 66, 88 80, 120 40" fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" />
+          <rect x="112" y="4" width="6" height="30" rx="3" fill={C.grey} stroke={INK} strokeWidth="2" transform="rotate(35 115 19)" />
+        </g>
+      )}
+      {kind === "earbuds" && (
+        <g>
+          <rect x="38" y="40" width="84" height="66" rx="30" fill={C.paper} stroke={INK} strokeWidth="3.5" />
+          <path d="M40 66 H120" stroke={INK} strokeWidth="2.5" />
+          <circle cx="80" cy="84" r="3" fill={INK} />
+          <g transform="rotate(-18 58 26)">
+            <ellipse cx="58" cy="24" rx="12" ry="14" fill={C.paper} stroke={INK} strokeWidth="3" />
+            <rect x="53" y="30" width="9" height="28" rx="4.5" fill={C.paper} stroke={INK} strokeWidth="3" />
+          </g>
+          <g transform="rotate(18 102 26)">
+            <ellipse cx="102" cy="24" rx="12" ry="14" fill={C.paper} stroke={INK} strokeWidth="3" />
+            <rect x="97" y="30" width="9" height="28" rx="4.5" fill={C.paper} stroke={INK} strokeWidth="3" />
+          </g>
+        </g>
+      )}
+      {kind === "card" && (
+        <g>
+          <rect x="34" y="24" width="96" height="62" rx="10" fill={C.sun} stroke={INK} strokeWidth="3" transform="rotate(-8 82 55)" />
+          <rect x="24" y="36" width="96" height="62" rx="10" fill={C.paper} stroke={INK} strokeWidth="3" />
+          <rect x="34" y="48" width="22" height="16" rx="3" fill={C.grey} stroke={INK} strokeWidth="2" />
+          <path d="M34 78 H96 M34 86 H72" stroke={INK} strokeWidth="2.5" strokeLinecap="round" />
+          <circle cx="104" cy="54" r="7" fill={C.emerald} stroke={INK} strokeWidth="2" />
+        </g>
+      )}
+      {kind === "ribbon" && (
+        <g>
+          <path d="M62 64 L48 112 L66 102 L76 118 L86 70 Z" fill={C.bill} stroke={INK} strokeWidth="3" strokeLinejoin="round" />
+          <path d="M98 64 L112 112 L94 102 L84 118 L74 70 Z" fill={C.sky} stroke={INK} strokeWidth="3" strokeLinejoin="round" />
+          <circle cx="80" cy="46" r="32" fill={C.sun} stroke={INK} strokeWidth="3.5" />
+          <circle cx="80" cy="46" r="21" fill="none" stroke={INK} strokeWidth="2.5" strokeDasharray="3 5" />
+          <path d="M80 32 C 82 42, 84 44, 94 46 C 84 48, 82 50, 80 60 C 78 50, 76 48, 66 46 C 76 44, 78 42, 80 32 Z" fill={C.paper} stroke={INK} strokeWidth="2" strokeLinejoin="round" />
+        </g>
+      )}
+    </svg>
+  );
+}
