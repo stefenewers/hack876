@@ -336,11 +336,11 @@ export type Person = {
 export const previewUnconfirmedPeople = process.env.NODE_ENV === "development";
 
 export const people: Person[] = [
-  // Agreed to be listed; judge vs speaker roles TBD. Flip `confirmed` to go live.
-  { name: "Dominic Saunders", organization: "Tesla", role: "tbd", photo: "/people/dominic-saunders.jpg", confirmed: false },
-  { name: "Jordan Howell", organization: "Microsoft", role: "tbd", photo: "/people/jordan-howell.jpg", confirmed: false },
-  { name: "Joshua Ardito", organization: "Meta", role: "tbd", photo: "/people/joshua-ardito.jpg", confirmed: false },
-  { name: "Tahj Atkinson", organization: "Google", role: "tbd", photo: "/people/tahj-atkinson.jpg", confirmed: false },
+  // Confirmed. Judge vs speaker roles TBD — set `role` once decided.
+  { name: "Dominic Saunders", organization: "Tesla", role: "tbd", photo: "/people/dominic-saunders.jpg", confirmed: true },
+  { name: "Jordan Howell", organization: "Microsoft", role: "tbd", photo: "/people/jordan-howell.jpg", confirmed: true },
+  { name: "Joshua Ardito", organization: "Meta", role: "tbd", photo: "/people/joshua-ardito.jpg", confirmed: true },
+  { name: "Tahj Atkinson", organization: "Google", role: "tbd", photo: "/people/tahj-atkinson.jpg", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
