@@ -380,9 +380,9 @@ export const prizes: Prize[] = [
   { name: "Hack 876 Winner", line: "The whole thing. Best overall build.", icon: "trophy", color: "sun", reward: "4 × iPad", place: 1 },
   { name: "Second Place", line: "So close. Still brilliant.", icon: "medal-2", color: "sky", reward: "4 × AirPods Pro", place: 2 },
   { name: "Third Place", line: "On the podium.", icon: "medal-3", color: "peach", reward: "4 × US$150 gift cards", place: 3 },
-  { name: "Best Design", line: "Looks great. Feels even better.", icon: "pen", color: "pink", reward: null },
-  { name: "Boldest Idea", line: "The swing nobody else took.", icon: "rocket", color: "bill", reward: null },
-  { name: "People’s Choice", line: "Voted by the room.", icon: "heart", color: "aqua", reward: null },
+  { name: "Best Design", line: "Looks great. Feels even better.", icon: "pen", color: "pink", reward: "4 × US$50 gift cards" },
+  { name: "Boldest Idea", line: "The swing nobody else took.", icon: "rocket", color: "bill", reward: "US$200 team project grant" },
+  { name: "People’s Choice", line: "Voted by the room.", icon: "heart", color: "aqua", reward: "4 × US$50 gift cards" },
 ];
 
 /* -------------------------------------------------------------------------- */
