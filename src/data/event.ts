@@ -26,6 +26,8 @@ export const event = {
   date: null as string | null,
   /** Human-readable fallback while the date is unconfirmed. */
   dateLabel: "2027 · Date TBA",
+  /** Canonical public website. */
+  siteUrl: "https://www.hack876.com",
   /** Public contact email. `null` hides email links until one is set up. */
   contactEmail: null as string | null,
   socials: [] as { label: string; href: string }[],

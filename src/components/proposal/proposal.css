@@ -228,7 +228,7 @@
 
   /* Branded slide footer with slide number. */
   .lp-section::after {
-    content: "Hack876 × Loring Consulting Engineers  ·  " counter(slide, decimal-leading-zero);
+    content: var(--lp-deck-label, "Hack876") "  ·  " counter(slide, decimal-leading-zero);
     position: absolute;
     left: 0.65in;
     right: 0.65in;
