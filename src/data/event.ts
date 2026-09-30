@@ -343,6 +343,8 @@ export const people: Person[] = [
   { name: "Tahj Atkinson", organization: "Google", role: "tbd", photo: "/people/tahj-atkinson.jpg", confirmed: true },
   { name: "Nadani Dixon", organization: "Redfin", role: "tbd", photo: "/people/nadani-dixon.jpg", confirmed: true },
   { name: "Stefen Ewers", organization: "Knovel Protocol", role: "tbd", photo: "/people/stefen-ewers.jpg", confirmed: true },
+  { name: "Kendall Todd", organization: "Accenture", role: "tbd", photo: "/people/kendall-todd.jpg", confirmed: true },
+  { name: "Netania Mundell", organization: "Diageo", role: "tbd", photo: "/people/netania-mundell.jpg", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
