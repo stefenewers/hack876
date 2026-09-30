@@ -805,3 +805,75 @@ export function Converge({ left, right, className = "" }: { left: string; right:
     </svg>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Idea to real world: five stages rising along the streamer                 */
+/* -------------------------------------------------------------------------- */
+
+export function IdeaToRealWorld({ labels, className = "" }: { labels: [string, string, string, string, string]; className?: string }) {
+  const stops = [
+    { x: 70, y: 250 },
+    { x: 250, y: 214 },
+    { x: 430, y: 168 },
+    { x: 610, y: 118 },
+    { x: 790, y: 66 },
+  ];
+  const label = (i: number) => (
+    <text x={stops[i].x} y={stops[i].y + 76} textAnchor="middle" fontSize="19" fontWeight="900" fill={INK} fontFamily="var(--font-sans)" stroke={C.cream} strokeWidth="6" paintOrder="stroke">
+      {labels[i]}
+    </text>
+  );
+  return (
+    <svg viewBox="0 0 860 340" aria-hidden className={className} overflow="visible">
+      {/* the streamer road */}
+      <path d="M40 262 C 260 250, 520 200, 830 50" fill="none" stroke={C.emerald} strokeWidth="9" strokeLinecap="round" />
+      <path d="M46 274 C 266 262, 526 212, 836 62" fill="none" stroke={INK} strokeWidth="4" strokeLinecap="round" />
+
+      {/* 1 idea: spark */}
+      <g>
+        <circle cx={stops[0].x} cy={stops[0].y} r="42" fill={C.paper} stroke={INK} strokeWidth="3" />
+        <path d={`M${stops[0].x} ${stops[0].y - 28} C ${stops[0].x + 3} ${stops[0].y - 6}, ${stops[0].x + 8} ${stops[0].y - 2}, ${stops[0].x + 28} ${stops[0].y} C ${stops[0].x + 8} ${stops[0].y + 2}, ${stops[0].x + 3} ${stops[0].y + 6}, ${stops[0].x} ${stops[0].y + 28} C ${stops[0].x - 3} ${stops[0].y + 6}, ${stops[0].x - 8} ${stops[0].y + 2}, ${stops[0].x - 28} ${stops[0].y} C ${stops[0].x - 8} ${stops[0].y - 2}, ${stops[0].x - 3} ${stops[0].y - 6}, ${stops[0].x} ${stops[0].y - 28} Z`} fill={C.sun} stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+        {label(0)}
+      </g>
+      {/* 2 prototype: laptop */}
+      <g>
+        <circle cx={stops[1].x} cy={stops[1].y} r="42" fill={C.paper} stroke={INK} strokeWidth="3" />
+        <rect x={stops[1].x - 24} y={stops[1].y - 22} width="48" height="32" rx="4" fill={C.grey} stroke={INK} strokeWidth="2.5" />
+        <path d={`M${stops[1].x - 32} ${stops[1].y + 10} H${stops[1].x + 32} L${stops[1].x + 26} ${stops[1].y + 18} H${stops[1].x - 26} Z`} fill="#b9c0c4" stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+        <path d={`M${stops[1].x - 14} ${stops[1].y - 10} h14 M${stops[1].x - 14} ${stops[1].y - 2} h24`} stroke={C.emeraldDeep} strokeWidth="3" strokeLinecap="round" />
+        {label(1)}
+      </g>
+      {/* 3 product: phone */}
+      <g>
+        <circle cx={stops[2].x} cy={stops[2].y} r="42" fill={C.paper} stroke={INK} strokeWidth="3" />
+        <rect x={stops[2].x - 15} y={stops[2].y - 26} width="30" height="52" rx="6" fill={C.paper} stroke={INK} strokeWidth="2.5" />
+        <rect x={stops[2].x - 9} y={stops[2].y - 18} width="18" height="10" rx="2" fill={C.emeraldLight} stroke={INK} strokeWidth="1.8" />
+        <rect x={stops[2].x - 9} y={stops[2].y - 4} width="8" height="8" rx="2" fill={C.sun} stroke={INK} strokeWidth="1.8" />
+        <rect x={stops[2].x + 1} y={stops[2].y - 4} width="8" height="8" rx="2" fill={C.bill} stroke={INK} strokeWidth="1.8" />
+        <rect x={stops[2].x - 9} y={stops[2].y + 7} width="18" height="8" rx="2" fill={C.sky} stroke={INK} strokeWidth="1.8" />
+        {label(2)}
+      </g>
+      {/* 4 company: building */}
+      <g>
+        <circle cx={stops[3].x} cy={stops[3].y} r="42" fill={C.paper} stroke={INK} strokeWidth="3" />
+        <rect x={stops[3].x - 22} y={stops[3].y - 22} width="44" height="46" fill={C.sky} stroke={INK} strokeWidth="2.5" />
+        {[0, 1, 2].map((r) =>
+          [0, 1, 2].map((c) => <rect key={`${r}${c}`} x={stops[3].x - 16 + c * 12} y={stops[3].y - 16 + r * 12} width="7" height="7" fill={C.paper} stroke={INK} strokeWidth="1.5" />),
+        )}
+        <path d={`M${stops[3].x - 28} ${stops[3].y + 24} H${stops[3].x + 28}`} stroke={INK} strokeWidth="3" strokeLinecap="round" />
+        {label(3)}
+      </g>
+      {/* 5 real world: a little skyline + people */}
+      <g>
+        <circle cx={stops[4].x} cy={stops[4].y} r="46" fill={C.sun} stroke={INK} strokeWidth="3" />
+        <circle cx={stops[4].x - 14} cy={stops[4].y - 8} r="8" fill={C.paper} stroke={INK} strokeWidth="2.5" />
+        <circle cx={stops[4].x + 12} cy={stops[4].y - 10} r="8" fill={C.paper} stroke={INK} strokeWidth="2.5" />
+        <path d={`M${stops[4].x - 28} ${stops[4].y + 22} C ${stops[4].x - 28} ${stops[4].y + 4}, ${stops[4].x} ${stops[4].y + 4}, ${stops[4].x} ${stops[4].y + 22} Z`} fill={C.emerald} stroke={INK} strokeWidth="2.5" />
+        <path d={`M${stops[4].x - 2} ${stops[4].y + 22} C ${stops[4].x - 2} ${stops[4].y + 2}, ${stops[4].x + 26} ${stops[4].y + 2}, ${stops[4].x + 26} ${stops[4].y + 22} Z`} fill={C.bill} stroke={INK} strokeWidth="2.5" />
+        {label(4)}
+      </g>
+
+      <DoctorBird flutter={false} tail={false} x="0" y="150" width="86" height="80" />
+    </svg>
+  );
+}
