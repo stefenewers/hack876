@@ -355,6 +355,7 @@ export const people: Person[] = [
   { name: "Stefen Ewers", organization: "Anthropic Claude Ambassador", schools: ["Campion College", "Hillel Academy", "Georgia Tech"], role: "organizer", photo: "/people/stefen-ewers.jpg", confirmed: true },
   { name: "Kendall Todd", organization: "Accenture", schools: ["Hillel Academy", "UF"], role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
   { name: "Netania Mundell", organization: "Diageo", schools: ["St. Andrew High School for Girls", "UWI", "NYU"], role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
+  { name: "Sheneska Williams", organization: "HashiCorp (Terraform)", schools: ["Immaculate Conception High School", "USF"], role: "judge", photo: "/people/sheneska-williams.jpg", confirmed: true },
   { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", schools: ["Wolmer's", "Hillel Academy", "USF"], role: "partner", photo: "/people/johnathan-clarke.jpg", confirmed: true },
   // Relationship partner (bridge to Scotia Investments).
   { name: "Padrique Duncan", organization: "Scotia Investments", role: "partner", schools: ["Jamaica College", "UWI"], photo: "/people/padrique-duncan.jpg", confirmed: true },
