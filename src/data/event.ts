@@ -441,6 +441,7 @@ export const sponsors: Sponsor[] = [
   { name: "GraceKennedy General Insurance", logo: "/sponsors/gk-general-insurance.jpeg", url: "", level: "partner", confirmed: false },
   { name: "Lev Beauty", logo: "/sponsors/lev-beauty.jpeg", url: "", level: "partner", confirmed: true, pending: true },
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },
+  { name: "Norus Technologies", logo: "/sponsors/norus-technologies.png", url: "https://norustech.com/", level: "partner", confirmed: true },
 ];
 
 /* -------------------------------------------------------------------------- */
