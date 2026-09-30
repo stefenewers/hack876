@@ -419,7 +419,7 @@ export type Sponsor = {
   /** Path under /public, e.g. "/sponsors/company.svg". */
   logo: string;
   url: string;
-  /** Free-form for now, e.g. "presenting", "partner", "community". */
+  /** "organizing" is shown on its own above the others. Otherwise free-form, e.g. "partner". */
   level: string;
   /** Only confirmed sponsors render. */
   confirmed: boolean;
@@ -438,6 +438,7 @@ export type Sponsor = {
 export const previewUnconfirmedSponsors = process.env.NODE_ENV === "development";
 
 export const sponsors: Sponsor[] = [
+  { name: "P237 Labs", logo: "/sponsors/p237-labs.png", url: "", level: "organizing", confirmed: true },
   { name: "GraceKennedy General Insurance", logo: "/sponsors/gk-general-insurance.jpeg", url: "", level: "partner", confirmed: false },
   { name: "Lev Beauty", logo: "/sponsors/lev-beauty.jpeg", url: "", level: "partner", confirmed: true, pending: true },
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },

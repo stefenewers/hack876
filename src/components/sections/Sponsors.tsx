@@ -4,7 +4,9 @@ import { DoctorBird } from "@/components/art/DoctorBird";
 import { previewUnconfirmedSponsors, sponsors } from "@/data/event";
 
 export function Sponsors() {
-  const confirmed = sponsors.filter((s) => s.confirmed || previewUnconfirmedSponsors);
+  const visible = sponsors.filter((s) => s.confirmed || previewUnconfirmedSponsors);
+  const organizing = visible.filter((s) => s.level === "organizing");
+  const confirmed = visible.filter((s) => s.level !== "organizing");
 
   return (
     <section id="sponsors" aria-labelledby="sponsors-title" className="relative bg-cream-2 py-20 sm:py-28">
@@ -15,6 +17,22 @@ export function Sponsors() {
             Made possible by
           </h2>
         </div>
+
+        {organizing.map((s) => (
+          <div key={s.name} data-reveal className="mx-auto mt-12 flex max-w-sm flex-col items-center">
+            <p className="text-xs font-extrabold tracking-[0.18em] text-ink-soft uppercase">Organizing sponsor</p>
+            <a
+              href={s.url || undefined}
+              target={s.url ? "_blank" : undefined}
+              rel={s.url ? "noopener noreferrer" : undefined}
+              className="sticker mt-4 block h-36 w-full overflow-hidden bg-[#fdfcf6] p-6 sm:h-40"
+            >
+              <span className="relative block h-full w-full">
+                <Image src={s.logo} alt={s.name} fill sizes="384px" className="object-contain" />
+              </span>
+            </a>
+          </div>
+        ))}
 
         {confirmed.length > 0 ? (
           <ul className="mt-12 flex flex-wrap justify-center gap-5 sm:gap-7">
