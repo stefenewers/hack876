@@ -877,3 +877,63 @@ export function IdeaToRealWorld({ labels, className = "" }: { labels: [string, s
     </svg>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Mentor room: team tables from above, mentors circulating between them     */
+/* -------------------------------------------------------------------------- */
+
+export function MentorRoom({ teams, mentors, mentorColor = "#ffca42", className = "" }: { teams: number; mentors: number; mentorColor?: string; className?: string }) {
+  const cols = 5;
+  const rows = Math.ceil(teams / cols);
+  const tables = Array.from({ length: teams }, (_, i) => ({ x: 90 + (i % cols) * 150, y: 70 + Math.floor(i / cols) * 120 }));
+  // Mentors sit in the aisles; each loops past a few tables.
+  const aisle = Array.from({ length: mentors }, (_, i) => {
+    const t = tables[(i * 3 + 1) % teams];
+    return { x: Math.min(735, Math.max(45, t.x + (i % 2 ? 75 : -75))), y: t.y + 55 };
+  });
+  const h = 70 + rows * 120;
+  return (
+    <svg viewBox={`0 0 780 ${h}`} aria-hidden className={className} overflow="visible">
+      <rect x="10" y="10" width="760" height={h - 20} rx="24" fill={C.paper} stroke={INK} strokeWidth="3" />
+      {/* circulation paths */}
+      {aisle.map((m, i) => {
+        const a = tables[(i * 3 + 1) % teams];
+        const b = tables[(i * 3 + 2) % teams];
+        return (
+          <path
+            key={`p${i}`}
+            d={`M${m.x} ${m.y} C ${a.x} ${a.y + 60}, ${b.x} ${b.y - 60}, ${b.x + (i % 2 ? 60 : -60)} ${b.y}`}
+            fill="none"
+            stroke={INK}
+            strokeOpacity="0.35"
+            strokeWidth="2"
+            strokeDasharray="3 7"
+            strokeLinecap="round"
+          />
+        );
+      })}
+      {/* team tables with students */}
+      {tables.map((t, i) => (
+        <g key={i}>
+          <rect x={t.x - 42} y={t.y - 24} width="84" height="48" rx="10" fill={C.cream} stroke={INK} strokeWidth="2.5" />
+          <rect x={t.x - 14} y={t.y - 9} width="28" height="18" rx="3" fill={C.grey} stroke={INK} strokeWidth="1.8" />
+          {[
+            [-30, -34],
+            [30, -34],
+            [-30, 34],
+            [30, 34],
+          ].map(([dx, dy], k) => (
+            <circle key={k} cx={t.x + dx} cy={t.y + dy} r="8" fill={[C.emerald, C.sky, C.bill, C.peach][(i + k) % 4]} stroke={INK} strokeWidth="2" />
+          ))}
+        </g>
+      ))}
+      {/* mentors */}
+      {aisle.map((m, i) => (
+        <g key={`m${i}`}>
+          <circle cx={m.x} cy={m.y} r="19" fill={mentorColor} stroke={INK} strokeWidth="3.5" />
+          <path d={`M${m.x - 7} ${m.y + 1} l4.5 4.5 l9 -10`} fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      ))}
+    </svg>
+  );
+}
