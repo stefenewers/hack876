@@ -10,21 +10,35 @@ const roleColor: Record<PersonRole, string> = { judge: "bg-sun", speaker: "bg-aq
 
 export function People() {
   const confirmed = people.filter((p) => p.confirmed || previewUnconfirmedPeople);
+  const present = groups.filter((r) => confirmed.some((p) => p.role === r));
+  const onlyJudges = present.length === 1 && present[0] === "judge";
 
   return (
     <section id="people" aria-labelledby="people-title" className="relative bg-cream-2 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div data-reveal className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
           <div>
-            <p className="eyebrow text-emerald-deep">People</p>
+            <p className="eyebrow text-emerald-deep">{onlyJudges ? "Judges" : "People"}</p>
             <h2 id="people-title" className="display mt-3 text-[clamp(2.4rem,6.5vw,4.2rem)]">
-              Judges, speakers
-              <br />
-              &amp; mentors.
+              {onlyJudges ? (
+                <>
+                  Meet the
+                  <br />
+                  judges.
+                </>
+              ) : (
+                <>
+                  Judges, speakers
+                  <br />
+                  &amp; mentors.
+                </>
+              )}
             </h2>
           </div>
           <p className="max-w-md text-lg text-ink-2">
-            People who build things for a living, here to cheer you on, help you get unstuck, and pick the winners.
+            {onlyJudges
+              ? "People who build things for a living. They’ll be watching your demos and picking the winners."
+              : "People who build things for a living, here to cheer you on, help you get unstuck, and pick the winners."}
           </p>
         </div>
 
@@ -36,8 +50,8 @@ export function People() {
             if (group.length === 0) return null;
             return (
               <div key={role} className="mt-14">
-                <h3 className="display text-3xl">{roleLabels[role].plural}</h3>
-                <ul className="mt-6 flex flex-wrap justify-center gap-5 [&>li]:w-[calc(50%-0.625rem)] sm:[&>li]:w-[calc(33.333%-0.834rem)] lg:[&>li]:w-[calc(25%-0.9375rem)]">
+                {present.length > 1 && <h3 className="display mb-6 text-3xl">{roleLabels[role].plural}</h3>}
+                <ul className=" flex flex-wrap justify-center gap-5 [&>li]:w-[calc(50%-0.625rem)] sm:[&>li]:w-[calc(33.333%-0.834rem)] lg:[&>li]:w-[calc(25%-0.9375rem)]">
                   {group.map((p, i) => (
                     <PersonCard key={p.name} person={p} index={i} />
                   ))}

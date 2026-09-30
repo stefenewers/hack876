@@ -336,15 +336,15 @@ export type Person = {
 export const previewUnconfirmedPeople = process.env.NODE_ENV === "development";
 
 export const people: Person[] = [
-  // Confirmed. Judge vs speaker roles TBD — set `role` once decided.
-  { name: "Dominic Saunders", organization: "Tesla", role: "tbd", photo: "/people/dominic-saunders.jpg", confirmed: true },
-  { name: "Jordan Howell", organization: "Microsoft", role: "tbd", photo: "/people/jordan-howell.jpg", confirmed: true },
-  { name: "Joshua Ardito", organization: "Meta", role: "tbd", photo: "/people/joshua-ardito.jpg", confirmed: true },
-  { name: "Tahj Atkinson", organization: "Google", role: "tbd", photo: "/people/tahj-atkinson.jpg", confirmed: true },
-  { name: "Nadani Dixon", organization: "Redfin", role: "tbd", photo: "/people/nadani-dixon.jpg", confirmed: true },
-  { name: "Stefen Ewers", organization: "Knovel Protocol", role: "tbd", photo: "/people/stefen-ewers.jpg", confirmed: true },
-  { name: "Kendall Todd", organization: "Accenture", role: "tbd", photo: "/people/kendall-todd.jpg", confirmed: true },
-  { name: "Netania Mundell", organization: "Diageo", role: "tbd", photo: "/people/netania-mundell.jpg", confirmed: true },
+  // Confirmed judges.
+  { name: "Dominic Saunders", organization: "Tesla", role: "judge", photo: "/people/dominic-saunders.jpg", confirmed: true },
+  { name: "Jordan Howell", organization: "Microsoft", role: "judge", photo: "/people/jordan-howell.jpg", confirmed: true },
+  { name: "Joshua Ardito", organization: "Meta", role: "judge", photo: "/people/joshua-ardito.jpg", confirmed: true },
+  { name: "Tahj Atkinson", organization: "Google", role: "judge", photo: "/people/tahj-atkinson.jpg", confirmed: true },
+  { name: "Nadani Dixon", organization: "Redfin", role: "judge", photo: "/people/nadani-dixon.jpg", confirmed: true },
+  { name: "Stefen Ewers", organization: "Knovel Protocol", role: "judge", photo: "/people/stefen-ewers.jpg", confirmed: true },
+  { name: "Kendall Todd", organization: "Accenture", role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
+  { name: "Netania Mundell", organization: "Diageo", role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
