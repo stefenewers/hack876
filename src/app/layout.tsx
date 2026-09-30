@@ -48,6 +48,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-JM"
+      // Lets Next.js switch off smooth scrolling while it resets scroll on navigation.
+      data-scroll-behavior="smooth"
       className={`${marker.variable} ${bricolage.variable} ${caveat.variable} antialiased`}
       suppressHydrationWarning
     >
