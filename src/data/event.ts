@@ -359,17 +359,17 @@ export const keynote = { revealed: false };
 export const people: Person[] = [
   // Confirmed judges.
   { name: "Dominic Saunders", organization: "Tesla", schools: ["Campion College", "Princeton"], role: "judge", photo: "/people/dominic-saunders.jpg", confirmed: true, pending: true },
-  { name: "Jordan Howell", organization: "Microsoft", schools: ["Campion College", "Kettering"], role: "judge", photo: "/people/jordan-howell.jpg", confirmed: true },
-  { name: "Joshua Ardito", organization: "Meta", schools: ["Campion College", "Carnegie Mellon"], role: "judge", photo: "/people/joshua-ardito.jpg", confirmed: true },
-  { name: "Tahj Atkinson", organization: "Google", schools: ["Campion College", "Illinois Tech"], role: "judge", photo: "/people/tahj-atkinson.jpg", confirmed: true },
-  { name: "Nadani Dixon", organization: "Redfin", schools: ["Campion College", "Middlebury", "Georgia Tech"], role: "organizer", photo: "/people/nadani-dixon.jpg", confirmed: true },
-  { name: "Stefen Ewers", organization: "Anthropic Claude Ambassador", schools: ["Campion College", "Hillel Academy", "Georgia Tech"], role: "organizer", photo: "/people/stefen-ewers.jpg", confirmed: true },
-  { name: "Kendall Todd", organization: "Accenture", schools: ["Hillel Academy", "UF"], role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
-  { name: "Netania Mundell", organization: "Diageo", schools: ["St. Andrew High School for Girls", "UWI", "NYU"], role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
-  { name: "Sheneska Williams", organization: "HashiCorp (Terraform)", schools: ["Immaculate Conception High School", "USF"], role: "judge", photo: "/people/sheneska-williams.jpg", confirmed: true },
-  { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", schools: ["Wolmer's", "Hillel Academy", "USF"], role: "partner", photo: "/people/johnathan-clarke.jpg", confirmed: true },
+  { name: "Jordan Howell", organization: "Microsoft", schools: ["Campion College", "Kettering"], role: "judge", photo: "/people/jordan-howell.jpg", url: "https://www.linkedin.com/in/jordan-howell-995a03129/", confirmed: true },
+  { name: "Joshua Ardito", organization: "Meta", schools: ["Campion College", "Carnegie Mellon"], role: "judge", photo: "/people/joshua-ardito.jpg", url: "https://www.linkedin.com/in/jardito/", confirmed: true },
+  { name: "Tahj Atkinson", organization: "Google", schools: ["Campion College", "Illinois Tech"], role: "judge", photo: "/people/tahj-atkinson.jpg", url: "https://www.linkedin.com/in/tahjatkinson/", confirmed: true },
+  { name: "Nadani Dixon", organization: "Redfin", schools: ["Campion College", "Middlebury", "Georgia Tech"], role: "organizer", photo: "/people/nadani-dixon.jpg", url: "https://www.linkedin.com/in/nadani-dixon/", confirmed: true },
+  { name: "Stefen Ewers", organization: "Anthropic Claude Ambassador", schools: ["Campion College", "Hillel Academy", "Georgia Tech"], role: "organizer", photo: "/people/stefen-ewers.jpg", url: "https://www.linkedin.com/in/stefen-ewers/", confirmed: true },
+  { name: "Kendall Todd", organization: "Accenture", schools: ["Hillel Academy", "UF"], role: "judge", photo: "/people/kendall-todd.jpg", url: "https://www.linkedin.com/in/kendallmtodd/", confirmed: true },
+  { name: "Netania Mundell", organization: "Diageo", schools: ["St. Andrew High School for Girls", "UWI", "NYU"], role: "judge", photo: "/people/netania-mundell.jpg", url: "https://www.linkedin.com/in/netaniamundell/", confirmed: true },
+  { name: "Sheneska Williams", organization: "HashiCorp (Terraform)", schools: ["Immaculate Conception High School", "USF"], role: "judge", photo: "/people/sheneska-williams.jpg", url: "https://www.linkedin.com/in/sheneska-williams-04829a1a6/", confirmed: true },
+  { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", schools: ["Wolmer's", "Hillel Academy", "USF"], role: "partner", photo: "/people/johnathan-clarke.jpg", url: "https://www.linkedin.com/in/johnathan-clarke-469a43224/", confirmed: true },
   // Relationship partner (bridge to Scotia Investments).
-  { name: "Padrique Duncan", organization: "Scotia Investments", role: "partner", schools: ["Jamaica College", "UWI"], photo: "/people/padrique-duncan.jpg", confirmed: true },
+  { name: "Padrique Duncan", organization: "Scotia Investments", role: "partner", schools: ["Jamaica College", "UWI"], photo: "/people/padrique-duncan.jpg", url: "https://www.linkedin.com/in/padriqueduncan/", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
