@@ -8,7 +8,7 @@ import { TailLine } from "@/components/art/Marks";
 import { Logo } from "@/components/art/Wordmark";
 import { JamaicaMap } from "@/components/proposal/JamaicaMap";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { event, eligibility, people, schools } from "@/data/event";
+import { event, eligibility, people, roleLabels, schools } from "@/data/event";
 import { Blueprint, FuturePaths, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Rail, Ref } from "@/components/proposal/primitives";
 import "@/components/proposal/proposal.css";
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: null,
 };
 
-/* A Loring engineer already confirmed as a Hack876 judge (from the site's people data). */
+/* A Loring engineer already involved in Hack876 (from the site's people data). */
 const LORING_JUDGE = people.find((p) => p.confirmed && p.organization === "Loring Consulting Engineers");
 
 /* Canonical numbers come from the event data. */
@@ -950,7 +950,7 @@ function MoreThanMoney() {
             <figcaption>
               <p className="text-xs font-extrabold tracking-[0.16em] text-emerald-deep uppercase">Already in the room</p>
               <p className="mt-2 text-[clamp(1.3rem,2.4vw,1.8rem)] leading-snug font-extrabold tracking-tight">
-                {LORING_JUDGE.name} of Loring Consulting Engineers is already a Hack876 judge.
+                {LORING_JUDGE.name} of Loring Consulting Engineers is already a Hack876 {roleLabels[LORING_JUDGE.role].singular.toLowerCase()}.
               </p>
               <p className="mt-2 text-lg text-ink-2">
                 A long-standing friend of the Hack876 organizers, he is already part of the first cohort of people

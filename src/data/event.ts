@@ -347,7 +347,7 @@ export const previewUnconfirmedPeople = process.env.NODE_ENV === "development";
 
 export const people: Person[] = [
   // Confirmed judges.
-  { name: "Dominic Saunders", organization: "Tesla", schools: ["Campion College", "Princeton"], role: "judge", photo: "/people/dominic-saunders.jpg", confirmed: true },
+  { name: "Dominic Saunders", organization: "Tesla", schools: ["Campion College", "Princeton"], role: "judge", photo: "/people/dominic-saunders.jpg", confirmed: true, pending: true },
   { name: "Jordan Howell", organization: "Microsoft", schools: ["Campion College", "Kettering"], role: "judge", photo: "/people/jordan-howell.jpg", confirmed: true },
   { name: "Joshua Ardito", organization: "Meta", schools: ["Campion College", "Carnegie Mellon"], role: "judge", photo: "/people/joshua-ardito.jpg", confirmed: true, pending: true },
   { name: "Tahj Atkinson", organization: "Google", schools: ["Campion College", "Illinois Tech"], role: "judge", photo: "/people/tahj-atkinson.jpg", confirmed: true },
@@ -355,7 +355,7 @@ export const people: Person[] = [
   { name: "Stefen Ewers", organization: "Anthropic", schools: ["Campion College", "Hillel Academy", "Georgia Tech"], role: "judge", photo: "/people/stefen-ewers.jpg", confirmed: true },
   { name: "Kendall Todd", organization: "Accenture", schools: ["Hillel Academy", "UF"], role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
   { name: "Netania Mundell", organization: "Diageo", schools: ["St. Andrew High School for Girls", "UWI", "NYU"], role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
-  { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", schools: ["Wolmer's", "Hillel Academy", "USF"], role: "judge", photo: "/people/johnathan-clarke.jpg", confirmed: true },
+  { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", schools: ["Wolmer's", "Hillel Academy", "USF"], role: "partner", photo: "/people/johnathan-clarke.jpg", confirmed: true },
   // Relationship partner (bridge to Scotia Investments).
   { name: "Padrique Duncan", organization: "Scotia Investments", role: "partner", schools: ["Jamaica College", "UWI"], photo: "/people/padrique-duncan.jpg", confirmed: true },
 ];
