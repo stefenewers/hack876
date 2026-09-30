@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         source: "/loringopportunity",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
       },
+      {
+        source: "/proposals/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
+      },
     ];
   },
 };

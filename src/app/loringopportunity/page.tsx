@@ -6,7 +6,7 @@ import { Icon } from "@/components/art/Icons";
 import { TailLine } from "@/components/art/Marks";
 import { Logo } from "@/components/art/Wordmark";
 import { JamaicaMap } from "@/components/proposal/JamaicaMap";
-import { PrintButton } from "@/components/proposal/PrintButton";
+import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { event, eligibility, schools } from "@/data/event";
 import "./proposal.css";
 
@@ -113,7 +113,7 @@ export default function LoringOpportunityPage() {
           <BirdMark className="h-6 w-10" />
           <Logo className="text-[1.5rem]" />
         </Link>
-        <PrintButton />
+        <DownloadDeck />
       </header>
 
       <main id="main">
@@ -226,7 +226,7 @@ function Hero() {
       </div>
 
       <div className="lp-wrap relative w-full pt-14 pb-10 sm:pb-14">
-        <div aria-hidden className="pointer-events-none absolute -top-24 right-4 hidden w-44 opacity-95 sm:block lg:right-10 lg:w-56 print:block print:w-40">
+        <div aria-hidden className="pointer-events-none absolute -top-24 right-4 hidden w-44 opacity-95 sm:block lg:right-10 lg:w-56 print:block print:-top-36 print:w-64">
           <DoctorBird flutter={false} className="w-full" />
         </div>
         <dl className="grid grid-cols-3 border-t lp-rule">
@@ -252,7 +252,12 @@ function Hero() {
 
 function BigIdea() {
   return (
-    <section aria-labelledby="lp-idea" className="lp-section">
+    <section aria-labelledby="lp-idea" className="lp-section relative">
+      <div aria-hidden className="pointer-events-none absolute right-[0.8in] bottom-[1.3in] hidden gap-5 print:flex">
+        {["board", "gear", "resilience"].map((n, i) => (
+          <Icon key={n} name={n} className="diecut h-24 w-24" style={{ rotate: `${[-10, 6, -4][i]}deg` }} />
+        ))}
+      </div>
       <div className="lp-wrap">
         <Kicker n="01">The big idea</Kicker>
         <h2 id="lp-idea" className="lp-statement mt-6 max-w-[18ch]" data-reveal>
@@ -284,7 +289,7 @@ function BigIdea() {
 
 function MeetHack876() {
   return (
-    <section aria-labelledby="lp-meet" className="lp-section border-t lp-rule">
+    <section aria-labelledby="lp-meet" className="lp-section lp-dense border-t lp-rule">
       <div className="lp-wrap">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 print:grid-cols-[0.6fr_1.4fr] print:gap-10">
           <div className="lg:sticky lg:top-10 lg:self-start">
@@ -292,7 +297,7 @@ function MeetHack876() {
             <h2 id="lp-meet" className="lp-h2 mt-6">
               Meet <span className="whitespace-nowrap">Hack876.</span>
             </h2>
-            <div aria-hidden className="mt-10 hidden gap-3 lg:flex print:hidden">
+            <div aria-hidden className="mt-10 hidden gap-3 lg:flex print:flex">
               {["board", "laptop", "notebook", "sticky"].map((n, i) => (
                 <Icon key={n} name={n} className="diecut h-14 w-14" style={{ rotate: `${[-8, 5, -3, 9][i]}deg` }} />
               ))}
@@ -886,12 +891,12 @@ function NationalVision() {
           />
         </div>
 
-        <figure className="lp-keep mt-12 print:mx-auto print:mt-2 print:w-[42%]">
+        <figure className="lp-keep mt-12 print:mx-auto print:mt-2 print:w-[34%]">
           <JamaicaMap className="w-full" />
         </figure>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16 print:mt-6 print:grid-cols-2 print:gap-8">
-          <ul className="space-y-1.5 text-lg font-semibold">
+          <ul className="space-y-1.5 text-lg font-semibold print:grid print:grid-cols-2 print:gap-x-6 print:space-y-0">
             {["Montego Bay", "Mandeville", "Ocho Rios", "Port Antonio", "St. Elizabeth"].map((p) => (
               <li key={p}>A student in {p}.</li>
             ))}
@@ -1099,9 +1104,9 @@ function GoldBenefits() {
           ))}
         </ol>
 
-        <div className="lp-keep mt-14 rounded-3xl bg-night p-8 text-cream sm:p-12 print:mt-8 print:border-2 print:border-ink print:bg-white print:text-ink">
+        <div className="lp-keep mt-14 rounded-3xl bg-night p-8 text-cream sm:p-12 print:mt-8">
           <p className="lp-sub max-w-[36ch]">
-            <span className="lp-accent text-sun print:text-emerald-deep">Most importantly:</span> direct participation in the
+            <span className="text-sun">Most importantly:</span> direct participation in the
             experience of approximately {STUDENTS} young Jamaicans at the moment they are deciding what they might become.
           </p>
         </div>
@@ -1224,15 +1229,15 @@ function Summary() {
         </h2>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-5 print:grid-cols-5">
-          <div className="lp-keep flex flex-col justify-between rounded-3xl bg-night p-8 text-cream sm:p-10 lg:col-span-3 print:col-span-3 print:border-2 print:border-ink print:bg-white print:text-ink">
+          <div className="lp-keep flex flex-col justify-between rounded-3xl bg-night p-8 text-cream sm:p-10 lg:col-span-3 print:col-span-3">
             <div>
-              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase print:text-emerald-deep">Gold Partner</p>
-              <p className="lp-num mt-5 text-[clamp(3rem,8vw,5.5rem)] text-sun print:text-emerald-deep">J$1,000,000</p>
-              <p className="mt-2 text-sm font-bold tracking-[0.12em] text-cream/70 uppercase print:text-ink-soft">
+              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Gold Partner</p>
+              <p className="lp-num mt-5 text-[clamp(3rem,8vw,5.5rem)] text-sun">J$1,000,000</p>
+              <p className="mt-2 text-sm font-bold tracking-[0.12em] text-cream/70 uppercase">
                 Founding Partner · Inaugural Hack876
               </p>
             </div>
-            <p className="mt-10 max-w-md text-lg leading-relaxed text-cream/90 print:text-ink-2">
+            <p className="mt-10 max-w-md text-lg leading-relaxed text-cream/90">
               Flexible support for the inaugural Hack876 and overall student experience.
             </p>
           </div>
@@ -1327,7 +1332,12 @@ function YearOne() {
 
 function FirstOne() {
   return (
-    <section aria-labelledby="lp-first" className="lp-section">
+    <section aria-labelledby="lp-first" className="lp-section relative">
+      <div aria-hidden className="pointer-events-none absolute right-[0.8in] bottom-[1.3in] hidden grid-cols-2 gap-4 print:grid">
+        {["laptop", "ackee", "patty", "lignum"].map((n, i) => (
+          <Icon key={n} name={n} className="diecut h-24 w-24" style={{ rotate: `${[-8, 6, 10, -5][i]}deg` }} />
+        ))}
+      </div>
       <div className="lp-wrap max-w-4xl">
         <Kicker n="16">The first one</Kicker>
         <h2 id="lp-first" className="lp-h2 mt-6">
@@ -1399,24 +1409,23 @@ function Closing() {
             )}
           </div>
         </div>
+        <footer className="lp-wrap mt-20 text-left print:mt-auto print:pt-6">
+          <h2 className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Sources</h2>
+          <ol className="mt-3 space-y-1.5">
+            {SOURCES.map((s) => (
+              <li key={s.id} id={`source-${s.id}`} className="lp-note scroll-mt-6">
+                <span className="font-bold">{s.id}.</span> Loring Consulting Engineers, &ldquo;{s.label}.&rdquo;{" "}
+                <a href={s.href} className="break-all underline decoration-ink/30 underline-offset-2 hover:decoration-ink">
+                  {s.href.replace("https://", "")}
+                </a>
+              </li>
+            ))}
+          </ol>
+          <p className="lp-note mt-6">
+            A private partnership proposal prepared for Loring Consulting Engineers.
+          </p>
+        </footer>
       </section>
-
-      <footer className="lp-wrap pt-6 pb-14">
-        <h2 className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Sources</h2>
-        <ol className="mt-3 space-y-1.5">
-          {SOURCES.map((s) => (
-            <li key={s.id} id={`source-${s.id}`} className="lp-note scroll-mt-6">
-              <span className="font-bold">{s.id}.</span> Loring Consulting Engineers, &ldquo;{s.label}.&rdquo;{" "}
-              <a href={s.href} className="break-all underline decoration-ink/30 underline-offset-2 hover:decoration-ink">
-                {s.href.replace("https://", "")}
-              </a>
-            </li>
-          ))}
-        </ol>
-        <p className="lp-note mt-6">
-          A private partnership proposal prepared for Loring Consulting Engineers.
-        </p>
-      </footer>
     </>
   );
 }

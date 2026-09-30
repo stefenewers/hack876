@@ -164,7 +164,11 @@
 
 @page {
   size: letter landscape;
-  margin: 0.45in 0.55in;
+  margin: 0;
+}
+
+.lp {
+  counter-reset: slide;
 }
 
 @media print {
@@ -175,33 +179,75 @@
   html,
   body,
   .lp {
-    background: #fff !important;
+    background: var(--color-cream) !important;
   }
   body {
     overflow: visible !important;
   }
 
+  /* Colour is the point of the deck: always print backgrounds. */
+  html,
+  .lp,
+  .lp * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
   .lp-no-print,
+  .lp > header,
   nextjs-portal {
     display: none !important;
   }
 
-  /* Deck: every section is its own landscape slide, vertically centred. */
+  /* ---------- Slides: full-bleed, one section per landscape page ---------- */
   .lp-section {
+    position: relative;
     break-before: page;
-    min-height: 7.5in;
+    box-sizing: border-box;
+    min-height: 8.5in;
+    padding: 0.55in 0.65in 0.8in;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-block: 0.1in;
-    background: #fff !important;
+    border: 0 !important;
+    counter-increment: slide;
   }
   .lp-hero {
     break-before: auto;
+    justify-content: space-between;
+    box-sizing: border-box;
+    min-height: 8.5in !important;
+    padding: 0.6in 0.65in 0.55in;
+    border: 0 !important;
   }
   .lp-wrap {
     max-width: none;
     padding-inline: 0;
+    width: 100%;
+  }
+
+  /* Branded slide footer with slide number. */
+  .lp-section::after {
+    content: "Hack876 × Loring Consulting Engineers  ·  " counter(slide, decimal-leading-zero);
+    position: absolute;
+    left: 0.65in;
+    right: 0.65in;
+    bottom: 0.32in;
+    padding-top: 0.1in;
+    border-top: 1px solid rgb(20 23 22 / 0.14);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: right;
+    color: var(--color-ink-soft);
+  }
+  .lp-dark::after {
+    color: rgb(251 244 230 / 0.55);
+    border-top-color: rgb(251 244 230 / 0.16);
+  }
+  .lp-hero::after {
+    display: none;
   }
 
   /* Keep headings with what follows; keep compact blocks whole. */
@@ -225,59 +271,26 @@
     widows: 3;
   }
 
+  /* ---------- Type for slides ---------- */
   .lp-h1 {
-    font-size: 5.4rem;
+    font-size: 6rem;
   }
   .lp-h2 {
-    font-size: 3.6rem;
+    font-size: 4rem;
   }
   .lp-statement {
-    font-size: 3.9rem;
+    font-size: 4.2rem;
   }
   .lp-sub {
-    font-size: 2.3rem;
+    font-size: 2.4rem;
   }
   .lp-prose {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     line-height: 1.55;
     max-width: 62rem;
   }
   .lp-prose > * + * {
     margin-top: 0.6em;
-  }
-
-  /* Dark bands print as clean white pages with ink type. */
-  .lp-dark {
-    background: #fff !important;
-    color: var(--color-ink) !important;
-    --lp-rule: rgb(20 23 22 / 0.18);
-  }
-  .lp-dark *:not(svg):not(svg *) {
-    color: var(--color-ink) !important;
-    border-color: rgb(20 23 22 / 0.2) !important;
-  }
-  .lp-dark .lp-prose {
-    color: var(--color-ink-2) !important;
-  }
-  .lp-dark .lp-accent,
-  .lp-dark .lp-kicker,
-  .lp-dark .lp-footref {
-    color: var(--color-emerald-deep) !important;
-  }
-  .lp-dark .lp-print-fill {
-    background: #fff !important;
-  }
-  .lp-grid-bg {
-    background-image: none !important;
-  }
-
-  /* Keep small brand accents (chips, dots, the bird) in colour. */
-  .lp * {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-  .lp {
-    box-shadow: none;
   }
 
   /* Motion never affects print. */
@@ -292,39 +305,27 @@
     transition: none !important;
   }
 
-  .lp-hero {
-    min-height: 6.85in !important;
-    justify-content: space-between;
-  }
-  .lp-hero > .lp-wrap:first-child {
-    padding-top: 1.5rem;
-  }
   /* Closing slide keeps its sources on the same page. */
   .lp-close {
-    min-height: 0;
+    justify-content: flex-start;
+    padding-top: 0.45in;
   }
-}
-
-@media print {
-  /* Timeline spine stays visible on white paper. */
-  .lp-dark .lp-print-line {
-    background: var(--color-emerald) !important;
+  .lp-close::after {
+    display: none;
   }
-}
 
-@media print {
   /* Dense slides (Kingston, national vision): tighter rhythm so each fits one page. */
   .lp-dense {
     justify-content: flex-start;
   }
   .lp-dense .lp-statement {
-    font-size: 3rem;
+    font-size: 3.2rem;
   }
   .lp-dense .lp-sub {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
   .lp-dense .lp-prose {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     line-height: 1.45;
   }
   .lp-dense .lp-prose > * + * {
