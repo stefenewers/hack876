@@ -348,7 +348,7 @@ export const people: Person[] = [
   { name: "Stefen Ewers", organization: "Anthropic", role: "judge", photo: "/people/stefen-ewers.jpg", confirmed: true },
   { name: "Kendall Todd", organization: "Accenture", role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
   { name: "Netania Mundell", organization: "Diageo", role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
-  { name: "Johnathon Clarke", organization: "Loring Consulting Engineers", role: "judge", photo: "/people/johnathon-clarke.jpg", confirmed: true },
+  { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", role: "judge", photo: "/people/johnathan-clarke.jpg", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
@@ -373,10 +373,13 @@ export type Prize = {
   place?: 1 | 2 | 3;
 };
 
+/** Shown under the prizes while rewards aren't locked in. `null` hides it. */
+export const prizesNote: string | null = "Prizes are tentative and subject to change.";
+
 export const prizes: Prize[] = [
-  { name: "Hack 876 Winner", line: "The whole thing. Best overall build.", icon: "trophy", color: "sun", reward: null, place: 1 },
-  { name: "Second Place", line: "So close. Still brilliant.", icon: "medal-2", color: "sky", reward: null, place: 2 },
-  { name: "Third Place", line: "On the podium.", icon: "medal-3", color: "peach", reward: null, place: 3 },
+  { name: "Hack 876 Winner", line: "The whole thing. Best overall build.", icon: "trophy", color: "sun", reward: "4 × iPad", place: 1 },
+  { name: "Second Place", line: "So close. Still brilliant.", icon: "medal-2", color: "sky", reward: "4 × AirPods Pro", place: 2 },
+  { name: "Third Place", line: "On the podium.", icon: "medal-3", color: "peach", reward: "4 × US$150 gift cards", place: 3 },
   { name: "Best Design", line: "Looks great. Feels even better.", icon: "pen", color: "pink", reward: null },
   { name: "Boldest Idea", line: "The swing nobody else took.", icon: "rocket", color: "bill", reward: null },
   { name: "People’s Choice", line: "Voted by the room.", icon: "heart", color: "aqua", reward: null },

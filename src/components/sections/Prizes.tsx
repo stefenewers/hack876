@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { Icon } from "@/components/art/Icons";
 import { Mark } from "@/components/art/Marks";
-import { prizes, type Prize } from "@/data/event";
+import { prizes, prizesNote, type Prize } from "@/data/event";
 
 const bg: Record<string, string> = {
   sun: "bg-sun",
@@ -38,7 +38,7 @@ export function Prizes() {
           </div>
           <p className="max-w-md text-lg text-ink-2">
             {anyReward
-              ? "Here’s what’s up for grabs."
+              ? "Six ways to walk away a winner. Here’s what’s up for grabs so far."
               : "Six ways to walk away a winner. What you actually win gets announced soon."}
           </p>
         </div>
@@ -92,13 +92,25 @@ export function Prizes() {
             </li>
           ))}
         </ul>
+        {anyReward && prizesNote && (
+          <p className="mt-10 text-center text-sm font-semibold text-ink-soft">
+            <span aria-hidden>* </span>
+            {prizesNote}
+          </p>
+        )}
       </div>
     </section>
   );
 }
 
 function Reward({ prize, small = false }: { prize: Prize; small?: boolean }) {
-  if (prize.reward) return <p className={`mt-3 font-extrabold ${small ? "text-sm" : "text-lg"}`}>{prize.reward}</p>;
+  if (prize.reward)
+    return (
+      <p className={`mt-3 inline-flex w-fit items-center gap-1.5 rounded-full border-2 border-ink bg-paper px-3 py-1 font-extrabold text-ink shadow-[2px_2px_0_0_var(--color-ink)] ${small ? "text-sm" : "text-base sm:text-lg"}`}>
+        <span aria-hidden>🎁</span>
+        {prize.reward}
+      </p>
+    );
   return (
     <p className={`mt-3 inline-flex w-fit rounded-full border-2 border-current/40 px-2.5 py-0.5 font-bold opacity-80 ${small ? "text-xs" : "text-sm"}`}>
       Prize announced soon

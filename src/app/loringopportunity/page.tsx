@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
@@ -7,7 +8,7 @@ import { TailLine } from "@/components/art/Marks";
 import { Logo } from "@/components/art/Wordmark";
 import { JamaicaMap } from "@/components/proposal/JamaicaMap";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { event, eligibility, schools } from "@/data/event";
+import { event, eligibility, people, schools } from "@/data/event";
 import "./proposal.css";
 
 /*
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
   openGraph: null,
   twitter: null,
 };
+
+/* A Loring engineer already confirmed as a Hack876 judge (from the site's people data). */
+const LORING_JUDGE = people.find((p) => p.confirmed && p.organization === "Loring Consulting Engineers");
 
 /* Canonical numbers come from the event data. */
 const STUDENTS = eligibility.maxHackers;
@@ -959,7 +963,7 @@ const ROLES = [
 
 function MoreThanMoney() {
   return (
-    <section aria-labelledby="lp-more" className="lp-section bg-paper">
+    <section aria-labelledby="lp-more" className="lp-section lp-dense bg-paper">
       <div className="lp-wrap">
         <Kicker n="10">More than money</Kicker>
         <h2 id="lp-more" className="lp-h2 mt-6 max-w-[20ch]">
@@ -991,6 +995,26 @@ function MoreThanMoney() {
             </li>
           ))}
         </ul>
+
+        {LORING_JUDGE && (
+          <figure className="lp-keep mt-12 flex flex-col gap-6 rounded-3xl border-2 border-ink bg-mint/70 p-6 shadow-[5px_6px_0_0_var(--color-ink)] sm:flex-row sm:items-center sm:p-8 print:mt-6 print:flex-row print:items-center print:p-5">
+            {LORING_JUDGE.photo && (
+              <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border-2 border-ink sm:h-32 sm:w-32 print:h-24 print:w-24">
+                <Image src={LORING_JUDGE.photo} alt={`Portrait of ${LORING_JUDGE.name}`} fill sizes="128px" className="object-cover" />
+              </div>
+            )}
+            <figcaption>
+              <p className="text-xs font-extrabold tracking-[0.16em] text-emerald-deep uppercase">Already in the room</p>
+              <p className="mt-2 text-[clamp(1.3rem,2.4vw,1.8rem)] leading-snug font-extrabold tracking-tight">
+                {LORING_JUDGE.name} of Loring Consulting Engineers is already a Hack876 judge.
+              </p>
+              <p className="mt-2 text-lg text-ink-2">
+                A long-standing friend of the Hack876 organizers, he is already part of the first cohort of people
+                willing to believe in it before the proof exists.
+              </p>
+            </figcaption>
+          </figure>
+        )}
 
         <div className="lp-keep mt-16 print:mt-8">
           <p className="lp-statement max-w-[22ch]">We do not simply want Loring&rsquo;s logo in the room.</p>
