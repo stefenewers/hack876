@@ -7,6 +7,7 @@ import { TailLine } from "@/components/art/Marks";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { JamaicaMap } from "@/components/proposal/JamaicaMap";
+import { FuturePaths, Seedling, Shelter } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Rail, Ref } from "@/components/proposal/primitives";
 import { event, eligibility, schools } from "@/data/event";
 import "@/components/proposal/proposal.css";
@@ -194,18 +195,15 @@ function Hero() {
 function BigIdea() {
   return (
     <section aria-labelledby="lp-idea" className="lp-section relative">
-      <div aria-hidden className="pointer-events-none absolute right-[0.8in] bottom-[1.3in] hidden gap-5 print:flex">
-        {["phone", "chart", "resilience"].map((n, i) => (
-          <Icon key={n} name={n} className="diecut h-24 w-24" style={{ rotate: `${[-10, 6, -4][i]}deg` }} />
-        ))}
-      </div>
       <div className="lp-wrap">
         <Kicker n="01">The big idea</Kicker>
         <h2 id="lp-idea" className="lp-statement mt-6 max-w-[18ch]" data-reveal>
           What if we met Jamaica&rsquo;s most promising young builders before the world did?
         </h2>
-        <div className="mt-14 grid gap-10 md:grid-cols-[1fr_1.3fr] print:mt-6 print:grid-cols-1">
-          <div aria-hidden className="hidden md:block print:hidden" />
+        <div className="mt-14 grid gap-10 md:grid-cols-[1fr_1.3fr] md:items-center print:mt-4 print:grid-cols-[0.8fr_1.3fr] print:items-center">
+          <div aria-hidden className="hidden md:block print:block">
+            <FuturePaths paths={[{ icon: "chart", label: "Finance" }, { icon: "resilience", label: "Resilience" }, { icon: "business", label: "A company" }, { icon: "spark", label: "AI" }, { icon: "phone", label: "Platforms" }]} className="mx-auto w-full max-w-md print:max-w-[3.3in]" />
+          </div>
           <div data-reveal>
             <Lines
               items={[
@@ -417,6 +415,7 @@ function WhyGraceKennedy() {
           <h2 id="lp-why" className="lp-h2 mt-6">
             Why GraceKennedy?
           </h2>
+          <Shelter className="mt-10 hidden w-full max-w-sm lg:block print:block print:max-w-[3.1in]" />
         </div>
         <div>
           <div className="lp-prose">
@@ -1233,12 +1232,8 @@ function YearOne() {
 function FirstOne() {
   return (
     <section aria-labelledby="lp-first" className="lp-section relative">
-      <div aria-hidden className="pointer-events-none absolute right-[0.8in] bottom-[1.3in] hidden grid-cols-2 gap-4 print:grid">
-        {["laptop", "ackee", "patty", "lignum"].map((n, i) => (
-          <Icon key={n} name={n} className="diecut h-24 w-24" style={{ rotate: `${[-8, 6, 10, -5][i]}deg` }} />
-        ))}
-      </div>
-      <div className="lp-wrap max-w-4xl">
+      <div className="lp-wrap grid items-center gap-12 lg:grid-cols-[1.35fr_0.65fr] print:grid-cols-[1.4fr_0.6fr] print:gap-10">
+        <div>
         <Kicker n="16">The first one</Kicker>
         <h2 id="lp-first" className="lp-h2 mt-6">
           The first one matters.
@@ -1267,6 +1262,10 @@ function FirstOne() {
             realistically take part.
           </li>
         </ul>
+        </div>
+        <div aria-hidden className="hidden lg:block print:block">
+          <Seedling className="mx-auto w-full max-w-xs print:max-w-[2.8in]" />
+        </div>
       </div>
     </section>
   );
