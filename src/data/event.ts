@@ -302,11 +302,14 @@ export const phaseLabels: Record<SchedulePhase, string> = {
 /* -------------------------------------------------------------------------- */
 
 /** "tbd" = involved, but judge vs speaker not decided yet. */
-export type PersonRole = "judge" | "speaker" | "mentor" | "tbd";
+export type PersonRole = "judge" | "speaker" | "mentor" | "partner" | "tbd";
 
 export type Person = {
   name: string;
-  organization: string;
+  /** Omit when it shouldn't be shown publicly. */
+  organization?: string;
+  /** Schools they attended, secondary first. Shown under their name. */
+  schools?: string[];
   /** Their day-job title, e.g. "Software Engineer". Optional. */
   title?: string;
   role: PersonRole;
@@ -317,6 +320,8 @@ export type Person = {
   url?: string;
   /** Only confirmed people are shown on the site. */
   confirmed: boolean;
+  /** Listed, but participation not finalized: faded photo + "Pending confirmation" tag. */
+  pending?: boolean;
 };
 
 /**
@@ -342,21 +347,24 @@ export const previewUnconfirmedPeople = process.env.NODE_ENV === "development";
 
 export const people: Person[] = [
   // Confirmed judges.
-  { name: "Dominic Saunders", organization: "Tesla", role: "judge", photo: "/people/dominic-saunders.jpg", confirmed: true },
-  { name: "Jordan Howell", organization: "Microsoft", role: "judge", photo: "/people/jordan-howell.jpg", confirmed: true },
-  { name: "Joshua Ardito", organization: "Meta", role: "judge", photo: "/people/joshua-ardito.jpg", confirmed: true },
-  { name: "Tahj Atkinson", organization: "Google", role: "judge", photo: "/people/tahj-atkinson.jpg", confirmed: true },
-  { name: "Nadani Dixon", organization: "Redfin", role: "judge", photo: "/people/nadani-dixon.jpg", confirmed: true },
-  { name: "Stefen Ewers", organization: "Anthropic", role: "judge", photo: "/people/stefen-ewers.jpg", confirmed: true },
-  { name: "Kendall Todd", organization: "Accenture", role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
-  { name: "Netania Mundell", organization: "Diageo", role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
-  { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", role: "judge", photo: "/people/johnathan-clarke.jpg", confirmed: true },
+  { name: "Dominic Saunders", organization: "Tesla", schools: ["Campion College", "Princeton"], role: "judge", photo: "/people/dominic-saunders.jpg", confirmed: true },
+  { name: "Jordan Howell", organization: "Microsoft", schools: ["Campion College", "Kettering"], role: "judge", photo: "/people/jordan-howell.jpg", confirmed: true },
+  { name: "Joshua Ardito", organization: "Meta", schools: ["Campion College", "Carnegie Mellon"], role: "judge", photo: "/people/joshua-ardito.jpg", confirmed: true, pending: true },
+  { name: "Tahj Atkinson", organization: "Google", schools: ["Campion College", "Illinois Tech"], role: "judge", photo: "/people/tahj-atkinson.jpg", confirmed: true },
+  { name: "Nadani Dixon", organization: "Redfin", schools: ["Campion College", "Middlebury", "Georgia Tech"], role: "judge", photo: "/people/nadani-dixon.jpg", confirmed: true },
+  { name: "Stefen Ewers", organization: "Anthropic", schools: ["Campion College", "Hillel Academy", "Georgia Tech"], role: "judge", photo: "/people/stefen-ewers.jpg", confirmed: true },
+  { name: "Kendall Todd", organization: "Accenture", schools: ["Hillel Academy", "UF"], role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
+  { name: "Netania Mundell", organization: "Diageo", schools: ["St. Andrew High School for Girls", "UWI", "NYU"], role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
+  { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", schools: ["Wolmer's", "Hillel Academy", "USF"], role: "judge", photo: "/people/johnathan-clarke.jpg", confirmed: true },
+  // Relationship partner (bridge to Scotia Investments).
+  { name: "Padrique Duncan", organization: "Scotia Investments", role: "partner", schools: ["Jamaica College", "UWI"], photo: "/people/padrique-duncan.jpg", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
   judge: { singular: "Judge", plural: "Judges" },
   speaker: { singular: "Speaker", plural: "Speakers" },
   mentor: { singular: "Mentor", plural: "Mentors" },
+  partner: { singular: "Partner", plural: "Partners" },
   tbd: { singular: "Judge / Speaker", plural: "Judges & speakers" },
 };
 
@@ -373,6 +381,8 @@ export type Prize = {
   reward: string | null;
   /** 1–3 puts the prize on the podium. Everything else is a special award. */
   place?: 1 | 2 | 3;
+  /** Total value in US$, when known exactly. Used for sponsorship sums. */
+  valueUsd?: number;
 };
 
 /** Shown under the prizes while rewards aren't locked in. `null` hides it. */
@@ -382,9 +392,9 @@ export const prizes: Prize[] = [
   { name: "Hack 876 Winner", line: "The whole thing. Best overall build.", icon: "trophy", color: "sun", reward: "4 × iPad", place: 1 },
   { name: "Second Place", line: "So close. Still brilliant.", icon: "medal-2", color: "sky", reward: "4 × AirPods Pro", place: 2 },
   { name: "Third Place", line: "On the podium.", icon: "medal-3", color: "peach", reward: "4 × US$150 gift cards", place: 3 },
-  { name: "Best Design", line: "Looks great. Feels even better.", icon: "pen", color: "pink", reward: "4 × US$50 gift cards" },
-  { name: "Boldest Idea", line: "The swing nobody else took.", icon: "rocket", color: "bill", reward: "US$200 team project grant" },
-  { name: "People’s Choice", line: "Voted by the room.", icon: "heart", color: "aqua", reward: "4 × US$50 gift cards" },
+  { name: "Best Design", line: "Looks great. Feels even better.", icon: "pen", color: "pink", reward: "4 × US$50 gift cards", valueUsd: 200 },
+  { name: "Boldest Idea", line: "The swing nobody else took.", icon: "rocket", color: "bill", reward: "US$200 team project grant", valueUsd: 200 },
+  { name: "People’s Choice", line: "Voted by the room.", icon: "heart", color: "aqua", reward: "4 × US$50 gift cards", valueUsd: 200 },
 ];
 
 /* -------------------------------------------------------------------------- */

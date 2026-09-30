@@ -5,13 +5,14 @@ import { Mark } from "@/components/art/Marks";
 import { people, previewUnconfirmedPeople, roleLabels, type Person, type PersonRole } from "@/data/event";
 
 const roles: PersonRole[] = ["judge", "speaker", "mentor"];
-const groups: PersonRole[] = ["judge", "speaker", "tbd", "mentor"];
-const roleColor: Record<PersonRole, string> = { judge: "bg-sun", speaker: "bg-aqua", mentor: "bg-pink", tbd: "bg-sun" };
+const groups: PersonRole[] = ["judge", "speaker", "tbd", "mentor", "partner"];
+const roleColor: Record<PersonRole, string> = { judge: "bg-sun", speaker: "bg-aqua", mentor: "bg-pink", partner: "bg-mint", tbd: "bg-sun" };
 
 export function People() {
   const confirmed = people.filter((p) => p.confirmed || previewUnconfirmedPeople);
   const present = groups.filter((r) => confirmed.some((p) => p.role === r));
   const onlyJudges = present.length === 1 && present[0] === "judge";
+  const judgesAndPartners = present.length === 2 && present.includes("judge") && present.includes("partner");
 
   return (
     <section id="people" aria-labelledby="people-title" className="relative bg-cream-2 py-20 sm:py-28">
@@ -26,6 +27,12 @@ export function People() {
                   <br />
                   judges.
                 </>
+              ) : judgesAndPartners ? (
+                <>
+                  Judges
+                  <br />
+                  &amp; partners.
+                </>
               ) : (
                 <>
                   Judges, speakers
@@ -36,7 +43,7 @@ export function People() {
             </h2>
           </div>
           <p className="max-w-md text-lg text-ink-2">
-            {onlyJudges
+            {onlyJudges || judgesAndPartners
               ? "People who build things for a living. They’ll be watching your demos and picking the winners."
               : "People who build things for a living, here to cheer you on, help you get unstuck, and pick the winners."}
           </p>
@@ -69,7 +76,7 @@ function PersonCard({ person, index }: { person: Person; index: number }) {
   const rot = [-2, 1.5, -1, 2][index % 4];
   const body = (
     <>
-      <div className="relative aspect-square overflow-hidden rounded-[1rem] border-[3px] border-ink bg-mint">
+      <div className={`relative aspect-square overflow-hidden rounded-[1rem] border-[3px] border-ink bg-mint ${person.pending ? "opacity-45 grayscale" : ""}`}>
         {person.photo ? (
           <Image src={person.photo} alt={`Portrait of ${person.name}`} fill sizes="(min-width:1024px) 25vw, 50vw" className="object-cover" />
         ) : (
@@ -82,10 +89,28 @@ function PersonCard({ person, index }: { person: Person; index: number }) {
         </span>
       </div>
       <p className="mt-3 text-lg leading-tight font-extrabold">{person.name}</p>
-      <p className="text-sm font-semibold text-ink-soft">
-        {person.title ? `${person.title}, ` : ""}
-        {person.organization}
-      </p>
+      {person.organization && (
+        <p className="text-sm font-semibold text-ink-soft">
+          {person.title ? `${person.title}, ` : ""}
+          {person.organization}
+        </p>
+      )}
+      {person.schools && person.schools.length > 0 && (
+        <p className="mt-1.5 flex items-start gap-1.5 text-xs leading-snug font-semibold text-ink-soft">
+          <svg viewBox="0 0 20 20" aria-hidden className="mt-px h-3.5 w-3.5 shrink-0">
+            <path d="M2 7.5 10 4l8 3.5-8 3.5z M5.5 9.2v3.6c1.4 1.3 3 2 4.5 2s3.1-.7 4.5-2V9.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+          </svg>
+          <span>
+            <span className="sr-only">Schools: </span>
+            {person.schools.join(" · ")}
+          </span>
+        </p>
+      )}
+      {person.pending && (
+        <span className="mt-2 inline-block rounded-full border-2 border-dashed border-ink/40 bg-cream px-2.5 py-0.5 text-[0.7rem] font-extrabold tracking-wide text-ink-soft uppercase">
+          Pending confirmation
+        </span>
+      )}
       {person.bio && <p className="mt-2 text-sm text-ink-2">{person.bio}</p>}
     </>
   );
