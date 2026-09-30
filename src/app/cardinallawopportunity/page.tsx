@@ -17,7 +17,8 @@ import "@/components/proposal/proposal.css";
  * noindex/nofollow here and via X-Robots-Tag in next.config.ts.
  *
  * Note: Cardinal's own site lists D'Angello G. Foster's secondary school as
- * St. George's College. Do not describe him as a Campion alumnus.
+ * St. George's College (now in the Hack876 network). Do not describe him as a
+ * Campion alumnus.
  */
 
 const SPONSOR = "Cardinal Law";
@@ -555,11 +556,12 @@ function SameCorridors() {
         <div>
           <Kicker n="07">The same corridors</Kicker>
           <h2 id="lp-corridors" className="lp-h2 mt-6 max-w-[22ch]">
-            Some of the students in this room are walking the same corridors Abuna once walked.
+            Some of the students in this room are walking the same corridors Abuna and D&rsquo;Angello once walked.
           </h2>
           <p className="lp-prose mt-8">
             Abuna Jones Campbell attended Campion College.
-            <Ref id={3} /> Campion College is one of Hack876&rsquo;s core school relationships.
+            <Ref id={3} /> D&rsquo;Angello G. Foster attended St. George&rsquo;s College.
+            <Ref id={4} /> Both schools are part of Hack876&rsquo;s school network.
           </p>
           <Lines
             className="mt-6"
@@ -621,7 +623,7 @@ function SchoolNetwork() {
                   <li
                     key={s}
                     className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-2.5 font-semibold ${
-                      s === "Campion College" ? "border-2 border-ink bg-sun-light" : "lp-rule bg-cream"
+                      s === "Campion College" || s === "St. George's College" ? "border-2 border-ink bg-sun-light" : "lp-rule bg-cream"
                     }`}
                   >
                     {s}

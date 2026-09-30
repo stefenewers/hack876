@@ -595,7 +595,10 @@ function SchoolNetwork() {
             />
             <ul className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 print:grid-cols-2">
               {schools.map((s) => (
-                <li key={s} className="rounded-xl border lp-rule bg-cream px-4 py-2.5 font-semibold">
+                <li
+                  key={s}
+                  className={`rounded-xl border px-4 py-2.5 font-semibold ${s === "St. George's College" ? "border-2 border-ink bg-sun-light" : "lp-rule bg-cream"}`}
+                >
                   {s}
                 </li>
               ))}
@@ -630,6 +633,7 @@ function BridgeSection() {
                 <strong className="text-ink">Jonathan Bair</strong>, Corporate Manager, Private Equity at JMMB Securities, is the
                 person making this introduction possible.
               </span>,
+              "Jon is also a St. George’s College alumnus, and St. George’s College is part of Hack876’s school network.",
               "If Jon is open to it, we would love for him to help steward the relationship on JMMB’s side: carrying context in both directions, helping identify the right people to involve, and helping us build something genuinely useful over time.",
             ]}
           />

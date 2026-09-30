@@ -33,12 +33,6 @@ export const event = {
   socials: [] as { label: string; href: string }[],
 };
 
-export const stats = [
-  { value: 80, label: "hackers", color: "emerald" },
-  { value: 20, label: "teams", color: "sun" },
-  { value: 8, label: "schools", color: "aqua" },
-  { value: 1, label: "day", color: "bill" },
-] as const;
 
 /* -------------------------------------------------------------------------- */
 /*  Venue                                                                     */
@@ -75,12 +69,21 @@ export const schools = [
   "Ardenne High School",
   "American International School of Kingston",
   "St. Andrew High School for Girls",
+  "St. George's College",
 ] as const;
 
 export type School = (typeof schools)[number];
 
 /** Schools that have formally confirmed. Everyone else shows "Pending confirmation". */
 export const confirmedSchools: readonly School[] = ["Hillel Academy"];
+
+/* Headline numbers. School count follows the list above. */
+export const stats = [
+  { value: 80, label: "hackers", color: "emerald" },
+  { value: 20, label: "teams", color: "sun" },
+  { value: schools.length, label: "schools", color: "aqua" },
+  { value: 1, label: "day", color: "bill" },
+] as const;
 
 /** Crest per school (under /public/schools). Missing entries show a lettered badge. */
 export const schoolLogos: Partial<Record<School, string>> = {
@@ -92,6 +95,7 @@ export const schoolLogos: Partial<Record<School, string>> = {
   "Ardenne High School": "/schools/ardenne-high.png",
   "American International School of Kingston": "/schools/aisk.png",
   "St. Andrew High School for Girls": "/schools/st-andrew-high.png",
+  "St. George's College": "/schools/st-georges-college.png",
 };
 
 /* -------------------------------------------------------------------------- */
@@ -344,6 +348,13 @@ export type Person = {
  * "Preview") so the section can be reviewed. Production builds never show them.
  */
 export const previewUnconfirmedPeople = process.env.NODE_ENV === "development";
+
+/**
+ * The keynote speaker is a surprise. While `revealed` is false the site shows a
+ * mystery card. To reveal: add them to `people` with role "speaker" and set
+ * `revealed: true`.
+ */
+export const keynote = { revealed: false };
 
 export const people: Person[] = [
   // Confirmed judges.

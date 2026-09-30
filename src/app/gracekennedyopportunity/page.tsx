@@ -647,7 +647,7 @@ function Schools() {
             <Lines
               items={[
                 "Hack876 also creates relationships with the institutions developing them.",
-                "Our inaugural network begins with eight schools where we already have relationships.",
+                `Our inaugural network begins with ${PARTNER_SCHOOLS} schools where we already have relationships.`,
               ]}
             />
             <ul className="mt-5 flex flex-wrap gap-2" aria-label="People connected to each school">
@@ -801,7 +801,7 @@ function NationalVision() {
           </div>
           <Lines
             items={[
-              "The eight schools are the beginning of the operating network, not the final reach.",
+              `The ${PARTNER_SCHOOLS} schools are the beginning of the operating network, not the final reach.`,
               <strong key="s" className="text-ink">They are a starting infrastructure, not an exclusionary boundary.</strong>,
               "We want to reach the point where geography does not create a practical barrier to participation.",
             ]}
@@ -1175,7 +1175,7 @@ function Summary() {
 
 const SUCCESS = [
   `Approximately ${STUDENTS} students.`,
-  "Eight core school relationships.",
+  `${PARTNER_SCHOOLS} core school relationships.`,
   "Ambitious young Jamaicans in one room.",
   "Working prototypes where there were only ideas that morning.",
   "Students meeting professionals they did not know earlier that day.",

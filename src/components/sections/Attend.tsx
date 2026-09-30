@@ -86,7 +86,7 @@ export function Attend() {
           <h3 data-reveal className="display text-center text-3xl sm:text-4xl">
             From {schools.length} participating schools
           </h3>
-          <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5">
+          <ul className="mt-10 flex flex-wrap justify-center gap-4 sm:gap-5 [&>li]:w-[calc(50%-0.5rem)] sm:[&>li]:w-[calc(25%-0.9375rem)]">
             {schools.map((s, i) => {
               const logo = schoolLogos[s];
               const pending = !confirmedSchools.includes(s);

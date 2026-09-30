@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { BirdMark } from "@/components/art/DoctorBird";
 import { Mark } from "@/components/art/Marks";
-import { people, previewUnconfirmedPeople, roleLabels, type Person, type PersonRole } from "@/data/event";
+import { keynote, people, previewUnconfirmedPeople, roleLabels, type Person, type PersonRole } from "@/data/event";
 
 const roles: PersonRole[] = ["judge", "speaker", "mentor"];
 const groups: PersonRole[] = ["judge", "speaker", "tbd", "mentor", "partner", "organizer"];
@@ -42,6 +42,8 @@ export function People() {
               : "People who build things for a living, here to cheer you on, help you get unstuck, and pick the winners."}
           </p>
         </div>
+
+        {!keynote.revealed && <MysteryKeynote />}
 
         {confirmed.length === 0 ? (
           <ComingSoon />
@@ -152,6 +154,38 @@ function ComingSoon() {
           <p className="mt-1 text-ink-soft">We&rsquo;ll post names here as they confirm.</p>
         </div>
       ))}
+    </div>
+  );
+}
+
+/** A surprise keynote, teased until it's announced. */
+function MysteryKeynote() {
+  return (
+    <div className="mt-14">
+      <h3 className="display mb-6 text-3xl">Keynote speaker</h3>
+      <div
+        data-reveal="pop"
+        className="sticker relative mx-auto flex max-w-3xl flex-col items-center gap-6 overflow-hidden bg-night p-6 text-cream sm:flex-row sm:p-8"
+        style={{ rotate: "-1deg" } as CSSProperties}
+      >
+        <div aria-hidden className="relative grid aspect-square w-40 shrink-0 place-items-center rounded-[1rem] border-[3px] border-cream/80 bg-emerald-dark sm:w-48">
+          <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full opacity-35">
+            <circle cx="50" cy="38" r="17" fill="#141716" />
+            <path d="M16 100 C 16 70, 34 60, 50 60 C 66 60, 84 70, 84 100 Z" fill="#141716" />
+          </svg>
+          <span className="display relative text-[6.5rem] leading-none text-sun drop-shadow-[3px_4px_0_#141716]">?</span>
+        </div>
+        <div className="text-center sm:text-left">
+          <span className="inline-block rounded-full border-2 border-sun px-3 py-0.5 text-xs font-extrabold tracking-[0.14em] text-sun uppercase">
+            Surprise
+          </span>
+          <p className="display mt-3 text-4xl sm:text-5xl">Someone you&rsquo;ll want to hear from.</p>
+          <p className="mt-3 text-lg text-cream/80">
+            Our keynote speaker opens the day. We&rsquo;re keeping the name under wraps for now. Revealed closer to the event.
+          </p>
+          <Mark name="spark" color="#ffc93c" className="mt-4 inline-block h-8 w-8" />
+        </div>
+      </div>
     </div>
   );
 }
