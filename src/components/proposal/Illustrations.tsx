@@ -756,3 +756,52 @@ export function Bridge({ labels, className = "" }: { labels: [string, string, st
     </svg>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Converge: two streams (education, entrepreneurship) meeting at Hack876    */
+/* -------------------------------------------------------------------------- */
+
+export function Converge({ left, right, className = "" }: { left: string; right: string; className?: string }) {
+  return (
+    <svg viewBox="0 0 600 340" aria-hidden className={className} overflow="visible">
+      <ellipse cx="300" cy="230" rx="210" ry="110" fill={C.mint} />
+      {/* left stream: education (books) */}
+      <path d="M40 60 C 140 60, 200 120, 262 206" fill="none" stroke={C.sky} strokeWidth="18" strokeLinecap="round" />
+      <path d="M40 60 C 140 60, 200 120, 262 206" fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" strokeDasharray="1 16" />
+      {/* right stream: entrepreneurship (spark) */}
+      <path d="M560 60 C 460 60, 400 120, 338 206" fill="none" stroke={C.sun} strokeWidth="18" strokeLinecap="round" />
+      <path d="M560 60 C 460 60, 400 120, 338 206" fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" strokeDasharray="1 16" />
+
+      {/* left badge */}
+      <g>
+        <circle cx="62" cy="62" r="44" fill={C.paper} stroke={INK} strokeWidth="3" />
+        <rect x="36" y="64" width="54" height="14" rx="3" fill={C.emerald} stroke={INK} strokeWidth="2.5" />
+        <rect x="40" y="50" width="48" height="14" rx="3" fill={C.sun} stroke={INK} strokeWidth="2.5" />
+        <rect x="36" y="36" width="52" height="14" rx="3" fill={C.sky} stroke={INK} strokeWidth="2.5" />
+        <text x="62" y="130" textAnchor="middle" fontSize="17" fontWeight="900" fill={INK} fontFamily="var(--font-sans)" stroke={C.cream} strokeWidth="5" paintOrder="stroke">
+          {left}
+        </text>
+      </g>
+      {/* right badge */}
+      <g>
+        <circle cx="538" cy="62" r="44" fill={C.paper} stroke={INK} strokeWidth="3" />
+        <path d="M538 30 C 541 52, 548 58, 568 62 C 548 66, 541 72, 538 94 C 535 72, 528 66, 508 62 C 528 58, 535 52, 538 30 Z" fill={C.sun} stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+        <text x="538" y="130" textAnchor="middle" fontSize="17" fontWeight="900" fill={INK} fontFamily="var(--font-sans)" stroke={C.cream} strokeWidth="5" paintOrder="stroke">
+          {right}
+        </text>
+      </g>
+
+      {/* the meeting point: a laptop with the bird's streamers rising out */}
+      <path d="M300 214 C 290 150, 330 120, 318 70" fill="none" stroke={C.emerald} strokeWidth="7" strokeLinecap="round" />
+      <path d="M308 216 C 300 156, 344 126, 332 76" fill="none" stroke={INK} strokeWidth="3.5" strokeLinecap="round" />
+      <g transform="translate(236 196)">
+        <path d="M10 0 H118 C 122 0, 124 2, 124 6 V70 H4 V6 C 4 2, 6 0, 10 0 Z" fill={C.grey} stroke={INK} strokeWidth="3" />
+        <path d="M-12 70 H140 L130 88 H-2 Z" fill="#b9c0c4" stroke={INK} strokeWidth="3" strokeLinejoin="round" />
+        <text x="64" y="44" textAnchor="middle" fontSize="20" fontWeight="900" fill={INK} fontFamily="var(--font-sans)">
+          HACK876
+        </text>
+      </g>
+      <DoctorBird flutter={false} tail={false} x="296" y="18" width="84" height="78" />
+    </svg>
+  );
+}
