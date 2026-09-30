@@ -42,3 +42,6 @@ next-env.d.ts
 
 # local form submissions (dev fallback storage)
 /.data
+
+# locally exported proposal PDFs
+/exports

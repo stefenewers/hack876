@@ -1,0 +1,339 @@
+/*
+ * Loring partnership proposal — editorial layer on top of the Hack876 tokens.
+ * Scoped to `.lp` so nothing here touches the public site.
+ */
+
+.lp {
+  --lp-rule: rgb(20 23 22 / 0.14);
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+
+/* ---------- Type scale ---------- */
+.lp-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-emerald-deep);
+}
+.lp-kicker .lp-kicker-n {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-soft);
+}
+.lp-kicker::after {
+  content: "";
+  height: 1px;
+  width: 3rem;
+  background: currentColor;
+  opacity: 0.4;
+}
+.lp-dark .lp-kicker {
+  color: var(--color-sun);
+}
+.lp-dark .lp-kicker .lp-kicker-n {
+  color: rgb(251 244 230 / 0.6);
+}
+
+.lp-h1,
+.lp-h2,
+.lp-statement,
+.lp-sub {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.lp-h1 {
+  font-size: clamp(2.5rem, 6.2vw, 5.4rem);
+  line-height: 0.98;
+}
+.lp-h2 {
+  font-size: clamp(2.1rem, 4.6vw, 3.9rem);
+  line-height: 1.02;
+}
+.lp-statement {
+  font-size: clamp(2.3rem, 5.8vw, 5rem);
+  line-height: 1;
+}
+.lp-sub {
+  font-size: clamp(1.45rem, 3vw, 2.4rem);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.lp-h3 {
+  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.lp-marker {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+}
+.lp-prose {
+  max-width: 40rem;
+  font-size: clamp(1.08rem, 1.35vw, 1.22rem);
+  line-height: 1.62;
+  color: var(--color-ink-2);
+}
+.lp-prose > * + * {
+  margin-top: 0.85em;
+}
+.lp-dark .lp-prose {
+  color: rgb(251 244 230 / 0.82);
+}
+.lp-num {
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.9;
+}
+.lp-note {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+}
+.lp-dark .lp-note {
+  color: rgb(251 244 230 / 0.6);
+}
+
+/* ---------- Layout ---------- */
+.lp-section {
+  padding-block: clamp(4.5rem, 10vw, 8.5rem);
+}
+.lp-wrap {
+  margin-inline: auto;
+  max-width: 76rem;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 640px) {
+  .lp-wrap {
+    padding-inline: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .lp-wrap {
+    padding-inline: 3rem;
+  }
+}
+.lp-rule {
+  border-color: var(--lp-rule);
+}
+.lp-dark {
+  background: var(--color-night);
+  color: var(--color-cream);
+  --lp-rule: rgb(251 244 230 / 0.16);
+}
+
+/* Blueprint grid — engineering paper, very faint. */
+.lp-grid-bg {
+  background-image:
+    linear-gradient(rgb(20 23 22 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(20 23 22 / 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.lp-dark.lp-grid-bg {
+  background-image:
+    linear-gradient(rgb(251 244 230 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(251 244 230 / 0.05) 1px, transparent 1px);
+}
+
+.lp-footref {
+  font-size: 0.7em;
+  vertical-align: super;
+  line-height: 0;
+  margin-left: 0.1em;
+  font-weight: 700;
+  color: var(--color-emerald-deep);
+  text-decoration: none;
+}
+.lp-dark .lp-footref {
+  color: var(--color-sun);
+}
+
+/* ==========================================================================
+   Print / PDF
+   One source of truth: the same markup, re-laid for portrait Letter pages.
+   ========================================================================== */
+
+@page {
+  size: letter landscape;
+  margin: 0.45in 0.55in;
+}
+
+@media print {
+  html {
+    /* Every rem-based size shrinks proportionally for the slide. */
+    font-size: 10px;
+  }
+  html,
+  body,
+  .lp {
+    background: #fff !important;
+  }
+  body {
+    overflow: visible !important;
+  }
+
+  .lp-no-print,
+  nextjs-portal {
+    display: none !important;
+  }
+
+  /* Deck: every section is its own landscape slide, vertically centred. */
+  .lp-section {
+    break-before: page;
+    min-height: 7.5in;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 0.1in;
+    background: #fff !important;
+  }
+  .lp-hero {
+    break-before: auto;
+  }
+  .lp-wrap {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* Keep headings with what follows; keep compact blocks whole. */
+  h1,
+  h2,
+  h3,
+  h4,
+  .lp-kicker,
+  .lp-statement,
+  .lp-sub {
+    break-after: avoid;
+    break-inside: avoid;
+  }
+  .lp-keep,
+  li,
+  figure {
+    break-inside: avoid;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .lp-h1 {
+    font-size: 5.4rem;
+  }
+  .lp-h2 {
+    font-size: 3.6rem;
+  }
+  .lp-statement {
+    font-size: 3.9rem;
+  }
+  .lp-sub {
+    font-size: 2.3rem;
+  }
+  .lp-prose {
+    font-size: 1.4rem;
+    line-height: 1.55;
+    max-width: 62rem;
+  }
+  .lp-prose > * + * {
+    margin-top: 0.6em;
+  }
+
+  /* Dark bands print as clean white pages with ink type. */
+  .lp-dark {
+    background: #fff !important;
+    color: var(--color-ink) !important;
+    --lp-rule: rgb(20 23 22 / 0.18);
+  }
+  .lp-dark *:not(svg):not(svg *) {
+    color: var(--color-ink) !important;
+    border-color: rgb(20 23 22 / 0.2) !important;
+  }
+  .lp-dark .lp-prose {
+    color: var(--color-ink-2) !important;
+  }
+  .lp-dark .lp-accent,
+  .lp-dark .lp-kicker,
+  .lp-dark .lp-footref {
+    color: var(--color-emerald-deep) !important;
+  }
+  .lp-dark .lp-print-fill {
+    background: #fff !important;
+  }
+  .lp-grid-bg {
+    background-image: none !important;
+  }
+
+  /* Keep small brand accents (chips, dots, the bird) in colour. */
+  .lp * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .lp {
+    box-shadow: none;
+  }
+
+  /* Motion never affects print. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .lp-hero {
+    min-height: 6.85in !important;
+    justify-content: space-between;
+  }
+  .lp-hero > .lp-wrap:first-child {
+    padding-top: 1.5rem;
+  }
+  /* Closing slide keeps its sources on the same page. */
+  .lp-close {
+    min-height: 0;
+  }
+}
+
+@media print {
+  /* Timeline spine stays visible on white paper. */
+  .lp-dark .lp-print-line {
+    background: var(--color-emerald) !important;
+  }
+}
+
+@media print {
+  /* Dense slides (Kingston, national vision): tighter rhythm so each fits one page. */
+  .lp-dense {
+    justify-content: flex-start;
+  }
+  .lp-dense .lp-statement {
+    font-size: 3rem;
+  }
+  .lp-dense .lp-sub {
+    font-size: 1.8rem;
+  }
+  .lp-dense .lp-prose {
+    font-size: 1.2rem;
+    line-height: 1.45;
+  }
+  .lp-dense .lp-prose > * + * {
+    margin-top: 0.45em;
+  }
+  .lp-dense [class*="mt-"] {
+    margin-top: 0.9rem !important;
+  }
+  .lp-dense .lp-kicker + * {
+    margin-top: 0.4rem !important;
+  }
+}

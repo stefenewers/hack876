@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Private proposal pages must never be indexed, even if a link leaks.
+  headers() {
+    return [
+      {
+        source: "/loringopportunity",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
