@@ -644,3 +644,115 @@ export function Seedling({ className = "" }: { className?: string }) {
     </svg>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Compounding: small beginnings rising along the streamer (Scotia)          */
+/* -------------------------------------------------------------------------- */
+
+export function Compounding({ className = "" }: { className?: string }) {
+  // Growth stages sit on an accelerating curve.
+  const stages = [
+    { x: 70, y: 318, r: 10, fill: C.sun },
+    { x: 150, y: 296, r: 14, fill: C.emeraldLight },
+    { x: 228, y: 248, r: 19, fill: C.emerald },
+    { x: 296, y: 170, r: 25, fill: C.emeraldDeep },
+  ];
+  return (
+    <svg viewBox="0 0 400 400" aria-hidden className={className} overflow="visible">
+      <circle cx="220" cy="210" r="160" fill={C.mint} />
+      {/* axes on graph paper */}
+      <g opacity="0.5">
+        {Array.from({ length: 8 }, (_, i) => (
+          <path key={`g${i}`} d={`M${50 + i * 44} 60 V340`} stroke={INK} strokeOpacity="0.12" strokeWidth="1.2" />
+        ))}
+        {Array.from({ length: 7 }, (_, i) => (
+          <path key={`h${i}`} d={`M40 ${80 + i * 40} H370`} stroke={INK} strokeOpacity="0.12" strokeWidth="1.2" />
+        ))}
+      </g>
+      <path d="M40 340 H372 M40 340 V52" stroke={INK} strokeWidth="3" strokeLinecap="round" />
+      <path d="M362 332 L374 340 L362 348 M32 62 L40 50 L48 62" fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* doubled streamer curve */}
+      <path d="M44 330 C 150 322, 250 290, 356 70" fill="none" stroke={C.emerald} strokeWidth="7" strokeLinecap="round" />
+      <path d="M50 338 C 156 330, 258 298, 364 80" fill="none" stroke={INK} strokeWidth="3.5" strokeLinecap="round" />
+
+      {/* sprout stages */}
+      {stages.map((s, i) => (
+        <g key={i}>
+          <path d={`M${s.x} ${s.y} v-${s.r * 1.6}`} stroke={C.emeraldDeep} strokeWidth="3.5" strokeLinecap="round" />
+          <path
+            d={`M${s.x} ${s.y - s.r * 1.2} C ${s.x - s.r * 1.6} ${s.y - s.r * 1.3}, ${s.x - s.r * 1.8} ${s.y - s.r * 2.6}, ${s.x - s.r * 1.4} ${s.y - s.r * 2.9} C ${s.x - s.r * 0.4} ${s.y - s.r * 2.6}, ${s.x} ${s.y - s.r * 2}, ${s.x} ${s.y - s.r * 1.2} Z`}
+            fill={s.fill}
+            stroke={INK}
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+          />
+          <path
+            d={`M${s.x} ${s.y - s.r * 1.5} C ${s.x + s.r * 1.6} ${s.y - s.r * 1.6}, ${s.x + s.r * 1.8} ${s.y - s.r * 2.9}, ${s.x + s.r * 1.4} ${s.y - s.r * 3.2} C ${s.x + s.r * 0.4} ${s.y - s.r * 2.9}, ${s.x} ${s.y - s.r * 2.3}, ${s.x} ${s.y - s.r * 1.5} Z`}
+            fill={s.fill}
+            stroke={INK}
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+          />
+          <circle cx={s.x} cy={s.y} r="6" fill={C.paper} stroke={INK} strokeWidth="2.5" />
+        </g>
+      ))}
+
+      {/* spark at the top of the curve */}
+      <path d="M356 26 C 358 40, 362 44, 376 46 C 362 48, 358 52, 356 66 C 354 52, 350 48, 336 46 C 350 44, 354 40, 356 26 Z" fill={C.sun} stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+      <text x="58" y="378" fontSize="15" fontWeight="800" fill={INK} fontFamily="var(--font-sans)">
+        early
+      </text>
+      <text x="300" y="378" fontSize="15" fontWeight="800" fill={INK} fontFamily="var(--font-sans)">
+        long view
+      </text>
+    </svg>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Bridge: three pillars joined by one span                                  */
+/* -------------------------------------------------------------------------- */
+
+export function Bridge({ labels, className = "" }: { labels: [string, string, string]; className?: string }) {
+  const pillars = [90, 300, 510];
+  return (
+    <svg viewBox="0 0 600 300" aria-hidden className={className} overflow="visible">
+      {/* water */}
+      <path d="M0 250 C 60 240, 120 260, 180 250 C 240 240, 300 260, 360 250 C 420 240, 480 260, 540 250 C 570 245, 590 250, 600 252 V300 H0 Z" fill={C.skyLight} stroke={INK} strokeWidth="2.5" />
+      <path d="M40 272 h40 M200 278 h60 M420 274 h50" stroke={C.sky} strokeWidth="3" strokeLinecap="round" />
+
+      {/* arches */}
+      {[0, 1].map((i) => (
+        <path
+          key={i}
+          d={`M${pillars[i] + 24} 236 C ${pillars[i] + 60} 150, ${pillars[i + 1] - 60} 150, ${pillars[i + 1] - 24} 236`}
+          fill="none"
+          stroke={INK}
+          strokeWidth="4"
+        />
+      ))}
+      {/* deck: the streamer as the span */}
+      <path d="M20 120 H580" stroke={C.emerald} strokeWidth="10" strokeLinecap="round" />
+      <path d="M20 132 H580" stroke={INK} strokeWidth="4" strokeLinecap="round" />
+      {/* hangers */}
+      {Array.from({ length: 13 }, (_, i) => 60 + i * 40)
+        .filter((x) => !pillars.some((p) => Math.abs(p - x) < 26))
+        .map((x) => (
+          <path key={x} d={`M${x} 134 V${150 + Math.abs(Math.sin((x / 600) * Math.PI * 2)) * 30}`} stroke={INK} strokeWidth="2" opacity="0.5" />
+        ))}
+
+      {pillars.map((x, i) => (
+        <g key={x}>
+          <rect x={x - 24} y="96" width="48" height="152" rx="6" fill={i === 1 ? C.sun : C.paper} stroke={INK} strokeWidth="3" />
+          <rect x={x - 88} y="30" width="176" height="44" rx="10" fill={C.paper} stroke={INK} strokeWidth="3" />
+          <text x={x} y="58" textAnchor="middle" fontSize="15" fontWeight="900" fill={INK} fontFamily="var(--font-sans)">
+            {labels[i]}
+          </text>
+          <path d={`M${x} 74 V96`} stroke={INK} strokeWidth="3" />
+        </g>
+      ))}
+      <DoctorBird flutter={false} tail={false} x="258" y="178" width="88" height="82" />
+    </svg>
+  );
+}
