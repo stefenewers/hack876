@@ -302,7 +302,7 @@ export const phaseLabels: Record<SchedulePhase, string> = {
 /* -------------------------------------------------------------------------- */
 
 /** "tbd" = involved, but judge vs speaker not decided yet. */
-export type PersonRole = "judge" | "speaker" | "mentor" | "partner" | "tbd";
+export type PersonRole = "judge" | "speaker" | "mentor" | "partner" | "organizer" | "tbd";
 
 export type Person = {
   name: string;
@@ -349,10 +349,10 @@ export const people: Person[] = [
   // Confirmed judges.
   { name: "Dominic Saunders", organization: "Tesla", schools: ["Campion College", "Princeton"], role: "judge", photo: "/people/dominic-saunders.jpg", confirmed: true, pending: true },
   { name: "Jordan Howell", organization: "Microsoft", schools: ["Campion College", "Kettering"], role: "judge", photo: "/people/jordan-howell.jpg", confirmed: true },
-  { name: "Joshua Ardito", organization: "Meta", schools: ["Campion College", "Carnegie Mellon"], role: "judge", photo: "/people/joshua-ardito.jpg", confirmed: true, pending: true },
+  { name: "Joshua Ardito", organization: "Meta", schools: ["Campion College", "Carnegie Mellon"], role: "judge", photo: "/people/joshua-ardito.jpg", confirmed: true },
   { name: "Tahj Atkinson", organization: "Google", schools: ["Campion College", "Illinois Tech"], role: "judge", photo: "/people/tahj-atkinson.jpg", confirmed: true },
-  { name: "Nadani Dixon", organization: "Redfin", schools: ["Campion College", "Middlebury", "Georgia Tech"], role: "judge", photo: "/people/nadani-dixon.jpg", confirmed: true },
-  { name: "Stefen Ewers", organization: "Anthropic", schools: ["Campion College", "Hillel Academy", "Georgia Tech"], role: "judge", photo: "/people/stefen-ewers.jpg", confirmed: true },
+  { name: "Nadani Dixon", organization: "Redfin", schools: ["Campion College", "Middlebury", "Georgia Tech"], role: "organizer", photo: "/people/nadani-dixon.jpg", confirmed: true },
+  { name: "Stefen Ewers", organization: "Anthropic Claude Ambassador", schools: ["Campion College", "Hillel Academy", "Georgia Tech"], role: "organizer", photo: "/people/stefen-ewers.jpg", confirmed: true },
   { name: "Kendall Todd", organization: "Accenture", schools: ["Hillel Academy", "UF"], role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
   { name: "Netania Mundell", organization: "Diageo", schools: ["St. Andrew High School for Girls", "UWI", "NYU"], role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
   { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", schools: ["Wolmer's", "Hillel Academy", "USF"], role: "partner", photo: "/people/johnathan-clarke.jpg", confirmed: true },
@@ -365,6 +365,7 @@ export const roleLabels: Record<PersonRole, { singular: string; plural: string }
   speaker: { singular: "Speaker", plural: "Speakers" },
   mentor: { singular: "Mentor", plural: "Mentors" },
   partner: { singular: "Partner", plural: "Partners" },
+  organizer: { singular: "Organizer", plural: "Organizers & hosts" },
   tbd: { singular: "Judge / Speaker", plural: "Judges & speakers" },
 };
 
@@ -410,6 +411,8 @@ export type Sponsor = {
   level: string;
   /** Only confirmed sponsors render. */
   confirmed: boolean;
+  /** Shown, but not final: faded logo + "Pending confirmation" tag. */
+  pending?: boolean;
 };
 
 /**
@@ -424,7 +427,7 @@ export const previewUnconfirmedSponsors = process.env.NODE_ENV === "development"
 
 export const sponsors: Sponsor[] = [
   { name: "GraceKennedy General Insurance", logo: "/sponsors/gk-general-insurance.jpeg", url: "", level: "partner", confirmed: false },
-  { name: "Lev Beauty", logo: "/sponsors/lev-beauty.jpeg", url: "", level: "partner", confirmed: true },
+  { name: "Lev Beauty", logo: "/sponsors/lev-beauty.jpeg", url: "", level: "partner", confirmed: true, pending: true },
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },
 ];
 

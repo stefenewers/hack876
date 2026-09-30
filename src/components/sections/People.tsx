@@ -5,14 +5,18 @@ import { Mark } from "@/components/art/Marks";
 import { people, previewUnconfirmedPeople, roleLabels, type Person, type PersonRole } from "@/data/event";
 
 const roles: PersonRole[] = ["judge", "speaker", "mentor"];
-const groups: PersonRole[] = ["judge", "speaker", "tbd", "mentor", "partner"];
-const roleColor: Record<PersonRole, string> = { judge: "bg-sun", speaker: "bg-aqua", mentor: "bg-pink", partner: "bg-mint", tbd: "bg-sun" };
+const groups: PersonRole[] = ["judge", "speaker", "tbd", "mentor", "partner", "organizer"];
+const roleColor: Record<PersonRole, string> = { judge: "bg-sun", speaker: "bg-aqua", mentor: "bg-pink", partner: "bg-mint", organizer: "bg-sky", tbd: "bg-sun" };
 
 export function People() {
   const confirmed = people.filter((p) => p.confirmed || previewUnconfirmedPeople);
   const present = groups.filter((r) => confirmed.some((p) => p.role === r));
   const onlyJudges = present.length === 1 && present[0] === "judge";
-  const judgesAndPartners = present.length === 2 && present.includes("judge") && present.includes("partner");
+  // e.g. "Judges, partners & organizers." built from whichever groups are present.
+  const shortLabel: Record<PersonRole, string> = { judge: "judges", speaker: "speakers", mentor: "mentors", partner: "partners", organizer: "organizers", tbd: "judges" };
+  const names = [...new Set(present.map((r) => shortLabel[r]))];
+  const mixedTitle =
+    names.length > 1 ? `${names.slice(0, -1).join(", ")} & ${names[names.length - 1]}.` : `${names[0] ?? "people"}.`;
 
   return (
     <section id="people" aria-labelledby="people-title" className="relative bg-cream-2 py-20 sm:py-28">
@@ -27,23 +31,13 @@ export function People() {
                   <br />
                   judges.
                 </>
-              ) : judgesAndPartners ? (
-                <>
-                  Judges
-                  <br />
-                  &amp; partners.
-                </>
               ) : (
-                <>
-                  Judges, speakers
-                  <br />
-                  &amp; mentors.
-                </>
+                <span className="block first-letter:uppercase">{mixedTitle}</span>
               )}
             </h2>
           </div>
           <p className="max-w-md text-lg text-ink-2">
-            {onlyJudges || judgesAndPartners
+            {onlyJudges || !present.includes("speaker")
               ? "People who build things for a living. They’ll be watching your demos and picking the winners."
               : "People who build things for a living, here to cheer you on, help you get unstuck, and pick the winners."}
           </p>

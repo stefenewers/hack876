@@ -31,10 +31,17 @@ export function Sponsors() {
                   rel={s.url ? "noopener noreferrer" : undefined}
                   className="sticker sticker-hover grid aspect-[3/2] place-items-center overflow-hidden bg-white p-5"
                 >
-                  <span className="relative block h-full w-full">
+                  <span className={`relative block h-full w-full ${s.pending ? "opacity-45 grayscale" : ""}`}>
                     <Image src={s.logo} alt={s.name} fill sizes="240px" className="object-contain" />
                   </span>
                 </a>
+                {s.pending && (
+                  <p className="mt-3 text-center">
+                    <span className="inline-block rounded-full border-2 border-dashed border-ink/40 bg-cream px-2 py-0.5 text-[0.65rem] font-extrabold tracking-wide whitespace-nowrap text-ink-soft uppercase sm:px-2.5 sm:text-[0.7rem]">
+                      Pending confirmation
+                    </span>
+                  </p>
+                )}
               </li>
             ))}
           </ul>
