@@ -348,6 +348,7 @@ export const people: Person[] = [
   { name: "Stefen Ewers", organization: "Anthropic", role: "judge", photo: "/people/stefen-ewers.jpg", confirmed: true },
   { name: "Kendall Todd", organization: "Accenture", role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
   { name: "Netania Mundell", organization: "Diageo", role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
+  { name: "Johnathon Clarke", organization: "Loring Consulting Engineers", role: "judge", photo: "/people/johnathon-clarke.jpg", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
