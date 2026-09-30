@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import { Campus } from "@/components/art/Campus";
 import { Icon } from "@/components/art/Icons";
 import { TailLine } from "@/components/art/Marks";
-import { eligibility, schoolLogos, schools, venue } from "@/data/event";
+import { confirmedSchools, eligibility, schoolLogos, schools, venue } from "@/data/event";
 
 function initials(name: string) {
   return name
@@ -89,6 +89,7 @@ export function Attend() {
           <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5">
             {schools.map((s, i) => {
               const logo = schoolLogos[s];
+              const pending = !confirmedSchools.includes(s);
               return (
                 <li
                   key={s}
@@ -96,7 +97,7 @@ export function Attend() {
                   style={{ "--reveal-delay": `${(i % 4) * 60}ms`, "--reveal-rot": `${i % 2 ? 3 : -3}deg` } as CSSProperties}
                   className="sticker sticker-hover flex flex-col items-center gap-3 bg-white px-3 py-5 text-center"
                 >
-                  <div className="relative grid h-20 w-20 shrink-0 place-items-center sm:h-24 sm:w-24">
+                  <div className={`relative grid h-20 w-20 shrink-0 place-items-center sm:h-24 sm:w-24 ${pending ? "opacity-45 grayscale" : ""}`}>
                     {logo ? (
                       <Image src={logo} alt="" fill sizes="96px" className="object-contain" />
                     ) : (
@@ -106,6 +107,15 @@ export function Attend() {
                     )}
                   </div>
                   <span className="text-[0.95rem] leading-tight font-extrabold">{s}</span>
+                  {pending ? (
+                    <span className="-mt-1 rounded-full border-2 border-dashed border-ink/40 bg-cream px-2.5 py-0.5 text-[0.7rem] font-extrabold tracking-wide text-ink-soft uppercase">
+                      Pending confirmation
+                    </span>
+                  ) : (
+                    <span className="-mt-1 rounded-full border-2 border-ink bg-mint px-2.5 py-0.5 text-[0.7rem] font-extrabold tracking-wide text-emerald-deep uppercase">
+                      Confirmed
+                    </span>
+                  )}
                 </li>
               );
             })}

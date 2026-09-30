@@ -77,6 +77,9 @@ export const schools = [
 
 export type School = (typeof schools)[number];
 
+/** Schools that have formally confirmed. Everyone else shows "Pending confirmation". */
+export const confirmedSchools: readonly School[] = ["Hillel Academy"];
+
 /** Crest per school (under /public/schools). Missing entries show a lettered badge. */
 export const schoolLogos: Partial<Record<School, string>> = {
   "Hillel Academy": "/schools/hillel-academy.png",
@@ -342,7 +345,7 @@ export const people: Person[] = [
   { name: "Joshua Ardito", organization: "Meta", role: "judge", photo: "/people/joshua-ardito.jpg", confirmed: true },
   { name: "Tahj Atkinson", organization: "Google", role: "judge", photo: "/people/tahj-atkinson.jpg", confirmed: true },
   { name: "Nadani Dixon", organization: "Redfin", role: "judge", photo: "/people/nadani-dixon.jpg", confirmed: true },
-  { name: "Stefen Ewers", organization: "Knovel Protocol", role: "judge", photo: "/people/stefen-ewers.jpg", confirmed: true },
+  { name: "Stefen Ewers", organization: "Anthropic", role: "judge", photo: "/people/stefen-ewers.jpg", confirmed: true },
   { name: "Kendall Todd", organization: "Accenture", role: "judge", photo: "/people/kendall-todd.jpg", confirmed: true },
   { name: "Netania Mundell", organization: "Diageo", role: "judge", photo: "/people/netania-mundell.jpg", confirmed: true },
 ];
@@ -404,7 +407,7 @@ export type Sponsor = {
 export const previewUnconfirmedSponsors = process.env.NODE_ENV === "development";
 
 export const sponsors: Sponsor[] = [
-  { name: "GraceKennedy General Insurance", logo: "/sponsors/gk-general-insurance.jpeg", url: "", level: "partner", confirmed: true },
+  { name: "GraceKennedy General Insurance", logo: "/sponsors/gk-general-insurance.jpeg", url: "", level: "partner", confirmed: false },
   { name: "Lev Beauty", logo: "/sponsors/lev-beauty.jpeg", url: "", level: "partner", confirmed: true },
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },
 ];
