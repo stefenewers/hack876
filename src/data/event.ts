@@ -296,7 +296,8 @@ export const phaseLabels: Record<SchedulePhase, string> = {
 /*  People — judges, speakers, mentors                                        */
 /* -------------------------------------------------------------------------- */
 
-export type PersonRole = "judge" | "speaker" | "mentor";
+/** "tbd" = involved, but judge vs speaker not decided yet. */
+export type PersonRole = "judge" | "speaker" | "mentor" | "tbd";
 
 export type Person = {
   name: string;
@@ -328,12 +329,25 @@ export type Person = {
  *   confirmed: true,
  * },
  */
-export const people: Person[] = [];
+/**
+ * Local preview: during `npm run dev`, unconfirmed people also render (tagged
+ * "Preview") so the section can be reviewed. Production builds never show them.
+ */
+export const previewUnconfirmedPeople = process.env.NODE_ENV === "development";
+
+export const people: Person[] = [
+  // Agreed to be listed; judge vs speaker roles TBD. Flip `confirmed` to go live.
+  { name: "Dominic Saunders", organization: "Tesla", role: "tbd", photo: "/people/dominic-saunders.jpg", confirmed: false },
+  { name: "Jordan Howell", organization: "Microsoft", role: "tbd", photo: "/people/jordan-howell.jpg", confirmed: false },
+  { name: "Joshua Ardito", organization: "Meta", role: "tbd", photo: "/people/joshua-ardito.jpg", confirmed: false },
+  { name: "Tahj Atkinson", organization: "Google", role: "tbd", photo: "/people/tahj-atkinson.jpg", confirmed: false },
+];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
   judge: { singular: "Judge", plural: "Judges" },
   speaker: { singular: "Speaker", plural: "Speakers" },
   mentor: { singular: "Mentor", plural: "Mentors" },
+  tbd: { singular: "Judge / Speaker", plural: "Judges & speakers" },
 };
 
 /* -------------------------------------------------------------------------- */

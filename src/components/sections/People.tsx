@@ -2,13 +2,14 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { BirdMark } from "@/components/art/DoctorBird";
 import { Mark } from "@/components/art/Marks";
-import { people, roleLabels, type Person, type PersonRole } from "@/data/event";
+import { people, previewUnconfirmedPeople, roleLabels, type Person, type PersonRole } from "@/data/event";
 
 const roles: PersonRole[] = ["judge", "speaker", "mentor"];
-const roleColor: Record<PersonRole, string> = { judge: "bg-sun", speaker: "bg-aqua", mentor: "bg-pink" };
+const groups: PersonRole[] = ["judge", "speaker", "tbd", "mentor"];
+const roleColor: Record<PersonRole, string> = { judge: "bg-sun", speaker: "bg-aqua", mentor: "bg-pink", tbd: "bg-sun" };
 
 export function People() {
-  const confirmed = people.filter((p) => p.confirmed);
+  const confirmed = people.filter((p) => p.confirmed || previewUnconfirmedPeople);
 
   return (
     <section id="people" aria-labelledby="people-title" className="relative bg-cream-2 py-20 sm:py-28">
@@ -30,7 +31,7 @@ export function People() {
         {confirmed.length === 0 ? (
           <ComingSoon />
         ) : (
-          roles.map((role) => {
+          groups.map((role) => {
             const group = confirmed.filter((p) => p.role === role);
             if (group.length === 0) return null;
             return (
@@ -62,7 +63,7 @@ function PersonCard({ person, index }: { person: Person; index: number }) {
             <BirdMark className="h-16 w-24 opacity-70" />
           </div>
         )}
-        <span className={`absolute top-2 left-2 rounded-full border-2 border-ink px-2.5 py-0.5 text-xs font-extrabold tracking-wider uppercase ${roleColor[person.role]}`}>
+        <span className={`absolute top-2 left-2 hidden rounded-full border-2 border-ink px-2.5 py-0.5 text-xs font-extrabold tracking-wider whitespace-nowrap uppercase sm:inline-block ${roleColor[person.role]}`}>
           {roleLabels[person.role].singular}
         </span>
       </div>
@@ -75,7 +76,12 @@ function PersonCard({ person, index }: { person: Person; index: number }) {
     </>
   );
   return (
-    <li data-reveal="pop" className="sticker sticker-hover bg-paper p-3" style={{ rotate: `${rot}deg`, "--reveal-delay": `${index * 60}ms` } as CSSProperties}>
+    <li data-reveal="pop" className="sticker sticker-hover relative bg-paper p-3" style={{ rotate: `${rot}deg`, "--reveal-delay": `${index * 60}ms` } as CSSProperties}>
+      {!person.confirmed && (
+        <span className="absolute -top-3 -right-2 z-10 rotate-6 rounded-full border-2 border-ink bg-sun px-2.5 py-0.5 text-xs font-extrabold tracking-wide uppercase shadow-[2px_2px_0_0_var(--color-ink)]">
+          Preview<span className="hidden sm:inline"> · unconfirmed</span>
+        </span>
+      )}
       {person.url ? (
         <a href={person.url} target="_blank" rel="noopener noreferrer" className="block rounded-lg">
           {body}
