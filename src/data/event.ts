@@ -341,6 +341,8 @@ export const people: Person[] = [
   { name: "Jordan Howell", organization: "Microsoft", role: "tbd", photo: "/people/jordan-howell.jpg", confirmed: true },
   { name: "Joshua Ardito", organization: "Meta", role: "tbd", photo: "/people/joshua-ardito.jpg", confirmed: true },
   { name: "Tahj Atkinson", organization: "Google", role: "tbd", photo: "/people/tahj-atkinson.jpg", confirmed: true },
+  { name: "Nadani Dixon", organization: "Redfin", role: "tbd", photo: "/people/nadani-dixon.jpg", confirmed: true },
+  { name: "Stefen Ewers", organization: "Knovel Protocol", role: "tbd", photo: "/people/stefen-ewers.jpg", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
