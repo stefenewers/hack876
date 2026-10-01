@@ -83,7 +83,16 @@ export function Footer() {
           ))}
         </div>
 
-        <p className="mt-10 text-center text-sm text-cream/50">
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/schools"
+            className="inline-flex items-center gap-2 rounded-full border border-cream/20 px-4 py-1.5 text-sm font-semibold text-cream/75 transition-colors hover:border-sun hover:text-sun"
+          >
+            School Resources <span aria-hidden>→</span>
+          </Link>
+        </div>
+
+        <p className="mt-6 text-center text-sm text-cream/50">
           © {event.year} Hack 876 · Made in Kingston
         </p>
       </div>

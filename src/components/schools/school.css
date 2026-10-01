@@ -1,0 +1,111 @@
+/*
+ * School participation briefs. Hack 876 stays the dominant identity; the
+ * school's colours arrive as accents through --sb-primary / --sb-secondary.
+ * Scoped to `.sb`. Reuses the .lp print/slide mechanics in proposal.css.
+ */
+
+.sb {
+  --sb-primary: #1f3f9e;
+  --sb-secondary: #f5c518;
+  --sb-ink: #13235a;
+}
+
+.sb-label {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+.lp-dark .sb-label {
+  color: rgb(251 244 230 / 0.62);
+}
+.sb-n {
+  color: var(--sb-primary);
+}
+.lp-dark .sb-n {
+  color: var(--sb-secondary);
+}
+
+.sb-h {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-wrap: balance;
+}
+.sb-xl {
+  font-size: clamp(2.5rem, 6.4vw, 5.4rem);
+}
+.sb-lg {
+  font-size: clamp(2.1rem, 4.8vw, 4rem);
+}
+
+/* School-colour underline, like a highlighter in the school's gold. */
+.sb-under {
+  background: linear-gradient(transparent 70%, color-mix(in srgb, var(--sb-secondary) 70%, transparent) 70%, color-mix(in srgb, var(--sb-secondary) 70%, transparent) 94%, transparent 94%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Stepped "gateway" rule: a nod to the steps and arch in the crest, abstracted. */
+.sb-steps {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 22px;
+}
+.sb-steps > span {
+  width: 18px;
+  background: var(--sb-primary);
+  border-radius: 2px 2px 0 0;
+}
+.sb-steps > span:nth-child(1) {
+  height: 25%;
+}
+.sb-steps > span:nth-child(2) {
+  height: 50%;
+}
+.sb-steps > span:nth-child(3) {
+  height: 75%;
+}
+.sb-steps > span:nth-child(4) {
+  height: 100%;
+  background: var(--sb-secondary);
+}
+
+.sb-card {
+  border: 2.5px solid var(--color-ink);
+  border-radius: 1.1rem;
+  background: var(--color-paper);
+  box-shadow: 3px 4px 0 0 var(--color-ink);
+}
+.sb-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media print {
+  .sb-xl {
+    font-size: 5.8rem;
+  }
+  .sb-lg {
+    font-size: 4.2rem;
+  }
+  .sb-label {
+    font-size: 1rem;
+  }
+  .sb-tag {
+    font-size: 0.85rem;
+  }
+  .sb-card {
+    box-shadow: 2px 3px 0 0 var(--color-ink);
+  }
+}
