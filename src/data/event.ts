@@ -370,7 +370,7 @@ export const keynote = { revealed: false };
 
 export const people: Person[] = [
   // Confirmed judges.
-  { name: "Dominic Saunders", organization: "Tesla", schools: ["Campion College", "Princeton"], role: "judge", photo: "/people/dominic-saunders.jpg", confirmed: true, pending: true },
+  { name: "Dominic Saunders", organization: "Tesla", schools: ["Campion College", "Princeton"], role: "judge", photo: "/people/dominic-saunders.jpg", confirmed: true },
   { name: "Jordan Howell", organization: "Microsoft", schools: ["Campion College", "Kettering"], role: "judge", photo: "/people/jordan-howell.jpg", url: "https://www.linkedin.com/in/jordan-howell-995a03129/", confirmed: true },
   { name: "Joshua Ardito", organization: "Meta", schools: ["Campion College", "Carnegie Mellon"], role: "judge", photo: "/people/joshua-ardito.jpg", url: "https://www.linkedin.com/in/jardito/", confirmed: true },
   { name: "Tahj Atkinson", organization: "Google", schools: ["Campion College", "Illinois Tech"], role: "judge", photo: "/people/tahj-atkinson.jpg", url: "https://www.linkedin.com/in/tahjatkinson/", confirmed: true },
