@@ -3,7 +3,17 @@
  * page's print styles and committed to /public/proposals; regenerate it
  * whenever that proposal's copy changes so the two stay in sync.
  */
-export function DownloadDeck({ href, filename, className = "" }: { href: string; filename: string; className?: string }) {
+export function DownloadDeck({
+  href,
+  filename,
+  label = "Download Proposal (PDF)",
+  className = "",
+}: {
+  href: string;
+  filename: string;
+  label?: string;
+  className?: string;
+}) {
   return (
     <a
       href={href}
@@ -13,7 +23,7 @@ export function DownloadDeck({ href, filename, className = "" }: { href: string;
       <svg viewBox="0 0 20 20" aria-hidden className="h-4 w-4">
         <path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 14.5V16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      Download Proposal (PDF)
+      {label}
     </a>
   );
 }
