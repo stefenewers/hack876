@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DoctorBird } from "@/components/art/DoctorBird";
+import { HackerPass } from "@/components/art/HackerPass";
 import { Icon } from "@/components/art/Icons";
 import { BrushEdge, Mark } from "@/components/art/Marks";
 import { applications } from "@/data/event";
@@ -26,13 +26,10 @@ export function FinalCta() {
           </div>
         </div>
         <div aria-hidden className="relative mx-auto w-full max-w-[420px]">
-          <div className="absolute inset-[10%] rounded-full bg-emerald-deep" />
-          <div className="bird-bob relative">
-            <DoctorBird className="w-full" tailColors={["#141716", "#ffc93c"]} />
-          </div>
-          <Icon name="badge" className="diecut float-slow absolute -bottom-2 left-0 w-20 sm:w-24" style={{ ["--rot" as string]: "-10deg" }} />
-          <Icon name="trophy" className="diecut float-slow absolute right-2 bottom-6 w-16 sm:w-20" style={{ ["--rot" as string]: "8deg" }} />
-          <Mark name="spark" color="#ffc93c" className="absolute top-2 left-6 h-10 w-10" />
+          <div className="absolute inset-x-[12%] top-[22%] bottom-[4%] rounded-full bg-emerald-deep" />
+          <HackerPass lanyard="var(--color-sun)" className="relative max-w-[18rem] lg:-mt-28" />
+          <Icon name="trophy" className="diecut float-slow absolute bottom-2 -left-2 w-16 sm:w-20" style={{ ["--rot" as string]: "-10deg" }} />
+          <Mark name="spark" color="#ffc93c" className="absolute top-[30%] right-0 h-10 w-10" />
         </div>
       </div>
     </section>

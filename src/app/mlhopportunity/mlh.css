@@ -112,33 +112,6 @@
   border-right: 2px dashed rgb(255 255 255 / 0.5);
 }
 
-/* ---------- Event: hacker pass ---------- */
-.mh-pass {
-  transform-origin: 50% 0;
-  animation: mh-sway 6s ease-in-out infinite;
-}
-@keyframes mh-sway {
-  0%,
-  100% {
-    transform: rotate(-2.5deg);
-  }
-  50% {
-    transform: rotate(2.5deg);
-  }
-}
-.mh-barcode {
-  height: 2.2rem;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--color-ink) 0 2px,
-    transparent 2px 4px,
-    var(--color-ink) 4px 7px,
-    transparent 7px 9px,
-    var(--color-ink) 9px 10px,
-    transparent 10px 13px
-  );
-}
-
 /* ---------- Swag: the laptop ---------- */
 .mh-lid {
   position: relative;
@@ -201,7 +174,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .mh-cursor,
-  .mh-pass,
   .mh-slot {
     animation: none;
   }
@@ -232,7 +204,7 @@
     font-size: 3.9rem;
   }
   .mh-polaroid,
-  .mh-pass {
+  .pass-sway {
     animation: none !important;
   }
   /* Blurred shadows rasterize as grey boxes in Chrome's PDF output. */
