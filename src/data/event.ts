@@ -370,7 +370,7 @@ export const people: Person[] = [
   { name: "Johnathan Clarke", organization: "Loring Consulting Engineers", schools: ["Wolmer's", "Hillel Academy", "USF"], role: "partner", photo: "/people/johnathan-clarke.jpg", url: "https://www.linkedin.com/in/johnathan-clarke-469a43224/", confirmed: true },
   // Relationship partner (bridge to Scotia Investments).
   { name: "Padrique Duncan", organization: "Scotia Investments", role: "partner", schools: ["Jamaica College", "UWI"], photo: "/people/padrique-duncan.jpg", url: "https://www.linkedin.com/in/padriqueduncan/", confirmed: true },
-  { name: "Kyle Freeman", organization: "HydroGro Farms", role: "partner", schools: ["UWI"], photo: "/people/kyle-freeman.jpg", confirmed: true },
+  { name: "Kyle Freeman", organization: "HydroGro Farms", role: "partner", schools: ["UWI"], photo: "/people/kyle-freeman.jpg", url: "https://www.linkedin.com/in/kyle-freeman-9b8b32120/", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
