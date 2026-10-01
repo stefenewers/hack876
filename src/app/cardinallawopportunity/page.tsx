@@ -8,7 +8,7 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { IdeaToRealWorld, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { confirmedSchools, eligibility, event, prizes, schools, stats } from "@/data/event";
+import { confirmedSchools, eligibility, event, prizes, schoolStatus, schools, schoolsInTalks, stats } from "@/data/event";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -43,6 +43,7 @@ export const metadata: Metadata = {
 const STUDENTS = eligibility.maxHackers;
 const PARTNER_SCHOOLS = schools.length;
 const CONFIRMED_SCHOOLS = confirmedSchools.length;
+const IN_TALKS = schoolsInTalks.length;
 const TEAMS = stats.find((s) => s.label === "teams")?.value;
 const FORMS = eligibility.formOptions;
 const TEAM_SIZE = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
@@ -613,12 +614,16 @@ function SchoolNetwork() {
           <div>
             <Lines
               items={[
-                `These are the schools where Hack876 currently has operating relationships. ${CONFIRMED_SCHOOLS} of ${PARTNER_SCHOOLS} ${CONFIRMED_SCHOOLS === 1 ? "has" : "have"} formally confirmed so far, and the list is not an exclusive eligibility boundary.`,
+                `These are the schools where Hack876 currently has operating relationships. ${
+                  CONFIRMED_SCHOOLS > 0
+                    ? `${CONFIRMED_SCHOOLS} of ${PARTNER_SCHOOLS} ${CONFIRMED_SCHOOLS === 1 ? "has" : "have"} formally confirmed so far`
+                    : `${IN_TALKS} ${IN_TALKS === 1 ? "is" : "are"} in active talks`
+                }, and the list is not an exclusive eligibility boundary.`,
               ]}
             />
             <ul className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 print:grid-cols-2">
               {schools.map((s) => {
-                const confirmed = confirmedSchools.includes(s);
+                const status = schoolStatus(s);
                 return (
                   <li
                     key={s}
@@ -627,8 +632,8 @@ function SchoolNetwork() {
                     }`}
                   >
                     {s}
-                    <span className={`shrink-0 text-[0.65rem] font-extrabold tracking-wide uppercase ${confirmed ? "text-emerald-deep" : "text-ink-soft"}`}>
-                      {confirmed ? "Confirmed" : "Pending"}
+                    <span className={`shrink-0 text-[0.65rem] font-extrabold tracking-wide uppercase ${status === "pending" ? "text-ink-soft" : "text-emerald-deep"}`}>
+                      {status === "confirmed" ? "Confirmed" : status === "talks" ? "In talks" : "Pending"}
                     </span>
                   </li>
                 );

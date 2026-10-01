@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import { Campus } from "@/components/art/Campus";
 import { Icon } from "@/components/art/Icons";
 import { TailLine } from "@/components/art/Marks";
-import { confirmedSchools, eligibility, schoolLogos, schools, venue } from "@/data/event";
+import { eligibility, schoolLogos, schoolStatus, schools, venue } from "@/data/event";
 
 function initials(name: string) {
   return name
@@ -61,21 +61,23 @@ export function Attend() {
                   <Icon name="pin" className="h-10 w-10 shrink-0" />
                   <div>
                     <p className="eyebrow text-[0.7rem] text-ink-soft">
-                      {venue.confirmed ? "Venue" : "Proposed venue"}
+                      {venue.confirmed ? "Venue" : "Location"}
                     </p>
                     <p className="display text-3xl">{venue.name}</p>
                     <p className="font-semibold text-ink-2">{venue.area}</p>
                   </div>
                 </div>
-                <a href={venue.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-sm">
-                  View on Maps <span aria-hidden>↗</span>
-                  <span className="sr-only">(opens in a new tab)</span>
-                </a>
+                {venue.mapsUrl && (
+                  <a href={venue.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-sm">
+                    View on Maps <span aria-hidden>↗</span>
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                )}
               </div>
             </div>
             {!venue.confirmed && (
               <p className="hand absolute -top-5 right-4 rotate-3 rounded-lg border-2 border-ink bg-sun px-3 py-1 text-lg shadow-[2px_3px_0_0_var(--color-ink)]">
-                not final yet!
+                exact spot soon!
               </p>
             )}
           </div>
@@ -89,7 +91,8 @@ export function Attend() {
           <ul className="mt-10 flex flex-wrap justify-center gap-4 sm:gap-5 [&>li]:w-[calc(50%-0.5rem)] sm:[&>li]:w-[calc(25%-0.9375rem)]">
             {schools.map((s, i) => {
               const logo = schoolLogos[s];
-              const pending = !confirmedSchools.includes(s);
+              const status = schoolStatus(s);
+              const pending = status === "pending";
               return (
                 <li
                   key={s}
@@ -107,7 +110,11 @@ export function Attend() {
                     )}
                   </div>
                   <span className="text-[0.95rem] leading-tight font-extrabold">{s}</span>
-                  {pending ? (
+                  {status === "talks" ? (
+                    <span className="-mt-1 rounded-full border-2 border-ink bg-sun-light px-2.5 py-0.5 text-[0.7rem] font-extrabold tracking-wide text-ink uppercase">
+                      In talks
+                    </span>
+                  ) : pending ? (
                     <span className="-mt-1 rounded-full border-2 border-dashed border-ink/40 bg-cream px-2.5 py-0.5 text-[0.7rem] font-extrabold tracking-wide text-ink-soft uppercase">
                       Pending confirmation
                     </span>

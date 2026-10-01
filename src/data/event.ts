@@ -39,12 +39,13 @@ export const event = {
 /* -------------------------------------------------------------------------- */
 
 export const venue = {
-  name: "Hillel Academy",
-  area: "Kingston, Jamaica",
+  /** Kept general until the campus is locked in. */
+  name: "A safe high school campus",
+  area: "Jamaica",
   /** Flip to `true` once the venue is locked in. */
   confirmed: false,
-  mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Hillel+Academy+Kingston+Jamaica",
+  /** `null` hides the Maps button. */
+  mapsUrl: null as string | null,
 };
 
 /* -------------------------------------------------------------------------- */
@@ -74,8 +75,19 @@ export const schools = [
 
 export type School = (typeof schools)[number];
 
-/** Schools that have formally confirmed. Everyone else shows "Pending confirmation". */
-export const confirmedSchools: readonly School[] = ["Hillel Academy"];
+/** Schools that have formally confirmed. */
+export const confirmedSchools: readonly School[] = [];
+
+/** Schools in active talks. Everyone not confirmed or in talks shows "Pending confirmation". */
+export const schoolsInTalks: readonly School[] = ["Hillel Academy", "Campion College"];
+
+export type SchoolStatus = "confirmed" | "talks" | "pending";
+
+export function schoolStatus(s: School): SchoolStatus {
+  if (confirmedSchools.includes(s)) return "confirmed";
+  if (schoolsInTalks.includes(s)) return "talks";
+  return "pending";
+}
 
 /* Headline numbers. School count follows the list above. */
 export const stats = [
@@ -505,7 +517,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Where is Hack 876?",
-    a: "Kingston, Jamaica. The proposed venue is Hillel Academy. We'll confirm the final location here.",
+    a: "On a safe high school campus in Jamaica. We'll confirm the exact location here.",
   },
   {
     q: "How does judging work?",
@@ -539,7 +551,7 @@ export const parents: {
   },
   {
     topic: "Venue",
-    body: "The proposed venue is Hillel Academy in Kingston. We'll confirm the final location here.",
+    body: "Hack 876 takes place on a safe high school campus in Jamaica. We'll confirm the exact location here.",
   },
   {
     topic: "Food",
