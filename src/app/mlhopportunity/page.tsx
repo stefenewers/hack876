@@ -38,8 +38,7 @@ export const metadata: Metadata = {
 };
 
 const STUDENTS = eligibility.maxHackers;
-/* The MLH brief states teams of up to four. */
-const TEAM_MAX = 4;
+const TEAM_MAX = eligibility.teamSize.max;
 
 /* -------------------------------------------------------------------------- */
 

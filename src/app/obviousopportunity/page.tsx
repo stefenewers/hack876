@@ -38,8 +38,7 @@ export const metadata: Metadata = {
 };
 
 const STUDENTS = eligibility.maxHackers;
-/* The Obvious brief states teams of up to four. */
-const TEAM_MAX = 4;
+const TEAM_MAX = eligibility.teamSize.max;
 const TEAMS = Math.ceil(STUDENTS / TEAM_MAX);
 /* Special awards only. Reward amounts stay off this page. */
 const AWARDS = prizes.filter((p) => !p.place);

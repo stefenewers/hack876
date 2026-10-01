@@ -57,7 +57,7 @@ export const venue = {
 export const eligibility = {
   forms: "5th Form through Upper 6th Form",
   formOptions: ["5th Form", "Lower 6th Form", "Upper 6th Form"],
-  teamSize: { min: 4, max: 5 },
+  teamSize: { min: 3, max: 4 },
   maxHackers: 80,
   howToGetIn:
     "Participating schools recommend students, and recommended students apply here.",
@@ -493,7 +493,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "How big can my team be?",
-    a: "4 to 5 students.",
+    a: "3 to 4 students.",
   },
   {
     q: "What can I build?",
