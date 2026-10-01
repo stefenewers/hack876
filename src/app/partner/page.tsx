@@ -9,6 +9,16 @@ import { eligibility, schools } from "@/data/event";
 export const metadata: Metadata = {
   title: "Partner with us",
   description: "Support Hack 876, a one-day hackathon for secondary-school students in Kingston, Jamaica.",
+  alternates: { canonical: "/partner" },
+  openGraph: {
+    title: "Partner with Hack 876",
+    description: "Support Hack 876, a one-day hackathon for Jamaican secondary-school students. Help 80 students build something real.",
+    url: "/partner",
+    siteName: "Hack 876",
+    locale: "en_JM",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: "Partner with Hack 876", description: "Support Hack 876, a one-day hackathon for Jamaican secondary-school students. Help 80 students build something real." },
 };
 
 export default function PartnerPage() {

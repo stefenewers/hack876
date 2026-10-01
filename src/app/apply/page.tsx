@@ -10,6 +10,16 @@ import { applications, eligibility } from "@/data/event";
 export const metadata: Metadata = {
   title: "Apply",
   description: "Apply to Hack 876, a one-day hackathon for secondary-school students in Kingston, Jamaica.",
+  alternates: { canonical: "/apply" },
+  openGraph: {
+    title: "Apply to Hack 876",
+    description: "Apply to Hack 876, a one-day hackathon for Jamaican secondary-school students. Bring an idea, leave with a prototype.",
+    url: "/apply",
+    siteName: "Hack 876",
+    locale: "en_JM",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: "Apply to Hack 876", description: "Apply to Hack 876, a one-day hackathon for Jamaican secondary-school students. Bring an idea, leave with a prototype." },
 };
 
 export default function ApplyPage() {

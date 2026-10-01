@@ -24,18 +24,29 @@ const caveat = Caveat_Brush({
   display: "swap",
 });
 
+const SHARE_TITLE = `${event.name} · ${event.tagline}`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(event.siteUrl),
   title: {
-    default: `${event.name} · ${event.tagline}`,
+    default: SHARE_TITLE,
     template: `%s · ${event.name}`,
   },
   description: event.shortDescription,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: `${event.name} · ${event.city} · ${event.year}`,
+    title: SHARE_TITLE,
     description: event.shortDescription,
+    url: "/",
+    siteName: event.name,
+    locale: "en_JM",
     type: "website",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: SHARE_TITLE,
+    description: event.shortDescription,
+  },
 };
 
 export const viewport: Viewport = {
