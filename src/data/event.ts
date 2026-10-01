@@ -419,12 +419,12 @@ export type Prize = {
 export const prizesNote: string | null = "Prizes are tentative and subject to change.";
 
 export const prizes: Prize[] = [
-  { name: "Hack 876 Winner", line: "The whole thing. Best overall build.", icon: "trophy", color: "sun", reward: "4 × iPad", place: 1 },
-  { name: "Second Place", line: "So close. Still brilliant.", icon: "medal-2", color: "sky", reward: "4 × AirPods Pro", place: 2 },
-  { name: "Third Place", line: "On the podium.", icon: "medal-3", color: "peach", reward: "4 × US$150 gift cards", place: 3 },
-  { name: "Best Design", line: "Looks great. Feels even better.", icon: "pen", color: "pink", reward: "4 × US$50 gift cards", valueUsd: 200 },
+  { name: "Hack 876 Winner", line: "The whole thing. Best overall build.", icon: "trophy", color: "sun", reward: "iPad per student (up\u00a0to\u00a04)", place: 1 },
+  { name: "Second Place", line: "So close. Still brilliant.", icon: "medal-2", color: "sky", reward: "AirPods Pro per student (up\u00a0to\u00a04)", place: 2 },
+  { name: "Third Place", line: "On the podium.", icon: "medal-3", color: "peach", reward: "US$150 gift card per student (up\u00a0to\u00a04)", place: 3 },
+  { name: "Best Design", line: "Looks great. Feels even better.", icon: "pen", color: "pink", reward: "US$50 gift card per student (up\u00a0to\u00a04)", valueUsd: 200 },
   { name: "Boldest Idea", line: "The swing nobody else took.", icon: "rocket", color: "bill", reward: "US$200 team project grant", valueUsd: 200 },
-  { name: "People’s Choice", line: "Voted by the room.", icon: "heart", color: "aqua", reward: "4 × US$50 gift cards", valueUsd: 200 },
+  { name: "People’s Choice", line: "Voted by the room.", icon: "heart", color: "aqua", reward: "US$50 gift card per student (up\u00a0to\u00a04)", valueUsd: 200 },
 ];
 
 /* -------------------------------------------------------------------------- */

@@ -351,7 +351,7 @@ function WhatMacSpotGets() {
           </div>
           <div className="lp-keep rounded-2xl border-2 border-ink bg-ink p-6 text-cream shadow-[5px_6px_0_0_var(--color-emerald)]">
             <p className="text-xs font-extrabold tracking-[0.16em] text-sun uppercase">Plus, for a major device contribution</p>
-            <p className="mt-1 text-sm text-cream/70">Such as the {WINNER.name} {WINNER.reward?.replace(/^4 × /, "")}s</p>
+            <p className="mt-1 text-sm text-cream/70">Such as the {WINNER.name} {WINNER.reward?.split(" per ")[0]}s</p>
             <ul className="mt-4 space-y-2.5">
               {major.map((t) => (
                 <li key={t} className="flex gap-2.5 font-semibold">
