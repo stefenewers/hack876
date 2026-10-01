@@ -103,7 +103,7 @@ function Hero({ brief }: { brief: SchoolBrief }) {
           <div className="flex items-center gap-3 text-sm font-extrabold">
             <Logo className="text-[1.15rem]" />
             <span aria-hidden className="text-ink-soft">×</span>
-            <Image src={brief.crest} alt="" width={32} height={32} className="h-8 w-8 object-contain" />
+            <Image src={brief.crest} alt="" width={44} height={44} className="h-11 w-11 object-contain" />
             <span>{brief.short}</span>
           </div>
         </div>
