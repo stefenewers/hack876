@@ -386,7 +386,7 @@ export const people: Person[] = [
   { name: "Padrique Duncan", organization: "Scotia Investments", role: "partner", schools: ["Jamaica College", "UWI"], photo: "/people/padrique-duncan.jpg", url: "https://www.linkedin.com/in/padriqueduncan/", confirmed: true },
   { name: "Kyle Freeman", organization: "HydroGro Farms", role: "partner", schools: ["UWI"], photo: "/people/kyle-freeman.jpg", url: "https://www.linkedin.com/in/kyle-freeman-9b8b32120/", confirmed: true },
   // Ardenne Community Ambassador (bridge to Ardenne High School).
-  { name: "Diandra McPherson", organization: "Earle & Wilson", role: "partner", schools: ["Ardenne High School", "UWI"], photo: "/people/diandra-mcpherson.jpg", confirmed: true },
+  { name: "Diandra McPherson", organization: "Earle & Wilson", role: "partner", schools: ["Ardenne High School", "UWI"], photo: "/people/diandra-mcpherson.jpg", url: "https://www.linkedin.com/in/diandra-mcpherson-4095a0213/", confirmed: true },
 ];
 
 export const roleLabels: Record<PersonRole, { singular: string; plural: string }> = {
