@@ -861,7 +861,7 @@ function Summary({ n, deck }: { n: string; deck: SponsorDeckData }) {
   const others: { name: string; amount: string; text: string }[] = tool
     ? [
         ...(deck.ask.award ? [{ name: deck.ask.award.name, amount: "Proposed", text: "One award, shaped together." }] : []),
-        { name: "One special award", amount: usd(SPECIAL_EACH), text: "Your pick of the existing special awards." },
+        ...(deck.ask.hideTiers?.includes("special") ? [] : [{ name: "One special award", amount: usd(SPECIAL_EACH), text: "Your pick of the existing special awards." }]),
         { name: "People in the room", amount: "Time", text: sentence(deck.roles.map((r) => r.title)) },
       ]
     : (["gold", "prize", "special", "food", "inkind"] as TierKey[])
