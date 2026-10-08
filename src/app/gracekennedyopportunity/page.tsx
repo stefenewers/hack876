@@ -9,7 +9,7 @@ import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { JamaicaMap } from "@/components/proposal/JamaicaMap";
 import { FuturePaths, Seedling, Shelter } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Rail, Ref } from "@/components/proposal/primitives";
-import { event, eligibility, schools } from "@/data/event";
+import { eligibility, event, eventWhen, schools } from "@/data/event";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -164,7 +164,8 @@ function Hero() {
           in the people who will build Jamaica&rsquo;s next chapter.
         </h1>
 
-        <p className="mt-8 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-8 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
       </div>
 
       <div className="lp-wrap relative w-full pt-14 pb-10 sm:pb-14">
@@ -1294,7 +1295,8 @@ function Closing() {
         <div className="mt-16 w-full max-w-3xl border-t-2 border-ink pt-10 print:mt-8">
           <p className="text-sm font-extrabold tracking-[0.18em] text-ink-soft uppercase">{DECK_LABEL}</p>
           <p className="lp-statement mt-4">Let&rsquo;s build the first one together.</p>
-          <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {event.year}</p>
+          <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
           <p className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
             <a href={event.siteUrl} className="underline decoration-2 underline-offset-4">
               {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}

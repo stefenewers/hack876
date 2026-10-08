@@ -6,7 +6,7 @@ import { DoctorBird } from "@/components/art/DoctorBird";
 import { Icon } from "@/components/art/Icons";
 import { Mark, TailLine } from "@/components/art/Marks";
 import { useReducedMotion } from "@/components/motion/hooks";
-import { applications, event } from "@/data/event";
+import { applications, event, eventWhen } from "@/data/event";
 
 const CONFETTI_COLORS = ["#12a150", "#ffc93c", "#ef3b2d", "#2ec4c9", "#ffb3c7", "#8fd3f4", "#141716"];
 
@@ -139,9 +139,12 @@ function ShareCard() {
         </p>
         <TailLine draw={false} colors={["#4fdc8e", "#fbf4e6"]} className="mt-2 h-4 w-full" />
         <p className="display mt-4 text-[1.35rem] leading-tight">{event.tagline}</p>
-        <div className="mt-4 flex items-center justify-between text-sm font-bold tracking-[0.14em] text-cream/70 uppercase">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 text-sm font-bold tracking-[0.14em] text-cream/70 uppercase">
           <span>{event.city}</span>
-          <span>{event.year}</span>
+          <span>
+            {eventWhen.short}
+            {eventWhen.tentative && <span className="normal-case tracking-normal"> (tentative)</span>}
+          </span>
         </div>
       </div>
       <Icon name="patty" className="absolute top-[24%] left-7 w-12 rotate-[-12deg]" />

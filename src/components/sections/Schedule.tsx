@@ -4,7 +4,7 @@ import { useEffect, useRef, type CSSProperties } from "react";
 import { DoctorBird } from "@/components/art/DoctorBird";
 import { BrushEdge, Mark } from "@/components/art/Marks";
 import { useReducedMotion } from "@/components/motion/hooks";
-import { event, phaseLabels, schedule, type SchedulePhase } from "@/data/event";
+import { eventWhen, phaseLabels, schedule, type SchedulePhase } from "@/data/event";
 
 const phaseDot: Record<SchedulePhase, string> = {
   arrive: "bg-sky",
@@ -62,7 +62,8 @@ export function Schedule() {
           </p>
           <p className="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-cream/30 px-4 py-2 font-bold">
             <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-sun" />
-            {event.date ? new Date(event.date + "T12:00:00").toLocaleDateString("en-JM", { weekday: "long", month: "long", day: "numeric", year: "numeric" }) : event.dateLabel}
+            {eventWhen.long}
+            {eventWhen.tentative && <span className="rounded-full bg-cream/15 px-2 py-0.5 text-xs font-extrabold tracking-wide uppercase">Tentative</span>}
           </p>
           <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-cream/80" aria-label="Phases">
             {(Object.keys(phaseLabels) as SchedulePhase[]).map((ph) => (

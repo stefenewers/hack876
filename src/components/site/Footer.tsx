@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BirdMark } from "@/components/art/DoctorBird";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
-import { event, nav } from "@/data/event";
+import { event, eventWhen, nav } from "@/data/event";
 
 const sheet = ["ackee", "patty", "laptop", "culture", "bagjuice", "lignum", "headphones", "sticky"];
 
@@ -18,7 +18,8 @@ export function Footer() {
             </Link>
             <p className="display mt-4 text-2xl text-cream/90">{event.tagline}</p>
             <p className="mt-2 text-cream/60">
-              {event.city} · {event.year}
+              {event.city} · {eventWhen.short}
+              {eventWhen.note}
             </p>
           </div>
 

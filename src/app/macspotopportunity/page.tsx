@@ -7,7 +7,7 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { DeviceArt } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, prizes, schools, stats } from "@/data/event";
+import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -118,7 +118,8 @@ function Hero() {
           Hack876 brings ambitious secondary-school students together to build real things in one day. {SPONSOR} can make the
           moment they walk away with their prize genuinely memorable.
         </p>
-        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
       </div>
 
       <div className="lp-wrap relative w-full pt-12 pb-10 sm:pb-14">
@@ -399,7 +400,8 @@ function Closing() {
           </div>
           <Logo className="mt-4 text-[2.6rem]" />
           <p className="lp-marker mt-2 text-2xl">Build something that should exist.</p>
-          <p className="mt-4 font-bold">Kingston, Jamaica · {event.year}</p>
+          <p className="mt-4 font-bold">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
           <a href={event.siteUrl} className="mt-1 font-semibold text-emerald-deep underline decoration-2 underline-offset-4">
             {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}
           </a>

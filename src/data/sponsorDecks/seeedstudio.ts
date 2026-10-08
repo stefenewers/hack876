@@ -89,7 +89,7 @@ const deck: SponsorDeckData = {
       label: "Community program",
       title: "Meshtastic Community Sponsorship",
       points: [
-        "We apply through Seeed's Meshtastic Sponsorship Application once the Hack876 date is set",
+        "We apply through Seeed's Meshtastic Sponsorship Application once the Hack876 date is confirmed",
         "At least 3 weeks before the event, plus extra time for shipping and customs into Jamaica",
         "We commit to the standard deliverables, and to a higher-quality one if we ask for more kits",
       ],

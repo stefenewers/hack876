@@ -7,7 +7,7 @@ import { Icon } from "@/components/art/Icons";
 import { Mark } from "@/components/art/Marks";
 import { Wordmark } from "@/components/art/Wordmark";
 import { useReducedMotion } from "@/components/motion/hooks";
-import { applications, event } from "@/data/event";
+import { applications, event, eventWhen } from "@/data/event";
 
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -146,9 +146,13 @@ export function Hero() {
       <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:gap-0 lg:px-8">
         {/* Copy */}
         <div className="order-2 pb-40 sm:pb-52 lg:order-1 lg:pt-10 lg:pb-52">
-          <p className="eyebrow rise relative z-10 mb-3 -ml-3 inline-flex items-center gap-2 rounded-full bg-cream px-3 py-1.5 text-ink-soft" style={{ "--d": "0.2s" } as CSSProperties}>
+          <p className="eyebrow rise relative z-10 mb-3 -ml-3 inline-flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-2xl bg-cream px-3 py-1.5 text-ink-soft sm:rounded-full" style={{ "--d": "0.2s" } as CSSProperties}>
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-bill" />
-            {event.city} · {event.year}
+            <span>{event.city} ·</span>
+            <span className="whitespace-nowrap">
+              {eventWhen.short}
+              {eventWhen.tentative && <span className="normal-case tracking-normal"> (tentative)</span>}
+            </span>
           </p>
 
           <div ref={markRef} className="relative inline-block">

@@ -8,7 +8,7 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { Blueprint, Bridge, Compounding, FuturePaths, IdeaToRealWorld, MentorRoom, Seedling, Shelter } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, prizes, schools, stats } from "@/data/event";
+import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
 import type { SponsorDeckData, TierKey } from "@/data/sponsorDecks/types";
 import "@/components/proposal/proposal.css";
 
@@ -186,7 +186,8 @@ function Hero({ deck, label }: { deck: SponsorDeckData; label: string }) {
           <Highlighted text={deck.hero.headline} highlight={deck.hero.highlight} />
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-2 sm:text-xl">{deck.hero.sub}</p>
-        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
       </div>
 
       <div className="lp-wrap relative w-full pt-12 pb-10 sm:pb-14">
@@ -268,7 +269,8 @@ function MeetHack876({ n }: { n: string }) {
                 Hack876 is a one-day build competition for approximately{" "}
                 <strong className="text-ink">{STUDENTS} secondary-school students</strong> from {FORMS[0]} through{" "}
                 {FORMS[FORMS.length - 1]}, working in teams of {TEAM_SIZE}
-                {TEAMS ? `, roughly ${TEAMS} teams in all` : ""}.
+                {TEAMS ? `, roughly ${TEAMS} teams in all` : ""}, on {eventWhen.long}
+                {eventWhen.note}.
               </p>
               <p>
                 Teams pick a real problem, use modern tools including AI, get guidance from mentors, and finish the day with a
@@ -1014,7 +1016,8 @@ function Closing({ deck, label }: { deck: SponsorDeckData; label: string }) {
           Help us build that opportunity.
         </h2>
         <p className="lp-prose mx-auto mt-6 max-w-2xl text-center">{deck.closingLine}</p>
-        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
         <p className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
           <a href={event.siteUrl} className="underline decoration-2 underline-offset-4">
             {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}

@@ -8,7 +8,7 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { IdeaToRealWorld, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { confirmedSchools, eligibility, event, prizes, schoolStatus, schools, schoolsInTalks, stats } from "@/data/event";
+import { confirmedSchools, eligibility, event, eventWhen, prizes, schools, schoolsInTalks, schoolStatus, stats } from "@/data/event";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -167,7 +167,8 @@ function Hero() {
           Hack876 gives Jamaica&rsquo;s next generation of builders a place to start. {SPONSOR} understands what happens when an
           idea is ready to become something more.
         </p>
-        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
       </div>
 
       <div className="lp-wrap relative w-full pt-12 pb-10 sm:pb-14">
@@ -1106,7 +1107,8 @@ function Closing() {
         <p className="lp-prose mx-auto mt-6 max-w-2xl text-center">
           Hack876 gives young Jamaicans a place to begin. We would love {SPONSOR} to help make that first room possible.
         </p>
-        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
         <p className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
           <a href={event.siteUrl} className="underline decoration-2 underline-offset-4">
             {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}

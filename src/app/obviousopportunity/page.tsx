@@ -6,7 +6,7 @@ import { BirdMark } from "@/components/art/DoctorBird";
 import { HackerPass } from "@/components/art/HackerPass";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { eligibility, event, prizes } from "@/data/event";
+import { eligibility, event, eventWhen, prizes } from "@/data/event";
 import "@/components/proposal/proposal.css";
 import "./obvious.css";
 
@@ -112,7 +112,7 @@ export default function ObviousOpportunityPage() {
 /* -------------------------------------------------------------------------- */
 
 function Hero() {
-  const meta = ["Jamaica", `~${STUDENTS} builders`, `Teams ≤${TEAM_MAX}`, "1 day", String(event.year)];
+  const meta = ["Jamaica", `~${STUDENTS} builders`, `Teams ≤${TEAM_MAX}`, "1 day", `${eventWhen.short}${eventWhen.note}`];
   return (
     <section aria-labelledby="ob-hero" className="lp-hero ob-sec ob-grid relative flex min-h-[calc(100svh-5rem)] flex-col justify-between border-y lp-rule">
       <div className="lp-wrap w-full pt-14 sm:pt-20">
@@ -572,7 +572,10 @@ function Closing() {
           <div className="mt-12 grid gap-1">
             <p className="text-lg font-extrabold">Stefen O. Ewers Jr.</p>
             <p className="text-[var(--ob-muted)]">Organizing Team, Hack 876</p>
-            <p className="ob-label mt-3">Hack 876 · Jamaica · {event.year}</p>
+            <p className="ob-label mt-3">
+            Hack 876 · Jamaica · {eventWhen.short}
+            {eventWhen.note}
+          </p>
           </div>
           <p className="lp-note mt-10 max-w-xl">
             This is a proposal. Hack 876 is not currently sponsored by, partnered with or endorsed by Obvious, and no credits,

@@ -6,7 +6,7 @@ import { HackerPass } from "@/components/art/HackerPass";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { applications, buildTypes, eligibility, event, parents, people, prizes, prizesNote, schedule } from "@/data/event";
+import { applications, buildTypes, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule } from "@/data/event";
 import type { SchoolBrief } from "@/data/schoolBriefs";
 import "@/components/proposal/proposal.css";
 import "./school.css";
@@ -92,7 +92,7 @@ export function SchoolBriefPage({ brief }: { brief: SchoolBrief }) {
 /* -------------------------------------------------------------------------- */
 
 function Hero({ brief }: { brief: SchoolBrief }) {
-  const meta = [event.city.split(",")[0], event.targetWindow, `~${eligibility.maxHackers} builders`, `Teams of ${TEAM_SIZE}`];
+  const meta = [event.city.split(",")[0], `${eventWhen.short}${eventWhen.note}`, `~${eligibility.maxHackers} builders`, `Teams of ${TEAM_SIZE}`];
   return (
     <section aria-labelledby="sb-hero" className="lp-hero relative flex min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden border-y lp-rule">
       <div className="lp-wrap w-full pt-12 sm:pt-16">
@@ -566,7 +566,7 @@ function Next({ brief }: { brief: SchoolBrief }) {
   const steps = [
     { k: "Now", v: `Build the relationship with ${brief.short}.` },
     { k: "Next", v: "Confirm a school contact and a student outreach path." },
-    { k: "Then", v: "Final date, venue, applications and logistics." },
+    { k: "Then", v: "Confirm the date and venue, then applications and logistics." },
     { k: "Before the event", v: "Student and parent briefing, preparation and requirements." },
     { k: "Event day", v: "Hack 876." },
   ];
@@ -587,6 +587,7 @@ function Next({ brief }: { brief: SchoolBrief }) {
       k: "Planned",
       c: "bg-sun-light",
       items: [
+        ...(eventWhen.tentative ? [`Tentative date: ${eventWhen.long}`] : []),
         DAY_START && DAY_END ? `A ${DAY_START} to ${DAY_END} day` : "A full-day schedule",
         "Lunch on the day",
         "Overall and special prize categories",
@@ -597,7 +598,7 @@ function Next({ brief }: { brief: SchoolBrief }) {
       k: "Being finalized",
       c: "bg-cream",
       items: [
-        `Date (targeting ${event.targetWindow}) and venue`,
+        eventWhen.tentative ? "Confirming the date, and the venue" : "Venue",
         "School-level allocations and team rules",
         "Cost and transport",
         "Prize items",
@@ -666,7 +667,8 @@ function Closing({ brief }: { brief: SchoolBrief }) {
           {brief.closing.lead} <span className="sb-under text-[var(--sb-primary)]">{brief.closing.line}</span>
         </h2>
         <p className="mt-7 font-extrabold tracking-[0.14em] text-ink-soft uppercase">
-          Hack 876 · {event.city} · {event.targetWindow}
+          Hack 876 · {event.city} · {eventWhen.short}
+          {eventWhen.note}
         </p>
         <div className="lp-no-print mt-9 flex flex-wrap justify-center gap-4">
           <Link href="/partner" className="btn btn-primary">

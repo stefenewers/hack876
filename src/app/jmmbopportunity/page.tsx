@@ -8,7 +8,7 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { Bridge, Converge, FuturePaths, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, prizes, schools, stats } from "@/data/event";
+import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -183,7 +183,8 @@ function Hero() {
           {SHORT} has spent years telling Jamaicans that greatness already exists within them. Hack876 gives {STUDENTS} young
           people one day to prove it to themselves.
         </p>
-        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
       </div>
 
       <div className="lp-wrap relative w-full pt-12 pb-10 sm:pb-14">
@@ -1130,7 +1131,8 @@ function Closing() {
         <p className="lp-prose mx-auto mt-6 max-w-2xl text-center">
           We would love to explore what the right first step looks like with Jon and the JMMB team.
         </p>
-        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
         <p className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
           <a href={event.siteUrl} className="underline decoration-2 underline-offset-4">
             {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}

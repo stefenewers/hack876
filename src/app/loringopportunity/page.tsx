@@ -8,7 +8,7 @@ import { TailLine } from "@/components/art/Marks";
 import { Logo } from "@/components/art/Wordmark";
 import { JamaicaMap } from "@/components/proposal/JamaicaMap";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { event, eligibility, people, roleLabels, schools } from "@/data/event";
+import { eligibility, event, eventWhen, people, roleLabels, schools } from "@/data/event";
 import { Blueprint, FuturePaths, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Rail, Ref } from "@/components/proposal/primitives";
 import "@/components/proposal/proposal.css";
@@ -193,7 +193,8 @@ function Hero() {
           in Jamaica&rsquo;s next generation of engineers, builders and problem solvers.
         </h1>
 
-        <p className="mt-8 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-8 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
       </div>
 
       <div className="lp-wrap relative w-full pt-14 pb-10 sm:pb-14">
@@ -1360,7 +1361,8 @@ function Closing() {
           <div className="mt-16 w-full max-w-3xl border-t-2 border-ink pt-10 print:mt-10">
             <p className="text-sm font-extrabold tracking-[0.18em] text-ink-soft uppercase">Hack876 × Loring Consulting Engineers</p>
             <p className="lp-statement mt-4">Let&rsquo;s build the first one together.</p>
-            <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {event.year}</p>
+            <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
             {(SITE_URL || event.contactEmail) && (
               <p className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
                 {SITE_URL && (

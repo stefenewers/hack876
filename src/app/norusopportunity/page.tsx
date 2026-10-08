@@ -8,7 +8,7 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { MentorRoom, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, prizes, schools, stats } from "@/data/event";
+import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -154,7 +154,8 @@ function Hero() {
           ideas into working prototypes. For the first one, we would love to put some of Jamaica&rsquo;s working builders
           beside them.
         </p>
-        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
       </div>
 
       <div className="lp-wrap relative w-full pt-12 pb-10 sm:pb-14">
@@ -942,7 +943,8 @@ function Closing() {
           of Jamaica&rsquo;s working builders in the room with them.
         </p>
         <p className="mt-4 font-extrabold">That is the invitation.</p>
-        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {event.year}</p>
+        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
+          {eventWhen.note}</p>
         <p className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
           <a href={event.siteUrl} className="underline decoration-2 underline-offset-4">
             {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}

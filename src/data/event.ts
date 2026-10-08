@@ -22,12 +22,12 @@ export const event = {
   tagline: "Build something that should exist.",
   shortDescription:
     "A one-day hackathon for secondary-school students from across Jamaica. Build, experiment, team up, and turn ideas into working prototypes.",
-  /** ISO date (YYYY-MM-DD) once confirmed. `null` shows “Date TBA”. */
-  date: null as string | null,
-  /** Human-readable fallback while the date is unconfirmed. */
+  /** ISO date (YYYY-MM-DD). `null` shows `dateLabel` instead. */
+  date: "2027-02-20" as string | null,
+  /** `true` while the date is planned but not locked in. Every date on the site then reads "(tentative)". */
+  dateTentative: true,
+  /** Human-readable fallback when there is no date at all. */
   dateLabel: "2027 · Date TBA",
-  /** Planning window used in school briefs. A target, not a confirmed date. */
-  targetWindow: "Early 2027",
   /** Canonical public website. */
   siteUrl: "https://www.hack876.com",
   /** Public contact email. `null` hides email links until one is set up. */
@@ -35,6 +35,22 @@ export const event = {
   socials: [] as { label: string; href: string }[],
 };
 
+
+/** The event date, formatted once for every page. Each string carries "(tentative)" while it applies. */
+export const eventWhen = (() => {
+  const d = event.date ? new Date(`${event.date}T12:00:00Z`) : null;
+  const fmt = (o: Intl.DateTimeFormatOptions) => (d ? d.toLocaleDateString("en-US", { ...o, timeZone: "UTC" }) : event.dateLabel);
+  const note = d && event.dateTentative ? " (tentative)" : "";
+  return {
+    /** "Saturday, February 20, 2027" */
+    long: fmt({ weekday: "long", month: "long", day: "numeric", year: "numeric" }),
+    /** "Feb 20, 2027" */
+    short: fmt({ month: "short", day: "numeric", year: "numeric" }),
+    /** " (tentative)" or "" */
+    note,
+    tentative: !!d && event.dateTentative,
+  };
+})();
 
 /* -------------------------------------------------------------------------- */
 /*  Venue                                                                     */
@@ -520,6 +536,13 @@ export const faqs: Faq[] = [
     pending: true,
   },
   {
+    q: "When is Hack 876?",
+    a: eventWhen.tentative
+      ? `${eventWhen.long}. The date is tentative, and we'll confirm it here.`
+      : `${eventWhen.long}.`,
+    pending: eventWhen.tentative,
+  },
+  {
     q: "Where is Hack 876?",
     a: "On a safe high school campus in Jamaica. We'll confirm the exact location here.",
   },
@@ -551,7 +574,7 @@ export const parents: {
   },
   {
     topic: "Schedule",
-    body: "Doors open at 8:00 AM and the event wraps at 7:30 PM. Pick-up details will be shared ahead of time.",
+    body: `Hack 876 is planned for ${eventWhen.long}${eventWhen.note}. Doors open at 8:00 AM and the event wraps at 7:30 PM. Pick-up details will be shared ahead of time.`,
   },
   {
     topic: "Venue",

@@ -6,7 +6,7 @@ import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
 import { HackerPass } from "@/components/art/HackerPass";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { eligibility, event, schools } from "@/data/event";
+import { eligibility, event, eventWhen, schools } from "@/data/event";
 import "@/components/proposal/proposal.css";
 import "./mlh.css";
 
@@ -102,7 +102,7 @@ export default function MlhOpportunityPage() {
 /* -------------------------------------------------------------------------- */
 
 function Hero() {
-  const meta = ["Jamaica", `~${STUDENTS} student builders`, `Teams ≤${TEAM_MAX}`, "1 day", String(event.year)];
+  const meta = ["Jamaica", `~${STUDENTS} student builders`, `Teams ≤${TEAM_MAX}`, "1 day", `${eventWhen.short}${eventWhen.note}`];
   return (
     <section aria-labelledby="mh-hero" className="lp-hero relative flex min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden border-y lp-rule">
       <div className="lp-wrap relative w-full pt-14 sm:pt-20">
@@ -242,7 +242,8 @@ function Numbers() {
             ))}
           </ul>
           <p className="lp-prose mt-10">
-            Secondary-school students, mostly 5th Form through Upper 6th, in Kingston for one day in {event.year}.
+            Secondary-school students, mostly 5th Form through Upper 6th, in Kingston for one day: {eventWhen.long}
+            {eventWhen.note}.
           </p>
         </div>
 
@@ -592,7 +593,10 @@ function Closing() {
         <div className="mt-12 grid gap-1">
           <p className="text-lg font-extrabold">Stefen O. Ewers Jr.</p>
           <p className="text-ink-soft">Organizing Team, Hack 876</p>
-          <p className="mh-label mt-3">Jamaica · {event.year}</p>
+          <p className="mh-label mt-3">
+            Jamaica · {eventWhen.short}
+            {eventWhen.note}
+          </p>
         </div>
 
         <p className="lp-note mx-auto mt-12 max-w-xl">

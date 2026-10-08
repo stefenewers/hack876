@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import type { ReactNode } from "react";
-import { eligibility, event } from "@/data/event";
+import { eligibility, event, eventWhen } from "@/data/event";
 
 /*
  * Link-preview cards (Open Graph / Twitter), rendered at build time.
@@ -88,7 +88,8 @@ export async function siteOgImage() {
       <Frame bird={bird} birdWidth={400}>
         <div style={{ display: "flex", flexDirection: "column", padding: "64px 72px", width: 760 }}>
           <div style={{ display: "flex", fontSize: 24, fontWeight: 800, letterSpacing: 4, color: C.soft, textTransform: "uppercase" }}>
-            Jamaica · {event.year}
+            Jamaica · {eventWhen.short}
+            {eventWhen.note}
           </div>
           <div style={{ display: "flex", marginTop: 26 }}>
             <Wordmark size={150} />
