@@ -405,6 +405,11 @@ function Closing() {
           <a href={event.siteUrl} className="mt-1 font-semibold text-emerald-deep underline decoration-2 underline-offset-4">
             {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}
           </a>
+          {event.contactEmail && (
+            <a href={`mailto:${event.contactEmail}`} className="mt-1 font-semibold text-emerald-deep underline decoration-2 underline-offset-4">
+              {event.contactEmail}
+            </a>
+          )}
         </div>
       </div>
       <footer className="lp-wrap mt-14 text-left print:mt-auto print:pt-6">

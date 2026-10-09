@@ -670,10 +670,15 @@ function Closing({ brief }: { brief: SchoolBrief }) {
           Hack 876 · {event.city} · {eventWhen.short}
           {eventWhen.note}
         </p>
+        {event.contactEmail && (
+          <a href={`mailto:${event.contactEmail}`} className="mt-2 font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
+            {event.contactEmail}
+          </a>
+        )}
         <div className="lp-no-print mt-9 flex flex-wrap justify-center gap-4">
-          <Link href="/partner" className="btn btn-primary">
+          <a href={event.contactEmail ? `mailto:${event.contactEmail}` : "/partner"} className="btn btn-primary">
             Start the conversation <span aria-hidden>→</span>
-          </Link>
+          </a>
           <a href={brief.pdf.href} download={brief.pdf.filename} className="btn btn-secondary">
             Download brief
           </a>

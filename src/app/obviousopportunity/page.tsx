@@ -572,6 +572,11 @@ function Closing() {
           <div className="mt-12 grid gap-1">
             <p className="text-lg font-extrabold">Stefen O. Ewers Jr.</p>
             <p className="text-[var(--ob-muted)]">Organizing Team, Hack 876</p>
+            {event.contactEmail && (
+              <a href={`mailto:${event.contactEmail}`} className="ob-mono text-sm font-semibold underline decoration-[var(--ob-line)] underline-offset-4 hover:decoration-[var(--ob-ink)]">
+                {event.contactEmail}
+              </a>
+            )}
             <p className="ob-label mt-3">
             Hack 876 · Jamaica · {eventWhen.short}
             {eventWhen.note}

@@ -4,7 +4,7 @@ import { TailLine } from "@/components/art/Marks";
 import { PartnerForm } from "@/components/forms/PartnerForm";
 import { Footer } from "@/components/site/Footer";
 import { Nav } from "@/components/site/Nav";
-import { eligibility, schools } from "@/data/event";
+import { eligibility, event, schools } from "@/data/event";
 
 export const metadata: Metadata = {
   title: "Partner with us",
@@ -54,6 +54,14 @@ export default function PartnerPage() {
           <div className="mt-14">
             <PartnerForm />
           </div>
+          {event.contactEmail && (
+            <p className="mt-8 text-center text-ink-soft">
+              Prefer email?{" "}
+              <a href={`mailto:${event.contactEmail}`} className="font-bold text-ink underline decoration-emerald decoration-2 underline-offset-4">
+                {event.contactEmail}
+              </a>
+            </p>
+          )}
         </div>
       </main>
       <Footer />
