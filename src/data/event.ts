@@ -57,13 +57,12 @@ export const eventWhen = (() => {
 /* -------------------------------------------------------------------------- */
 
 export const venue = {
-  /** Kept general until the campus is locked in. */
-  name: "A safe high school campus",
-  area: "Jamaica",
+  name: "Spanish Court Hotel",
+  area: "Kingston, Jamaica",
   /** Flip to `true` once the venue is locked in. */
-  confirmed: false,
+  confirmed: true,
   /** `null` hides the Maps button. */
-  mapsUrl: null as string | null,
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Spanish+Court+Hotel+Kingston+Jamaica" as string | null,
 };
 
 /* -------------------------------------------------------------------------- */
@@ -401,6 +400,8 @@ export const people: Person[] = [
   // Relationship partner (bridge to Scotia Investments).
   { name: "Padrique Duncan", organization: "Scotia Investments", role: "partner", schools: ["Jamaica College", "UWI"], photo: "/people/padrique-duncan.jpg", url: "https://www.linkedin.com/in/padriqueduncan/", confirmed: true },
   { name: "Kyle Freeman", organization: "HydroGro Farms", role: "partner", schools: ["UWI"], photo: "/people/kyle-freeman.jpg", url: "https://www.linkedin.com/in/kyle-freeman-9b8b32120/", confirmed: true },
+  // Venue host: Spanish Court Hotel.
+  { name: "Thomas Issa", organization: "S Hotel", role: "partner", schools: ["Campion College", "Notre Dame"], photo: "/people/thomas-issa.jpg", url: "https://www.linkedin.com/in/thomas-issa/", confirmed: true },
   // Ardenne Community Ambassador (bridge to Ardenne High School).
   { name: "Diandra McPherson", organization: "Earle & Wilson", role: "partner", schools: ["Ardenne High School", "UWI"], photo: "/people/diandra-mcpherson.jpg", url: "https://www.linkedin.com/in/diandra-mcpherson-4095a0213/", confirmed: true },
 ];
@@ -544,7 +545,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Where is Hack 876?",
-    a: "On a safe high school campus in Jamaica. We'll confirm the exact location here.",
+    a: `At the ${venue.name} in ${venue.area}.`,
   },
   {
     q: "How does judging work?",
@@ -578,7 +579,7 @@ export const parents: {
   },
   {
     topic: "Venue",
-    body: "Hack 876 takes place on a safe high school campus in Jamaica. We'll confirm the exact location here.",
+    body: `Hack 876 takes place at the ${venue.name} in ${venue.area}.`,
   },
   {
     topic: "Food",
