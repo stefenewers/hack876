@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { HubAudience, HubFaq, HubStatus } from "@/data/schoolHub";
+import { TODO_LABEL, type HubAudience, type HubFaq, type HubStatus } from "@/data/schoolHub";
 
 /*
- * Deterministic search over the hub's authored answers. Every word typed must
- * appear in the question, answer or category. No network, no inference.
+ * Deterministic search over the hub's authored answers. Works on whole
+ * questions typed naturally ("how much does it cost?"): filler words are
+ * ignored, the rest are matched against each answer's question, text and
+ * keywords, and the best matches are listed first. No network, no inference.
  */
 
 const AUDIENCES: { key: HubAudience | "all"; label: string }[] = [
@@ -15,12 +17,24 @@ const AUDIENCES: { key: HubAudience | "all"; label: string }[] = [
   { key: "teachers", label: "Teachers" },
 ];
 
-const statusText: Record<HubStatus, string> = { confirmed: "Confirmed", tentative: "Tentative", pending: "Details forthcoming" };
+const statusText: Record<HubStatus, string> = { confirmed: "Confirmed", tentative: "Tentative" };
 const statusClass: Record<HubStatus, string> = {
   confirmed: "border-ink bg-mint text-emerald-dark",
   tentative: "border-ink bg-sun-light text-ink",
-  pending: "border-dashed border-ink/40 bg-cream text-ink-soft",
 };
+
+/* Words that carry no meaning in a question. */
+const STOP = new Set(
+  "a an and are as at be by can could do does for from get have how i if in is it its me much my of on or our should so that the their there they this to up us was we what when where which who will with would you your about any child kid son daughter student students need".split(
+    " ",
+  ),
+);
+
+const tokens = (q: string) =>
+  norm(q)
+    .split(/\s+/)
+    .filter((w) => w && !STOP.has(w))
+    .map((w) => (w.length > 4 && w.endsWith("s") ? w.slice(0, -1) : w));
 
 const norm = (s: string) =>
   s
@@ -34,13 +48,42 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
   const [category, setCategory] = useState<string>("all");
   const input = useRef<HTMLInputElement>(null);
 
-  const index = useMemo(() => faqs.map((f) => ({ f, text: norm(`${f.q} ${f.a} ${f.category}`) })), [faqs]);
+  const index = useMemo(
+    () =>
+      faqs.map((f) => ({
+        f,
+        title: norm(`${f.q} ${f.keywords ?? ""}`).split(/\s+/),
+        body: norm(`${f.a} ${f.todo ?? ""} ${f.category}`).split(/\s+/),
+      })),
+    [faqs],
+  );
 
   const results = useMemo(() => {
-    const words = norm(query).split(/\s+/).filter(Boolean);
-    return index
-      .filter(({ f, text }) => (audience === "all" || f.audience.includes(audience)) && (category === "all" || f.category === category) && words.every((w) => text.includes(w)))
-      .map(({ f }) => f);
+    const words = tokens(query);
+    const pool = index.filter(({ f }) => (audience === "all" || f.audience.includes(audience)) && (category === "all" || f.category === category));
+    if (words.length === 0) return pool.map(({ f }) => f);
+    /* A word matches when some word in the text starts with it (short words must match exactly). */
+    const hit = (list: string[], w: string) => list.some((t) => (w.length < 3 ? t === w : t.startsWith(w)));
+    const scored = pool
+      .map(({ f, title, body }) => {
+        let matched = 0;
+        let score = 0;
+        for (const w of words) {
+          const inTitle = hit(title, w);
+          const inBody = !inTitle && hit(body, w);
+          if (inTitle || inBody) matched++;
+          score += inTitle ? 3 : inBody ? 1 : 0;
+        }
+        return { f, matched, score };
+      })
+      .filter((r) => r.matched > 0);
+    /* Keep answers that match most of what was asked, best first. */
+    const best = Math.max(0, ...scored.map((r) => r.matched));
+    return scored
+      .filter((r) => r.matched >= Math.max(1, best - (words.length > 2 ? 1 : 0)))
+      .sort((a, b) => b.matched - a.matched || b.score - a.score)
+      .slice(0, 12)
+      .map((r) => r.f);
   }, [index, query, audience, category]);
 
   /* "/" jumps to search from anywhere on the page; arriving at #questions focuses it too. */
@@ -77,7 +120,7 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
     <div>
       <div className="hub-card p-4 sm:p-5">
         <label htmlFor="hub-search" className="block text-sm font-extrabold">
-          Search every question
+          Search for an answer
         </label>
         <div className="relative mt-2">
           <svg viewBox="0 0 20 20" aria-hidden className="pointer-events-none absolute top-1/2 left-3.5 h-5 w-5 -translate-y-1/2 text-ink-soft">
@@ -89,7 +132,7 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Try “coding”, “food”, “consent”, “AI”…"
+            placeholder="e.g. Do I need to know how to code?"
             autoComplete="off"
             enterKeyHint="search"
             aria-describedby="hub-search-count"
@@ -98,7 +141,7 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
         </div>
 
         <fieldset className="mt-4 min-w-0">
-          <legend className="text-xs font-extrabold tracking-[0.12em] text-ink-soft uppercase">I am asking as</legend>
+          <legend className="text-xs font-extrabold tracking-[0.12em] text-ink-soft uppercase">Show answers for</legend>
           <div className="mt-2 flex flex-wrap gap-2">
             {AUDIENCES.map((a) => (
               <button
@@ -133,27 +176,27 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
       </div>
 
       <p id="hub-search-count" role="status" aria-live="polite" className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-semibold text-ink-soft">
-        {results.length === 0 ? "No matching questions." : `${results.length} ${results.length === 1 ? "question" : "questions"}${filtered ? " match" : ""}`}
+        {results.length === 0 ? "No matching answers." : filtered ? `${results.length} ${results.length === 1 ? "answer" : "answers"} found` : `${results.length} questions answered`}
         {filtered && (
           <button type="button" onClick={reset} className="font-bold text-ink underline decoration-ink/30 underline-offset-2 hover:decoration-ink">
-            Clear filters
+            Clear search
           </button>
         )}
       </p>
 
       {results.length === 0 ? (
         <div className="hub-card mt-3 p-6 text-center">
-          <p className="text-lg font-extrabold">We don&rsquo;t have an answer to that yet.</p>
+          <p className="text-lg font-extrabold">No answer found for that.</p>
           <p className="mx-auto mt-2 max-w-md text-ink-2">
-            Try a shorter word, or clear the filters.
+            Try a single word such as &ldquo;food&rdquo;, &ldquo;cost&rdquo; or &ldquo;laptop&rdquo;.
             {contactEmail && (
               <>
                 {" "}
-                If it still isn&rsquo;t here, email{" "}
+                Or email the organizers at{" "}
                 <a href={`mailto:${contactEmail}`} className="font-bold text-ink underline decoration-2 underline-offset-2">
                   {contactEmail}
-                </a>{" "}
-                and we&rsquo;ll answer and add it.
+                </a>
+                .
               </>
             )}
           </p>
@@ -179,6 +222,11 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
                       <p key={p}>{p}</p>
                     ))}
                   </div>
+                  {f.todo && (
+                    <p className="hub-todo mt-3">
+                      <span className="font-extrabold">{TODO_LABEL}:</span> {f.todo}
+                    </p>
+                  )}
                   {f.link && (
                     <a
                       href={f.link.href}

@@ -199,9 +199,9 @@ export const schoolBriefs: SchoolBrief[] = [
       headline: "A relationship, not a recruitment drive.",
       intro:
         "We want to build something lasting with Campion’s Technology Department, beyond one event. That work has started with Mrs. Morrison.",
-      tag: "Faculty liaison · agreed October 2026",
-      role: "Mrs. Morrison has agreed to serve as Hack 876’s faculty liaison at Campion: our point of contact in the department for coordination, recommendations and questions.",
-      note: "Mrs. Morrison’s support is at faculty level. Formal approval from Campion College’s administration has not been documented, and student places are not guaranteed.",
+      tag: "Faculty liaison",
+      role: "Mrs. Morrison is the point of contact at Campion for Hack 876. Teachers can pass recommendations and questions to her, and she coordinates with the Hack 876 organizing team.",
+      note: "Mrs. Morrison’s role is at department level. Formal approval from Campion College’s administration has not yet been confirmed, and student places are not guaranteed.",
       also: [
         {
           title: "Student ambassadors",
@@ -212,33 +212,33 @@ export const schoolBriefs: SchoolBrief[] = [
     },
     hub: {
       status:
-        "Mrs. Keisha Morrison, Head of the Technology Department, has agreed to be Hack 876’s faculty liaison at Campion. Formal approval from the school’s administration has not been documented yet.",
+        "Campion’s Technology Department is supporting student participation. Mrs. Keisha Morrison, Head of the department, is the faculty liaison for Hack 876. Formal approval from the school’s administration has not yet been confirmed, and Hack 876 is not a Campion College event.",
       ambassadors: {
         summary:
-          "Two student ambassadors are expected to be nominated, ideally one Lower Sixth and one Fifth Form student. No names have been chosen, and none will be published without permission.",
+          "Campion is expected to have two ambassadors, ideally one in Lower Sixth and one in Fifth Form. They have not been chosen yet, and their names will not be published without permission.",
         duties: [
-          "Help circulate official Hack 876 materials.",
+          "Share the Hack 876 flyer and this page with classmates.",
           "Encourage eligible students to apply.",
-          "Point common questions to this page.",
-          "Pass questions and updates through the faculty liaison.",
+          "Point classmates to this page when they have questions.",
+          "Pass on questions they cannot answer to the faculty liaison.",
         ],
       },
       faculty: {
         process: [
-          "Share this page with students in 5th Form through Upper 6th Form.",
-          "Recommend students you think would enjoy it. A short list through the faculty liaison is enough.",
-          "Recommended students then apply on the Hack 876 website themselves.",
-          "Hack 876 handles selection, consent forms and all event communication.",
+          "Share this page or the student flyer with students in 5th Form through Upper 6th Form.",
+          "If you would like to recommend particular students, give their names to the faculty liaison. No form is needed.",
+          "Each student completes the application on the Hack 876 website. Teachers do not apply on their behalf.",
+          "The Hack 876 organizing team selects participants and contacts students and families directly.",
         ],
         profiles: [
           "Curious students who like making things, in any subject.",
-          "Students from Computer Science, IT, Maths, the Sciences, Art, Design or Business.",
-          "Strong communicators, organizers and researchers, not only coders.",
+          "Students taking Computer Science, IT, Maths, the Sciences, Art, Design or Business.",
+          "Strong writers, presenters, organizers and researchers, as well as programmers.",
           "Students who work well with people they have just met.",
         ],
       },
       schoolChannel:
-        "Questions about Campion’s own arrangements, such as permission to attend or school transport, go through Campion’s Technology Department in the usual way.",
+        "For questions about Campion’s own arrangements, such as school permission to attend, speak to Campion’s Technology Department.",
     },
     closing: {
       lead: "Campion has already helped produce some of the professionals making Hack 876 possible.",

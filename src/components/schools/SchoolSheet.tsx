@@ -4,7 +4,7 @@ import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
 import { Logo } from "@/components/art/Wordmark";
 import { buildTypes, eligibility, event, eventWhen, schedule, venue } from "@/data/event";
 import type { SchoolBrief } from "@/data/schoolBriefs";
-import { applicationState, hubFaqs, schoolSheets, statusLabel, type HubFaq, type HubStatus, type SheetKey } from "@/data/schoolHub";
+import { applicationState, hubFaqs, PROTOTYPE, schoolSheets, statusLabel, TODO_LABEL, type HubFaq, type HubStatus, type SheetKey } from "@/data/schoolHub";
 import "./sheet.css";
 
 /*
@@ -18,7 +18,7 @@ const START = schedule[0]?.time ?? "";
 const END = schedule[schedule.length - 1]?.time ?? "";
 const site = event.siteUrl.replace(/^https?:\/\/(www\.)?/, "");
 
-const pillClass: Record<HubStatus, string> = { confirmed: "bg-mint", tentative: "bg-sun-light", pending: "border-dashed bg-cream text-ink-soft" };
+const pillClass: Record<HubStatus, string> = { confirmed: "bg-mint", tentative: "bg-sun-light" };
 
 function Pill({ s }: { s?: HubStatus }) {
   return s ? <span className={`sheet-pill ${pillClass[s]}`}>{statusLabel[s]}</span> : null;
@@ -111,8 +111,8 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
         <DoctorBird aria-hidden flutter={false} mood="happy" className="absolute top-0 right-0 w-[2.5in]" />
       </div>
       <p className="mt-4 max-w-[5.3in] text-[1rem] leading-snug text-ink-2">
-        Hack 876 is a one-day build competition for Jamaican secondary-school students. Pick a real problem, build a working
-        prototype with a team of {TEAM}, and present it to judges who work in tech.
+        Hack 876 is a one-day competition for secondary-school students. In a team of {TEAM}, you pick a real problem, build
+        something that tackles it, and show it to judges who work in technology.
       </p>
 
       <div className="mt-5">
@@ -123,8 +123,9 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
         <div>
           <H>You do not need to code</H>
           <p className="mt-1.5 text-[0.82rem] leading-snug text-ink-2">
-            No programming experience is required. Teams need designers, researchers, storytellers, presenters and builders.
+            No programming experience is needed. Teams also need people who design, research, write, organize and present.
           </p>
+          <p className="mt-2 text-[0.74rem] leading-snug text-ink-soft">{PROTOTYPE}</p>
           <div className="mt-4">
             <H>You could build</H>
             <ul className="mt-2 flex flex-wrap gap-1.5">
@@ -134,16 +135,16 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
                 </li>
               ))}
             </ul>
-            <p className="mt-2 text-[0.7rem] text-ink-soft">AI is allowed, not required. Permitted tools will be announced.</p>
+            <p className="mt-2 text-[0.7rem] text-ink-soft">AI tools are allowed, not required. You will not need to buy any.</p>
           </div>
         </div>
         <div>
-          <H>How to get in</H>
+          <H>How to apply</H>
           <ol className="mt-2 space-y-2">
             {[
-              `Ask about it at ${brief.short}, or get recommended by a teacher.`,
-              `Apply yourself at ${site}/apply. Solo or with friends.`,
-              "We read every application and let you know.",
+              `Read the details at ${site}/schools/${brief.slug}.`,
+              `Fill in the form at ${site}/apply. Apply alone or with friends.`,
+              "The organizers review applications and send you a decision.",
             ].map((t, i) => (
               <li key={t} className="flex gap-2.5 text-[0.82rem] leading-snug">
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[var(--sb-primary)] text-[0.72rem] font-extrabold text-white">{i + 1}</span>
@@ -152,16 +153,19 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
             ))}
           </ol>
           <p className="mt-3 rounded-xl border-2 border-dashed border-ink/40 px-3 py-2 text-[0.72rem] leading-snug text-ink-soft">
-            Places are limited to about {eligibility.maxHackers} students across all schools. A recommendation does not guarantee a place.
+            Places are limited to about {eligibility.maxHackers} students across several schools, so applying does not guarantee a place.
+            It costs nothing to apply.
           </p>
         </div>
       </div>
 
-      <div className="mt-auto rounded-2xl border-2 border-ink bg-sun px-4 py-3">
+      <div className="mt-auto pt-3">
+       <div className="rounded-2xl border-2 border-ink bg-sun px-4 py-3">
         <p className="text-[1.25rem] leading-tight font-extrabold">Food is provided. Teams can mix schools. Prizes for the top teams.</p>
         <p className="mt-0.5 text-[0.74rem] font-semibold">
-          {brief.alumni ? `Several judges and both organizers went to ${brief.short}. ` : ""}Questions? Everything is answered on the page below.
+          {brief.alumni ? `Several of the judges are former ${brief.short} students. ` : ""}Parents and guardians can find full details at the address below.
         </p>
+       </div>
       </div>
     </Frame>
   );
@@ -171,23 +175,25 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
 
 function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => HubFaq }) {
   const rows: [string, string][] = [
-    ["Food", "food"],
-    ["Supervision and safeguarding", "supervision"],
+    ["Supervision and safety", "supervision"],
     ["Consent", "consent"],
-    ["Drop-off, pick-up and transport", "transport"],
-    ["Emergency contacts", "emergency"],
+    ["Food", "food"],
+    ["Getting there and back", "transport"],
     ["Costs", "cost"],
+    ["Contact on the day", "emergency"],
     ["AI tools and age limits", "ai-age"],
-    ["Can a parent approve an 18+ tool?", "consent-override"],
   ];
+  /* On paper, "this page" means nothing. Name the address instead. */
+  const here = (t: string) => t.replace(/this page/g, `${site}/schools/${brief.slug}`);
   return (
     <Frame brief={brief} label="Parent and guardian information">
-      <h1 className="max-w-[16ch] text-[2.5rem] leading-[0.98] font-extrabold tracking-[-0.04em]">
+      <h1 className="max-w-[24ch] text-[2.4rem] leading-[0.98] font-extrabold tracking-[-0.04em]">
         What parents and guardians <span className="sheet-under text-[var(--sb-primary)]">need to know.</span>
       </h1>
       <p className="mt-2.5 max-w-[6.6in] text-[0.86rem] leading-snug text-ink-2">
-        Hack 876 is a one-day build competition for Jamaican secondary-school students. Teams build a working prototype and present
-        it to industry judges. It is supervised, it is not overnight, and no programming experience is required.
+        Hack 876 is a one-day competition for secondary-school students. Working in small teams, students build a solution to a real
+        problem and present it to judges who work in technology and business. No coding experience is needed. It is supervised and
+        it is not overnight. Hack 876 is organized independently of {brief.school}.
       </p>
       <div className="mt-3.5">
         <Facts />
@@ -197,19 +203,22 @@ function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => 
         {rows.map(([title, id]) => {
           const f = faq(id);
           return (
-            <li key={id} className="border-t-2 border-ink/15 pt-1.5">
-              <p className="flex flex-wrap items-center justify-between gap-1 text-[0.8rem] font-extrabold">
-                {title} <Pill s={f.status} />
-              </p>
-              <p className="mt-0.5 text-[0.72rem] leading-snug text-ink-2">{f.a.replace(/\n\n/g, " ")}</p>
+            <li key={id} className={`border-t-2 border-ink/15 pt-1.5 ${id === "ai-age" ? "col-span-2" : ""}`}>
+              <p className="text-[0.8rem] font-extrabold">{title}</p>
+              <p className="mt-0.5 text-[0.7rem] leading-snug text-ink-2">{here(f.a.split("\n\n")[0])}</p>
+              {f.todo && (
+                <p className="mt-0.5 text-[0.66rem] leading-snug text-ink-soft">
+                  <strong>{TODO_LABEL}:</strong> {here(f.todo)}
+                </p>
+              )}
             </li>
           );
         })}
       </ul>
 
-      <p className="mt-auto rounded-xl border-2 border-ink bg-paper px-3.5 py-2.5 text-[0.76rem] leading-snug">
-        <strong>Honest status.</strong> Anything marked &ldquo;{statusLabel.pending}&rdquo; has not been decided. Families will hear from
-        Hack 876 before a child is asked to commit to anything. A school recommendation does not guarantee a place.
+      <p className="mt-auto rounded-xl border-2 border-ink bg-paper px-3.5 py-2 text-[0.74rem] leading-snug">
+        <strong>How to take part.</strong> Students apply themselves at {site}/apply. It costs nothing to apply, and applying does not
+        guarantee a place. Anything marked &ldquo;{TODO_LABEL}&rdquo; will be sent to families before a student is asked to accept a place.
       </p>
     </Frame>
   );
@@ -219,15 +228,17 @@ function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => 
 
 function FacultySheet({ brief }: { brief: SchoolBrief }) {
   const hub = brief.hub!;
+  /* On paper, "this page" means nothing. Name the address instead. */
+  const here = (t: string) => t.replace(/this page/g, `${site}/schools/${brief.slug}`);
   return (
-    <Frame brief={brief} label="Faculty participation overview">
+    <Frame brief={brief} label="Overview for teachers">
       <h1 className="max-w-[18ch] text-[2.5rem] leading-[0.98] font-extrabold tracking-[-0.04em]">
-        How {brief.short} can take part, <span className="sheet-under text-[var(--sb-primary)]">without extra work.</span>
+        How {brief.short} teachers can <span className="sheet-under text-[var(--sb-primary)]">support students.</span>
       </h1>
       <p className="mt-2.5 max-w-[6.6in] text-[0.86rem] leading-snug text-ink-2">
-        Hack 876 is a one-day build competition for about {eligibility.maxHackers} Jamaican secondary-school students, in teams of {TEAM}.
-        {" "}
-        {brief.short} is not asked for money or to organize anything. Hack 876 runs the event and supplies the materials.
+        Hack 876 is a one-day competition for about {eligibility.maxHackers} secondary-school students from several schools. In teams of{" "}
+        {TEAM}, students build a solution to a real problem and present it to judges who work in technology and business. {brief.short} is not
+        asked to pay, host or organize anything.
       </p>
       <div className="mt-3.5">
         <Facts />
@@ -235,9 +246,9 @@ function FacultySheet({ brief }: { brief: SchoolBrief }) {
 
       <div className="mt-4 grid grid-cols-2 gap-5">
         <div>
-          <H>How recommending works</H>
+          <H>How to share it and recommend students</H>
           <ol className="mt-1.5 space-y-1.5">
-            {hub.faculty.process.map((t, i) => (
+            {hub.faculty.process.map(here).map((t, i) => (
               <li key={t} className="flex gap-2 text-[0.78rem] leading-snug">
                 <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[var(--sb-primary)] text-[0.64rem] font-extrabold text-white">{i + 1}</span>
                 {t}
@@ -245,7 +256,7 @@ function FacultySheet({ brief }: { brief: SchoolBrief }) {
             ))}
           </ol>
           <div className="mt-3.5">
-            <H>Who tends to do well</H>
+            <H>Students who are a good fit</H>
             <Bullets items={hub.faculty.profiles} className="mt-1.5" />
           </div>
         </div>
@@ -255,17 +266,17 @@ function FacultySheet({ brief }: { brief: SchoolBrief }) {
           <p className="text-[0.74rem] font-bold text-[var(--sb-primary)]">{brief.liaison.title}</p>
           <p className="mt-1 text-[0.74rem] leading-snug text-ink-2">{brief.liaison.role}</p>
           <div className="mt-3.5">
-            <H>Student ambassadors · to be nominated</H>
+            <H>Student ambassadors</H>
             <p className="mt-1.5 text-[0.74rem] leading-snug text-ink-2">{hub.ambassadors.summary}</p>
-            <Bullets items={hub.ambassadors.duties} className="mt-1.5" />
+            <Bullets items={hub.ambassadors.duties.map(here)} className="mt-1.5" />
           </div>
         </div>
       </div>
 
       <div className="mt-auto grid grid-cols-[1.25fr_1fr] gap-3">
         <p className="rounded-xl border-2 border-ink bg-paper px-3.5 py-2.5 text-[0.74rem] leading-snug">
-          <strong>Planning range: {brief.planningRange.min} to {brief.planningRange.max} {brief.short} students.</strong> This is provisional, not a
-          quota. Every student applies and is selected individually, and a recommendation does not guarantee a place.
+          <strong>Roughly {brief.planningRange.min} to {brief.planningRange.max} {brief.short} students.</strong> This is the organizers&rsquo; planning
+          estimate, not a quota. Every student applies individually, and a recommendation does not guarantee a place.
         </p>
         <p className="rounded-xl border-2 border-dashed border-ink/40 px-3.5 py-2.5 text-[0.72rem] leading-snug text-ink-soft">{brief.liaison.note}</p>
       </div>

@@ -5,7 +5,7 @@ import { BirdMark } from "@/components/art/DoctorBird";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
 import { Footer } from "@/components/site/Footer";
-import { buildTypes, eligibility, event, people, schools } from "@/data/event";
+import { buildTypes, eligibility, event, judging, people, schedule, schools, venue } from "@/data/event";
 import { schoolAlumni, type SchoolBrief } from "@/data/schoolBriefs";
 import {
   applicationAsks,
@@ -14,9 +14,12 @@ import {
   hubCategories,
   hubFacts,
   hubFaqs,
-  openItems,
+  organizerNames,
+  PROTOTYPE,
+  PROTOTYPE_EXAMPLES,
   schoolSheets,
   statusLabel,
+  TODO_LABEL,
   type HubFaq,
   type HubStatus,
 } from "@/data/schoolHub";
@@ -25,18 +28,29 @@ import "./hub.css";
 
 /*
  * A school's participation hub: everything a student, parent or teacher needs
- * to take part, in one place. Rendered at /schools/<slug> for any school whose
+ * to take part, in one place. Written for a reader who has never heard of
+ * Hack 876 and knows nothing about how the school became involved. Rendered at /schools/<slug> for any school whose
  * brief has `hub` set. Event facts come from event.ts via schoolHub.ts; only
  * the relationship and community details come from the school's entry.
  */
 
 const TEAM = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
 
+const DAY_END = schedule[schedule.length - 1]?.time ?? "";
+
 const statusClass: Record<HubStatus, string> = {
   confirmed: "border-ink bg-mint text-emerald-dark",
   tentative: "border-ink bg-sun-light text-ink",
-  pending: "border-dashed border-ink/40 bg-cream text-ink-soft",
 };
+
+/** What is not yet decided, shown next to the facts it relates to. */
+function Todo({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
+  return (
+    <p className={dark ? "mt-3 border-l-[3px] border-cream/40 bg-cream/[0.06] px-3 py-2 text-[0.92rem] leading-snug text-cream/80" : "hub-todo mt-3"}>
+      <span className="font-extrabold">{TODO_LABEL}:</span> {children}
+    </p>
+  );
+}
 
 function Status({ s }: { s?: HubStatus }) {
   return s ? <span className={`hub-status ${statusClass[s]}`}>{statusLabel[s]}</span> : null;
@@ -65,12 +79,12 @@ function SectionHead({ id, kicker, title, children }: { id: string; kicker: stri
 }
 
 const NAV = [
+  { href: "#about", label: "What it is" },
   { href: "#students", label: "Students" },
+  { href: "#apply", label: "How to apply" },
   { href: "#parents", label: "Parents" },
-  { href: "#teachers", label: "Teachers" },
   { href: "#ai-tools", label: "AI tools" },
-  { href: "#apply", label: "Applying" },
-  { href: "#community", label: "Community" },
+  { href: "#teachers", label: "Teachers" },
   { href: "#resources", label: "Downloads" },
   { href: "#contact", label: "Contact" },
 ];
@@ -88,8 +102,8 @@ export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
           <Logo className="text-[1.4rem]" />
         </Link>
         <div className="flex items-center gap-3">
-          <Link href="/schools" className="hidden text-sm font-bold text-ink-soft underline-offset-4 hover:underline sm:inline">
-            School Resources
+          <Link href="/" className="hidden text-sm font-bold text-ink-soft underline-offset-4 hover:underline sm:inline">
+            Main Hack 876 website
           </Link>
           {applicationState.open && (
             <Link href="/apply" className="btn btn-primary btn-sm">
@@ -118,22 +132,23 @@ export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
           </div>
         </nav>
 
+        <About brief={brief} />
         <Paths short={brief.short} />
         <Students brief={brief} byId={byId} />
+        <Applying brief={brief} byId={byId} />
         <Parents byId={byId} />
         <AiTools />
-        <Applying brief={brief} />
-        <Beyond />
+        <Beyond byId={byId} />
         <Community brief={brief} />
         <Teachers brief={brief} />
         <Resources brief={brief} />
 
         <section id="questions" aria-labelledby="hub-questions" className="border-t border-ink/10 bg-cream-2 py-14 sm:py-20">
           <div className="hub-wrap">
-            <SectionHead id="hub-questions" kicker="Questions & answers" title="Find your answer.">
+            <SectionHead id="hub-questions" kicker="Questions and answers" title="Find an answer.">
               <p>
-                Every question we have been asked so far, including the ones we cannot fully answer yet. Press <kbd className="rounded border border-ink/30 bg-paper px-1.5 text-sm font-bold">/</kbd>{" "}
-                anywhere on this page to search.
+                Answers about eligibility, applying, preparation, safety, costs and what happens on the day. Type a question in your
+                own words, or choose a topic.
               </p>
             </SectionHead>
             <div className="mt-8">
@@ -154,7 +169,7 @@ export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
         <svg viewBox="0 0 20 20" aria-hidden className="h-4 w-4">
           <path d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Zm7.5 13-3.6-3.6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
         </svg>
-        Ask a question
+        Search questions
       </a>
     </div>
   );
@@ -171,14 +186,15 @@ function Hero({ brief }: { brief: SchoolBrief }) {
       <div className="hub-wrap">
         <div className="flex items-center gap-3">
           <Image src={brief.crest} alt="" width={44} height={44} className="h-11 w-11 object-contain" />
-          <p className="hub-kicker">{brief.school} · Participation hub</p>
+          <p className="hub-kicker">Information for {brief.school} students, parents and teachers</p>
         </div>
         <h1 id="hub-title" className="mt-5 max-w-[20ch] text-[clamp(2.3rem,6.2vw,4.4rem)] leading-[1] font-extrabold tracking-[-0.04em] text-balance">
           {brief.short} × Hack 876. <span className="hub-under text-[var(--sb-primary)]">Everything you need to know.</span>
         </h1>
         <p className="hub-lead mt-5">
-          Hack 876 is a one-day build competition for Jamaican secondary-school students. Teams pick a real problem, build a working
-          prototype and present it to industry judges. This page is for {brief.short} students, parents, guardians and teachers.
+          Hack 876 is a one-day competition where secondary-school students work in small teams to build a solution to a real problem,
+          then present it to judges who work in technology and business. No coding experience is needed. {brief.short} students in{" "}
+          {eligibility.forms} can apply.
         </p>
 
         <dl className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -201,13 +217,98 @@ function Hero({ brief }: { brief: SchoolBrief }) {
           ) : (
             <span className="rounded-full border-2 border-dashed border-ink/40 px-4 py-2 font-bold text-ink-soft">{applicationState.label}</span>
           )}
-          <a href="#apply" className="font-bold underline decoration-2 underline-offset-4">
-            How applying works
+          <a href="#about" className="font-bold underline decoration-2 underline-offset-4">
+            New to this? Start with what Hack 876 is
           </a>
-          <span className="flex items-center gap-2 text-sm font-bold text-ink-soft">
-            <span aria-hidden className={`h-2.5 w-2.5 rounded-full ${applicationState.open ? "bg-emerald" : "bg-ink/30"}`} />
-            {applicationState.label}
-          </span>
+        </div>
+        <p className="mt-4 text-sm text-ink-soft">
+          Hack 876 is organized independently of {brief.school}. It costs nothing to apply, and applying does not guarantee a place.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  What is Hack 876?                                                         */
+/* -------------------------------------------------------------------------- */
+
+function About({ brief }: { brief: SchoolBrief }) {
+  const day = [
+    { t: "Morning", d: "Students arrive, meet their teams and are given the challenge for the day." },
+    { t: "Most of the day", d: "Teams decide what to make and build it, with mentors on hand to help. Lunch is provided." },
+    { t: "Late afternoon", d: "Each team shows its work to the judges. The strongest teams present on stage." },
+    { t: "Evening", d: `Prizes are awarded and the day ends at ${DAY_END}.` },
+  ];
+  return (
+    <section id="about" aria-labelledby="hub-about" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
+      <div className="hub-wrap">
+        <SectionHead id="hub-about" kicker="What is Hack 876?" title="A one-day competition where students build something.">
+          <p>
+            Events like this are called hackathons. Small teams start with a problem in the morning and, by the evening, show judges
+            what they have made. The name has nothing to do with breaking into computers.
+          </p>
+        </SectionHead>
+
+        <div className="mt-8 grid gap-3 lg:grid-cols-2">
+          <div className="hub-card p-5">
+            <h3 className="hub-h3">What happens on the day</h3>
+            <ol className="mt-3 space-y-2.5">
+              {day.map((d) => (
+                <li key={d.t} className="grid grid-cols-[7.5rem_1fr] gap-3 text-[0.98rem] leading-snug">
+                  <span className="font-extrabold text-[var(--sb-primary)]">{d.t}</span>
+                  <span className="text-ink-2">{d.d}</span>
+                </li>
+              ))}
+            </ol>
+            <Link href="/#schedule" className="mt-3 inline-block font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
+              See the full schedule
+            </Link>
+          </div>
+
+          <div className="hub-card p-5">
+            <h3 className="hub-h3">What students make</h3>
+            <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-2">Each team builds a prototype. {PROTOTYPE}</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {PROTOTYPE_EXAMPLES.map((e) => (
+                <li key={e} className="rounded-full border border-ink/20 bg-cream px-3 py-1 text-sm font-bold">
+                  {e}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-sm leading-snug text-ink-soft">
+              The aim is to have something working to show by the end of the day. Not every team gets all the way there, and that is
+              expected.
+            </p>
+          </div>
+
+          <div className="hub-card p-5">
+            <h3 className="hub-h3">What the judges look for</h3>
+            <ul className="mt-3 grid gap-x-4 gap-y-2 sm:grid-cols-2">
+              {judging.map((j) => (
+                <li key={j.name} className="text-[0.95rem] leading-snug">
+                  <span className="block font-extrabold">{j.name}</span>
+                  <span className="text-ink-2">{j.body}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-sm leading-snug text-ink-soft">A simple idea that works and is explained clearly can beat a complicated one that does not.</p>
+          </div>
+
+          <div className="hub-card p-5">
+            <h3 className="hub-h3">Who runs it, and why</h3>
+            <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-2">
+              Hack 876 is run by an organizing team led by {organizerNames.join(" and ")}
+              {brief.alumni ? `, who both attended ${brief.short}` : ""}. It exists to give Jamaican students a chance to build
+              something real before university, alongside people who do it for a living.
+            </p>
+            <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-2">
+              About {eligibility.maxHackers} students from several Kingston schools will take part, at the {venue.name}.
+            </p>
+            <a href="#contact" className="mt-3 inline-block font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
+              Contact the organizers
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -220,15 +321,15 @@ function Hero({ brief }: { brief: SchoolBrief }) {
 
 function Paths({ short }: { short: string }) {
   const paths = [
-    { href: "#students", icon: "rocket", title: "For students", text: "What to expect, who can take part, what you need to know, teams and how to apply." },
-    { href: "#parents", icon: "heart", title: "For parents", text: "Venue, hours, food, supervision, consent, transport, safety and costs." },
-    { href: "#teachers", icon: "learn", title: "For teachers", text: "Recommending students, who does well, ambassadors and materials to share." },
-    { href: "#questions", icon: "sticky", title: "Questions & answers", text: "Search every question we have been asked, by topic or by who is asking." },
+    { href: "#students", icon: "rocket", title: "I am a student", text: "Whether it is for you, what you will do, what to bring and how to apply." },
+    { href: "#parents", icon: "heart", title: "I am a parent or guardian", text: "Date, venue, hours, food, supervision, consent, transport and costs." },
+    { href: "#teachers", icon: "learn", title: "I am a teacher", text: "How to share it, which students suit it, and what the school is asked to do." },
+    { href: "#questions", icon: "sticky", title: "I have a question", text: "Search the answers, or browse them by topic." },
   ];
   return (
-    <section aria-label={`Where to start, for the ${short} community`} className="py-10 sm:py-14">
+    <section aria-label={`Where to start, for the ${short} community`} className="border-t border-ink/10 py-10 sm:py-14">
       <div className="hub-wrap">
-        <p className="hub-kicker">Start here</p>
+        <p className="hub-kicker">Go straight to what you need</p>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {paths.map((p) => (
             <li key={p.href}>
@@ -237,7 +338,7 @@ function Paths({ short }: { short: string }) {
                 <span className="hub-h3 mt-3">{p.title}</span>
                 <span className="mt-1.5 flex-1 text-[0.97rem] leading-snug text-ink-2">{p.text}</span>
                 <span className="mt-4 inline-flex items-center gap-1.5 font-extrabold text-[var(--sb-primary)]">
-                  Go <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+                  Read this section <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
                 </span>
               </a>
             </li>
@@ -253,37 +354,48 @@ function Paths({ short }: { short: string }) {
 /* -------------------------------------------------------------------------- */
 
 function Students({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => HubFaq }) {
-  const blocks = ["coding", "what-build", "training", "team"].map(byId);
+  const blocks = ["coding", "team", "training", "paid-tools"].map(byId);
   const kinds = [
-    { kind: "need" as const, title: "Bring", cls: "bg-mint" },
-    { kind: "nice" as const, title: "Good to have", cls: "bg-sun-light" },
-    { kind: "pending" as const, title: "Still to be confirmed", cls: "bg-cream" },
+    { kind: "need" as const, title: "Required", cls: "bg-mint" },
+    { kind: "nice" as const, title: "Bring if you have them", cls: "bg-sun-light" },
+    { kind: "pending" as const, title: TODO_LABEL, cls: "bg-cream" },
   ];
+  const roles = ["Understanding the problem", "Designing how it looks", "Building it", "Researching and testing", "Explaining it to the judges", "Keeping the team organized"];
   return (
     <section id="students" aria-labelledby="hub-students" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
       <div className="hub-wrap">
-        <SectionHead id="hub-students" kicker="For students" title="You build something. Then you show it.">
+        <SectionHead id="hub-students" kicker="For students" title="Is it for you, and what will you do?">
           <p>
-            You arrive with an idea or none at all, join a team of {TEAM}, and leave with something that works. Teams can mix
-            schools, so you may build with students you have never met.
+            If you are in {eligibility.forms} at {brief.short} and you like making things, yes. You will join a team of {TEAM}, choose
+            a problem, and spend the day building a solution together. You do not need to have coded before.
           </p>
         </SectionHead>
 
-        <div className="mt-8 grid gap-3 md:grid-cols-2">
+        <div className="hub-card-soft mt-8 p-5">
+          <h3 className="hub-h3">Every team needs different skills</h3>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {roles.map((r) => (
+              <li key={r} className="rounded-full border border-ink/20 bg-cream px-3 py-1 text-sm font-bold">
+                {r}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-sm text-ink-soft">Only one of these is programming. Artists, writers, researchers and confident speakers are needed too.</p>
+        </div>
+
+        <div className="mt-3 grid gap-3 md:grid-cols-2">
           {blocks.map((f) => (
             <article key={f.id} className="hub-card p-5">
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <h3 className="hub-h3 max-w-[26ch]">{f.q}</h3>
-                <Status s={f.status} />
-              </div>
+              <h3 className="hub-h3">{f.q}</h3>
               <Paras text={f.a} className="mt-2.5 text-[1rem] leading-relaxed text-ink-2" />
+              {f.todo && <Todo>{f.todo}</Todo>}
             </article>
           ))}
         </div>
 
-        <div className="mt-6 grid gap-3 lg:grid-cols-[1fr_1.4fr]">
+        <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_1.4fr]">
           <div className="hub-card-soft p-5">
-            <h3 className="hub-h3">Things students have built at hackathons</h3>
+            <h3 className="hub-h3">Kinds of things teams build</h3>
             <ul className="mt-3 flex flex-wrap gap-2">
               {buildTypes.map((b) => (
                 <li key={b.label} className="flex items-center gap-1.5 rounded-full border border-ink/20 bg-cream px-3 py-1 text-sm font-bold">
@@ -292,7 +404,7 @@ function Students({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => H
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-sm text-ink-soft">You choose the problem and the medium. AI is allowed, not required.</p>
+            <p className="mt-3 text-sm text-ink-soft">Your team chooses the problem and how to solve it.</p>
           </div>
 
           <div className="hub-card-soft p-5" data-anchor id="bring">
@@ -314,13 +426,96 @@ function Students({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => H
           </div>
         </div>
 
-        <p className="mt-6 text-ink-2">
-          Ready?{" "}
+        <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-ink-2">
+          <span className="font-bold text-ink">Next step:</span>
           <a href="#apply" className="font-bold text-ink underline decoration-2 underline-offset-4">
-            See how {brief.short} students apply
+            See how to apply
           </a>
-          .
+          {applicationState.open && (
+            <Link href="/apply" className="font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
+              or start your application now
+            </Link>
+          )}
         </p>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Applications and selection                                                */
+/* -------------------------------------------------------------------------- */
+
+function Applying({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => HubFaq }) {
+  const steps: { t: string; d: string; todo?: string }[] = [
+    { t: "Check you are eligible", d: `You need to be in ${eligibility.forms} at ${brief.short} or another participating school.` },
+    {
+      t: "Complete the application yourself",
+      d: "It is an online form on the Hack 876 website. You can apply alone or with friends. Each student fills in their own form.",
+    },
+    {
+      t: "Tell a teacher, if you like",
+      d: byId("recommendation").a,
+      todo: byId("recommendation").todo,
+    },
+    { t: "The organizing team reviews applications", d: byId("selection").a, todo: byId("selection").todo },
+    {
+      t: "You receive a decision",
+      d: "Accepted students are sent a consent form for a parent or guardian to sign, and the details for the day.",
+      todo: byId("deadline").todo,
+    },
+    { t: "Teams are confirmed", d: `Teams are ${TEAM} students. Students without a team are placed in one, which may include students from other schools.`, todo: byId("team").todo },
+  ];
+  return (
+    <section id="apply" aria-labelledby="hub-apply" className="border-t border-ink/10 py-14 sm:py-20">
+      <div className="hub-wrap">
+        <SectionHead id="hub-apply" kicker="How to apply" title="How to apply, and what happens next.">
+          <p>
+            {applicationState.label}. Places are limited to about {eligibility.maxHackers} students across all schools, so applying
+            does not guarantee a place.
+          </p>
+        </SectionHead>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+          <ol className="grid gap-2.5">
+            {steps.map((s, i) => (
+              <li key={s.t} className="hub-card flex gap-4 p-4">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[var(--sb-primary)] font-extrabold text-white">{i + 1}</span>
+                <div className="min-w-0 flex-1">
+                  <h3 className="hub-h3">{s.t}</h3>
+                  <p className="mt-1 text-[0.98rem] leading-relaxed text-ink-2">{s.d}</p>
+                  {s.todo && <Todo>{s.todo}</Todo>}
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <div className="grid h-fit gap-3">
+            <div className="hub-card p-5">
+              <h3 className="hub-h3">What the application asks for</h3>
+              <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
+                {applicationAsks.map((a) => (
+                  <li key={a} className="flex gap-2.5">
+                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sb-primary)]" />
+                    {a}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm text-ink-soft">There is no test. The written answers show what a student is curious about.</p>
+              {applicationState.open ? (
+                <Link href="/apply" className="btn btn-primary mt-5 w-full">
+                  Start the application <span aria-hidden>→</span>
+                </Link>
+              ) : (
+                <p className="mt-5 rounded-xl border-2 border-dashed border-ink/40 px-4 py-3 text-center font-bold text-ink-soft">{applicationState.label}</p>
+              )}
+            </div>
+            <div className="hub-card-soft p-5">
+              <h3 className="hub-h3">How many {brief.short} students?</h3>
+              <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{byId("guaranteed-place").a.split("\n\n")[1]}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -335,21 +530,21 @@ function Parents({ byId }: { byId: (id: string) => HubFaq }) {
     { title: "Date", id: "when", icon: "clock" },
     { title: "Venue", id: "where", icon: "pin" },
     { title: "Hours", id: "overnight", icon: "clock" },
-    { title: "Food", id: "food", icon: "patty" },
-    { title: "Supervision and safeguarding", id: "supervision", icon: "people" },
+    { title: "Supervision and safety", id: "supervision", icon: "people" },
     { title: "Consent", id: "consent", icon: "notebook" },
-    { title: "Drop-off, pick-up and transport", id: "transport", icon: "move" },
-    { title: "Emergency contacts", id: "emergency", icon: "badge" },
-    { title: "Access, medical and dietary needs", id: "access", icon: "wellbeing" },
+    { title: "Food", id: "food", icon: "patty" },
+    { title: "Getting there and back", id: "transport", icon: "move" },
     { title: "Costs", id: "cost", icon: "business" },
+    { title: "Contact on the day", id: "emergency", icon: "badge" },
+    { title: "Access, medical and dietary needs", id: "access", icon: "wellbeing" },
   ];
   return (
-    <section id="parents" aria-labelledby="hub-parents" className="border-t border-ink/10 py-14 sm:py-20">
+    <section id="parents" aria-labelledby="hub-parents" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
       <div className="hub-wrap">
-        <SectionHead id="hub-parents" kicker="For parents and guardians" title="The practical details.">
+        <SectionHead id="hub-parents" kicker="For parents and guardians" title="What parents and guardians need to know.">
           <p>
-            What is settled, and what is not yet. Where something is marked &ldquo;Details forthcoming&rdquo;, it has not been decided
-            and you will hear from us before your child is asked to commit to anything.
+            Hack 876 is a supervised, single-day event at a hotel in Kingston. Each card below gives what is known. Where a detail is
+            marked &ldquo;{TODO_LABEL}&rdquo;, families will be told before a student is asked to accept a place.
           </p>
         </SectionHead>
         <ul className="mt-8 grid gap-3 md:grid-cols-2">
@@ -364,6 +559,7 @@ function Parents({ byId }: { byId: (id: string) => HubFaq }) {
                     <Status s={f.status} />
                   </div>
                   <Paras text={f.a} className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2" />
+                  {f.todo && <Todo>{f.todo}</Todo>}
                   {f.link && (
                     <a
                       href={f.link.href}
@@ -378,6 +574,13 @@ function Parents({ byId }: { byId: (id: string) => HubFaq }) {
             );
           })}
         </ul>
+        <p className="mt-6 text-ink-2">
+          <span className="font-bold text-ink">Next step:</span> if your child would like to take part, they complete{" "}
+          <a href="#apply" className="font-bold text-ink underline decoration-2 underline-offset-4">
+            the application
+          </a>{" "}
+          themselves. Nothing needs to be signed or paid at that stage.
+        </p>
       </div>
     </section>
   );
@@ -389,22 +592,22 @@ function Parents({ byId }: { byId: (id: string) => HubFaq }) {
 
 function AiTools() {
   const points = [
-    { t: "Being under 18 does not stop you applying.", d: "Students in the eligible forms can apply whatever their age." },
-    { t: "Not every AI tool is open to minors.", d: "Some third-party AI tools set a minimum age, and some are for adults only." },
-    { t: "A parent cannot waive a provider's age limit.", d: "Consent does not override a hard minimum age. Under-18s will not be asked or allowed to use an adults-only tool." },
-    { t: "Organizers will say which tools are allowed.", d: "We are still choosing age-appropriate tools and any sponsored access." },
-    { t: "No team should be stuck.", d: "Teams should have suitable options without every student needing an age-restricted product." },
-    { t: "Procedures come before the event.", d: "Final consent, permitted-tool and account-access steps will be shared in advance." },
+    { t: "Students may use AI, but do not have to.", d: "AI tools are programs that can write text, code or images from instructions. A team can do well without them." },
+    { t: "Students under 18 can take part.", d: "Age limits apply to particular tools, not to the event." },
+    { t: "Some AI tools are for adults only.", d: "The companies that make them set a minimum age. Students under 18 will not use an adults-only tool at Hack 876." },
+    { t: "A parent cannot give permission for an 18+ tool.", d: "A parent\u2019s consent does not change a company\u2019s minimum age." },
+    { t: "Students use approved tools only.", d: "The organizers are choosing tools suitable for the ages taking part, so that every team has tools its members may use." },
+    { t: "Students do not need to buy anything.", d: "The aim is that no student has to pay for software or an AI subscription." },
   ];
   return (
     <section id="ai-tools" aria-labelledby="hub-ai" className="border-t border-ink/10 bg-night py-14 text-cream sm:py-20">
       <div className="hub-wrap">
-        <p className="text-[0.74rem] font-extrabold tracking-[0.16em] text-sun uppercase">AI tools, age limits and consent</p>
+        <p className="text-[0.74rem] font-extrabold tracking-[0.16em] text-sun uppercase">AI tools and age limits</p>
         <h2 id="hub-ai" className="hub-h2 mt-2">
-          Clear rules, shared before the day.
+          How AI tools are handled for students under 18.
         </h2>
         <p className="mt-3 max-w-2xl text-[1.08rem] leading-relaxed text-cream/80">
-          AI is allowed at Hack 876, not required. The list of permitted tools is not final, so here is exactly where things stand.
+          Most students taking part are under 18, and many AI tools have age rules. This is how Hack 876 deals with that.
         </p>
         <ol className="mt-8 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {points.map((p, i) => (
@@ -415,73 +618,10 @@ function AiTools() {
             </li>
           ))}
         </ol>
-        <p className="mt-6 inline-flex flex-wrap items-center gap-2 text-sm text-cream/70">
-          <span className="hub-status border-dashed border-cream/50 text-cream">Details forthcoming</span>
-          The permitted-tool list and the consent form.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Applications and selection                                                */
-/* -------------------------------------------------------------------------- */
-
-function Applying({ brief }: { brief: SchoolBrief }) {
-  const steps: { t: string; d: string; s?: HubStatus }[] = [
-    { t: "Your school introduces you", d: `${brief.short} shares this page and recommends students in ${eligibility.forms}.` },
-    { t: "You apply yourself", d: "Every student fills in the Hack 876 application. Nobody is entered on your behalf." },
-    { t: "We read every application", d: "The organizing team reviews them. Detailed criteria have not been published.", s: "pending" },
-    { t: "You hear back", d: "The closing date and decision date have not been set.", s: "pending" },
-    { t: "Teams come together", d: `Teams of ${TEAM}. Bring friends or be matched, including with other schools. Final rules are still being settled.`, s: "tentative" },
-  ];
-  return (
-    <section id="apply" aria-labelledby="hub-apply" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
-      <div className="hub-wrap">
-        <SectionHead id="hub-apply" kicker="Applications and selection" title="How a student gets in.">
-          <p>
-            A school recommendation does not guarantee admission. For planning we have roughly {brief.planningRange.min} to{" "}
-            {brief.planningRange.max} {brief.short} students in mind. That range is provisional, not a quota.
-          </p>
-        </SectionHead>
-
-        <div className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-          <ol className="grid gap-2.5">
-            {steps.map((s, i) => (
-              <li key={s.t} className="hub-card flex gap-4 p-4">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[var(--sb-primary)] font-extrabold text-white">{i + 1}</span>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="hub-h3">{s.t}</h3>
-                    <Status s={s.s} />
-                  </div>
-                  <p className="mt-1 text-[0.98rem] leading-relaxed text-ink-2">{s.d}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          <div className="hub-card h-fit p-5">
-            <h3 className="hub-h3">What the application asks</h3>
-            <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
-              {applicationAsks.map((a) => (
-                <li key={a} className="flex gap-2.5">
-                  <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sb-primary)]" />
-                  {a}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 text-sm text-ink-soft">No test and no trick questions. We want to know what you like making.</p>
-            {applicationState.open ? (
-              <Link href="/apply" className="btn btn-primary mt-5 w-full">
-                Start your application <span aria-hidden>→</span>
-              </Link>
-            ) : (
-              <p className="mt-5 rounded-xl border-2 border-dashed border-ink/40 px-4 py-3 text-center font-bold text-ink-soft">{applicationState.label}</p>
-            )}
-          </div>
-        </div>
+        <Todo dark>
+          The list of approved tools, the age limit for each, and the consent form. All three will be sent to accepted students and
+          their families before the event.
+        </Todo>
       </div>
     </section>
   );
@@ -491,20 +631,20 @@ function Applying({ brief }: { brief: SchoolBrief }) {
 /*  Beyond event day                                                          */
 /* -------------------------------------------------------------------------- */
 
-function Beyond() {
+function Beyond({ byId }: { byId: (id: string) => HubFaq }) {
   return (
     <section id="beyond" aria-labelledby="hub-beyond" className="border-t border-ink/10 py-14 sm:py-20">
       <div className="hub-wrap">
-        <SectionHead id="hub-beyond" kicker="Beyond event day" title="What it can lead to, honestly." />
+        <SectionHead id="hub-beyond" kicker="After the event" title="What students gain beyond the competition." />
         <div className="mt-8 grid gap-3 md:grid-cols-2">
           <div className="hub-card p-5">
-            <p className="hub-status border-ink bg-mint text-emerald-dark">On the day</p>
+            <h3 className="hub-h3">What every participant gets</h3>
             <ul className="mt-3 space-y-2 text-[1rem] leading-snug text-ink-2">
               {[
-                "Build next to engineers, mentors and technical professionals.",
-                "Present to judges who work in the industry.",
-                "Meet students from other schools who like making things.",
-                "Leave with a project you can show and talk about.",
+                "A day working next to engineers, mentors and other professionals.",
+                "Practice presenting to judges who work in technology and business.",
+                "New contacts among students from other schools.",
+                "A project to describe on a university or job application.",
               ].map((t) => (
                 <li key={t} className="flex gap-2.5">
                   <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald" />
@@ -514,14 +654,12 @@ function Beyond() {
             </ul>
           </div>
           <div className="hub-card p-5">
-            <p className="hub-status border-dashed border-ink/40 bg-cream text-ink-soft">What we hope to build</p>
-            <p className="mt-3 text-[1rem] leading-relaxed text-ink-2">
-              Over time we want longer-term pathways involving companies, universities and mentors. None exist yet, and no formal
-              career-development programme has been arranged.
-            </p>
+            <h3 className="hub-h3">What is not on offer</h3>
             <p className="mt-3 rounded-xl bg-[color-mix(in_srgb,var(--sb-secondary)_30%,transparent)] px-4 py-3 text-[0.98rem] font-bold">
-              Hack 876 does not promise internships, jobs, scholarships, interviews or placements.
+              Hack 876 does not offer or promise internships, jobs, scholarships, interviews or placements.
             </p>
+            <p className="mt-3 text-[0.98rem] leading-relaxed text-ink-2">{byId("careers").a}</p>
+            {byId("internships").todo && <Todo>{byId("internships").todo}</Todo>}
           </div>
         </div>
       </div>
@@ -537,13 +675,15 @@ function Community({ brief }: { brief: SchoolBrief }) {
   const alumni = schoolAlumni(brief.school);
   if (alumni.length === 0) return null;
   const tag = { judge: "Judge", organizer: "Organizer" } as const;
+  const judges = alumni.filter((p) => p.role === "judge").length;
+  const orgs = alumni.filter((p) => p.role === "organizer").length;
   return (
     <section id="community" aria-labelledby="hub-community" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
       <div className="hub-wrap">
-        <SectionHead id="hub-community" kicker={`The ${brief.short} connection`} title={brief.alumni?.headline ?? `${brief.short} in the room.`}>
+        <SectionHead id="hub-community" kicker={`${brief.short} alumni at Hack 876`} title={brief.alumni?.headline ?? `${brief.short} alumni at Hack 876.`}>
           <p>
-            {alumni.filter((p) => p.role === "judge").length} Hack 876 judges and {alumni.filter((p) => p.role === "organizer").length}{" "}
-            organizers went to {brief.short}. Students will present to people who started where they are.
+            {judges} of the judges and {orgs === 2 ? "both" : orgs} organizers of Hack 876 are former {brief.short} students. Each card shows
+            where they studied after {brief.short} and where they work now.
           </p>
         </SectionHead>
         <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -567,7 +707,10 @@ function Community({ brief }: { brief: SchoolBrief }) {
             );
           })}
         </ul>
-        {brief.alumni && <p className="mt-4 text-sm text-ink-soft">{brief.alumni.note}</p>}
+        <p className="mt-4 text-sm text-ink-soft">
+          Workplaces are listed to show each person&rsquo;s career. These companies are not sponsors of Hack 876 unless listed as sponsors on the
+          main website.
+        </p>
       </div>
     </section>
   );
@@ -580,20 +723,34 @@ function Community({ brief }: { brief: SchoolBrief }) {
 function Teachers({ brief }: { brief: SchoolBrief }) {
   const hub = brief.hub!;
   const { liaison } = brief;
-  const organizers = people.filter((p) => p.role === "organizer" && p.confirmed);
+  const split = [
+    {
+      title: "What Hack 876 handles",
+      items: ["Applications and selecting participants", "Consent forms for parents and guardians", "The venue, schedule, food, mentors and judges", "All communication with students and families"],
+    },
+    {
+      title: `What stays with ${brief.short}`,
+      items: ["Sharing the opportunity with eligible students", "Recommending students, if teachers wish to", `Any school permission ${brief.short} requires for outside activities`],
+    },
+  ];
   return (
     <section id="teachers" aria-labelledby="hub-teachers" className="border-t border-ink/10 py-14 sm:py-20">
       <div className="hub-wrap">
-        <SectionHead id="hub-teachers" kicker="For teachers" title="Light for the school. Handled by us.">
+        <SectionHead id="hub-teachers" kicker="For teachers" title={`How ${brief.short} teachers can support students.`}>
           <p>
-            {brief.short} is not asked for money or to organize anything. The school&rsquo;s part is sharing the opportunity and
-            recommending students. Hack 876 does the rest.
+            {brief.short} is not asked to pay, host or organize anything. Teachers can help by telling eligible students about Hack 876 and,
+            if they wish, recommending students who would enjoy it.
           </p>
         </SectionHead>
 
-        <div className="mt-8 grid gap-3 lg:grid-cols-2">
+        <div className="hub-card-soft mt-8 p-5">
+          <h3 className="hub-h3">{brief.short}&rsquo;s involvement</h3>
+          <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{hub.status}</p>
+        </div>
+
+        <div className="mt-3 grid gap-3 lg:grid-cols-2">
           <div className="hub-card p-5">
-            <h3 className="hub-h3">How recommending works</h3>
+            <h3 className="hub-h3">How to share it and recommend students</h3>
             <ol className="mt-3 space-y-2.5 text-[0.98rem] leading-snug text-ink-2">
               {hub.faculty.process.map((t, i) => (
                 <li key={t} className="flex gap-3">
@@ -602,9 +759,12 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
                 </li>
               ))}
             </ol>
+            <a href="#resources" className="mt-3 inline-block font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
+              Download the flyer and information sheets
+            </a>
           </div>
           <div className="hub-card p-5">
-            <h3 className="hub-h3">Who tends to do well</h3>
+            <h3 className="hub-h3">Students who are a good fit</h3>
             <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
               {hub.faculty.profiles.map((t) => (
                 <li key={t} className="flex gap-2.5">
@@ -613,19 +773,34 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
                 </li>
               ))}
             </ul>
+            <p className="mt-3 text-sm text-ink-soft">Programming experience is not required.</p>
           </div>
 
+          {split.map((b) => (
+            <div key={b.title} className="hub-card p-5">
+              <h3 className="hub-h3">{b.title}</h3>
+              <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
+                {b.items.map((t) => (
+                  <li key={t} className="flex gap-2.5">
+                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sb-primary)]" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
           <div className="hub-card p-5">
-            <p className="hub-status border-ink bg-mint text-emerald-dark">Faculty liaison</p>
-            <p className="mt-2 text-xl font-extrabold">{liaison.name}</p>
+            <p className="hub-kicker">Faculty liaison</p>
+            <p className="mt-1.5 text-xl font-extrabold">{liaison.name}</p>
             <p className="font-bold text-[var(--sb-primary)]">{liaison.title}</p>
-            <p className="mt-0.5 text-sm text-ink-soft">{liaison.credentials}</p>
             <p className="mt-3 text-[0.98rem] leading-relaxed text-ink-2">{liaison.role}</p>
-            <p className="mt-3 border-t border-ink/10 pt-3 text-sm text-ink-soft">{liaison.note}</p>
           </div>
           <div className="hub-card p-5">
-            <p className="hub-status border-dashed border-ink/40 bg-cream text-ink-soft">Student ambassadors · to be nominated</p>
-            <p className="mt-3 text-[0.98rem] leading-relaxed text-ink-2">{hub.ambassadors.summary}</p>
+            <p className="hub-kicker">Student ambassadors</p>
+            <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">
+              A student ambassador is a {brief.short} student who helps classmates find out about Hack 876. {hub.ambassadors.summary}
+            </p>
             <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
               {hub.ambassadors.duties.map((t) => (
                 <li key={t} className="flex gap-2.5">
@@ -635,16 +810,6 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
               ))}
             </ul>
           </div>
-        </div>
-
-        <div className="hub-card-soft mt-3 flex flex-wrap items-center gap-4 p-5">
-          <div className="flex shrink-0 -space-x-3">
-            {organizers.map((o) => (o.photo ? <Image key={o.name} src={o.photo} alt={o.name} width={44} height={44} className="h-11 w-11 rounded-full border-2 border-ink object-cover" /> : null))}
-          </div>
-          <p className="min-w-[16rem] flex-1 text-[0.98rem] leading-snug text-ink-2">
-            <strong className="text-ink">The Hack 876 organizing team</strong> runs event operations, applications, consent forms and all
-            official communication with students and parents.
-          </p>
         </div>
       </div>
     </section>
@@ -660,13 +825,13 @@ function Resources({ brief }: { brief: SchoolBrief }) {
   const link = `${event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}/schools/${brief.slug}`;
   const items = [
     ...sheets.map((s) => ({ title: s.title, blurb: s.blurb, href: s.href, filename: s.filename, kind: "PDF · 1 page" })),
-    { title: `${brief.short} participation brief`, blurb: "The original presentation for school leadership.", href: brief.pdf.href, filename: brief.pdf.filename, kind: "PDF · slides" },
+    { title: `Presentation for ${brief.short} staff`, blurb: `A slide presentation introducing Hack 876 to ${brief.short} staff and leadership.`, href: brief.pdf.href, filename: brief.pdf.filename, kind: "PDF · slides" },
   ];
   return (
     <section id="resources" aria-labelledby="hub-resources" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
       <div className="hub-wrap">
-        <SectionHead id="hub-resources" kicker="Downloads" title="Ready to share.">
-          <p>Printable sheets for noticeboards, class groups and parents. Nobody at {brief.short} needs to rewrite anything.</p>
+        <SectionHead id="hub-resources" kicker="Downloads" title="Flyers and information sheets to share.">
+          <p>One-page PDFs to print, pin to a noticeboard or send in a class or parent group.</p>
         </SectionHead>
         <ul className="mt-8 grid gap-3 md:grid-cols-2">
           {items.map((it) => (
@@ -678,15 +843,15 @@ function Resources({ brief }: { brief: SchoolBrief }) {
                 <svg viewBox="0 0 20 20" aria-hidden className="h-4 w-4">
                   <path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 14.5V16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                Download
+                Download PDF
               </a>
             </li>
           ))}
         </ul>
         <div className="hub-card-soft mt-3 flex flex-wrap items-center justify-between gap-3 p-5">
           <div>
-            <h3 className="hub-h3">Share this page</h3>
-            <p className="mt-1 text-[0.97rem] text-ink-2">One link for students, parents and teachers.</p>
+            <h3 className="hub-h3">Link to this page</h3>
+            <p className="mt-1 text-[0.97rem] text-ink-2">Copy and send this address to students, parents or colleagues.</p>
           </div>
           <p className="rounded-xl border-2 border-ink bg-cream px-4 py-2 font-mono text-sm font-bold break-all select-all">{link}</p>
         </div>
@@ -696,53 +861,40 @@ function Resources({ brief }: { brief: SchoolBrief }) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Contact and what is still open                                            */
+/*  Contact                                                                   */
 /* -------------------------------------------------------------------------- */
 
 function Contact({ brief }: { brief: SchoolBrief }) {
+  const organizers = people.filter((p) => p.role === "organizer" && p.confirmed);
   return (
     <section id="contact" aria-labelledby="hub-contact" className="border-t border-ink/10 py-14 sm:py-20">
-      <div className="hub-wrap grid gap-6 lg:grid-cols-2">
-        <div>
-          <SectionHead id="hub-contact" kicker="Contact" title="Still have a question?" />
-          <div className="mt-6 grid gap-3">
-            <div className="hub-card p-5">
-              <h3 className="hub-h3">About Hack 876</h3>
-              <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">
-                The event, applications, consent, tools, safety or anything on this page.
-              </p>
-              {event.contactEmail && (
-                <a href={`mailto:${event.contactEmail}`} className="mt-3 inline-block text-lg font-extrabold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
-                  {event.contactEmail}
-                </a>
-              )}
-            </div>
-            <div className="hub-card p-5">
-              <h3 className="hub-h3">About {brief.short}&rsquo;s arrangements</h3>
-              <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{brief.hub!.schoolChannel}</p>
+      <div className="hub-wrap">
+        <SectionHead id="hub-contact" kicker="Contact" title="Who to ask." />
+        <div className="mt-8 grid gap-3 md:grid-cols-2">
+          <div className="hub-card p-5">
+            <h3 className="hub-h3">Questions about Hack 876</h3>
+            <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">
+              For anything about the event, applications, consent, safety or costs, email the organizing team.
+            </p>
+            {event.contactEmail && (
+              <a href={`mailto:${event.contactEmail}`} className="mt-3 inline-block text-lg font-extrabold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
+                {event.contactEmail}
+              </a>
+            )}
+            <div className="mt-4 flex items-center gap-3 border-t border-ink/10 pt-3">
+              <div className="flex shrink-0 -space-x-3">
+                {organizers.map((o) => (o.photo ? <Image key={o.name} src={o.photo} alt="" width={40} height={40} className="h-10 w-10 rounded-full border-2 border-ink object-cover" /> : null))}
+              </div>
+              <p className="text-sm leading-snug text-ink-soft">Organized by {organizers.map((o) => o.name).join(" and ")}.</p>
             </div>
           </div>
-        </div>
-
-        <div className="hub-card-soft h-fit p-5 sm:p-6">
-          <p className="hub-status border-dashed border-ink/40 bg-cream text-ink-soft">Details forthcoming</p>
-          <h3 className="hub-h3 mt-2">What we have not decided yet</h3>
-          <p className="mt-1.5 text-[0.97rem] leading-relaxed text-ink-2">
-            We would rather say so than guess. This page is updated as each one is settled.
-          </p>
-          <ul className="mt-3 space-y-2 text-[0.97rem] leading-snug text-ink-2">
-            {openItems.map((t) => (
-              <li key={t} className="flex gap-2.5">
-                <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ink/40" />
-                {t}
-              </li>
-            ))}
-            <li className="flex gap-2.5">
-              <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ink/40" />
-              Who the {brief.short} student ambassadors will be
-            </li>
-          </ul>
-          <p className="mt-4 border-t border-ink/10 pt-3 text-sm text-ink-soft">{brief.hub!.status}</p>
+          <div className="hub-card p-5">
+            <h3 className="hub-h3">Questions about {brief.short}&rsquo;s arrangements</h3>
+            <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{brief.hub!.schoolChannel}</p>
+            <p className="mt-4 border-t border-ink/10 pt-3 text-sm leading-snug text-ink-soft">
+              This page is updated as details are confirmed. Accepted students and their families are also told directly.
+            </p>
+          </div>
         </div>
       </div>
     </section>
