@@ -1,0 +1,78 @@
+/*
+ * Printable one-page sheets (US Letter, portrait). On screen the page is shown
+ * as a sheet of paper; in print it fills the page exactly.
+ */
+.sheet-stage {
+  min-height: 100dvh;
+  background: #e9e3d3;
+  padding: 1.5rem 0.75rem 3rem;
+}
+.sheet {
+  --sb-primary: #1f3f9e;
+  --sb-secondary: #f5c518;
+  position: relative;
+  box-sizing: border-box;
+  width: 8.5in;
+  height: 11in;
+  margin-inline: auto;
+  overflow: hidden;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  box-shadow: 0 12px 40px -12px rgb(20 23 22 / 0.35);
+  display: flex;
+  flex-direction: column;
+}
+/* Scale the fixed-size sheet down to fit narrow screens. */
+@media screen and (max-width: 860px) {
+  .sheet-scale {
+    width: 8.5in;
+    transform-origin: top left;
+    transform: scale(calc((100vw - 1.5rem) / 816));
+    height: calc(11in * (100vw - 1.5rem) / 816);
+  }
+  .sheet-stage {
+    overflow-x: hidden;
+  }
+}
+.sheet-under {
+  background: linear-gradient(transparent 66%, color-mix(in srgb, var(--sb-secondary) 80%, transparent) 66%, color-mix(in srgb, var(--sb-secondary) 80%, transparent) 94%, transparent 94%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.sheet-pill {
+  display: inline-flex;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@page {
+  size: letter portrait;
+  margin: 0;
+}
+@media print {
+  html,
+  body {
+    background: var(--color-cream) !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .sheet-stage {
+    padding: 0;
+    background: none;
+  }
+  .sheet {
+    box-shadow: none;
+  }
+  .sheet-no-print,
+  nextjs-portal {
+    display: none !important;
+  }
+}

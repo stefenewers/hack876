@@ -518,7 +518,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Can I use AI tools?",
-    a: "Yes, use whatever tech fits your idea. Just be ready to explain what you built and how it works. Judges will ask.",
+    a: "Yes, within the tools organizers approve for the event. Some AI tools have minimum ages, and a few are 18 and over, so we'll publish which tools participants may use beforehand.\n\nWhatever you use, be ready to explain what you built and how it works. Judges will ask.",
     pending: true,
   },
   {
@@ -528,12 +528,12 @@ export const faqs: Faq[] = [
   },
   {
     q: "Is Hack 876 free?",
-    a: "Details on cost will be shared here soon.",
+    a: "Our goal is that students won't need to buy any technology tools to build their projects. Any participation cost will be confirmed here.",
     pending: true,
   },
   {
     q: "Will food be provided?",
-    a: "There's a lunch break on the schedule. Details on meals and dietary needs will be shared with accepted hackers.",
+    a: "Yes, food is provided on the day. Meal specifics and dietary arrangements will be shared with accepted hackers.",
     pending: true,
   },
   {
@@ -575,7 +575,7 @@ export const parents: {
   },
   {
     topic: "Schedule",
-    body: `Hack 876 is planned for ${eventWhen.long}${eventWhen.note}. Doors open at 8:00 AM and the event wraps at 7:30 PM. Pick-up details will be shared ahead of time.`,
+    body: `Hack 876 is planned for ${eventWhen.long}${eventWhen.note}. It is a one-day event, not overnight. Doors open at 8:00 AM and the event wraps at 7:30 PM. Pick-up details will be shared ahead of time.`,
   },
   {
     topic: "Venue",
@@ -583,7 +583,7 @@ export const parents: {
   },
   {
     topic: "Food",
-    body: "Lunch is part of the day. Information on meals and dietary requirements will be collected from accepted students.",
+    body: "Food is provided on the day. Meal specifics are still being finalized, and dietary requirements will be collected from accepted students.",
     pending: true,
   },
   {

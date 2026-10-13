@@ -1,4 +1,4 @@
-import type { School } from "./event";
+import { people, type School } from "./event";
 
 /**
  * Private participation briefs for schools, one entry per school.
@@ -65,6 +65,20 @@ export type SchoolBrief = {
     also?: { title: string; tag?: string; text: string }[];
   };
   closing: { lead: string; line: string };
+  /**
+   * Set once a school has a working contact and its community needs answers,
+   * not a pitch. `/schools/<slug>` then renders the participation hub, and the
+   * original brief moves to `/schools/<slug>/brief`.
+   */
+  hub?: {
+    /** Honest one-line relationship status, e.g. faculty support vs formal approval. */
+    status: string;
+    ambassadors: { summary: string; duties: string[] };
+    /** What we ask of teachers, and who tends to do well. */
+    faculty: { process: string[]; profiles: string[] };
+    /** Where school-specific questions should go. */
+    schoolChannel: string;
+  };
   pdf: { href: string; filename: string };
   sources: { label: string; href: string }[];
 };
@@ -168,8 +182,8 @@ export const schoolBriefs: SchoolBrief[] = [
     },
     planningRange: { min: 8, max: 12 },
     asks: [
-      "Mrs. Morrison’s guidance in introducing Hack 876 within Campion.",
-      "One or two enthusiastic student ambassadors.",
+      "Mrs. Morrison’s continued guidance in introducing Hack 876 within Campion.",
+      "Two student ambassadors, ideally one Lower Sixth and one Fifth Form student.",
       "Help recommending students from 5th Form through Upper 6th Form.",
       "Help sharing the opportunity with relevant faculty, students and school leadership.",
       "Guidance on any administrative requirements for formal school participation.",
@@ -184,17 +198,47 @@ export const schoolBriefs: SchoolBrief[] = [
       kicker: "Working with the Technology Department",
       headline: "A relationship, not a recruitment drive.",
       intro:
-        "We would like to build something lasting with Campion’s Technology Department, beyond one event. We hope that can begin with Mrs. Morrison.",
-      tag: "Proposed faculty liaison · subject to her agreement",
-      role: "We would welcome Mrs. Morrison as our faculty liaison and principal point of contact in the department: helping us introduce Hack 876 at Campion in the right way and to the right people.",
-      note: "This is a proposal. Mrs. Morrison has not accepted any role, and Campion College has not endorsed Hack 876 or confirmed participation.",
+        "We want to build something lasting with Campion’s Technology Department, beyond one event. That work has started with Mrs. Morrison.",
+      tag: "Faculty liaison · agreed October 2026",
+      role: "Mrs. Morrison has agreed to serve as Hack 876’s faculty liaison at Campion: our point of contact in the department for coordination, recommendations and questions.",
+      note: "Mrs. Morrison’s support is at faculty level. Formal approval from Campion College’s administration has not been documented, and student places are not guaranteed.",
       also: [
         {
           title: "Student ambassadors",
-          tag: "Proposed",
-          text: "One or two students, chosen with the department, who help classmates understand the opportunity and bring their questions back to us.",
+          tag: "To be nominated",
+          text: "Two students are expected, ideally one Lower Sixth and one Fifth Form student, to help classmates understand the opportunity. No names have been chosen.",
         },
       ],
+    },
+    hub: {
+      status:
+        "Mrs. Keisha Morrison, Head of the Technology Department, has agreed to be Hack 876’s faculty liaison at Campion. Formal approval from the school’s administration has not been documented yet.",
+      ambassadors: {
+        summary:
+          "Two student ambassadors are expected to be nominated, ideally one Lower Sixth and one Fifth Form student. No names have been chosen, and none will be published without permission.",
+        duties: [
+          "Help circulate official Hack 876 materials.",
+          "Encourage eligible students to apply.",
+          "Point common questions to this page.",
+          "Pass questions and updates through the faculty liaison.",
+        ],
+      },
+      faculty: {
+        process: [
+          "Share this page with students in 5th Form through Upper 6th Form.",
+          "Recommend students you think would enjoy it. A short list through the faculty liaison is enough.",
+          "Recommended students then apply on the Hack 876 website themselves.",
+          "Hack 876 handles selection, consent forms and all event communication.",
+        ],
+        profiles: [
+          "Curious students who like making things, in any subject.",
+          "Students from Computer Science, IT, Maths, the Sciences, Art, Design or Business.",
+          "Strong communicators, organizers and researchers, not only coders.",
+          "Students who work well with people they have just met.",
+        ],
+      },
+      schoolChannel:
+        "Questions about Campion’s own arrangements, such as permission to attend or school transport, go through Campion’s Technology Department in the usual way.",
     },
     closing: {
       lead: "Campion has already helped produce some of the professionals making Hack 876 possible.",
@@ -222,6 +266,11 @@ export const schoolBriefs: SchoolBrief[] = [
     ],
   },
 ];
+
+/** Confirmed judges and organizers who attended a school. */
+export function schoolAlumni(school: School) {
+  return people.filter((p) => p.confirmed && (p.role === "judge" || p.role === "organizer") && p.schools?.includes(school));
+}
 
 export function getSchoolBrief(slug: string) {
   return schoolBriefs.find((b) => b.slug === slug);

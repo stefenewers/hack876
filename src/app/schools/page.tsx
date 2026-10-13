@@ -38,11 +38,11 @@ export default function SchoolsPage() {
                     <Image src={b.crest} alt="" width={64} height={64} className="h-16 w-16 shrink-0 object-contain" />
                     <div>
                       <p className="text-xl leading-tight font-extrabold">{b.school}</p>
-                      <p className="mt-0.5 text-sm font-semibold text-ink-soft">Participation brief</p>
+                      <p className="mt-0.5 text-sm font-semibold text-ink-soft">{b.hub ? "Participation hub" : "Participation brief"}</p>
                     </div>
                   </div>
                   <span className="mt-6 inline-flex items-center gap-1.5 font-extrabold text-emerald-deep">
-                    View {b.short} brief <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+                    {b.hub ? `Open the ${b.short} hub` : `View ${b.short} brief`} <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
                   </span>
                 </Link>
               </li>
