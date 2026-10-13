@@ -105,7 +105,7 @@ test("decks only mention awards that exist, and the register matches", () => {
 test("no deck asks a partner for people, except Norus", () => {
   const ask = /\b(as|their|your|our) (mentors?|judges?|speakers?|volunteers?)\b|\b(mentors?|judges?|speakers?|volunteers?) (from|on the day|in the room)\b|people in the room/i;
   for (const d of decks) {
-    const t = JSON.stringify({ brief: { ...d.brief, logistics: [] }, ask: d.ask, future: d.future });
+    const t = JSON.stringify({ hero: d.hero, brief: { ...d.brief, logistics: [] }, ask: d.ask, future: d.future });
     assert.doesNotMatch(t, ask, `${d.slug} asks for people`);
   }
   for (const p of pages.filter((p) => p.slug !== "norus")) {

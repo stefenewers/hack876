@@ -15,7 +15,7 @@ const deck: SponsorDeckData = {
   hero: {
     headline: "Pour into the students, one build at a time.",
     highlight: "Pour into the students",
-    sub: "Microsoft already invests in young Jamaicans who want to build with technology. Hack876 is one day where high-school students get to do exactly that, with Microsoft people in the room.",
+    sub: "Microsoft already invests in young Jamaicans who want to build with technology. Hack876 is one day where high-school students get to do exactly that.",
   },
   brief: {
     fit: "Microsoft already invests in young Jamaican builders through Project Blue Mountain, and a Hack876 judge works at Microsoft.",
