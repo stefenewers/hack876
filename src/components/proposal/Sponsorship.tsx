@@ -85,26 +85,53 @@ export function BenefitsMatrix({ recommended, show }: { recommended?: BandKey; s
   );
 }
 
+/** Purpose wording for exploratory briefs, where nothing is being contributed yet. */
+const exploreText: Record<PurposeKey, string> = {
+  overall: "How the day as a whole could serve students.",
+  prizes: "What students take home.",
+  awards: "How student work is recognised.",
+  meals: "Meals and refreshments on the day.",
+  equipment: "The equipment teams build with, and what happens to it afterwards.",
+  materials: "Learning materials students and schools can keep using.",
+  production: "Staging, sound and the room.",
+  signage: "Signage and wayfinding.",
+  programming: "Mentoring and the student programme, on the day and after it.",
+  logistics: "Running the day.",
+};
+
 /** What a contribution could help support, and how to help with a physical prize. */
-export function SupportUses({ uses, restriction, children }: { uses: PurposeKey[]; restriction?: string; children?: ReactNode }) {
-  const showPrizes = uses.includes("prizes");
+export function SupportUses({
+  uses,
+  restriction,
+  exploratory = false,
+  children,
+}: {
+  uses: PurposeKey[];
+  restriction?: string;
+  /** An exploratory brief: areas to discuss, with no contribution wording and no in-kind card. */
+  exploratory?: boolean;
+  children?: ReactNode;
+}) {
+  const showPrizes = !exploratory && uses.includes("prizes");
   const podium = prizes.filter((p) => p.place).sort((a, b) => a.place! - b.place!);
   return (
     <div className="grid gap-5 lg:grid-cols-2 print:grid-cols-2">
       <div className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
-        <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">What a contribution could support</p>
+        <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">{exploratory ? "Areas a conversation could cover" : "What a contribution could support"}</p>
         <ul className="mt-3 space-y-2">
           {uses.map((u) => (
             <li key={u} className="flex gap-2.5 text-[0.98rem] leading-snug">
               <Check className="mt-0.5 h-4 w-4 text-emerald-deep" />
               <span>
-                <strong>{purposes[u].label}.</strong> {purposes[u].text}
+                <strong>{purposes[u].label}.</strong> {exploratory ? exploreText[u] : purposes[u].text}
               </span>
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-[0.95rem] leading-snug text-ink-2">{directionNote} No contribution has to cover a whole cost.</p>
-        {restriction && <p className="mt-3 rounded-xl border border-dashed border-ink/40 px-3.5 py-2.5 text-[0.92rem] leading-snug font-semibold">{restriction}</p>}
+        <p className="mt-4 text-[0.95rem] leading-snug text-ink-2">
+          {exploratory ? "These are ideas to explore. None of them is an agreed activity or a funding request." : `${directionNote} No contribution has to cover a whole cost.`}
+        </p>
+        {restriction && !exploratory && <p className="mt-3 rounded-xl border border-dashed border-ink/40 px-3.5 py-2.5 text-[0.92rem] leading-snug font-semibold">{restriction}</p>}
       </div>
 
       <div className="flex flex-col gap-5">
@@ -124,13 +151,22 @@ export function SupportUses({ uses, restriction, children }: { uses: PurposeKey[
             </ul>
           </div>
         )}
-        <div className="lp-keep rounded-2xl border-2 border-ink bg-mint/60 p-6">
-          <p className="text-lg font-extrabold">{inKind.name}</p>
-          <p className="mt-1 text-[0.95rem] leading-snug text-ink-2">
-            For {inKind.examples.join(", ").toLowerCase()}, and for contributions below J$50,000.
-          </p>
-          <p className="mt-2 text-[0.88rem] leading-snug text-ink-soft">{inKind.recognition}</p>
-        </div>
+        {exploratory ? (
+          restriction && (
+            <div className="lp-keep rounded-2xl border-2 border-ink bg-mint/60 p-6">
+              <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">What we understand from the published guidelines</p>
+              <p className="mt-2 text-[0.98rem] leading-snug font-semibold">{restriction}</p>
+            </div>
+          )
+        ) : (
+          <div className="lp-keep rounded-2xl border-2 border-ink bg-mint/60 p-6">
+            <p className="text-lg font-extrabold">{inKind.name}</p>
+            <p className="mt-1 text-[0.95rem] leading-snug text-ink-2">
+              For {inKind.examples.join(", ").toLowerCase()}, and for contributions below J$50,000.
+            </p>
+            <p className="mt-2 text-[0.88rem] leading-snug text-ink-soft">{inKind.recognition}</p>
+          </div>
+        )}
         {children}
       </div>
     </div>
@@ -156,16 +192,30 @@ export function LevelsSection({ n, heading, lead, recommended, show }: { n: stri
 }
 
 /** A full "what it supports" slide. `children` adds a sponsor-specific card, such as a proposed award. */
-export function SupportSection({ n, heading, uses, restriction, children }: { n: string; heading: string; uses: PurposeKey[]; restriction?: string; children?: ReactNode }) {
+export function SupportSection({
+  n,
+  heading,
+  uses,
+  restriction,
+  exploratory = false,
+  children,
+}: {
+  n: string;
+  heading: string;
+  uses: PurposeKey[];
+  restriction?: string;
+  exploratory?: boolean;
+  children?: ReactNode;
+}) {
   return (
     <section aria-labelledby="lp-support" className="lp-section">
       <div className="lp-wrap">
-        <Kicker n={n}>Where a contribution goes</Kicker>
+        <Kicker n={n}>{exploratory ? "What we could discuss" : "Where a contribution goes"}</Kicker>
         <h2 id="lp-support" className="lp-h2 mt-6 max-w-[24ch]">
           {heading}
         </h2>
         <div className="mt-8 print:mt-5">
-          <SupportUses uses={uses} restriction={restriction}>
+          <SupportUses uses={uses} restriction={restriction} exploratory={exploratory}>
             {children}
           </SupportUses>
         </div>

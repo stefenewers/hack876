@@ -31,6 +31,7 @@ Rules that apply to every deck:
 
 1. Add `src/data/sponsorDecks/<slug>.ts` exporting a `SponsorDeckData` (see `types.ts`). In `ask`, set:
    - `lead`: `"band"` for a cash ask, `"inkind"` for goods, services, people or product access.
+   - `lead: "exploratory"` for an organisation whose published funding rules may not cover Hack876 (see below).
    - `band`: the suggested level.
    - `bands`: omit to show all four, list some to limit them, or use `[]` for no cash ladder (tool and product-access briefs).
    - `uses`: what a contribution could help support.
@@ -41,6 +42,17 @@ Rules that apply to every deck:
 5. Generate the PDF from the page's print layout into `public/proposals/` and check it. PDFs are pre-generated, not live exports, so regenerate one whenever its page changes.
 
 Hand-built pages (Loring, GraceKennedy, Scotia, JMMB, Cardinal Law, Norus, MacSpot, MLH, Obvious) use the same shared pieces from `src/components/proposal/Sponsorship.tsx`.
+
+## Exploratory briefs
+
+Some organisations publish funding rules that Hack876 may not meet, or have a closed application window. For those, do not write a sponsorship ask. Set:
+
+- `lead: "exploratory"`, `bands: []`, and no `band`.
+- `restriction`: what the organisation's published guidelines say, with a source in the deck.
+- `recognition`: a plain statement such as "No funding request in this brief".
+- `inkind`: the questions we would like to ask.
+
+The template then renders an invitation to discuss fit. It shows no amount, no contribution levels, no benefits, no in-kind card and no "Become a Partner" heading, and the page and PDF are named a brief (`hack876-<slug>-partnership-brief.pdf`). The rules live in [`framing.ts`](./framing.ts) and are checked by `framing.test.ts`. Never state or imply that Hack876 is eligible, that a window is open, or that a late submission would be accepted.
 
 ## The Partnership Hub
 

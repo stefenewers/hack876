@@ -83,6 +83,24 @@ export const deckRegistry: DeckEntry[] = [
     pdf: `${P}macspot-partnership-proposal.pdf`,
     filename: "Hack876 x MacSpot Jamaica - Prize Partnership Proposal.pdf",
   },
+  {
+    name: "Stationery & Office Supplies Ltd.",
+    aka: "SOS SEEK stationery",
+    category: "Corporate & Professional Services",
+    focus: "Student materials in kind: notebooks, pens and planning supplies, or a discount.",
+    route: "/sosopportunity",
+    pdf: `${P}sos-partnership-proposal.pdf`,
+    filename: "Hack876 x Stationery & Office Supplies Ltd. - Partnership Proposal.pdf",
+  },
+  {
+    name: "Tank-Weld",
+    aka: "Tankweld Tank Weld Metals",
+    category: "Corporate & Professional Services",
+    focus: "Silver-level contribution, with engineers as mentors and safe build materials.",
+    route: "/tankweldopportunity",
+    pdf: `${P}tankweld-partnership-proposal.pdf`,
+    filename: "Hack876 x Tank-Weld - Partnership Proposal.pdf",
+  },
 
   /* -------------------------------------------------------------- Foundations */
   {
@@ -187,6 +205,24 @@ export const deckRegistry: DeckEntry[] = [
     pdf: `${P}usainboltfoundation-partnership-proposal.pdf`,
     filename: "Hack876 x Usain Bolt Foundation - Partnership Proposal.pdf",
   },
+  {
+    name: "GraceKennedy Foundation",
+    aka: "GK Foundation Grace Kennedy",
+    category: "Foundations",
+    focus: "Exploratory educational partnership. An introduction and a question about fit, no funding request.",
+    route: "/gracekennedyfoundationopportunity",
+    pdf: `${P}gracekennedyfoundation-partnership-brief.pdf`,
+    filename: "Hack876 x GraceKennedy Foundation - Partnership Brief.pdf",
+  },
+  {
+    name: "Sandals Foundation",
+    aka: "Sandals Beaches",
+    category: "Foundations",
+    focus: "Exploratory educational partnership. Asks whether follow-up learning could ever be a fit.",
+    route: "/sandalsfoundationopportunity",
+    pdf: `${P}sandalsfoundation-partnership-brief.pdf`,
+    filename: "Hack876 x Sandals Foundation - Partnership Brief.pdf",
+  },
 
   /* ---------------------------------------------------------- Food & Beverage */
   {
@@ -274,6 +310,15 @@ export const deckRegistry: DeckEntry[] = [
     pdf: `${P}seeedstudio-partnership-brief.pdf`,
     filename: "Hack876 x Seeed Studio - Partnership Brief.pdf",
   },
+  {
+    name: "DigiView Security",
+    aka: "Digi View Digiview",
+    category: "Technology & Developer Partners",
+    focus: "Bronze-level contribution, technical mentors and a supervised hardware demonstration.",
+    route: "/digiviewopportunity",
+    pdf: `${P}digiview-partnership-proposal.pdf`,
+    filename: "Hack876 x DigiView Security - Partnership Proposal.pdf",
+  },
 
   /* --------------------------------------- Community & Institutional Partners */
   {
@@ -301,5 +346,14 @@ export const deckRegistry: DeckEntry[] = [
     route: "/atlantajamaicanassociationopportunity",
     pdf: `${P}atlantajamaicanassociation-partnership-proposal.pdf`,
     filename: "Hack876 x The Atlanta Jamaican Association, Inc. - Partnership Proposal.pdf",
+  },
+  {
+    name: "Pickle & Chill",
+    aka: "Pickle and Chill pickleball",
+    category: "Community & Institutional Partners",
+    focus: "A team-play experience in kind: court-time vouchers or an introductory lesson.",
+    route: "/pickleandchillopportunity",
+    pdf: `${P}pickleandchill-partnership-proposal.pdf`,
+    filename: "Hack876 x Pickle & Chill - Partnership Proposal.pdf",
   },
 ];

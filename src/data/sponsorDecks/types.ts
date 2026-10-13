@@ -43,6 +43,7 @@ export type SponsorDeckData = {
   /** Brand colour, taken from the sponsor's own site or brand guide. Used sparingly. */
   accent: string;
 
+  /** For a team with no verified individual, put the whole phrase in `name` ("the SOS team") and leave `title` empty. */
   recipient: { name: string; title: string; ref?: number };
   /** Footer line, e.g. "A private partnership proposal prepared for Lisa D'Oyen, Executive Director, Seprod Foundation." */
   preparedFor: string;
@@ -95,8 +96,11 @@ export type SponsorDeckData = {
      * What leads the ask.
      * "band"   = a cash contribution at a suggested level.
      * "inkind" = goods, services, people or product access. Cash is the alternative.
+     * "exploratory" = an invitation to discuss fit, for an organisation whose published
+     *   funding rules may not cover Hack876. No amount, no ladder, no partner title.
+     *   Use with `bands: []`, no `band`, and a sourced `restriction`.
      */
-    lead: "band" | "inkind";
+    lead: "band" | "inkind" | "exploratory";
     /** Suggested contribution level. Required when `lead` is "band". */
     band?: BandKey;
     /** Levels to show. Omit for all four. An empty list shows no cash ladder at all. */
@@ -107,7 +111,7 @@ export type SponsorDeckData = {
     restriction?: string;
     /** Why this suggestion, in one or two sentences. */
     why: string;
-    /** Recognition line, e.g. "Gold Partner · Inaugural Hack876". */
+    /** Recognition line, e.g. "Gold Partner · Inaugural Hack876". Exploratory: a plain statement such as "No funding request in this brief". */
     recognition: string;
     /** Names the invitation when a band name does not fit, e.g. "Programme Partner". */
     title?: string;
@@ -115,7 +119,7 @@ export type SponsorDeckData = {
     award?: { name: string; text: string };
     /** Hack876 tracks they map to: Life, Learn, Culture, Business, Move, Wellbeing, Resilience, Wildcard. */
     tracks: string[];
-    /** What an in-kind contribution could actually be, for this sponsor. */
+    /** What an in-kind contribution could actually be, for this sponsor. Exploratory: the questions we would like to ask. */
     inkind?: string[];
   };
 

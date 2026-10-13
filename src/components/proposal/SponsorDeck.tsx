@@ -10,6 +10,7 @@ import { Blueprint, Bridge, Compounding, FuturePaths, IdeaToRealWorld, MentorRoo
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
 import { eligibility, event, eventWhen, schools, stats } from "@/data/event";
 import { AwardIdea, BandStrip, LevelsSection, SupportSection } from "@/components/proposal/Sponsorship";
+import { docType, isExploratory, showsBands as asksShowBands } from "@/data/sponsorDecks/framing";
 import type { SponsorDeckData } from "@/data/sponsorDecks/types";
 import { band, inKind } from "@/data/sponsorship";
 import "@/components/proposal/proposal.css";
@@ -36,10 +37,10 @@ const sentence = (items: string[]) =>
   items.map((t, i) => (i && !/^[A-Z]{2}/.test(t) ? t[0].toLowerCase() + t.slice(1) : t)).join(", ") + ".";
 
 /** Whether a deck shows the cash ladder at all. */
-const showsBands = (deck: SponsorDeckData) => !deck.ask.bands || deck.ask.bands.length > 0;
+const showsBands = (deck: SponsorDeckData) => asksShowBands(deck.ask);
 
 export function deckPdf(deck: SponsorDeckData) {
-  const brief = deck.kind === "tool";
+  const brief = docType(deck) === "brief";
   return {
     href: `/proposals/hack876-${deck.slug}-partnership-${brief ? "brief" : "proposal"}.pdf`,
     filename: `Hack876 x ${deck.sponsor} - Partnership ${brief ? "Brief" : "Proposal"}.pdf`,
@@ -49,7 +50,7 @@ export function deckPdf(deck: SponsorDeckData) {
 export function deckMetadata(deck: SponsorDeckData): Metadata {
   return {
     title: { absolute: `Hack876 × ${deck.sponsor}` },
-    description: deck.kind === "tool" ? "A private partnership brief." : "A private partnership proposal.",
+    description: docType(deck) === "brief" ? "A private partnership brief." : "A private partnership proposal.",
     robots: {
       index: false,
       follow: false,
@@ -72,6 +73,7 @@ export function SponsorDeck({ deck }: { deck: SponsorDeckData }) {
   const pdf = deckPdf(deck);
   const full = deck.kind === "full";
   const tool = deck.kind === "tool";
+  const exploring = isExploratory(deck.ask);
 
   const sections: (Section | false)[] = [
     full && { key: "idea", render: (n) => <BigIdea n={n} deck={deck} /> },
@@ -84,7 +86,11 @@ export function SponsorDeck({ deck }: { deck: SponsorDeckData }) {
     { key: "paths", render: (n) => <WaysIn n={n} deck={deck} /> },
     { key: "people", render: (n) => <MoreThanMoney n={n} deck={deck} /> },
     full && { key: "audience", render: (n) => <AudienceValue n={n} deck={deck} /> },
-    tool ? { key: "tool", render: (n) => <ToolAsk n={n} deck={deck} /> } : { key: "invite", render: (n) => <Invitation n={n} deck={deck} /> },
+    tool
+      ? { key: "tool", render: (n) => <ToolAsk n={n} deck={deck} /> }
+      : exploring
+        ? { key: "invite", render: (n) => <Conversation n={n} deck={deck} /> }
+        : { key: "invite", render: (n) => <Invitation n={n} deck={deck} /> },
     !tool &&
       showsBands(deck) && {
         key: "levels",
@@ -101,7 +107,13 @@ export function SponsorDeck({ deck }: { deck: SponsorDeckData }) {
     !tool && {
       key: "support",
       render: (n) => (
-        <SupportSection n={n} heading="No contribution has to cover a whole cost." uses={deck.ask.uses} restriction={deck.ask.restriction}>
+        <SupportSection
+          n={n}
+          heading={exploring ? "Ideas to explore, not a request." : "No contribution has to cover a whole cost."}
+          uses={deck.ask.uses}
+          restriction={deck.ask.restriction}
+          exploratory={exploring}
+        >
           {deck.ask.award && <AwardIdea name={deck.ask.award.name} text={deck.ask.award.text} />}
         </SupportSection>
       ),
@@ -123,7 +135,7 @@ export function SponsorDeck({ deck }: { deck: SponsorDeckData }) {
           <BirdMark className="h-6 w-10" />
           <Logo className="text-[1.5rem]" />
         </Link>
-        <DownloadDeck href={pdf.href} filename={pdf.filename} label={tool ? "Download Brief (PDF)" : undefined} />
+        <DownloadDeck href={pdf.href} filename={pdf.filename} label={docType(deck) === "brief" ? "Download Brief (PDF)" : undefined} />
       </header>
 
       <main id="main">
@@ -175,7 +187,7 @@ function Hero({ deck, label }: { deck: SponsorDeckData; label: string }) {
           <p className="text-sm font-bold tracking-[0.16em] text-ink-soft uppercase">{label}</p>
           <p className="inline-flex items-center gap-2 rounded-full border lp-rule bg-paper px-3 py-1 text-xs font-bold tracking-[0.12em] text-ink-soft uppercase">
             <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[var(--deck-accent)]" />
-            Private partnership {deck.kind === "tool" ? "brief" : "proposal"}
+            {isExploratory(deck.ask) ? "Private exploratory brief" : `Private partnership ${docType(deck)}`}
           </p>
         </div>
 
@@ -530,12 +542,17 @@ function BridgeSection({ n, deck }: { n: string; deck: SponsorDeckData }) {
 
 function WaysIn({ n, deck }: { n: string; deck: SponsorDeckData }) {
   const two = deck.paths.length > 1;
+  const exploring = isExploratory(deck.ask);
   return (
     <section aria-labelledby="lp-paths" className="lp-section lp-dense">
       <div className="lp-wrap">
-        <Kicker n={n}>{two ? "Two ways in" : "The way in"}</Kicker>
+        <Kicker n={n}>{exploring ? "What we would like to explore" : two ? "Two ways in" : "The way in"}</Kicker>
         <h2 id="lp-paths" className="lp-h2 mt-6 max-w-[24ch]">
-          {two ? `There are two natural homes for this inside ${nm(deck)}.` : `Where this fits inside ${nm(deck)}.`}
+          {exploring
+            ? `Whether there is a route that suits ${nm(deck)}.`
+            : two
+              ? `There are two natural homes for this inside ${nm(deck)}.`
+              : `Where this fits inside ${nm(deck)}.`}
         </h2>
         {deck.pathsNote && (
           <p className="lp-prose mt-4">
@@ -572,7 +589,7 @@ function MoreThanMoney({ n, deck }: { n: string; deck: SponsorDeckData }) {
         <div className="mt-6 grid gap-10 lg:grid-cols-[1.4fr_0.6fr] lg:items-end print:grid-cols-[1.5fr_0.5fr] print:items-end">
           <div>
             <h2 id="lp-more" className="lp-h2 max-w-[24ch]">
-              {Nm(deck)}&rsquo;s contribution does not have to be purely financial.
+              {isExploratory(deck.ask) ? "If there is a fit, it does not have to be financial." : <>{Nm(deck)}&rsquo;s contribution does not have to be purely financial.</>}
             </h2>
             <p className="lp-marker lp-keep mt-6 text-[clamp(2.8rem,8vw,6rem)] text-emerald-deep print:mt-4">People in the room.</p>
           </div>
@@ -715,6 +732,49 @@ function Invitation({ n, deck }: { n: string; deck: SponsorDeckData }) {
   );
 }
 
+/** Exploratory briefs: an invitation to discuss fit. No amount, no ladder, no partner title. */
+function Conversation({ n, deck }: { n: string; deck: SponsorDeckData }) {
+  const { ask } = deck;
+  const asks = ask.inkind ?? [];
+  return (
+    <section aria-labelledby="lp-invite" className="lp-section lp-dense lp-dark relative overflow-hidden">
+      <div className="lp-wrap relative">
+        <Kicker n={n}>Our invitation</Kicker>
+        <h2 id="lp-invite" className="lp-h2 mt-6 max-w-[22ch]">
+          {ask.title ?? "An introduction, and a conversation about fit."}
+        </h2>
+
+        <div className="lp-keep mt-8 border-y lp-rule py-6 print:mt-5 print:py-4">
+          <p className="lp-num lp-accent text-[clamp(2.6rem,8vw,6rem)] text-sun">A conversation</p>
+          <p className="mt-3 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">{ask.recognition}</p>
+        </div>
+
+        <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14 print:mt-5 print:grid-cols-2 print:gap-8">
+          <div>
+            <Lines items={[ask.why]} />
+            <p className="lp-note mt-4">
+              This brief is not an application and does not assume Hack876 is eligible for funding. It asks whether a suitable route exists.
+            </p>
+          </div>
+          {asks.length > 0 && (
+            <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-6 sm:p-7">
+              <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">What we would like to ask</figcaption>
+              <ul className="mt-4 grid grid-cols-1 gap-2">
+                {asks.map((a) => (
+                  <li key={a} className="flex items-start gap-2.5 font-semibold">
+                    <Check className="lp-accent mt-0.5 shrink-0 text-sun" />
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </figure>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ToolAsk({ n, deck }: { n: string; deck: SponsorDeckData }) {
   const t = deck.tool!;
   return (
@@ -800,19 +860,22 @@ function DirectLine({ n, deck }: { n: string; deck: SponsorDeckData }) {
         <div>
           <Kicker n={n}>A direct line</Kicker>
           <h2 id="lp-direct" className="lp-h2 mt-6 max-w-[20ch]">
-            There is no faceless sponsorship process here.
+            {isExploratory(deck.ask) ? "We would rather ask than assume." : "There is no faceless sponsorship process here."}
           </h2>
           <Lines
             className="mt-6"
             items={[
               <span key="r">
-                This proposal is for{" "}
+                This {isExploratory(deck.ask) ? "brief" : "proposal"} is for{" "}
                 <strong className="text-ink">
-                  {r.name}, {r.title}
+                  {r.name}
+                  {r.title ? `, ${r.title}` : ""}
                 </strong>
                 .{r.ref ? <Ref id={r.ref} /> : null}
               </span>,
-              `If ${nm(deck)} is interested, we can decide together what involvement should actually look like.`,
+              isExploratory(deck.ask)
+                ? `If ${nm(deck)} sees a possible fit, we would welcome guidance on the right route and timing. If not, thank you for reading.`
+                : `If ${nm(deck)} is interested, we can decide together what involvement should actually look like.`,
             ]}
           />
         </div>
@@ -861,8 +924,8 @@ function YearOneAndBeyond({ n, deck }: { n: string; deck: SponsorDeckData }) {
           <div className="flex flex-col gap-5">
             <div className="lp-keep rounded-2xl border-2 border-ink bg-sun-light p-6">
               <p className="lp-num text-5xl">{event.year}</p>
-              <p className="mt-3 text-xl font-extrabold">Help make the first Hack876 happen.</p>
-              <p className="mt-2 text-ink-2">No multi-year commitment required.</p>
+              <p className="mt-3 text-xl font-extrabold">{isExploratory(deck.ask) ? "Start with a conversation." : "Help make the first Hack876 happen."}</p>
+              <p className="mt-2 text-ink-2">{isExploratory(deck.ask) ? "No funding or commitment is being requested." : "No multi-year commitment required."}</p>
             </div>
             <div className="lp-keep rounded-2xl border border-dashed border-ink/40 p-6">
               <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">
