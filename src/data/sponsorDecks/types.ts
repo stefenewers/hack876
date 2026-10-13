@@ -1,11 +1,13 @@
 import type { School } from "../event";
+import type { BandKey, PurposeKey } from "../sponsorship";
 
 /*
  * One private sponsor proposal = one SponsorDeckData entry, rendered by
  * src/components/proposal/SponsorDeck.tsx at /<slug>opportunity.
  *
- * Event numbers, prizes, schools and tier amounts come from event.ts and the
- * component. Never restate them here. Every sponsor-specific claim carries a
+ * Event numbers, prizes and schools come from event.ts. Contribution levels,
+ * benefits and purposes come from src/data/sponsorship.ts. Never restate them
+ * here, and never quote a sponsorship amount in a deck's own copy. Every sponsor-specific claim carries a
  * `ref` that points at an entry in `sources` (first-party wherever possible).
  *
  * Copy rules: no em dashes; never "Title Sponsor" or naming rights; never
@@ -14,24 +16,12 @@ import type { School } from "../event";
  */
 
 export type DeckKind =
-  /** Gold-style foundation / corporate proposal (modelled on jmmbopportunity). */
+  /** Full foundation / corporate proposal (modelled on jmmbopportunity). */
   | "full"
   /** Prize, people or in-kind ask (modelled on norusopportunity). */
   | "prize"
   /** Access to a tool or product, no tiers (modelled on mlh / obvious). */
   | "tool";
-
-export type TierKey =
-  /** Founding Gold Partner, J$1,000,000. */
-  | "gold"
-  /** Official Prize Partner, ~US$3,500 (the podium prizes). */
-  | "prize"
-  /** All special awards (US$600), or US$200 for one. */
-  | "special"
-  /** Food & Student Experience, US$1,000 (cash or in-kind). */
-  | "food"
-  /** In-kind / People: time, expertise, products. */
-  | "inkind";
 
 export type DeckSource = { id: number; org: string; label: string; href: string };
 
@@ -96,26 +86,37 @@ export type SponsorDeckData = {
   paths: { label: string; title: string; points: string[] }[];
   pathsNote?: Sourced;
 
+  /**
+   * The ask. Level (how much) and purpose (what it supports) are separate.
+   * Bands, benefits and purposes are defined once in src/data/sponsorship.ts.
+   */
   ask: {
-    tier: TierKey;
-    fallback?: TierKey;
-    /** Why this tier, in one or two sentences. */
+    /**
+     * What leads the ask.
+     * "band"   = a cash contribution at a suggested level.
+     * "inkind" = goods, services, people or product access. Cash is the alternative.
+     */
+    lead: "band" | "inkind";
+    /** Suggested contribution level. Required when `lead` is "band". */
+    band?: BandKey;
+    /** Levels to show. Omit for all four. An empty list shows no cash ladder at all. */
+    bands?: BandKey[];
+    /** What a contribution could help support, most relevant first. */
+    uses: PurposeKey[];
+    /** A funding rule recorded for this sponsor, e.g. no grants to individuals. Shown with the uses. */
+    restriction?: string;
+    /** Why this suggestion, in one or two sentences. */
     why: string;
-    /** Recognition line, e.g. "Official Prize Partner · Inaugural Hack876". */
+    /** Recognition line, e.g. "Gold Partner · Inaugural Hack876". */
     recognition: string;
+    /** Names the invitation when a band name does not fit, e.g. "Programme Partner". */
+    title?: string;
     /** A proposed custom award, clearly a suggestion. */
     award?: { name: string; text: string };
     /** Hack876 tracks they map to: Life, Learn, Culture, Business, Move, Wellbeing, Resilience, Wildcard. */
     tracks: string[];
-    /** prize/inkind decks: what an in-kind contribution could actually be. */
+    /** What an in-kind contribution could actually be, for this sponsor. */
     inkind?: string[];
-    /**
-     * Replaces the recommended tier's name, amount and coverage, for sponsors
-     * whose rules don't fit a standard tier (e.g. no grants to individuals).
-     */
-    custom?: { name: string; amount: string; covers: string[] };
-    /** Standard tiers that must not be offered to this sponsor. */
-    hideTiers?: TierKey[];
   };
 
   /** tool decks only. */

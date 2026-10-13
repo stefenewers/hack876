@@ -6,7 +6,7 @@ import { HackerPass } from "@/components/art/HackerPass";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { applications, buildTypes, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule, schools, venue } from "@/data/event";
+import { applications, buildTypes, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule, schoolStatus, schools, venue } from "@/data/event";
 import type { Person } from "@/data/event";
 import type { SchoolBrief } from "@/data/schoolBriefs";
 import "@/components/proposal/proposal.css";
@@ -800,7 +800,10 @@ function Closing({ brief }: { brief: SchoolBrief }) {
           </ol>
           <p className="lp-note mt-5">
             Prepared by Hack 876 for the {brief.short} community. This is not an official {brief.school} publication, and{" "}
-            {brief.short}&rsquo;s participation has not been confirmed. Dates, venue, allocations and prizes are provisional.
+            {schoolStatus(brief.school) === "confirmed"
+              ? `${brief.short} has confirmed its participation, and student places are not guaranteed.`
+              : `${brief.short}\u2019s participation has not been confirmed.`}{" "}
+            Dates, allocations and prizes are provisional.
           </p>
         </div>
       </div>

@@ -93,10 +93,10 @@ export const schools = [
 export type School = (typeof schools)[number];
 
 /** Schools that have formally confirmed. */
-export const confirmedSchools: readonly School[] = [];
+export const confirmedSchools: readonly School[] = ["Campion College"];
 
 /** Schools in active talks. Everyone not confirmed or in talks shows "Pending confirmation". */
-export const schoolsInTalks: readonly School[] = ["Hillel Academy", "Campion College", "Ardenne High School"];
+export const schoolsInTalks: readonly School[] = ["Hillel Academy", "Ardenne High School"];
 
 export type SchoolStatus = "confirmed" | "talks" | "pending";
 

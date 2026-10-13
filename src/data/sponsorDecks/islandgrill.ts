@@ -115,10 +115,11 @@ const deck: SponsorDeckData = {
   ],
 
   ask: {
-    tier: "food",
-    fallback: "special",
+    lead: "inkind",
+    band: "bronze",
+    uses: ["meals"],
     why: "Lunch is the one moment every student shares. A one-day, in-kind Island Grill lunch is simple, concrete and close to how Island Grill already serves communities.",
-    recognition: "Food & Student Experience Partner · Inaugural Hack876",
+    recognition: "Food Partner · Inaugural Hack876",
     award: {
       name: "Island Grill Business Builder Award (proposed)",
       text: "A suggestion only: an award for the build that would most help a small Jamaican business, with criteria agreed together and the final call left to the judging panel.",

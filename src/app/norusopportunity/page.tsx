@@ -9,6 +9,8 @@ import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { MentorRoom, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
 import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
+import { LevelsSection, lowerLevels } from "@/components/proposal/Sponsorship";
+import { directionNote, inKind } from "@/data/sponsorship";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -46,12 +48,6 @@ const TEAMS = stats.find((s) => s.label === "teams")?.value ?? 20;
 const FORMS = eligibility.formOptions;
 const TEAM_SIZE = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
 const SPECIAL_AWARDS = prizes.filter((p) => !p.place);
-const SPECIAL_TOTAL = SPECIAL_AWARDS.reduce((sum, p) => sum + (p.valueUsd ?? 0), 0);
-const SPECIAL_EACH = SPECIAL_AWARDS[0]?.valueUsd ?? 0;
-const PODIUM = prizes.filter((p) => p.place).sort((a, b) => a.place! - b.place!);
-/* Approximate procurement costs for the podium rewards (same estimates as the other proposals). */
-const PODIUM_COST: Record<number, string> = { 1: "Approximately US$1,800", 2: "Approximately US$1,000", 3: "US$600" };
-const usd = (n: number) => `US$${n.toLocaleString("en-US")}`;
 
 /* First-party Norus sources. */
 const SOURCES = [
@@ -620,55 +616,12 @@ function NorusInTheRoom() {
 
 function PrizeAndFood() {
   return (
-    <section aria-labelledby="lp-alt" className="lp-section lp-dense bg-cream-2">
-      <div className="lp-wrap">
-        <Kicker n="10">All the other ways to say yes</Kicker>
-        <h2 id="lp-alt" className="lp-h2 mt-6 max-w-[24ch]">
-          Mentors first. Everything else is welcome too.
-        </h2>
-
-        <div className="mt-8 grid gap-5 lg:grid-cols-[1.2fr_1fr] print:mt-5 print:grid-cols-[1.2fr_1fr]">
-          <article className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">Official Prize Partner</h3>
-              <p className="lp-num text-3xl">US$3,400 to US$3,500</p>
-            </div>
-            <p className="mt-1 text-ink-2">Underwrite the primary competition prizes.</p>
-            <dl className="mt-3 divide-y lp-rule border-y lp-rule text-sm">
-              {PODIUM.map((p) => (
-                <div key={p.name} className="grid grid-cols-[8rem_1fr_auto] gap-2 py-2 max-sm:grid-cols-[7rem_1fr]">
-                  <dt className="font-extrabold">{p.name}</dt>
-                  <dd className="font-semibold">{p.reward}</dd>
-                  <dd className="text-ink-soft max-sm:col-start-2">{PODIUM_COST[p.place!]}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-3 font-extrabold">Hack876 Official Prize Partner · {SPONSOR}</p>
-            <p className="lp-note mt-2">Exact cost and configuration can move with pricing, availability and final team structure.</p>
-          </article>
-
-          <article className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">Food &amp; Student Experience Partner</h3>
-              <p className="lp-num text-3xl">US$1,000</p>
-            </div>
-            <p className="mt-1 font-bold text-ink-soft">Approximately J$150,000</p>
-            <p className="mt-2 text-ink-2">
-              Keeping approximately {STUDENTS} teenagers, and the people supporting them, going through a full build day.
-            </p>
-            <ul className="mt-3 grid grid-cols-2 gap-1.5 text-sm">
-              {["Student meals", "Snacks", "Water and refreshments", "Serving supplies", "Light hospitality"].map((t) => (
-                <li key={t} className="flex items-center gap-2 font-semibold">
-                  <Check className="text-emerald-deep" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-3 font-extrabold">Hack876 Food &amp; Student Experience Partner · {SPONSOR}</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    <LevelsSection
+      n="10"
+      heading="Mentors first. Everything else is welcome too."
+      lead="If Norus would also like to contribute financially, these are the levels. Any amount within a level is welcome, and none of it is expected."
+      show={["bronze", "silver", "gold"]}
+    />
   );
 }
 
@@ -681,21 +634,22 @@ function AwardsAndElbowGrease() {
     <section aria-labelledby="lp-awards" className="lp-section lp-dense">
       <div className="lp-wrap grid gap-8 lg:grid-cols-2 print:grid-cols-2 print:gap-8">
         <div>
-          <Kicker n="11">Special awards</Kicker>
+          <Kicker n="11">Where a contribution goes</Kicker>
           <h2 id="lp-awards" className="lp-h2 mt-6">
             A low-friction yes.
           </h2>
           <p className="lp-prose mt-4">
-            Sponsor one special award for {usd(SPECIAL_EACH)}, or all {SPECIAL_AWARDS.length} for {usd(SPECIAL_TOTAL)}.
+            A contribution at any level could help support prizes, a special award or student meals. {directionNote} No contribution
+            has to cover a whole cost.
           </p>
           <ul className="mt-5 space-y-2">
             {SPECIAL_AWARDS.map((a) => (
-              <li key={a.name} className="flex items-center justify-between gap-3 rounded-xl border lp-rule bg-paper px-4 py-2.5">
-                <span className="font-extrabold">{a.name} presented by {SHORT}</span>
-                <span className="lp-num text-xl">{usd(a.valueUsd ?? 0)}</span>
+              <li key={a.name} className="rounded-xl border lp-rule bg-paper px-4 py-2.5 font-extrabold">
+                {a.name} <span className="font-semibold text-ink-soft">· could be presented by {SHORT}</span>
               </li>
             ))}
           </ul>
+          <p className="lp-note mt-4">{inKind.recognition}</p>
         </div>
         <div className="lp-keep rounded-3xl border-2 border-ink p-6 shadow-[5px_6px_0_0_var(--color-ink)]" style={{ background: NORUS_YELLOW }}>
           <p className="text-xs font-extrabold tracking-[0.16em] uppercase" style={{ color: NORUS_INK }}>
@@ -737,13 +691,7 @@ function AwardsAndElbowGrease() {
 /* -------------------------------------------------------------------------- */
 
 function Summary() {
-  const options = [
-    { name: "Official Prize Partner", amount: "~US$3,500", text: "The primary competition prizes." },
-    { name: "Food & Student Experience", amount: "US$1,000", text: "Approximately J$150,000 for meals and refreshments." },
-    { name: "All special awards", amount: usd(SPECIAL_TOTAL), text: SPECIAL_AWARDS.map((a) => a.name).join(", ") + "." },
-    { name: "One special award", amount: usd(SPECIAL_EACH), text: "Your pick, presented by Norus." },
-    { name: "Other in-kind / elbow grease", amount: "Time", text: "Expertise, volunteers, connections, resources." },
-  ];
+  const options = lowerLevels();
   return (
     <section aria-labelledby="lp-summary" className="lp-section">
       <div className="lp-wrap">
@@ -781,9 +729,9 @@ function Summary() {
           <ul className="mt-3 flex flex-wrap gap-2">
             {[
               "Mentors only",
-              `Mentors + one ${usd(SPECIAL_EACH)} award`,
+              "Mentors + a Bronze contribution",
               "Mentors + food",
-              "Mentors + the full prize pool",
+              "Mentors + a contribution toward prizes",
               "A financial contribution without staffing",
             ].map((t) => (
               <li key={t} className="rounded-full border lp-rule bg-paper px-3.5 py-1.5 text-sm font-semibold">
@@ -828,7 +776,7 @@ function DirectLine() {
             {[
               "How many Norus team members can take part?",
               "Who should mentor, and when?",
-              "Would Norus also like to cover prizes or food?",
+              "Would Norus also like to contribute toward prizes or food?",
               "Does one of the special awards fit?",
               "Would Jermaine like to judge or speak?",
               "Is there a contribution Norus thinks would be more useful?",

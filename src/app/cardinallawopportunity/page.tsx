@@ -9,6 +9,7 @@ import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { IdeaToRealWorld, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
 import { confirmedSchools, eligibility, event, eventWhen, prizes, schools, schoolsInTalks, schoolStatus, stats } from "@/data/event";
+import { AwardIdea, BandStrip, LevelsSection, lowerLevels, SupportSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -33,11 +34,9 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
     nocache: true,
-    googleBot: { index: false, follow: false, noimageindex: true },
-  },
+    googleBot: { index: false, follow: false, noimageindex: true } },
   openGraph: null,
-  twitter: null,
-};
+  twitter: null };
 
 /* Canonical numbers come from the event data. */
 const STUDENTS = eligibility.maxHackers;
@@ -48,12 +47,6 @@ const TEAMS = stats.find((s) => s.label === "teams")?.value;
 const FORMS = eligibility.formOptions;
 const TEAM_SIZE = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
 const SPECIAL_AWARDS = prizes.filter((p) => !p.place);
-const SPECIAL_TOTAL = SPECIAL_AWARDS.reduce((sum, p) => sum + (p.valueUsd ?? 0), 0);
-const SPECIAL_EACH = SPECIAL_AWARDS[0]?.valueUsd ?? 0;
-const PODIUM = prizes.filter((p) => p.place).sort((a, b) => a.place! - b.place!);
-/* Approximate procurement costs for the podium rewards (same estimates as the other proposals). */
-const PODIUM_COST: Record<number, string> = { 1: "Approximately US$1,800", 2: "Approximately US$1,000", 3: "US$600" };
-const usd = (n: number) => `US$${n.toLocaleString("en-US")}`;
 
 /* Sources: Cardinal Law's own site first; ecosystem organizations' own sites for what they do. */
 const SOURCES = [
@@ -440,8 +433,7 @@ function WhyCardinal() {
           <Ref id={2} /> Its own line: &ldquo;your partner in innovation in Kingston, Jamaica.&rdquo;
           <Ref id={1} />
         </>
-      ),
-    },
+      ) },
     {
       n: "02",
       title: "Close to the innovation lifecycle.",
@@ -455,8 +447,7 @@ function WhyCardinal() {
           security and privacy questions it raises.
           <Ref id={6} />
         </>
-      ),
-    },
+      ) },
     {
       n: "03",
       title: "People students can actually learn from.",
@@ -467,8 +458,7 @@ function WhyCardinal() {
           <Ref id={3} /> and both have already built serious practices. Their careers are close enough to feel imaginable to a
           student in {FORMS[FORMS.length - 1]}.
         </>
-      ),
-    },
+      ) },
   ];
   return (
     <section aria-labelledby="lp-why" className="lp-section lp-dense">
@@ -751,7 +741,7 @@ function ResponsibleInnovation() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  11 Gold Partner                                                           */
+/*  11 Platinum Partner                                                           */
 /* -------------------------------------------------------------------------- */
 
 const GOLD_AREAS = [
@@ -771,12 +761,16 @@ function GoldPartner() {
       <div className="lp-wrap relative">
         <Kicker n="11">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
-          Become a Founding Gold Partner of the inaugural Hack876.
+          Become a Platinum Partner of the inaugural Hack876.
         </h2>
 
         <div className="lp-keep mt-10 border-y lp-rule py-8 print:mt-6 print:py-5">
           <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">J$1,000,000</p>
           <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">Founding Partner · Inaugural Hack876</p>
+        </div>
+
+        <div className="mt-8 print:mt-5">
+          <BandStrip dark recommended="platinum" />
         </div>
 
         <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16 print:mt-6 print:grid-cols-2 print:gap-8">
@@ -799,7 +793,7 @@ function GoldPartner() {
           <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-7 sm:p-9">
             <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed recognition</figcaption>
             <p className="mt-6 text-[clamp(1.5rem,2.8vw,2rem)] leading-tight font-extrabold tracking-tight">{SPONSOR}</p>
-            <p className="lp-accent mt-2 text-lg font-bold text-sun">Gold Partner · Inaugural Hack876</p>
+            <p className="lp-accent mt-2 text-lg font-bold text-sun">Platinum Partner · Inaugural Hack876</p>
           </figure>
         </div>
       </div>
@@ -851,68 +845,12 @@ function GoldBenefits() {
 
 function WaysToParticipate() {
   return (
-    <section aria-labelledby="lp-ways" className="lp-section lp-dense bg-cream-2">
-      <div className="lp-wrap">
-        <Kicker n="13">Flexible ways to participate</Kicker>
-        <h2 id="lp-ways" className="lp-h2 mt-6 max-w-[24ch]">
-          Gold is our first choice. It is not the only one.
-        </h2>
-
-        <div className="mt-8 grid gap-5 lg:grid-cols-2 print:mt-5 print:grid-cols-2">
-          <article className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">Official Prize Partner</h3>
-              <p className="lp-num text-3xl">~US$3,500</p>
-            </div>
-            <p className="mt-1 text-ink-2">The primary competition awards.</p>
-            <dl className="mt-3 divide-y lp-rule border-y lp-rule text-sm">
-              {PODIUM.map((p) => (
-                <div key={p.name} className="grid grid-cols-[8rem_1fr_auto] gap-2 py-2 max-sm:grid-cols-[7rem_1fr]">
-                  <dt className="font-extrabold">{p.name}</dt>
-                  <dd className="font-semibold">{p.reward}</dd>
-                  <dd className="text-ink-soft max-sm:col-start-2">{PODIUM_COST[p.place!]}</dd>
-                </div>
-              ))}
-            </dl>
-          </article>
-
-          <article className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">Special Awards Partner</h3>
-              <p className="lp-num text-3xl">{usd(SPECIAL_TOTAL)}</p>
-            </div>
-            <p className="mt-1 text-ink-2">
-              All {SPECIAL_AWARDS.length} existing special awards, or {usd(SPECIAL_EACH)} for one.
-            </p>
-            <ul className="mt-3 divide-y lp-rule border-y lp-rule text-sm">
-              {SPECIAL_AWARDS.map((a) => (
-                <li key={a.name} className="flex justify-between gap-3 py-2">
-                  <span className="font-extrabold">{a.name}</span>
-                  <span className="font-semibold text-ink-2">{a.reward}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-
-          <article className="lp-keep rounded-2xl border-2 border-ink bg-sun-light p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">Responsible Innovation Award</h3>
-              <p className="text-sm font-extrabold tracking-wide text-ink-soft uppercase">Proposed</p>
-            </div>
-            <p className="mt-1 text-ink-2">A bespoke award to shape with Cardinal. Not currently an official Hack876 award.</p>
-          </article>
-
-          <article className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">Food &amp; Student Experience Partner</h3>
-              <p className="lp-num text-3xl">US$1,000</p>
-            </div>
-            <p className="mt-1 text-ink-2">Approximately J$150,000 toward meals and refreshments for the day.</p>
-          </article>
-        </div>
-        <p className="lp-note mt-4">Costs are approximate. Final prize configuration may change with team structure, pricing and availability.</p>
-      </div>
-    </section>
+    <>
+      <LevelsSection n="13" heading="Platinum is our first choice. It is not the only one." lead="Any amount within a level is welcome." recommended="platinum" />
+      <SupportSection n="" heading="No contribution has to cover a whole cost." uses={["overall", "prizes", "meals", "equipment", "production", "programming"]}>
+        <AwardIdea name="Responsible Innovation Award (proposed)" text="A bespoke award to shape with Cardinal. Not currently an official Hack876 award." />
+      </SupportSection>
+    </>
   );
 }
 
@@ -921,13 +859,7 @@ function WaysToParticipate() {
 /* -------------------------------------------------------------------------- */
 
 function Summary() {
-  const options = [
-    { name: "Official Prize Partner", amount: "~US$3,500", text: "The primary competition awards." },
-    { name: "Food & Student Experience", amount: "US$1,000", text: "Approximately J$150,000 for meals and refreshments." },
-    { name: "Special Awards Partner", amount: usd(SPECIAL_TOTAL), text: `All ${SPECIAL_AWARDS.length} existing awards, or ${usd(SPECIAL_EACH)} for one.` },
-    { name: "Responsible Innovation Award", amount: "Proposed", text: "A bespoke award to shape together." },
-    { name: "In-kind / People Partner", amount: "Time", text: "Judges, mentors, speakers and education, with or without a contribution." },
-  ];
+  const options = lowerLevels([{ name: "Responsible Innovation Award", amount: "Proposed", text: "A bespoke award to shape together." }]);
   return (
     <section aria-labelledby="lp-summary" className="lp-section">
       <div className="lp-wrap">
@@ -938,7 +870,7 @@ function Summary() {
         <div className="mt-10 grid gap-5 lg:grid-cols-5 print:mt-6 print:grid-cols-5">
           <div className="lp-keep flex flex-col justify-between rounded-3xl bg-night p-8 text-cream lg:col-span-2 print:col-span-2">
             <div>
-              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Founding Gold Partner</p>
+              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Platinum Partner</p>
               <p className="lp-num mt-5 text-[clamp(2.8rem,6vw,4.6rem)] text-sun">J$1,000,000</p>
               <p className="mt-2 text-sm font-bold tracking-[0.12em] text-cream/70 uppercase">Our preferred invitation</p>
             </div>

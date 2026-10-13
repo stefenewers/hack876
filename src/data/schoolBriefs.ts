@@ -214,7 +214,7 @@ export const schoolBriefs: SchoolBrief[] = [
         "We want to build something lasting with Campion’s Technology Department, beyond one event. That work has started with Mrs. Morrison.",
       tag: "Faculty liaison",
       role: "Mrs. Morrison is the point of contact at Campion for Hack 876. Teachers can pass recommendations and questions to her, and she coordinates with the Hack 876 organizing team.",
-      note: "Mrs. Morrison’s role is at department level. Formal approval from Campion College’s administration has not yet been confirmed, and student places are not guaranteed.",
+      note: "Campion College has confirmed its participation. Every student still applies individually, and places are not guaranteed.",
       also: [
         {
           title: "Student ambassadors",
@@ -225,7 +225,7 @@ export const schoolBriefs: SchoolBrief[] = [
     },
     hub: {
       status:
-        "Campion’s Technology Department is supporting student participation. Mrs. Keisha Morrison, Head of the department, is the faculty liaison for Hack 876. Formal approval from the school’s administration has not yet been confirmed, and Hack 876 is not a Campion College event.",
+        "Campion College has confirmed that it is taking part in Hack 876. Mrs. Keisha Morrison, Head of the Technology Department, is the faculty liaison. Hack 876 is organized independently of Campion, and individual student places are not guaranteed.",
       ambassadors: {
         summary:
           "Campion is expected to have two ambassadors, ideally one in Lower Sixth and one in Fifth Form. They have not been chosen yet, and their names will not be published without permission.",

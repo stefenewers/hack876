@@ -8,8 +8,10 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { Blueprint, Bridge, Compounding, FuturePaths, IdeaToRealWorld, MentorRoom, Seedling, Shelter } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
-import type { SponsorDeckData, TierKey } from "@/data/sponsorDecks/types";
+import { eligibility, event, eventWhen, schools, stats } from "@/data/event";
+import { AwardIdea, BandStrip, LevelsSection, SupportSection } from "@/components/proposal/Sponsorship";
+import type { SponsorDeckData } from "@/data/sponsorDecks/types";
+import { band, inKind } from "@/data/sponsorship";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -24,41 +26,17 @@ const PARTNER_SCHOOLS = schools.length;
 const TEAMS = stats.find((s) => s.label === "teams")?.value;
 const FORMS = eligibility.formOptions;
 const TEAM_SIZE = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
-const SPECIAL_AWARDS = prizes.filter((p) => !p.place);
-const SPECIAL_TOTAL = SPECIAL_AWARDS.reduce((sum, p) => sum + (p.valueUsd ?? 0), 0);
-const SPECIAL_EACH = SPECIAL_AWARDS[0]?.valueUsd ?? 0;
-const PODIUM = prizes.filter((p) => p.place).sort((a, b) => a.place! - b.place!);
-/* Approximate procurement costs for the podium rewards (same estimates as the other proposals). */
-const PODIUM_COST: Record<number, string> = { 1: "Approximately US$1,800", 2: "Approximately US$1,000", 3: "US$600" };
-
 /** The short name as it reads mid-sentence, or at the start of one. */
 const nm = (deck: SponsorDeckData) => (deck.article ? `the ${deck.short}` : deck.short);
 const Nm = (deck: SponsorDeckData) => (deck.article ? `The ${deck.short}` : deck.short);
 const aOrAn = (word: string) => (/^[AEIOU]/i.test(word) ? "an" : "a");
 
-const usd = (n: number) => `US$${n.toLocaleString("en-US")}`;
 /* Joins list items into one sentence, lowercasing later items unless they start with an acronym. */
 const sentence = (items: string[]) =>
   items.map((t, i) => (i && !/^[A-Z]{2}/.test(t) ? t[0].toLowerCase() + t.slice(1) : t)).join(", ") + ".";
 
-const TIERS: Record<TierKey, { name: string; amount: string; text: string }> = {
-  gold: { name: "Founding Gold Partner", amount: "J$1,000,000", text: "Flexible support for the inaugural Hack876 and the student experience." },
-  prize: { name: "Official Prize Partner", amount: "~US$3,500", text: "The primary competition prizes." },
-  special: {
-    name: "Special Awards Partner",
-    amount: usd(SPECIAL_TOTAL),
-    text: `All ${SPECIAL_AWARDS.length} special awards, or ${usd(SPECIAL_EACH)} for one.`,
-  },
-  food: { name: "Food & Student Experience Partner", amount: "US$1,000", text: "Approximately J$150,000 for meals and refreshments, in cash or in kind." },
-  inkind: { name: "In-kind / People Partner", amount: "Time", text: "Judges, mentors, speakers, volunteers and resources." },
-};
-
-/** The recommended tier, with any per-sponsor override applied. */
-function mainTier(deck: SponsorDeckData) {
-  const base = TIERS[deck.ask.tier];
-  const c = deck.ask.custom;
-  return c ? { name: c.name, amount: c.amount, text: deck.ask.why } : base;
-}
+/** Whether a deck shows the cash ladder at all. */
+const showsBands = (deck: SponsorDeckData) => !deck.ask.bands || deck.ask.bands.length > 0;
 
 export function deckPdf(deck: SponsorDeckData) {
   const brief = deck.kind === "tool";
@@ -107,9 +85,28 @@ export function SponsorDeck({ deck }: { deck: SponsorDeckData }) {
     { key: "people", render: (n) => <MoreThanMoney n={n} deck={deck} /> },
     full && { key: "audience", render: (n) => <AudienceValue n={n} deck={deck} /> },
     tool ? { key: "tool", render: (n) => <ToolAsk n={n} deck={deck} /> } : { key: "invite", render: (n) => <Invitation n={n} deck={deck} /> },
-    deck.ask.tier === "gold" && { key: "benefits", render: (n) => <GoldBenefits n={n} deck={deck} /> },
-    !tool && { key: "ways", render: (n) => <WaysToParticipate n={n} deck={deck} /> },
-    { key: "summary", render: (n) => <Summary n={n} deck={deck} /> },
+    !tool &&
+      showsBands(deck) && {
+        key: "levels",
+        render: (n) => (
+          <LevelsSection
+            n={n}
+            heading={deck.ask.lead === "band" ? "What each level receives." : "Or a monetary contribution."}
+            lead={deck.ask.lead === "inkind" ? `If a monetary contribution suits ${nm(deck)} better than support in kind, these are the levels.` : undefined}
+            recommended={deck.ask.band}
+            show={deck.ask.bands}
+          />
+        ),
+      },
+    !tool && {
+      key: "support",
+      render: (n) => (
+        <SupportSection n={n} heading="No contribution has to cover a whole cost." uses={deck.ask.uses} restriction={deck.ask.restriction}>
+          {deck.ask.award && <AwardIdea name={deck.ask.award.name} text={deck.ask.award.text} />}
+        </SupportSection>
+      ),
+    },
+    tool && { key: "summary", render: (n) => <Summary n={n} deck={deck} /> },
     { key: "direct", render: (n) => <DirectLine n={n} deck={deck} /> },
     { key: "future", render: (n) => <YearOneAndBeyond n={n} deck={deck} /> },
   ];
@@ -657,168 +654,62 @@ function AudienceValue({ n, deck }: { n: string; deck: SponsorDeckData }) {
 /*  The ask                                                                   */
 /* -------------------------------------------------------------------------- */
 
-const GOLD_AREAS = ["Event production", "Student experience", "Equipment and materials", "Food", "Prizes", "Signage", "Programming and logistics", "Operational costs"];
-
 function Invitation({ n, deck }: { n: string; deck: SponsorDeckData }) {
   const { ask } = deck;
-  const tier = mainTier(deck);
-  const list = ask.custom
-    ? ask.custom.covers
-    : ask.tier === "gold"
-      ? GOLD_AREAS
-      : ask.tier === "prize"
-        ? PODIUM.map((p) => `${p.name}: ${p.reward}`)
-        : ask.tier === "special"
-          ? SPECIAL_AWARDS.map((a) => `${a.name}, ${usd(a.valueUsd ?? 0)}`)
-          : ask.tier === "food"
-            ? ["Student meals", "Snacks", "Water and refreshments", "Serving supplies", "Light hospitality"]
-            : (ask.inkind ?? []);
+  const cash = ask.lead === "band" && ask.band ? band(ask.band) : null;
+  const name = ask.title ?? (cash ? cash.name : "an in-kind partner");
+  const inkindList = ask.inkind ?? [];
   return (
-    <section aria-labelledby="lp-invite" className="lp-section lp-dark relative overflow-hidden">
+    <section aria-labelledby="lp-invite" className="lp-section lp-dense lp-dark relative overflow-hidden">
       <div className="lp-wrap relative">
         <Kicker n={n}>Our invitation</Kicker>
-        <h2 id="lp-invite" className="lp-h2 mt-6 max-w-[20ch]">
-          Become {aOrAn(tier.name)} {tier.name} of the inaugural Hack876.
+        <h2 id="lp-invite" className="lp-h2 mt-6 max-w-[22ch]">
+          {ask.title || cash ? `Become ${aOrAn(name)} ${name} of the inaugural Hack876.` : "Support the inaugural Hack876 in kind."}
         </h2>
 
-        <div className="lp-keep mt-10 border-y lp-rule py-8 print:mt-6 print:py-5">
-          <p className="lp-num lp-accent text-[clamp(3.2rem,10vw,8rem)] text-sun">{tier.amount === "Time" ? "Time + expertise" : tier.amount}</p>
-          <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">{ask.recognition}</p>
+        <div className="lp-keep mt-8 border-y lp-rule py-6 print:mt-5 print:py-4">
+          <p className="lp-num lp-accent text-[clamp(2.6rem,8vw,6rem)] text-sun">{cash ? cash.range : "In kind"}</p>
+          <p className="mt-3 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">{ask.recognition}</p>
         </div>
 
-        <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16 print:mt-6 print:grid-cols-2 print:gap-8">
+        <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14 print:mt-5 print:grid-cols-2 print:gap-8">
           <div>
-            <Lines items={[ask.why, ask.tier === "gold" ? "It may support areas such as:" : "What it covers:"]} />
-            <ul className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 print:grid-cols-2">
-              {list.map((a) => (
-                <li key={a} className="flex items-center gap-2.5 font-semibold">
-                  <Check className="lp-accent shrink-0 text-sun" />
-                  {a}
-                </li>
-              ))}
-            </ul>
-            {ask.tier === "gold" && (
-              <p className="lp-note mt-5">A flexible, discretionary contribution. It is not a title sponsorship, and it carries no naming rights.</p>
+            <Lines items={[ask.why]} />
+            {cash ? (
+              <p className="lp-note mt-4">
+                Any amount within the level is welcome. It is a flexible contribution toward the event, with no naming rights attached.
+              </p>
+            ) : (
+              inkindList.length > 0 && (
+                <ul className="mt-5 grid grid-cols-1 gap-2">
+                  {inkindList.map((a) => (
+                    <li key={a} className="flex items-start gap-2.5 font-semibold">
+                      <Check className="lp-accent mt-0.5 shrink-0 text-sun" />
+                      {a}
+                    </li>
+                  ))}
+                </ul>
+              )
             )}
           </div>
-          <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-7 sm:p-9">
+          <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-6 sm:p-7">
             <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed recognition</figcaption>
-            <p className="mt-6 text-[clamp(1.5rem,2.8vw,2rem)] leading-tight font-extrabold tracking-tight">{deck.sponsor}</p>
-            <p className="lp-accent mt-2 text-lg font-bold text-sun">{ask.recognition}</p>
-            {ask.tracks.length > 0 && (
-              <p className="mt-6 text-sm font-semibold text-cream/70">Closest Hack876 tracks: {ask.tracks.join(", ")}</p>
-            )}
+            <p className="mt-4 text-[clamp(1.4rem,2.6vw,1.9rem)] leading-tight font-extrabold tracking-tight">{deck.sponsor}</p>
+            <p className="lp-accent mt-1.5 text-lg font-bold text-sun">{ask.recognition}</p>
+            {ask.tracks.length > 0 && <p className="mt-4 text-sm font-semibold text-cream/70">Closest Hack876 tracks: {ask.tracks.join(", ")}</p>}
           </figure>
         </div>
-      </div>
-    </section>
-  );
-}
 
-const BENEFITS = [
-  "Founding-year association with the first Hack876",
-  "Recognition during opening and closing programming",
-  "Opportunity for leadership to address students",
-  "People in the room as judges, mentors and speakers",
-  "Relationships with the schools in the Hack876 network",
-  "Visibility across event materials, appropriate to the level selected",
-  "Photo and video storytelling from the event",
-  "Invitation to the finals and awards",
-  "A post-event recap, and an early conversation about year two",
-];
-
-function GoldBenefits({ n }: { n: string; deck: SponsorDeckData }) {
-  return (
-    <section aria-labelledby="lp-benefits" className="lp-section">
-      <div className="lp-wrap">
-        <Kicker n={n}>What partnership looks like</Kicker>
-        <h2 id="lp-benefits" className="lp-h2 mt-6">
-          More than a logo placement.
-        </h2>
-        <ol className="mt-10 grid border-t lp-rule sm:grid-cols-2 lg:grid-cols-3 print:mt-6 print:grid-cols-3">
-          {BENEFITS.map((b, i) => (
-            <li key={b} className="flex gap-4 border-b lp-rule py-6 pr-6">
-              <span className="lp-num text-2xl text-emerald-deep">{String(i + 1).padStart(2, "0")}</span>
-              <span className="text-[1.05rem] leading-snug font-semibold">{b}</span>
-            </li>
-          ))}
-        </ol>
-        <p className="lp-note mt-6">Everything above is deliverable by the Hack876 team. We will not promise media reach we cannot substantiate.</p>
-      </div>
-    </section>
-  );
-}
-
-function TierCard({ k, deck, recommended }: { k: TierKey; deck: SponsorDeckData; recommended: boolean }) {
-  const t = TIERS[k];
-  return (
-    <article className={`lp-keep rounded-2xl p-6 ${recommended ? "border-2 border-ink bg-sun-light" : "border lp-rule bg-paper"}`}>
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="text-xl font-extrabold">{t.name}</h3>
-        <p className={t.amount === "Time" ? "text-sm font-extrabold tracking-wide text-emerald-deep uppercase" : "lp-num text-3xl"}>
-          {t.amount === "Time" ? "Time and expertise" : t.amount}
-        </p>
-      </div>
-      {recommended && <p className="mt-1 text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Our suggestion for {nm(deck)}</p>}
-      {k === "prize" ? (
-        <dl className="mt-3 divide-y lp-rule border-y lp-rule text-sm">
-          {PODIUM.map((p) => (
-            <div key={p.name} className="grid grid-cols-[8rem_1fr_auto] gap-2 py-2 max-sm:grid-cols-[7rem_1fr]">
-              <dt className="font-extrabold">{p.name}</dt>
-              <dd className="font-semibold">{p.reward}</dd>
-              <dd className="text-ink-soft max-sm:col-start-2">{PODIUM_COST[p.place!]}</dd>
-            </div>
-          ))}
-        </dl>
-      ) : k === "special" ? (
-        <p className="mt-2 text-ink-2">
-          {SPECIAL_AWARDS.map((a) => a.name).join(", ")}: {usd(SPECIAL_TOTAL)} for all {SPECIAL_AWARDS.length}, or {usd(SPECIAL_EACH)} for one, presented by{" "}
-          {nm(deck)}.
-        </p>
-      ) : k === "inkind" && deck.ask.inkind?.length ? (
-        <p className="mt-2 text-ink-2">{sentence(deck.ask.inkind)}</p>
-      ) : (
-        <p className="mt-2 text-ink-2">{t.text}</p>
-      )}
-    </article>
-  );
-}
-
-function WaysToParticipate({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const order: TierKey[] = ["prize", "special", "food", "inkind"];
-  const hidden = new Set([...(deck.ask.hideTiers ?? []), ...(deck.ask.custom ? [deck.ask.tier] : [])]);
-  const shown = order.filter((k) => !hidden.has(k));
-  const custom = deck.ask.custom;
-  return (
-    <section aria-labelledby="lp-ways" className="lp-section lp-dense bg-cream-2">
-      <div className="lp-wrap">
-        <Kicker n={n}>Flexible ways to participate</Kicker>
-        <h2 id="lp-ways" className="lp-h2 mt-6 max-w-[24ch]">
-          Choose the level that fits.
-        </h2>
-        <div className="mt-8 grid gap-5 lg:grid-cols-2 print:mt-5 print:grid-cols-2">
-          {custom && (
-            <article className="lp-keep rounded-2xl border-2 border-ink bg-sun-light p-6">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="text-xl font-extrabold">{custom.name}</h3>
-                <p className="lp-num text-3xl">{custom.amount}</p>
-              </div>
-              <p className="mt-1 text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Our suggestion for {nm(deck)}</p>
-              <p className="mt-2 text-ink-2">{sentence(custom.covers)}</p>
-            </article>
-          )}
-          {shown.map((k) => (
-            <TierCard key={k} k={k} deck={deck} recommended={deck.ask.tier === k || deck.ask.fallback === k} />
-          ))}
-        </div>
-        {deck.ask.award && (
-          <div className="lp-keep mt-5 rounded-2xl border-2 border-dashed border-ink/40 p-5">
-            <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">An idea, not yet a Hack876 award</p>
-            <p className="mt-2 text-lg font-extrabold">{deck.ask.award.name}</p>
-            <p className="mt-1 text-ink-2">{deck.ask.award.text}</p>
+        {showsBands(deck) && (
+          <div className="mt-8 print:mt-5">
+            <BandStrip
+              dark
+              recommended={ask.band}
+              show={ask.bands}
+              label={cash ? undefined : "Prefer a monetary contribution? Any amount within a level is welcome."}
+            />
           </div>
         )}
-        <p className="lp-note mt-4">Costs are approximate. Final prize configuration may change with team structure, pricing and availability.</p>
       </div>
     </section>
   );
@@ -856,20 +747,13 @@ function ToolAsk({ n, deck }: { n: string; deck: SponsorDeckData }) {
   );
 }
 
+/** Tool briefs only: the access ask, with the other ways to be involved. No cash ladder. */
 function Summary({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const main = mainTier(deck);
-  const hidden = new Set([...(deck.ask.hideTiers ?? []), deck.ask.tier, "gold"]);
-  const tool = deck.kind === "tool";
-  const others: { name: string; amount: string; text: string }[] = tool
-    ? [
-        ...(deck.ask.award ? [{ name: deck.ask.award.name, amount: "Proposed", text: "One award, shaped together." }] : []),
-        ...(deck.ask.hideTiers?.includes("special") ? [] : [{ name: "One special award", amount: usd(SPECIAL_EACH), text: "Your pick of the existing special awards." }]),
-        { name: "People in the room", amount: "Time", text: sentence(deck.roles.map((r) => r.title)) },
-      ]
-    : (["gold", "prize", "special", "food", "inkind"] as TierKey[])
-        .filter((k) => !hidden.has(k))
-        .map((k) => TIERS[k])
-        .concat(deck.ask.award ? [{ name: deck.ask.award.name, amount: "Proposed", text: "A custom award shaped together." }] : []);
+  const others: { name: string; amount: string; text: string }[] = [
+    ...(deck.ask.award ? [{ name: deck.ask.award.name, amount: "Proposed", text: "One award, shaped together." }] : []),
+    { name: inKind.name, amount: "In kind", text: `${inKind.examples.join(", ")}.` },
+    { name: "People in the room", amount: "Time", text: sentence(deck.roles.map((r) => r.title)) },
+  ];
   return (
     <section aria-labelledby="lp-summary" className="lp-section">
       <div className="lp-wrap">
@@ -880,11 +764,11 @@ function Summary({ n, deck }: { n: string; deck: SponsorDeckData }) {
         <div className="mt-10 grid gap-5 lg:grid-cols-5 print:mt-6 print:grid-cols-5">
           <div className="lp-keep flex flex-col justify-between rounded-3xl bg-night p-8 text-cream lg:col-span-2 print:col-span-2">
             <div>
-              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">{tool ? "The ask" : main.name}</p>
-              <p className="lp-num mt-5 text-[clamp(2.4rem,5vw,4.2rem)] text-sun">{tool ? "Access" : main.amount === "Time" ? "Time" : main.amount}</p>
+              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">The ask</p>
+              <p className="lp-num mt-5 text-[clamp(2.4rem,5vw,4.2rem)] text-sun">Access</p>
               <p className="mt-2 text-sm font-bold tracking-[0.12em] text-cream/70 uppercase">Inaugural Hack876</p>
             </div>
-            <p className="mt-8 text-lg leading-relaxed text-cream/90">{tool ? deck.tool!.what : deck.ask.why}</p>
+            <p className="mt-8 text-lg leading-relaxed text-cream/90">{deck.tool!.what}</p>
           </div>
           <ul className="grid gap-3 lg:col-span-3 print:col-span-3">
             {others.map((o) => (

@@ -105,7 +105,7 @@ const deck: SponsorDeckData = {
       title: "A direct partnership with the Digicel Foundation",
       points: [
         "Fits the To Build Minds goal: technology and learning in schools.",
-        "One gift that covers the day itself, not a long programme.",
+        "One gift that helps support the day itself, not a long programme.",
         "Recognition for the Foundation, not Digicel products.",
         "Reported back in students, schools and working builds.",
       ],
@@ -126,10 +126,11 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "gold",
-    fallback: "prize",
-    why: "Gold is flexible: it covers prizes, food and the day itself in one gift. If an itemised gift fits the Foundation better this year, the Prize Partner tier is a clean alternative.",
-    recognition: "Founding Gold Partner · Inaugural Hack876",
+    lead: "band",
+    band: "platinum",
+    uses: ["overall", "prizes", "equipment", "production"],
+    why: "Platinum is flexible: it helps support prizes, meals and the day itself in one gift. If a smaller gift fits the Foundation better this year, a contribution at any level is welcome.",
+    recognition: "Platinum Partner · Inaugural Hack876",
     award: {
       name: "Digicel Foundation Girls in ICT Award (suggested)",
       text: "A suggested award for the strongest build from a team where girls lead the technical work, carrying the Foundation's Girls in ICT commitment into Hack876.",

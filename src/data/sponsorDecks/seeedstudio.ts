@@ -110,7 +110,9 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "inkind",
+    lead: "inkind",
+    bands: [],
+    uses: ["equipment"],
     why: "We are asking for hardware, not cash. Seeed's standard Meshtastic package is a great start, and we would ask Seeed whether an upgrade fits an event of our size.",
     recognition: "Hardware Partner · Inaugural Hack876",
     award: {

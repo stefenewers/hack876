@@ -8,6 +8,7 @@ import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { DeviceArt } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
 import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
+import { inKind } from "@/data/sponsorship";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -218,7 +219,7 @@ function PrizeBoard() {
       title: `${THIRD.name} Gift Card Partner`,
       art: "card",
       planned: THIRD.reward ?? "",
-      proposed: `4 × US$150 ${SPONSOR} gift cards or store credit, so each student picks something useful to them.`,
+      proposed: `${SPONSOR} gift cards or store credit, one per student, so each student picks something useful to them.`,
       ways: "",
       recognition: `${THIRD.name} prizes provided by ${SPONSOR}`,
       tone: "bg-paper",
@@ -291,6 +292,7 @@ function NotFree() {
             If four iPads is too much, that is completely fine. One device helps. A discount helps. Four gift cards help. We
             would rather build something sensible with {SPONSOR} than force the partnership into a predetermined tier.
           </p>
+          <p className="lp-note mt-4">{inKind.recognition}</p>
         </div>
         <ul className="grid gap-3 sm:grid-cols-2 print:grid-cols-2">
           {[
@@ -299,7 +301,8 @@ function NotFree() {
             "Partly underwriting a device",
             "One or two devices instead of a whole team’s prizes",
             "Accessories bundled into another prize",
-            "Store credit",
+            "Gift cards or store credit",
+            "A monetary contribution toward buying a prize",
             "Repair credits",
             "Another prize package MacSpot thinks makes sense",
           ].map((t) => (

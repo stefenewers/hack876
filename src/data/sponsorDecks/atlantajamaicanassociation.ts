@@ -84,7 +84,7 @@ const deck: SponsorDeckData = {
 
   linkedSchool: {
     school: "Campion College",
-    text: "Evette Taylor-Reynolds began a teaching career at Campion College, according to the 2026 Marcus Garvey Symposium programme. Both Hack876 organisers are Campion alumni. Campion is in the Hack876 school network; its participation is not yet confirmed.",
+    text: "Evette Taylor-Reynolds began a teaching career at Campion College, according to the 2026 Marcus Garvey Symposium programme. Both Hack876 organisers are Campion alumni. Campion has confirmed its participation in Hack876.",
     ref: 7,
   },
 
@@ -93,7 +93,7 @@ const deck: SponsorDeckData = {
       label: "Association",
       title: "An AJA special award",
       points: [
-        "Back the special awards, or one award",
+        "Contribute toward a special award",
         "A proposed AJA Culture Award, if it fits",
         "Routed through whichever AJA entity suits the purpose",
         "Small, specific and easy to report back to members",
@@ -116,10 +116,11 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "special",
-    fallback: "inkind",
+    lead: "band",
+    band: "bronze",
+    uses: ["awards", "programming"],
     why: "It is small and concrete, close in spirit to the scholarships the AJA already gives, and it lets members see exactly what their support did.",
-    recognition: "Special Awards Partner · Inaugural Hack876",
+    recognition: "Bronze Partner · Inaugural Hack876",
     award: {
       name: "AJA Culture Award (proposed)",
       text: "A suggestion only: an award for the build that best celebrates or carries forward Jamaican culture, language or heritage, with criteria agreed together. It would echo the cultural programmes the AJA already runs.",

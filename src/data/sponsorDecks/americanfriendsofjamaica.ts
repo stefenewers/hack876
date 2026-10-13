@@ -85,18 +85,14 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "prize",
-    fallback: "food",
-    why: "A grant in this range sits inside AFJ's typical US$1,000 to US$20,000 grants and would carry the student experience as programme support. If the timing or eligibility does not fit this cycle, a smaller grant toward food and student experience is a natural place to start.",
+    lead: "band",
+    band: "gold",
+    uses: ["programming", "equipment", "materials", "logistics", "meals"],
+    restriction: "AFJ does not fund grants to individuals, so a contribution would support programme costs and not student prizes.",
+    title: "Programme Partner",
+    why: "AFJ's grants typically range from US$1,000 to US$20,000. We are suggesting a contribution toward programme costs, at whatever level AFJ considers appropriate. If the timing or eligibility does not fit this cycle, a smaller grant toward food and student experience is a natural place to start.",
     recognition: "Programme Partner · Inaugural Hack876",
     tracks: ["Learn", "Business", "Resilience"],
-    /* AFJ does not fund grants to individuals, so no per-student prize tiers. */
-    custom: {
-      name: "Programme Partner",
-      amount: "~US$3,500",
-      covers: ["Student experience on the day", "Equipment and materials", "Mentoring and judging programme", "Programming and logistics"],
-    },
-    hideTiers: ["special"],
   },
 
   roles: [

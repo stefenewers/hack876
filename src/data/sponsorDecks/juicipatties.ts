@@ -112,10 +112,11 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "food",
-    fallback: "special",
+    lead: "inkind",
+    band: "bronze",
+    uses: ["meals"],
     why: "Lunch is the one moment every student shares, and it is something Juici already does better than anyone. In kind is the simplest way to make it happen.",
-    recognition: "Food & Student Experience Partner · Inaugural Hack876",
+    recognition: "Food Partner · Inaugural Hack876",
     award: {
       name: "Juici Community Award (proposed)",
       text: "A suggestion only: an award for the build that would do the most for a Jamaican community, with criteria agreed together. The judging panel would make the final call.",

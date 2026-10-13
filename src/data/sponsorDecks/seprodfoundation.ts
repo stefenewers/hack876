@@ -110,7 +110,7 @@ const deck: SponsorDeckData = {
       points: [
         "Fits the STEAM education pillar directly",
         "A contained, one-day commitment",
-        "Underwrites the podium prizes students compete for",
+        "Contributes toward the prizes students compete for",
         "Followed by a written recap with photos and outcomes",
       ],
     },
@@ -126,10 +126,11 @@ const deck: SponsorDeckData = {
   ],
 
   ask: {
-    tier: "prize",
-    fallback: "special",
-    why: "The Foundation already backs youth competitions, so funding the podium is a familiar, contained ask. It puts the Seprod Foundation name on the moment students remember most.",
-    recognition: "Official Prize Partner · Inaugural Hack876",
+    lead: "band",
+    band: "gold",
+    uses: ["prizes", "awards", "programming"],
+    why: "The Foundation already backs youth competitions, so contributing toward the prizes is a familiar, contained ask. It puts the Seprod Foundation name on the moment students remember most.",
+    recognition: "Gold Partner · Inaugural Hack876",
     award: {
       name: "Seprod Foundation Resilience Award (suggestion)",
       text: "One idea: an award for the best Resilience-track build, in the spirit of the Foundation's community resilience work. A food security award would fit just as well. We would shape it together.",

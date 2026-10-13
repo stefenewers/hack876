@@ -131,10 +131,11 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "gold",
-    fallback: "prize",
-    why: "Gold is flexible: it covers prizes, food and the day itself in one gift. If an itemised gift fits the Foundation better, the Prize Partner tier is a clean alternative.",
-    recognition: "Founding Gold Partner · Inaugural Hack876",
+    lead: "band",
+    band: "platinum",
+    uses: ["overall", "prizes", "meals", "production"],
+    why: "Platinum is flexible: it helps support prizes, meals and the day itself in one gift. If a smaller gift fits the Foundation better this year, a contribution at any level is welcome.",
+    recognition: "Platinum Partner · Inaugural Hack876",
     award: {
       name: "N.C.B. Foundation Digital Producers Award (suggested)",
       text: "A suggested award for the team with the most complete working build, echoing the Foundation's own goal of growing Jamaica's pool of digital producers.",

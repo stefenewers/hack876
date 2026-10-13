@@ -104,8 +104,10 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "inkind",
-    fallback: "food",
+    lead: "inkind",
+    band: "bronze",
+    uses: ["meals"],
+    title: "Hydration Partner",
     why: "Water is what WATA already brings to school days, and it is the one thing every student will reach for. It keeps the ask small and close to the work the School Tour already does.",
     recognition: "Hydration Partner · Inaugural Hack876",
     award: {

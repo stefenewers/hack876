@@ -95,9 +95,9 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "inkind",
-    /* Replit offers credits, not cash or prize money. */
-    hideTiers: ["prize", "special"],
+    lead: "inkind",
+    bands: [],
+    uses: ["programming"],
     why: "Replit gives credits, not cash, and that is all we are asking for: credits for the teams that choose to build on Replit, plus anything Replit suggests on how best to use them.",
     recognition: "Build Tools Partner · Inaugural Hack876",
     award: {

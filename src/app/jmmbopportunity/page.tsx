@@ -8,7 +8,8 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { Bridge, Converge, FuturePaths, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
+import { eligibility, event, eventWhen, schools, stats } from "@/data/event";
+import { AwardIdea, BandStrip, LevelsSection, lowerLevels, SupportSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -30,11 +31,9 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
     nocache: true,
-    googleBot: { index: false, follow: false, noimageindex: true },
-  },
+    googleBot: { index: false, follow: false, noimageindex: true } },
   openGraph: null,
-  twitter: null,
-};
+  twitter: null };
 
 /* Canonical numbers come from the event data. */
 const STUDENTS = eligibility.maxHackers;
@@ -42,11 +41,6 @@ const PARTNER_SCHOOLS = schools.length;
 const TEAMS = stats.find((s) => s.label === "teams")?.value;
 const FORMS = eligibility.formOptions;
 const TEAM_SIZE = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
-const SPECIAL_AWARDS = prizes.filter((p) => !p.place);
-const SPECIAL_TOTAL = SPECIAL_AWARDS.reduce((sum, p) => sum + (p.valueUsd ?? 0), 0);
-const PODIUM = prizes.filter((p) => p.place).sort((a, b) => a.place! - b.place!);
-/* Approximate procurement costs for the podium rewards (same estimates as the other proposals). */
-const PODIUM_COST: Record<number, string> = { 1: "Approximately US$1,800", 2: "Approximately US$1,000", 3: "US$600" };
 
 /* First-party JMMB sources for every JMMB claim on this page. */
 const SOURCES = [
@@ -825,7 +819,7 @@ function AudienceValue() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  13 Gold Partner                                                           */
+/*  13 Platinum Partner                                                           */
 /* -------------------------------------------------------------------------- */
 
 const GOLD_AREAS = [
@@ -845,12 +839,16 @@ function GoldPartner() {
       <div className="lp-wrap relative">
         <Kicker n="13">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
-          Become a Founding Gold Partner of the inaugural Hack876.
+          Become a Platinum Partner of the inaugural Hack876.
         </h2>
 
         <div className="lp-keep mt-10 border-y lp-rule py-8 print:mt-6 print:py-5">
           <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">J$1,000,000</p>
           <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">Founding Partner · Inaugural Hack876</p>
+        </div>
+
+        <div className="mt-8 print:mt-5">
+          <BandStrip dark recommended="platinum" />
         </div>
 
         <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16 print:mt-6 print:grid-cols-2 print:gap-8">
@@ -873,7 +871,7 @@ function GoldPartner() {
           <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-7 sm:p-9">
             <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed recognition</figcaption>
             <p className="mt-6 text-[clamp(1.5rem,2.8vw,2rem)] leading-tight font-extrabold tracking-tight">{SPONSOR}</p>
-            <p className="lp-accent mt-2 text-lg font-bold text-sun">Gold Partner · Inaugural Hack876</p>
+            <p className="lp-accent mt-2 text-lg font-bold text-sun">Platinum Partner · Inaugural Hack876</p>
           </figure>
         </div>
       </div>
@@ -925,70 +923,12 @@ function GoldBenefits() {
 
 function WaysToParticipate() {
   return (
-    <section aria-labelledby="lp-ways" className="lp-section lp-dense bg-cream-2">
-      <div className="lp-wrap">
-        <Kicker n="15">Flexible ways to participate</Kicker>
-        <h2 id="lp-ways" className="lp-h2 mt-6 max-w-[24ch]">
-          Choose the level that fits the Foundation or marketing budget.
-        </h2>
-
-        <div className="mt-8 grid gap-5 lg:grid-cols-2 print:mt-5 print:grid-cols-2">
-          <article className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">Prize Partner</h3>
-              <p className="lp-num text-3xl">~US$3,500</p>
-            </div>
-            <p className="mt-1 text-ink-2">Underwrite some or all of the primary awards.</p>
-            <dl className="mt-3 divide-y lp-rule border-y lp-rule text-sm">
-              {PODIUM.map((p) => (
-                <div key={p.name} className="grid grid-cols-[8rem_1fr_auto] gap-2 py-2 max-sm:grid-cols-[7rem_1fr]">
-                  <dt className="font-extrabold">{p.name}</dt>
-                  <dd className="font-semibold">{p.reward}</dd>
-                  <dd className="text-ink-soft max-sm:col-start-2">{PODIUM_COST[p.place!]}</dd>
-                </div>
-              ))}
-            </dl>
-          </article>
-
-          <article className="lp-keep rounded-2xl border-2 border-ink bg-sun-light p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">Entrepreneurship Award Partner</h3>
-              <p className="text-sm font-extrabold tracking-wide text-ink-soft uppercase">Proposed</p>
-            </div>
-            <p className="mt-1 text-ink-2">
-              A possible custom award, such as <strong className="text-ink">Most Entrepreneurial Solution</strong> or{" "}
-              <strong className="text-ink">Best Path to Impact</strong>, shaped with JMMB. Not yet a Hack876 award.
-            </p>
-            <p className="mt-3 text-sm font-semibold text-ink-soft">
-              Or support the existing special awards: {SPECIAL_AWARDS.map((a) => a.name).join(", ")} (US${SPECIAL_TOTAL.toLocaleString("en-US")} for all{" "}
-              {SPECIAL_AWARDS.length}, or US$200 each).
-            </p>
-          </article>
-
-          <article className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">Food &amp; Student Experience Partner</h3>
-              <p className="lp-num text-3xl">US$1,000</p>
-            </div>
-            <p className="mt-1 text-ink-2">
-              Approximately J$150,000 toward meals and refreshments for approximately {STUDENTS} students, plus staff,
-              volunteers, judges and guests.
-            </p>
-          </article>
-
-          <article className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="text-xl font-extrabold">In-kind / People Partner</h3>
-              <p className="text-sm font-extrabold tracking-wide text-emerald-deep uppercase">Time and expertise</p>
-            </div>
-            <p className="mt-1 text-ink-2">
-              Judges, mentors, speakers, volunteers and founder coaching, with or without a financial contribution.
-            </p>
-          </article>
-        </div>
-        <p className="lp-note mt-4">Costs are approximate. Final prize configuration may change with team structure, pricing and availability.</p>
-      </div>
-    </section>
+    <>
+      <LevelsSection n="15" heading="Choose the level that fits the Foundation or marketing budget." lead="Any amount within a level is welcome." recommended="platinum" />
+      <SupportSection n="" heading="No contribution has to cover a whole cost." uses={["overall", "prizes", "meals", "equipment", "production", "programming"]}>
+        <AwardIdea name="Entrepreneurship Award (proposed)" text="A possible custom award, such as Most Entrepreneurial Solution or Best Path to Impact, shaped with JMMB. Not yet a Hack876 award." />
+      </SupportSection>
+    </>
   );
 }
 
@@ -997,13 +937,7 @@ function WaysToParticipate() {
 /* -------------------------------------------------------------------------- */
 
 function Summary() {
-  const options = [
-    { name: "Prize Partner", amount: "~US$3,500", text: "The primary competition awards." },
-    { name: "Special Awards Partner", amount: `US$${SPECIAL_TOTAL.toLocaleString("en-US")}`, text: `All ${SPECIAL_AWARDS.length} existing special awards, or US$200 for one.` },
-    { name: "Entrepreneurship Award", amount: "Proposed", text: "A custom award shaped with JMMB." },
-    { name: "Food & Student Experience", amount: "US$1,000", text: "Meals and refreshments for the day." },
-    { name: "In-kind / People Partner", amount: "Time", text: "Judges, mentors, speakers, coaches." },
-  ];
+  const options = lowerLevels([{ name: "Entrepreneurship Award", amount: "Proposed", text: "A custom award shaped with JMMB." }]);
   return (
     <section aria-labelledby="lp-summary" className="lp-section">
       <div className="lp-wrap">
@@ -1014,7 +948,7 @@ function Summary() {
         <div className="mt-10 grid gap-5 lg:grid-cols-5 print:mt-6 print:grid-cols-5">
           <div className="lp-keep flex flex-col justify-between rounded-3xl bg-night p-8 text-cream lg:col-span-2 print:col-span-2">
             <div>
-              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Founding Gold Partner</p>
+              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Platinum Partner</p>
               <p className="lp-num mt-5 text-[clamp(2.8rem,6vw,4.6rem)] text-sun">J$1,000,000</p>
               <p className="mt-2 text-sm font-bold tracking-[0.12em] text-cream/70 uppercase">Inaugural Hack876</p>
             </div>

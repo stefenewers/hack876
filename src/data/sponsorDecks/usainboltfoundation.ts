@@ -99,7 +99,7 @@ const deck: SponsorDeckData = {
       label: "Foundation",
       title: "A Foundation special award",
       points: [
-        "Back the special awards, or one award",
+        "Contribute toward a special award",
         "A proposed Dare to Dream Award, if it fits",
         "Presented on the day by a Foundation representative, if the Foundation wishes",
         "Small, specific and easy to report on",
@@ -116,10 +116,11 @@ const deck: SponsorDeckData = {
   ],
 
   ask: {
-    tier: "special",
-    fallback: "inkind",
-    why: "A special award is a small, clear commitment that matches the Foundation's 'Dare to Dream' value. It can be one award or all of them, at the Foundation's choice.",
-    recognition: "Special Awards Partner · Inaugural Hack876",
+    lead: "band",
+    band: "bronze",
+    uses: ["awards", "programming"],
+    why: "A contribution toward a special award is a small, clear commitment that matches the Foundation's 'Dare to Dream' value. The amount and the award are the Foundation's choice.",
+    recognition: "Bronze Partner · Inaugural Hack876",
     award: {
       name: "Dare to Dream Award (proposed)",
       text: "A suggestion only: the Foundation could back the award for the boldest idea of the day, named for its 'Dare to Dream' value. Criteria would be agreed together, and the judging panel would decide.",

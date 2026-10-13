@@ -136,10 +136,11 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "prize",
-    fallback: "special",
-    why: "The Foundation already funds student prizes through EcoSpark, so backing the Hack876 podium is a familiar, contained ask. If a smaller first step fits better, a single special award or JPS people on the day would still mean a great deal.",
-    recognition: "Official Prize Partner · Inaugural Hack876",
+    lead: "band",
+    band: "gold",
+    uses: ["prizes", "awards", "equipment"],
+    why: "The Foundation already funds student prizes through EcoSpark, so contributing toward the Hack876 prizes is a familiar, contained ask. If a smaller first step fits better, a Bronze contribution toward a special award or JPS people on the day would still mean a great deal.",
+    recognition: "Gold Partner · Inaugural Hack876",
     award: {
       name: "JPS Foundation Power Up Resilience Award (suggestion)",
       text: "One idea: an award for the best Resilience-track build, in the spirit of EcoSpark's Grid Resilience category. Energy, communities and climate solutions would all count. We would shape the name and criteria together.",

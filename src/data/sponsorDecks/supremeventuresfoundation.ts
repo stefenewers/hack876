@@ -116,10 +116,11 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "prize",
-    fallback: "food",
-    why: "The Foundation already funds educational grants for its top campers, so backing the Hack876 podium is a familiar, contained next step. If a smaller first step fits better, supporting food and the student experience would still mean a great deal.",
-    recognition: "Official Prize Partner · Inaugural Hack876",
+    lead: "band",
+    band: "gold",
+    uses: ["prizes", "meals", "programming"],
+    why: "The Foundation already funds educational grants for its top campers, so contributing toward the Hack876 prizes is a familiar, contained next step. If a smaller first step fits better, supporting food and the student experience would still mean a great deal.",
+    recognition: "Gold Partner · Inaugural Hack876",
     award: {
       name: "SVF Build the Future Award (suggestion)",
       text: "One idea: an award for the boldest working prototype, borrowing the 2026 camp theme. We would shape the name and criteria together.",

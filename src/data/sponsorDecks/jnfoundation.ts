@@ -93,7 +93,7 @@ const deck: SponsorDeckData = {
       label: "Foundation",
       title: "A JN special award",
       points: [
-        "Back the special awards, or one award",
+        "Contribute toward a special award",
         "A proposed JN Innovation Award, if it fits",
         "Presented on stage by the JN Foundation team",
         "Small, specific and easy to report on",
@@ -115,10 +115,11 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "special",
-    fallback: "inkind",
+    lead: "band",
+    band: "bronze",
+    uses: ["awards", "programming"],
     why: "It turns \"Innovation is a must\" into something a student can win, and it is a small, clear commitment that is easy to report on.",
-    recognition: "Special Awards Partner · Inaugural Hack876",
+    recognition: "Bronze Partner · Inaugural Hack876",
     award: {
       name: "JN Innovation Award (proposed)",
       text: "A suggestion only: an award for the boldest, most original build, in the spirit of \"Innovation is a must\". A Culture-track version, echoing Science Genius Jamaica, could work too. Criteria would be agreed together, and the judging panel would decide.",

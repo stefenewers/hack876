@@ -104,7 +104,9 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "inkind",
+    lead: "inkind",
+    bands: [],
+    uses: ["awards"],
     why: "We are not asking for accounts. We are asking for Figma's name on the award that fits it best, and for Figma's advice on how Jamaican students can use it properly.",
     recognition: "Design Tools Partner · Inaugural Hack876",
     award: {

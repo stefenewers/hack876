@@ -106,15 +106,15 @@ const deck: SponsorDeckData = {
 
   linkedSchool: {
     school: "Campion College",
-    text: "Our judge Jordan Howell, who works at Microsoft, is a Campion College alumnus. Campion is in the Hack876 school network; its participation is not yet confirmed.",
+    text: "Our judge Jordan Howell, who works at Microsoft, is a Campion College alumnus. Campion has confirmed its participation in Hack876.",
   },
 
   paths: [
     {
       label: "Prize",
-      title: "A Microsoft-backed podium",
+      title: "Support for the prizes",
       points: [
-        "Fund the podium prizes, or a proposed Microsoft award",
+        "Contribute toward the prizes, or a proposed Microsoft award",
         "Presented on stage by the Microsoft team",
         "Open to any tools, so the best build wins",
         "Decided by a judge who does not work at Microsoft",
@@ -132,10 +132,11 @@ const deck: SponsorDeckData = {
   ],
 
   ask: {
-    tier: "prize",
-    fallback: "special",
-    why: "Microsoft already funds student hackathon prizes in Jamaica. Backing the Hack876 podium extends that to students a few years younger.",
-    recognition: "Official Prize Partner · Inaugural Hack876",
+    lead: "band",
+    band: "gold",
+    uses: ["prizes", "awards", "programming"],
+    why: "Microsoft already funds student hackathon prizes in Jamaica. Contributing toward the Hack876 prizes extends that to students a few years younger.",
+    recognition: "Gold Partner · Inaugural Hack876",
     award: {
       name: "Microsoft AI for Good Award (proposed)",
       text: "A suggestion only: an award for the build that best uses technology to solve a real problem for a Jamaican community. Teams could use any tools, and criteria would be agreed together.",

@@ -8,7 +8,8 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { Bridge, Compounding, FuturePaths, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
+import { eligibility, event, eventWhen, schools, stats } from "@/data/event";
+import { BandStrip, LevelsSection, lowerLevels, SupportSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -30,11 +31,9 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
     nocache: true,
-    googleBot: { index: false, follow: false, noimageindex: true },
-  },
+    googleBot: { index: false, follow: false, noimageindex: true } },
   openGraph: null,
-  twitter: null,
-};
+  twitter: null };
 
 /* Canonical numbers come from the event data. */
 const STUDENTS = eligibility.maxHackers;
@@ -42,11 +41,6 @@ const PARTNER_SCHOOLS = schools.length;
 const TEAMS = stats.find((s) => s.label === "teams")?.value;
 const FORMS = eligibility.formOptions;
 const TEAM_SIZE = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
-const SPECIAL_AWARDS = prizes.filter((p) => !p.place);
-const SPECIAL_TOTAL = SPECIAL_AWARDS.reduce((sum, p) => sum + (p.valueUsd ?? 0), 0);
-const PODIUM = prizes.filter((p) => p.place).sort((a, b) => a.place! - b.place!);
-/* Approximate procurement costs for the podium rewards (not stored on the public site). */
-const PODIUM_COST: Record<number, string> = { 1: "Approximately US$1,800", 2: "Approximately US$1,000", 3: "US$600" };
 
 /* First-party Scotia sources for every Scotia claim on this page. */
 const SOURCES = [
@@ -475,20 +469,17 @@ const EVIDENCE = [
     kicker: "ScotiaRISE",
     title: "A 10-year, $500 million commitment to economic resilience.",
     text: "Scotiabank’s social impact initiative focuses on youth and education, among other areas: increasing employment prospects, life opportunities and full participation in the economy.",
-    ref: 7,
-  },
+    ref: 7 },
   {
     kicker: "YouthRISE · announced 2024",
     title: "Nearly 800 young people in Jamaica and Mexico.",
     text: "A three-year project with SOS Children’s Villages Canada, with J$106 million from Scotiabank, providing digital skills, entrepreneurship training, career coaching, mentorship and internship opportunities.",
-    ref: 8,
-  },
+    ref: 8 },
   {
     kicker: "2025",
     title: "Financial literacy with Jamaican youth.",
     text: "Scotia Group reports financial literacy sessions for young people in Kingston and Montego Bay, delivered with SOS Children’s Villages, covering budgeting, saving and investing.",
-    ref: 2,
-  },
+    ref: 2 },
 ];
 
 function AlreadyInvests() {
@@ -744,7 +735,7 @@ function MoreThanMoney() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  10 Gold Partner                                                           */
+/*  10 Platinum Partner                                                           */
 /* -------------------------------------------------------------------------- */
 
 const GOLD_AREAS = [
@@ -764,12 +755,16 @@ function GoldPartner() {
       <div className="lp-wrap relative">
         <Kicker n="10">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
-          Become a Gold Partner of the inaugural Hack876.
+          Become a Platinum Partner of the inaugural Hack876.
         </h2>
 
         <div className="lp-keep mt-10 border-y lp-rule py-8 print:mt-6 print:py-5">
           <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">J$1,000,000</p>
           <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">Founding Partner · Inaugural Hack876</p>
+        </div>
+
+        <div className="mt-8 print:mt-5">
+          <BandStrip dark recommended="platinum" />
         </div>
 
         <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16 print:mt-6 print:grid-cols-2 print:gap-8">
@@ -792,7 +787,7 @@ function GoldPartner() {
           <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-7 sm:p-9">
             <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed recognition</figcaption>
             <p className="mt-6 text-[clamp(1.5rem,2.8vw,2rem)] leading-tight font-extrabold tracking-tight">{SPONSOR}</p>
-            <p className="lp-accent mt-2 text-lg font-bold text-sun">Gold Partner · Inaugural Hack876</p>
+            <p className="lp-accent mt-2 text-lg font-bold text-sun">Platinum Partner · Inaugural Hack876</p>
           </figure>
         </div>
       </div>
@@ -847,67 +842,12 @@ function GoldBenefits() {
 
 function PrizeAndFood() {
   return (
-    <section aria-labelledby="lp-alt" className="lp-section bg-cream-2">
-      <div className="lp-wrap">
-        <Kicker n="12">Other ways to participate</Kicker>
-        <h2 id="lp-alt" className="lp-h2 mt-6 max-w-[22ch]">
-          The size of the commitment can change.
-        </h2>
-        <p className="lp-sub mt-3 text-emerald-deep">The invitation to be part of the first Hack876 does not.</p>
-
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1.25fr_1fr] print:mt-6 print:grid-cols-[1.25fr_1fr]">
-          <article aria-labelledby="lp-prize" className="lp-keep rounded-2xl border lp-rule bg-paper p-6 sm:p-8">
-            <h3 id="lp-prize" className="text-2xl font-extrabold tracking-tight">
-              Official Prize Partner
-            </h3>
-            <p className="lp-num mt-4 text-[clamp(2.2rem,5vw,3.2rem)]">
-              <span className="text-lg font-bold tracking-normal text-ink-soft">Approximately </span>US$3,500
-            </p>
-            <p className="mt-3 leading-relaxed text-ink-2">Fund the primary awards presented to Hack876&rsquo;s winning teams.</p>
-            <dl className="mt-5 divide-y lp-rule border-y lp-rule">
-              {PODIUM.map((p) => (
-                <div key={p.name} className="grid grid-cols-[8.5rem_1fr_auto] items-baseline gap-3 py-3 max-sm:grid-cols-[7rem_1fr]">
-                  <dt className="font-extrabold">{p.name}</dt>
-                  <dd className="font-semibold">{p.reward}</dd>
-                  <dd className="text-sm text-ink-soft max-sm:col-start-2">{PODIUM_COST[p.place!]}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="mt-5 border-l-4 border-emerald pl-4">
-              <p className="text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">Recognition</p>
-              <p className="mt-1 font-extrabold">Hack876 Official Prize Partner · {SHORT}</p>
-            </div>
-            <p className="lp-note mt-4">
-              Costs are approximate. The final prize configuration may change with team structure, pricing and availability.
-            </p>
-          </article>
-
-          <article aria-labelledby="lp-food" className="lp-keep rounded-2xl border lp-rule bg-paper p-6 sm:p-8">
-            <h3 id="lp-food" className="text-2xl font-extrabold tracking-tight">
-              Food &amp; Hospitality Partner
-            </h3>
-            <p className="lp-num mt-4 text-[clamp(2.2rem,5vw,3.2rem)]">US$1,000</p>
-            <p className="mt-1 font-bold text-ink-soft">Approximately J$150,000</p>
-            <p className="mt-4 leading-relaxed text-ink-2">
-              A long build day needs fuel. This helps keep approximately {STUDENTS} students, plus staff, volunteers, judges and
-              guests, fed and comfortable.
-            </p>
-            <ul className="mt-4 space-y-1.5">
-              {["Student meals", "Small eats and snacks", "Water and refreshments", "Light hospitality details"].map((t) => (
-                <li key={t} className="flex items-center gap-2.5 font-semibold">
-                  <Check className="text-emerald-deep" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-5 border-l-4 border-emerald pl-4">
-              <p className="text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">Recognition</p>
-              <p className="mt-1 font-extrabold">Hack876 Food &amp; Hospitality Partner · {SHORT}</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+    <LevelsSection
+      n="12"
+      heading="The size of the commitment can change."
+      lead="The invitation to be part of the first Hack876 does not. Any amount within a level is welcome."
+      recommended="platinum"
+    />
   );
 }
 
@@ -915,52 +855,9 @@ function PrizeAndFood() {
 /*  13 Special awards                                                         */
 /* -------------------------------------------------------------------------- */
 
-const AWARD_ICON: Record<string, string> = { pen: "pen", rocket: "rocket", heart: "heart" };
-const AWARD_BG: Record<string, string> = { pink: "bg-pink", bill: "bg-bill text-white", aqua: "bg-aqua" };
 
 function SpecialAwards() {
-  return (
-    <section aria-labelledby="lp-awards" className="lp-section">
-      <div className="lp-wrap">
-        <Kicker n="13">Special awards</Kicker>
-        <div className="mt-6 grid gap-10 lg:grid-cols-2 lg:items-end print:grid-cols-2 print:items-end">
-          <div>
-            <h2 id="lp-awards" className="lp-h2">
-              Special Awards Partner
-            </h2>
-            <p className="lp-num mt-4 text-[clamp(2.6rem,6vw,4rem)]">US${SPECIAL_TOTAL.toLocaleString("en-US")}</p>
-            <p className="lp-prose mt-3">Fund all {SPECIAL_AWARDS.length} Hack876 special awards.</p>
-            <p className="mt-3 font-extrabold">Recognition: Hack876 Special Awards presented by {SHORT}</p>
-          </div>
-          <div className="lp-keep rounded-2xl border-2 border-ink bg-sun-light p-6">
-            <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Or, an Individual Special Award</p>
-            <p className="lp-num mt-3 text-4xl">US$200</p>
-            <p className="mt-3 leading-relaxed text-ink-2">
-              Support just one award, recognized as, for example, <strong className="text-ink">Best Design presented by {SHORT}</strong>. A
-              meaningful way in, with your name on a moment students will remember.
-            </p>
-          </div>
-        </div>
-
-        <ul className="mt-10 grid gap-5 sm:grid-cols-3 print:mt-6 print:grid-cols-3">
-          {SPECIAL_AWARDS.map((p, i) => (
-            <li
-              key={p.name}
-              className={`sticker flex items-center gap-4 p-5 ${AWARD_BG[p.color] ?? "bg-paper"}`}
-              style={{ rotate: `${[1.5, -1, 1][i % 3]}deg` }}
-            >
-              <Icon name={AWARD_ICON[p.icon] ?? p.icon} className="h-14 w-14 shrink-0" />
-              <div>
-                <h3 className="text-xl font-extrabold">{p.name}</h3>
-                <p className="mt-1 text-sm font-semibold opacity-90">{p.reward}</p>
-                {p.valueUsd && <p className="mt-1 text-sm font-extrabold">US${p.valueUsd}</p>}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
+  return <SupportSection n="13" heading="No contribution has to cover a whole cost." uses={["overall", "prizes", "awards", "meals", "production", "programming"]} />;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -968,12 +865,7 @@ function SpecialAwards() {
 /* -------------------------------------------------------------------------- */
 
 function Summary() {
-  const options = [
-    { name: "Official Prize Partner", amount: "~US$3,500", text: "The primary competition awards." },
-    { name: "Food & Hospitality Partner", amount: "US$1,000", text: "Meals and refreshments for the day." },
-    { name: "Special Awards Partner", amount: `US$${SPECIAL_TOTAL.toLocaleString("en-US")}`, text: `All ${SPECIAL_AWARDS.length} special awards.` },
-    { name: "Individual Special Award", amount: "US$200", text: "One award, presented by Scotia." },
-  ];
+  const options = lowerLevels();
   return (
     <section aria-labelledby="lp-summary" className="lp-section">
       <div className="lp-wrap">
@@ -985,7 +877,7 @@ function Summary() {
         <div className="mt-10 grid gap-5 lg:grid-cols-5 print:mt-6 print:grid-cols-5">
           <div className="lp-keep flex flex-col justify-between rounded-3xl bg-night p-8 text-cream lg:col-span-2 print:col-span-2">
             <div>
-              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Gold Partner</p>
+              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Platinum Partner</p>
               <p className="lp-num mt-5 text-[clamp(2.8rem,6vw,4.6rem)] text-sun">J$1,000,000</p>
               <p className="mt-2 text-sm font-bold tracking-[0.12em] text-cream/70 uppercase">Founding Partner · Inaugural Hack876</p>
             </div>

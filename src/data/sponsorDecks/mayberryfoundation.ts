@@ -125,12 +125,12 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "food",
-    fallback: "inkind",
-    /* Mayberry's CSR policy excludes contributions to individuals, so no per-student prize tiers. */
-    hideTiers: ["prize", "special"],
+    lead: "band",
+    band: "bronze",
+    uses: ["meals", "programming", "logistics"],
+    restriction: "Mayberry's CSR policy excludes contributions to individuals, so a contribution would support the student experience and not prizes.",
     why: "It is the same kind of support Mayberry gave Christel House Jamaica: a full day of meals and transport, so students can focus on learning. As a cash gift, it is concrete and easy to report on.",
-    recognition: "Food & Student Experience Partner · Inaugural Hack876",
+    recognition: "Bronze Partner · Inaugural Hack876",
     award: {
       name: "Mayberry Young Entrepreneur Award (proposed)",
       text: "A suggestion only: an award for the Business-track build with the clearest path to helping a real small business, with criteria agreed together and the final call left to the judging panel.",

@@ -100,7 +100,7 @@ const deck: SponsorDeckData = {
       label: "Foundation",
       title: "A Sagicor special award",
       points: [
-        "Back the special awards, or one award",
+        "Contribute toward a special award",
         "A proposed Sagicor Young Innovator Award, if it fits",
         "Presented on stage by the Sagicor team",
         "Small, specific and easy to report on",
@@ -118,10 +118,11 @@ const deck: SponsorDeckData = {
   ],
 
   ask: {
-    tier: "special",
-    fallback: "inkind",
+    lead: "band",
+    band: "bronze",
+    uses: ["awards", "programming"],
     why: "It sits naturally beside the Chairman's Innovation Award, at secondary-school level, and it is a small, clear commitment that is easy to report on.",
-    recognition: "Special Awards Partner · Inaugural Hack876",
+    recognition: "Bronze Partner · Inaugural Hack876",
     award: {
       name: "Sagicor Young Innovator Award (proposed)",
       text: "A suggestion only: an award for the build that best uses technology to drive positive change, echoing the spirit of the Chairman's Innovation Award. Criteria would be agreed together, and the judging panel would decide.",

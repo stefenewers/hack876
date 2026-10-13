@@ -124,8 +124,10 @@ const deck: SponsorDeckData = {
   ],
 
   ask: {
-    tier: "inkind",
-    fallback: "special",
+    lead: "inkind",
+    bands: [],
+    uses: ["equipment", "programming"],
+    title: "Connectivity Partner",
     why: "An in-kind connectivity role mirrors what the USF already does for youth events, and it keeps the request simple for a public agency.",
     recognition: "Connectivity Partner · Inaugural Hack876",
     award: {
@@ -139,16 +141,6 @@ const deck: SponsorDeckData = {
       "A USF speaker on connectivity, digital skills and the ICT Education Grant",
       "Mentors from the USF projects and technical teams",
     ],
-    custom: {
-      name: "Connectivity Partner",
-      amount: "In kind",
-      covers: [
-        "Reliable internet for every student team on the day",
-        "Optional device prizes for the winning team",
-        "Recognition as Connectivity Partner in event materials",
-      ],
-    },
-    hideTiers: ["gold"],
   },
 
   roles: [

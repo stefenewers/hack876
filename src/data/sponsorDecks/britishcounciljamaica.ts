@@ -113,8 +113,9 @@ const deck: SponsorDeckData = {
   ],
 
   ask: {
-    tier: "inkind",
-    fallback: "special",
+    lead: "inkind",
+    bands: [],
+    uses: ["programming"],
     why: "The British Council works through people and partnerships, so that is our ask: teachers, know-how and a UK connection, not a cheque. A named award is entirely optional.",
     recognition: "In-kind Partner · Inaugural Hack876",
     award: {

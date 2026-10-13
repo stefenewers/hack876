@@ -87,7 +87,7 @@ const deck: SponsorDeckData = {
       label: "Foundation",
       title: "A Guardian special award",
       points: [
-        "Back the special awards, or one award",
+        "Contribute toward a special award",
         "A proposed Women in STEM award, if it fits",
         "Presented on stage by the Guardian team",
         "Small, specific and easy to report on",
@@ -109,10 +109,11 @@ const deck: SponsorDeckData = {
   },
 
   ask: {
-    tier: "special",
-    fallback: "inkind",
+    lead: "band",
+    band: "bronze",
+    uses: ["awards", "programming"],
     why: "It is close in size to the Women in STEM Grant Guardian already gives, and it puts a Guardian name on a moment students will remember.",
-    recognition: "Special Awards Partner · Inaugural Hack876",
+    recognition: "Bronze Partner · Inaugural Hack876",
     award: {
       name: "Guardian Women in STEM Award (proposed)",
       text: "A suggestion only: an award for the strongest build from a team where girls led the technical work, with criteria agreed together. It would carry the spirit of the grant Guardian already runs.",

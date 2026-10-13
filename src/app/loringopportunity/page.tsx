@@ -11,6 +11,7 @@ import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { eligibility, event, eventWhen, people, roleLabels, schools } from "@/data/event";
 import { Blueprint, FuturePaths, Seedling } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Rail, Ref } from "@/components/proposal/primitives";
+import { BandStrip, LevelsSection, lowerLevels, SupportSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 
 /*
@@ -26,11 +27,9 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
     nocache: true,
-    googleBot: { index: false, follow: false, noimageindex: true },
-  },
+    googleBot: { index: false, follow: false, noimageindex: true } },
   openGraph: null,
-  twitter: null,
-};
+  twitter: null };
 
 /* A Loring engineer already involved in Hack876 (from the site's people data). */
 const LORING_JUDGE = people.find((p) => p.confirmed && p.organization === "Loring Consulting Engineers");
@@ -49,23 +48,19 @@ const SOURCES = [
   {
     id: 1,
     label: "Our History — founded 1956 by Joseph R. Loring",
-    href: "https://www.loringengineers.com/about/our-history/",
-  },
+    href: "https://www.loringengineers.com/about/our-history/" },
   {
     id: 2,
     label: "Loring Consulting Engineers Celebrates Official Launch of Jamaica Office (March 4, 2026)",
-    href: "https://www.loringengineers.com/news/loring-consulting-engineers-celebrates-official-launch-of-jamaica-office/",
-  },
+    href: "https://www.loringengineers.com/news/loring-consulting-engineers-celebrates-official-launch-of-jamaica-office/" },
   {
     id: 3,
     label: "Oneil Gayle, Chief Executive Officer — leadership biography",
-    href: "https://www.loringengineers.com/people/oneil-gayle/",
-  },
+    href: "https://www.loringengineers.com/people/oneil-gayle/" },
   {
     id: 4,
     label: "Loring Consulting Engineers Promotes Oneil Gayle to CEO (December 2023)",
-    href: "https://www.loringengineers.com/news/loring-consulting-engineers-promotes-oneil-gayle-to-ceo/",
-  },
+    href: "https://www.loringengineers.com/news/loring-consulting-engineers-promotes-oneil-gayle-to-ceo/" },
 ] as const;
 
 /* -------------------------------------------------------------------------- */
@@ -581,8 +576,7 @@ const JOURNEY = [
   { when: "Internship years", text: "She already knows Loring." },
   {
     when: "Graduation",
-    text: "Loring is not simply another employer she discovers at a career fair. It is a company that has been part of her story for years.",
-  },
+    text: "Loring is not simply another employer she discovers at a career fair. It is a company that has been part of her story for years." },
 ];
 
 function Pipeline() {
@@ -971,7 +965,7 @@ function MoreThanMoney() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  12 — Gold Partner                                                         */
+/*  12 — Platinum Partner                                                         */
 /* -------------------------------------------------------------------------- */
 
 const GOLD_AREAS = [
@@ -991,12 +985,16 @@ function GoldPartner() {
       <div className="lp-wrap relative">
         <Kicker n="11">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
-          Become a Gold Partner of the inaugural Hack876.
+          Become a Platinum Partner of the inaugural Hack876.
         </h2>
 
         <div className="lp-keep mt-12 border-y lp-rule py-10 print:mt-8 print:py-6">
           <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">J$1,000,000</p>
           <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">Founding Partner · Inaugural Hack876</p>
+        </div>
+
+        <div className="mt-8 print:mt-5">
+          <BandStrip dark recommended="platinum" />
         </div>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16 print:mt-6 print:grid-cols-2 print:gap-8">
@@ -1022,7 +1020,7 @@ function GoldPartner() {
             <figure className="lp-keep rounded-2xl border-2 border-dashed border-cream/40 p-7 sm:p-9">
               <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed recognition</figcaption>
               <p className="mt-6 text-[clamp(1.6rem,3vw,2.2rem)] leading-tight font-extrabold tracking-tight">Loring Consulting Engineers</p>
-              <p className="lp-accent mt-2 text-lg font-bold text-sun">Gold Partner · Inaugural Hack876</p>
+              <p className="lp-accent mt-2 text-lg font-bold text-sun">Platinum Partner · Inaugural Hack876</p>
             </figure>
             <Lines
               className="mt-8"
@@ -1039,11 +1037,11 @@ function GoldPartner() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  13 — Gold Partner benefits                                                */
+/*  13 — Platinum Partner benefits                                                */
 /* -------------------------------------------------------------------------- */
 
 const BENEFITS = [
-  "Prominent Gold Partner recognition across Hack876 event materials and digital experiences",
+  "Prominent Platinum Partner recognition across Hack876 event materials and digital experiences",
   "Recognition during opening and closing programming",
   "Opportunity for Loring leadership to address students",
   "Participation of Loring engineers as judges, mentors and speakers",
@@ -1058,9 +1056,9 @@ function GoldBenefits() {
   return (
     <section aria-labelledby="lp-benefits" className="lp-section">
       <div className="lp-wrap">
-        <Kicker n="12">Gold Partnership</Kicker>
+        <Kicker n="12">Platinum Partnership</Kicker>
         <h2 id="lp-benefits" className="lp-h2 mt-6">
-          What Gold Partnership looks like.
+          What Platinum Partnership looks like.
         </h2>
         <p className="lp-prose mt-4">Potential integration includes:</p>
 
@@ -1088,99 +1086,13 @@ function GoldBenefits() {
 /*  14–15 — Alternatives                                                      */
 /* -------------------------------------------------------------------------- */
 
-const PRIZES = [
-  { place: "1st Place", items: "4 × iPads", cost: "Approximately US$1,800" },
-  { place: "2nd Place", items: "4 × AirPods Pro", cost: "Approximately US$1,000" },
-  { place: "3rd Place", items: "4 × US$150 gift cards", cost: "US$600" },
-];
 
 function Alternatives() {
   return (
-    <section aria-labelledby="lp-alt" className="lp-section bg-cream-2">
-      <div className="lp-wrap">
-        <Kicker n="13">Other ways to participate</Kicker>
-        <h2 id="lp-alt" className="lp-h2 mt-6 max-w-[20ch]">
-          If Gold Partnership is not the right fit for year one.
-        </h2>
-        <p className="lp-prose mt-6">
-          There are still meaningful ways for Loring to help make the inaugural Hack876 possible.
-        </p>
-
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.25fr_1fr] print:mt-8 print:grid-cols-[1.25fr_1fr]">
-          {/* Prize Partner */}
-          <article aria-labelledby="lp-prize" className="lp-keep rounded-2xl border lp-rule bg-paper p-6 sm:p-8">
-            <h3 id="lp-prize" className="text-2xl font-extrabold tracking-tight">
-              Official Prize Partner
-            </h3>
-            <p className="lp-num mt-4 text-[clamp(2.2rem,5vw,3.2rem)]">
-              <span className="text-lg font-bold tracking-normal text-ink-soft">Approximately </span>US$3,500
-            </p>
-            <p className="mt-4 leading-relaxed text-ink-2">Fund the primary awards presented to Hack876&rsquo;s winning teams.</p>
-
-            <p className="mt-6 text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">
-              Illustrative prize package for four-student teams
-            </p>
-            <dl className="mt-3 divide-y lp-rule border-y lp-rule">
-              {PRIZES.map((p) => (
-                <div key={p.place} className="grid grid-cols-[6rem_1fr_auto] items-baseline gap-3 py-3 max-sm:grid-cols-[5rem_1fr]">
-                  <dt className="font-extrabold">{p.place}</dt>
-                  <dd className="font-semibold">{p.items}</dd>
-                  <dd className="text-sm text-ink-soft max-sm:col-start-2">{p.cost}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-4 font-bold">
-              Approximate total: <span className="text-emerald-deep">US$3,400 to US$3,500</span>
-            </p>
-
-            <div className="mt-6 border-l-4 border-emerald pl-4">
-              <p className="text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">Recognition</p>
-              <p className="mt-1 font-extrabold">Hack876 Official Prize Partner</p>
-              <p className="font-semibold text-ink-2">Loring Consulting Engineers</p>
-            </div>
-            <p className="lp-note mt-5">
-              The final prize configuration may be adjusted based on participating team structure, product pricing and
-              availability.
-            </p>
-          </article>
-
-          {/* Food & Hospitality */}
-          <article aria-labelledby="lp-food" className="lp-keep rounded-2xl border lp-rule bg-paper p-6 sm:p-8">
-            <h3 id="lp-food" className="text-2xl font-extrabold tracking-tight">
-              Food &amp; Hospitality Partner
-            </h3>
-            <p className="lp-num mt-4 text-[clamp(2.2rem,5vw,3.2rem)]">US$1,000</p>
-            <p className="mt-1 font-bold text-ink-soft">Approximately J$150,000</p>
-            <div className="mt-4 space-y-3 leading-relaxed text-ink-2">
-              <p>A long build day needs fuel.</p>
-              <p>
-                This partnership helps provide meals, small eats, refreshments and a welcoming event environment for Hack876
-                students, volunteers and guests.
-              </p>
-            </div>
-            <p className="mt-6 text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">Funding may support</p>
-            <ul className="mt-3 space-y-1.5">
-              {["Student meals", "Snacks and small eats", "Water and refreshments", "Serving supplies", "Light event décor and hospitality details"].map(
-                (t) => (
-                  <li key={t} className="flex items-center gap-2.5 font-semibold">
-                    <Check className="text-emerald-deep" />
-                    {t}
-                  </li>
-                ),
-              )}
-            </ul>
-            <div className="mt-6 border-l-4 border-emerald pl-4">
-              <p className="text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">Recognition</p>
-              <p className="mt-1 font-extrabold">Hack876 Food &amp; Hospitality Partner</p>
-              <p className="font-semibold text-ink-2">Loring Consulting Engineers</p>
-            </div>
-            <p className="mt-6 font-semibold text-ink">
-              A smaller commitment with an immediate, visible impact on everyone in the room.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
+    <>
+      <LevelsSection n="13" heading="If Platinum is not the right fit for year one." lead="There are still meaningful ways for Loring to help make the inaugural Hack876 possible. Any amount within a level is welcome." recommended="platinum" />
+      <SupportSection n="" heading="No contribution has to cover a whole cost." uses={["overall", "prizes", "meals", "equipment", "production", "programming"]} />
+    </>
   );
 }
 
@@ -1200,7 +1112,7 @@ function Summary() {
         <div className="mt-8 grid gap-5 lg:grid-cols-5 print:grid-cols-5">
           <div className="lp-keep flex flex-col justify-between rounded-3xl bg-night p-8 text-cream sm:p-10 lg:col-span-3 print:col-span-3">
             <div>
-              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Gold Partner</p>
+              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Platinum Partner</p>
               <p className="lp-num mt-5 text-[clamp(3rem,8vw,5.5rem)] text-sun">J$1,000,000</p>
               <p className="mt-2 text-sm font-bold tracking-[0.12em] text-cream/70 uppercase">
                 Founding Partner · Inaugural Hack876
@@ -1211,19 +1123,12 @@ function Summary() {
             </p>
           </div>
 
-          <div className="grid gap-5 lg:col-span-2 print:col-span-2">
-            {[
-              { name: "Official Prize Partner", amount: "~US$3,500", text: "Fund the primary competition awards." },
-              {
-                name: "Food & Hospitality Partner",
-                amount: "US$1,000",
-                text: "Help feed students and support the hospitality experience throughout the day.",
-              },
-            ].map((o) => (
-              <div key={o.name} className="lp-keep rounded-2xl border lp-rule bg-paper p-6">
+          <div className="grid gap-3 lg:col-span-2 print:col-span-2">
+            {lowerLevels().map((o) => (
+              <div key={o.name} className="lp-keep rounded-2xl border lp-rule bg-paper px-5 py-3.5">
                 <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">{o.name}</p>
-                <p className="lp-num mt-3 text-4xl">{o.amount}</p>
-                <p className="mt-3 leading-relaxed text-ink-2">{o.text}</p>
+                <p className="lp-num mt-1.5 text-2xl">{o.amount}</p>
+                <p className="mt-1 text-[0.95rem] leading-snug text-ink-2">{o.text}</p>
               </div>
             ))}
           </div>
@@ -1231,7 +1136,7 @@ function Summary() {
 
         <div className="lp-keep mt-16 print:mt-10">
           <p className="lp-statement">Our first choice is simple.</p>
-          <p className="lp-sub mt-4 max-w-[30ch]">We would love to build the inaugural Hack876 with Loring as a Gold Partner.</p>
+          <p className="lp-sub mt-4 max-w-[30ch]">We would love to build the inaugural Hack876 with Loring as a Platinum Partner.</p>
           <p className="lp-h3 mt-6 text-[clamp(1.25rem,2vw,1.6rem)] text-emerald-deep">But the larger goal is beginning the relationship.</p>
         </div>
       </div>
