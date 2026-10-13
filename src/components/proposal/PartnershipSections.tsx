@@ -382,7 +382,7 @@ export type Source = { id: number; org: string; label: string; href: string };
 /** Numbered sources, subordinate to the proposal. */
 export function SourcesFooter({ sources, preparedFor }: { sources: readonly Source[]; preparedFor?: string }) {
   return (
-    <footer className="mt-8 border-t lp-rule pt-4 print:!mt-[1.2rem] print:pt-[0.7rem]">
+    <footer className="mt-8 border-t lp-rule pt-4 print:!mt-[0.7rem] print:pt-[0.5rem]">
       <h3 className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Sources</h3>
       <ol className="mt-2 grid gap-x-8 gap-y-1 lg:grid-cols-2 print:grid-cols-3 print:gap-x-[1.6rem]">
         {sources.map((s) => (

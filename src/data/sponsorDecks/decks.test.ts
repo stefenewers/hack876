@@ -2,11 +2,11 @@ import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { eligibility, prizes } from "../event.ts";
-import { bands } from "../sponsorship.ts";
+import { band, bands, benefitNotes } from "../sponsorship.ts";
 import { awardOffers } from "./awards.ts";
 import { decisions } from "./decisions.ts";
 import { deckFormat, isExploratory, pagePlan } from "./framing.ts";
-import { deckRegistry } from "./registry.ts";
+import { deckRegistry, readinessHelp, readinessLabel } from "./registry.ts";
 import type { SponsorDeckData } from "./types.ts";
 
 /* Maintenance checks across every partnership deck, template-driven or hand-built. */
@@ -120,4 +120,74 @@ test("the decision register stays internal and points at real decks", () => {
   for (const f of [...read("src/app"), ...read("src/components")].filter((f) => /\.tsx?$/.test(f))) {
     assert.doesNotMatch(readFileSync(f, "utf8"), /sponsorDecks\/(decisions|awards)/, `${f} imports an internal register`);
   }
+});
+
+/* ---------- Finishing-pass checks ---------- */
+
+const CUSTOM_PLATINUM = ["loring", "gracekennedy", "scotiainvestments", "jmmb", "cardinallaw"];
+const slugOf = (route: string) => route.replace(/^\/|opportunity$/g, "");
+
+test("hand-built decks take tier names and amounts from sponsorship.ts", () => {
+  for (const p of pages) {
+    assert.doesNotMatch(p.src, /J\$\s?\d{1,3}(,\d{3})+/, `${p.slug} hardcodes a JMD amount`);
+    assert.doesNotMatch(p.src, /Founding (Gold |Platinum )?Partner ·/, `${p.slug} uses a Founding Partner tier label`);
+  }
+  for (const slug of CUSTOM_PLATINUM) {
+    const src = pages.find((p) => p.slug === slug)!.src;
+    assert.match(src, /band\("platinum"\)/, `${slug} does not read the Platinum level from sponsorship.ts`);
+    assert.match(src, /\{PLATINUM\.range\}/);
+    assert.match(src, /recommended="platinum"/, `${slug} appendix does not agree with its request`);
+  }
+});
+
+test("Platinum includes Gold, and no level offers a role in the programme", () => {
+  assert.ok(band("platinum").benefits.includes("Everything in Gold"));
+  assert.ok(band("gold").benefits.includes("Everything in Silver"));
+  assert.ok(band("silver").benefits.includes("Everything in Bronze"));
+  const shared = JSON.stringify([bands.map((b) => b.benefits), benefitNotes]);
+  assert.doesNotMatch(shared, /speak|mentor|take part in the programme|address students|present(ing)? an award|judging opportunit/i);
+  assert.match(shared, /does not buy influence over judging/);
+  assert.match(shared, /naming rights/);
+  assert.match(shared, /if shirts are produced/);
+  for (const p of pages.filter((p) => p.slug !== "norus")) {
+    assert.doesNotMatch(p.src, /address students|opportunity to (speak|take part in the programme)|present the award on stage/i, `${p.slug} offers a speaking or programme role`);
+  }
+});
+
+test("grant and exploratory briefs carry no sponsorship-tier language", () => {
+  const grants = decks.filter((d) => d.ask.figure || isExploratory(d.ask));
+  assert.ok(grants.some((d) => d.slug === "americanfriendsofjamaica"));
+  for (const d of grants) {
+    assert.deepEqual(d.ask.bands, [], `${d.slug} shows the levels`);
+    assert.equal(d.ask.band, undefined);
+    assert.equal(d.ask.title, undefined, `${d.slug} carries a partner title`);
+    assert.doesNotMatch(JSON.stringify({ brief: d.brief, ask: d.ask }), /within a (band|level)|\b(Bronze|Silver|Gold|Platinum)\b|Partner ·|smaller grant/, `${d.slug} uses tier language`);
+  }
+});
+
+test("every deck has an editorial readiness, in step with the decision register", () => {
+  for (const d of deckRegistry) {
+    assert.ok(d.readiness in readinessLabel && d.readiness in readinessHelp, `${d.name} has no readiness`);
+  }
+  const state = (slug: string) => deckRegistry.find((d) => slugOf(d.route) === slug)!.readiness;
+  for (const dec of decisions) {
+    for (const slug of dec.affects) {
+      if (dec.neededBefore === "introduction") assert.equal(state(slug), "hold", `${slug} is blocked by ${dec.id} but not held`);
+      if (dec.id === "budget-basis" || dec.id === "registered-recipient" || dec.id === "date-dependent-applications") assert.notEqual(state(slug), "ready", `${slug} is marked ready despite ${dec.id}`);
+    }
+  }
+  for (const d of decks.filter((d) => isExploratory(d.ask))) assert.equal(state(d.slug), "intro");
+  for (const d of decks.filter((d) => d.ask.lead === "band" && (d.ask.band === "gold" || d.ask.band === "platinum"))) assert.notEqual(state(d.slug), "ready", `${d.slug} asks at Gold or Platinum without a budget`);
+  /* Readiness wording shown in the browser must not carry internal reasoning. */
+  assert.doesNotMatch(JSON.stringify(readinessHelp), /budget|lunch|recipient|decision/i);
+});
+
+test("the hub offers no link or PDF for a held proposal", () => {
+  const hub = readFileSync("src/components/partnerhub/PartnerHub.tsx", "utf8");
+  assert.match(hub, /if \(d\.readiness === "hold"\) return;/, "copy is not blocked for held proposals");
+  const held = hub.slice(hub.indexOf("{held ? ("), hub.indexOf(") : (", hub.indexOf("{held ? (")));
+  assert.equal((held.match(/<button type="button" disabled/g) ?? []).length, 2, "held proposals need both actions disabled");
+  assert.doesNotMatch(held, /href=|download=|onClick=/, "a held proposal still exposes a link, download or copy");
+  assert.doesNotMatch(hub, /sponsorDecks\/decisions/);
+  assert.match(hub, /useState<Readiness \| "all">\("ready"\)/, "the hub should open on ready proposals");
 });

@@ -38,7 +38,8 @@ export default function PartnerHubPage() {
           its own page.
         </p>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-soft">
-          Prepared proposals for partnership conversations. Inclusion does not indicate a confirmed partnership.
+          Prepared proposals for partnership conversations. Inclusion does not indicate a confirmed partnership. Each proposal is marked by how ready it is to
+          forward. That describes the proposal, not the organisation. This page is unlisted, not private.
         </p>
         <div className="mt-8">
           <PartnerHub decks={deckRegistry} categories={deckCategories} siteUrl={event.siteUrl} />

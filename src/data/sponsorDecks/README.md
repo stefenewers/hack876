@@ -65,7 +65,7 @@ Plus **In-kind & Community Support** for goods, services, expertise and contribu
 The levels are the commercial framework underneath a tailored proposal. They sit in the appendix, with the suggested level shown on the request page. Do not lead a deck with the benefits table.
 
 - Asks are in JMD. No exchange rate is assumed. Keep USD only in sourced facts about an organisation, in a funder's own grant terms, and in real product denominations.
-- Benefits are proposed, to be agreed. No level carries naming rights or influence over judging. The shirt logo applies only if shirts are produced.
+- Benefits are proposed, to be agreed. Each level includes the one below it. No level carries naming rights, influence over judging, or a speaking, mentoring or judging role. The shirt logo applies only if shirts are produced.
 - Volunteer hours and the advertised value of software credits are not counted as cash.
 - Where a funder sets its own terms, set `ask.figure` (for example "A programme grant") and `bands: []` instead of forcing a level.
 
@@ -84,9 +84,21 @@ For an organisation whose published rules may not cover Hack876, or whose window
 3. Add the route to the `X-Robots-Tag` list in `next.config.ts`.
 4. Add one entry to [`registry.ts`](./registry.ts). That is what puts it in the Partnership Hub.
 5. Generate the PDF from the page's print layout into `public/proposals/` and look at every page.
-6. Run `npm test`. It checks that the registry resolves, the levels are contiguous, every deck has a complete summary, no format renders an empty page, exploratory briefs carry no cash ask, shared facts are not duplicated, and no deck invents an award.
+6. Run `npm test`. It checks that the registry resolves, every deck has a readiness in step with the decision register, hand-built decks read tier values from `sponsorship.ts`, the levels are contiguous, every deck has a complete summary, no format renders an empty page, exploratory briefs carry no cash ask, shared facts are not duplicated, and no deck invents an award.
 
 Hand-built pages (Loring, GK General Insurance, Scotia, JMMB, Cardinal Law, Norus, MacSpot, MLH, Obvious) follow the same order using `OpeningSummary`, `DeliverySection`, `NextSection` and `DeliveryAndNext` from `src/components/proposal/PartnershipSections.tsx`.
+
+## Readiness
+
+Every registry entry has a `readiness`: `"ready"`, `"intro"` or `"hold"`. It describes the proposal, never the organisation.
+
+- **Ready to share**: can be forwarded as it stands.
+- **Introduction only**: fine for a first conversation. Something is still needed before a formal request, usually the event budget, a registered recipient or a confirmed date.
+- **Hold**: kept for the organisers. The hub shows it but does not offer its link or PDF.
+
+A new deck is not ready by default. Check it against `decisions.ts` first. The reasons stay in `decisions.ts` and are never shown in the browser. The hub is unlisted, not access control: a held proposal's page still exists at its URL.
+
+Gold and Platinum requests stay at introduction only until an approved budget exists. They say that a budget will follow, and their next step is a conversation, not a commitment.
 
 ## Internal records
 

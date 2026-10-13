@@ -65,7 +65,10 @@ export const reporting = [
   "How your contribution was used",
   "Photos, only where schools and parents have consented",
 ];
-export const reportingNote = "We do not report reach, impressions or leads, and we do not share student contact details.";
+export const reportingNote = "We will document the recognition delivered and report the results we have. Audience reach and commercial outcomes are not guaranteed. Student contact details are not shared.";
+
+/** No approved event budget exists yet. Shown on every Gold and Platinum request until one does. See decisions.ts. */
+export const budgetFollows = "A detailed event budget will follow before any formal commitment is asked for.";
 
 /** Why a first-year event can be trusted to happen as described. */
 export const deliveryFacts: { label: string; text: string }[] = [

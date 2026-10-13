@@ -23,7 +23,7 @@ const deck: SponsorDeckData = {
     request: "A Platinum contribution toward the inaugural event, or any level that suits the Foundation this year.",
     enables: "Helps support the equipment teams build with, the prizes, and the running of the day.",
     outcome: "About {students} secondary-school students spend a full day using technology to build a working prototype. The Foundation receives Platinum recognition and a written recap of who took part and what they built.",
-    next: "A reply on whether the Foundation would consider this directly, or would prefer it to come through one of its grant calls.",
+    next: "A conversation about whether the Foundation would consider supporting the inaugural event, directly or through one of its grant calls. A detailed budget will follow before any formal commitment.",
   },
   why: {
     headline: "You open the lab doors. We give students a reason to stay and build.",

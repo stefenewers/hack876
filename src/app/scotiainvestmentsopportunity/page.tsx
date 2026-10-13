@@ -10,6 +10,8 @@ import { event, eventWhen } from "@/data/event";
 import { BandStrip, LevelsSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 import { DeliverySection, NextSection, OpeningSummary } from "@/components/proposal/PartnershipSections";
+import { budgetFollows } from "@/data/partnership";
+import { band } from "@/data/sponsorship";
 
 /*
  * Private partnership proposal for Scotia Investments Jamaica Limited.
@@ -21,6 +23,9 @@ const SPONSOR = "Scotia Investments Jamaica Limited";
 const DECK_LABEL = `Hack876 × ${SPONSOR}`;
 /* Partner accent, used sparingly. */
 const SCOTIA_RED = "#ec111a";
+
+/* The sponsorship level this proposal invites. Name, range and benefits come from sponsorship.ts. */
+const PLATINUM = band("platinum");
 
 export const metadata: Metadata = {
   title: { absolute: DECK_LABEL },
@@ -118,9 +123,9 @@ export default function ScotiaInvestmentsOpportunityPage() {
               request: `A Platinum contribution toward the inaugural event.`,
               enables: `Helps support the equipment teams build with, the prizes, student meals and the running of the day.`,
               outcome: `Platinum recognition, and a written recap of what teams built, including any business and money projects.`,
-              next: `A conversation with Padrique Duncan, who knows both Scotia Investments and Hack876, on the right level and who would approve it.`,
+              next: `A conversation with Padrique Duncan, who knows both Scotia Investments and Hack876, about whether Scotia Investments would consider supporting the inaugural event. A detailed budget will follow before any formal commitment.`,
             }}
-            requestDetail={`Platinum Partner: J$1,000,000+. Any level is welcome, and the levels are set out in the appendix.`}
+            requestDetail={`${PLATINUM.name}: ${PLATINUM.range}. Any level is welcome, and the levels are in the appendix. ${budgetFollows}`}
           />
         </div>
         <div className="lp-page">
@@ -136,7 +141,7 @@ export default function ScotiaInvestmentsOpportunityPage() {
           <DeliverySection n="04" linked="Jamaica College" />
         </div>
         <div className="lp-page">
-          <NextSection n="05" next="A reply on whether Scotia Investments would consider Platinum or another level." route="Padrique Duncan of Scotia Investments is a Hack876 partner and can give context internally." closing="We would love to explore the right first step with the Scotia Investments team." />
+          <NextSection n="05" next="A conversation about whether Scotia Investments would consider supporting the inaugural event, at Platinum or another level. A detailed budget will follow before any formal commitment." route="Padrique Duncan of Scotia Investments is a Hack876 partner and can give context internally." closing="We would love to explore the right first step with the Scotia Investments team." />
         </div>
         <div className="lp-page">
           <LevelsSection n="06" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
@@ -285,12 +290,12 @@ function GoldPartner() {
       <div className="lp-wrap relative">
         <Kicker n="03">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
-          Become a Platinum Partner of the inaugural Hack876.
+          Become a {PLATINUM.name} of the inaugural Hack876.
         </h2>
 
         <div className="lp-keep mt-10 border-y lp-rule py-8 print:mt-6 print:py-5">
-          <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">J$1,000,000</p>
-          <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">Founding Partner · Inaugural Hack876</p>
+          <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">{PLATINUM.range}</p>
+          <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">{PLATINUM.name} · Inaugural Hack876</p>
         </div>
 
         <div className="mt-8 print:mt-5">
@@ -317,7 +322,7 @@ function GoldPartner() {
           <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-7 sm:p-9">
             <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed recognition</figcaption>
             <p className="mt-6 text-[clamp(1.5rem,2.8vw,2rem)] leading-tight font-extrabold tracking-tight">{SPONSOR}</p>
-            <p className="lp-accent mt-2 text-lg font-bold text-sun">Platinum Partner · Inaugural Hack876</p>
+            <p className="lp-accent mt-2 text-lg font-bold text-sun">{PLATINUM.name} · Inaugural Hack876</p>
           </figure>
         </div>
       </div>

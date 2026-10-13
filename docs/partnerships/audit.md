@@ -56,6 +56,17 @@ The organisers do not need mentors, judges, speakers or volunteers from partners
 
 British Council Jamaica and the Universal Service Fund were removed on 13 October 2026. Once requests for people were dropped, neither had a request worth sending. The inventory is now 34 decks.
 
+## Finishing pass, 13 October 2026
+
+Baseline `7d92927`, 34 decks.
+
+- **Readiness.** Each registry entry is now ready, introduction only or hold. The hub opens on ready proposals and disables the link and PDF for held ones. 14 ready, 18 introduction only, 2 hold.
+- **Shared benefits.** Platinum includes everything in Gold. The offer of a role in the programme and the line about speaking, mentoring and judging were removed. Placement is specified as the website and event signage. The sponsor feature is stated as agreed with each partner, pending the `benefit-specification` decision.
+- **Budget.** No approved budget, confirmed contribution or cost estimate exists in the repository. No figures were invented. Gold and Platinum proposals are introduction only, say a budget will follow, and ask for a conversation.
+- **Reporting.** The note now separates what will be documented from what is not guaranteed. No recap deadline is published.
+- **AFJ.** Tier language, the partner title and the "smaller grant" suggestion were removed.
+- **Hand-built decks.** The five Platinum decks read the level's name and range from `sponsorship.ts`. "Founding Partner" labels and unsupported "in front of families" lines were removed.
+
 ## Not changed
 
 - Student prizes, eligibility, the date, the venue and school statuses in `event.ts`.

@@ -48,14 +48,14 @@ export const bands: Band[] = [
     name: "Gold Partner",
     range: "J$500,000 to below J$1,000,000",
     short: "J$500K to <J$1M",
-    benefits: ["Everything in Silver", "More prominent placement", "A dedicated sponsor feature", "Logo on event shirts, if shirts are produced*"],
+    benefits: ["Everything in Silver", "More prominent placement on the website and event signage", "A dedicated sponsor feature**", "Logo on event shirts, if shirts are produced*"],
   },
   {
     key: "platinum",
     name: "Platinum Partner",
     range: "J$1,000,000+",
     short: "J$1M+",
-    benefits: ["The most prominent sponsor placement", "An agreed opportunity to take part in the programme", "Logo on event shirts, if shirts are produced*"],
+    benefits: ["Everything in Gold", "The most prominent placement on the website and event signage"],
   },
 ];
 
@@ -65,7 +65,8 @@ export const band = (key: BandKey) => bands.find((b) => b.key === key)!;
 export const benefitNotes = [
   "These are proposed benefits, to be agreed when a sponsorship is confirmed. A sponsor can contribute any amount within a band.",
   "*Shirt placement applies only if event shirts are produced and artwork arrives before the production deadline.",
-  "Speaking, mentoring, presenting an award and judging are subject to suitability and programme capacity. Sponsorship does not buy influence over judging, and no level carries naming rights.",
+  "**The form of the sponsor feature is agreed with each Gold or Platinum partner before it is confirmed.",
+  "The judging panel decides every award. Sponsorship does not buy influence over judging, and no level carries naming rights.",
 ];
 
 /** The option for anything that is not a cash contribution of J$50,000 or more. */

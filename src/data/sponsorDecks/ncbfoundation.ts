@@ -23,7 +23,7 @@ const deck: SponsorDeckData = {
     request: "A Platinum contribution toward the inaugural event, or any level that suits the Foundation this year.",
     enables: "Helps support the prizes, student meals and the running of the day.",
     outcome: "About {students} secondary-school students spend a day turning IT skills into a working prototype. The Foundation receives Platinum recognition and a written recap.",
-    next: "A reply on which route the Foundation prefers: a direct grant, or NCB's sponsorship request form.",
+    next: "A conversation about whether the Foundation would consider supporting the inaugural event, and which route it prefers: a direct grant, or NCB's sponsorship request form. A detailed budget will follow before any formal commitment.",
   },
   why: {
     headline: "You already invest in the subjects. We add the first build.",

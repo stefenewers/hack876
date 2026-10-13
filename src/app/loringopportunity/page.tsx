@@ -4,18 +4,23 @@ import type { CSSProperties } from "react";
 import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { eligibility, event, eventWhen } from "@/data/event";
+import { event, eventWhen } from "@/data/event";
 import { Blueprint } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
 import { BandStrip, LevelsSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 import { DeliverySection, NextSection, OpeningSummary } from "@/components/proposal/PartnershipSections";
+import { budgetFollows } from "@/data/partnership";
+import { band } from "@/data/sponsorship";
 
 /*
  * Private partnership proposal for Loring Consulting Engineers.
  * Not linked from the public site. noindex/nofollow here and via an
  * X-Robots-Tag header in next.config.ts.
  */
+
+/* The sponsorship level this proposal invites. Name, range and benefits come from sponsorship.ts. */
+const PLATINUM = band("platinum");
 
 export const metadata: Metadata = {
   title: { absolute: "Hack876 × Loring Consulting Engineers" },
@@ -29,7 +34,6 @@ export const metadata: Metadata = {
   twitter: null };
 
 /* A Loring engineer already involved in Hack876 (from the site's people data). */
-const STUDENTS = eligibility.maxHackers;
 /* -------------------------------------------------------------------------- */
 /*  Page                                                                      */
 /* -------------------------------------------------------------------------- */
@@ -82,10 +86,9 @@ export default function LoringOpportunityPage() {
               fit: `Loring opened its Kingston office in 2023, and its CEO, Oneil Gayle, was born and raised in Jamaica and began at Loring as a summer intern.`,
               request: `A Platinum contribution toward the inaugural event.`,
               enables: `Helps support the equipment teams build with, the prizes, student meals and the running of the day.`,
-              outcome: `Platinum recognition for Loring in front of about ${STUDENTS} students, their teachers and families, and a written recap of what teams built.`,
-              next: `A conversation with Johnathan Clarke at Loring, who already works with Hack876, on whether Loring would consider Platinum or another level.`,
-            }}
-            requestDetail={`Platinum Partner: J$1,000,000+. Any level is welcome, and the levels are set out in the appendix.`}
+              outcome: `Platinum recognition for Loring, and a written recap of what teams built.`,
+              next: `A conversation with Johnathan Clarke at Loring, who already works with Hack876, about whether Loring would consider supporting the inaugural event. A detailed budget will follow before any formal commitment.` }}
+            requestDetail={`${PLATINUM.name}: ${PLATINUM.range}. Any level is welcome, and the levels are in the appendix. ${budgetFollows}`}
           />
         </div>
         <div className="lp-page">
@@ -98,7 +101,7 @@ export default function LoringOpportunityPage() {
           <DeliverySection n="03" />
         </div>
         <div className="lp-page">
-          <NextSection n="04" next="A reply on whether Loring would consider a contribution, at Platinum or another level." closing="We would love to build the first one with Loring." />
+          <NextSection n="04" next="A conversation about whether Loring would consider supporting the inaugural event, at Platinum or another level. A detailed budget will follow before any formal commitment." closing="We would love to build the first one with Loring." />
         </div>
         <div className="lp-page">
           <LevelsSection n="05" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
@@ -186,12 +189,12 @@ function GoldPartner() {
       <div className="lp-wrap relative">
         <Kicker n="02">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
-          Become a Platinum Partner of the inaugural Hack876.
+          Become a {PLATINUM.name} of the inaugural Hack876.
         </h2>
 
         <div className="lp-keep mt-12 border-y lp-rule py-10 print:mt-8 print:py-6">
-          <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">J$1,000,000</p>
-          <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">Founding Partner · Inaugural Hack876</p>
+          <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">{PLATINUM.range}</p>
+          <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">{PLATINUM.name} · Inaugural Hack876</p>
         </div>
 
         <div className="mt-8 print:mt-5">
@@ -221,7 +224,7 @@ function GoldPartner() {
             <figure className="lp-keep rounded-2xl border-2 border-dashed border-cream/40 p-7 sm:p-9">
               <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed recognition</figcaption>
               <p className="mt-6 text-[clamp(1.6rem,3vw,2.2rem)] leading-tight font-extrabold tracking-tight">Loring Consulting Engineers</p>
-              <p className="lp-accent mt-2 text-lg font-bold text-sun">Platinum Partner · Inaugural Hack876</p>
+              <p className="lp-accent mt-2 text-lg font-bold text-sun">{PLATINUM.name} · Inaugural Hack876</p>
             </figure>
             <Lines
               className="mt-8"

@@ -247,7 +247,7 @@ function WhatMacSpotGets() {
   const major = [
     "Stronger visual recognition across event-day signage",
     "“Prizes provided by MacSpot Jamaica” wherever that prize appears",
-    "Jordan or a MacSpot representative invited to present the award on stage",
+    "MacSpot named when the award is given, if the award is still available",
   ];
   return (
     <section aria-labelledby="lp-gets" className="lp-section lp-dense lp-center">

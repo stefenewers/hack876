@@ -22,7 +22,7 @@ const deck: SponsorDeckData = {
     request: "A Gold contribution toward the prizes and the student programme.",
     enables: "Helps support the prizes for the top teams, and the mentoring and judging on the day.",
     outcome: "Gold recognition, and a written recap of who took part and what they built.",
-    next: "A reply on whether Microsoft would consider a contribution this year, at Gold or any other level, and who would need to approve it.",
+    next: "A conversation about whether Microsoft would consider supporting the inaugural event, at Gold or any other level, and who would need to approve it. A detailed budget will follow before any formal commitment.",
   },
   why: {
     headline: "Young Jamaicans, real skills, real builds.",

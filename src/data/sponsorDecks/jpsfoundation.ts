@@ -23,7 +23,7 @@ const deck: SponsorDeckData = {
     request: "A Gold contribution toward the prizes and the equipment teams build with.",
     enables: "Helps support the prizes for the top teams, and equipment for teams building hardware.",
     outcome: "About {students} students complete a one-day STEM build with mentors beside them. The Foundation receives Gold recognition and a written recap of what was built.",
-    next: "A reply on whether the Foundation would consider a contribution this year, at Gold or any other level, and how it prefers to receive a request.",
+    next: "A conversation about whether the Foundation would consider supporting the inaugural event, at Gold or any other level, and how it prefers to receive a request. A detailed budget will follow before any formal commitment.",
   },
   why: {
     headline: "From awareness to action, one build at a time.",

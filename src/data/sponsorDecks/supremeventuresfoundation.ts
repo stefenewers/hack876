@@ -23,7 +23,7 @@ const deck: SponsorDeckData = {
     request: "A Gold contribution toward the prizes, student meals and the student programme.",
     enables: "Helps support the prizes for the top teams, meals on the day, and mentoring.",
     outcome: "Secondary-school students get a day of taking an idea to a working demo, the step after a camp like Junior Creators. The Foundation receives Gold recognition and a written recap.",
-    next: "A reply on whether the Foundation would consider a contribution this year, at Gold or any other level.",
+    next: "A conversation about whether the Foundation would consider supporting the inaugural event, at Gold or any other level. A detailed budget will follow before any formal commitment.",
   },
   why: {
     headline: "Imagination, innovation and collaboration, one step further.",

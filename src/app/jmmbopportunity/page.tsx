@@ -9,6 +9,8 @@ import { eligibility, event, eventWhen } from "@/data/event";
 import { BandStrip, LevelsSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 import { DeliverySection, NextSection, OpeningSummary } from "@/components/proposal/PartnershipSections";
+import { budgetFollows } from "@/data/partnership";
+import { band } from "@/data/sponsorship";
 
 /*
  * Private partnership proposal for JMMB / the JMMB Joan Duncan Foundation.
@@ -20,6 +22,9 @@ const SPONSOR = "JMMB Joan Duncan Foundation";
 const DECK_LABEL = `Hack876 × ${SPONSOR}`;
 /* Partner accent, used sparingly. */
 const JMMB_ACCENT = "#e4002b";
+
+/* The sponsorship level this proposal invites. Name, range and benefits come from sponsorship.ts. */
+const PLATINUM = band("platinum");
 
 export const metadata: Metadata = {
   title: { absolute: DECK_LABEL },
@@ -91,8 +96,8 @@ export default function JmmbOpportunityPage() {
               request: `A Platinum contribution from the JMMB Joan Duncan Foundation, as support for education and entrepreneurship.`,
               enables: `Helps support the equipment teams build with, the prizes, student meals and the running of the day.`,
               outcome: `About ${STUDENTS} students practise entrepreneurship for a day. The Foundation receives Platinum recognition and a written recap of what they built.`,
-              next: `A reply on whether the Foundation will consider this as a grant request. If it is not the right home, we would ask JMMB’s sponsorship team instead.` }}
-            requestDetail={`Platinum Partner: J$1,000,000+. Any level is welcome, and the levels are set out in the appendix.`}
+              next: `A conversation about whether the Foundation will consider this as a grant request. If it is not the right home, we would ask JMMB’s sponsorship team instead. A detailed budget will follow before any formal commitment.` }}
+            requestDetail={`${PLATINUM.name}: ${PLATINUM.range}. Any level is welcome, and the levels are in the appendix. ${budgetFollows}`}
             outcomeLabel="What the Foundation achieves"
           />
         </div>
@@ -109,7 +114,7 @@ export default function JmmbOpportunityPage() {
           <DeliverySection n="04" />
         </div>
         <div className="lp-page">
-          <NextSection n="05" next="A reply on whether the Foundation will consider this as a grant request, at Platinum or another level." route="Jonathan Bair at JMMB knows Hack876 and can give context internally." closing="We would love to explore the right first step with the JMMB Joan Duncan Foundation." />
+          <NextSection n="05" next="A conversation about whether the Foundation would consider supporting the inaugural event, at Platinum or another level. A detailed budget will follow before any formal commitment." route="Jonathan Bair at JMMB knows Hack876 and can give context internally." closing="We would love to explore the right first step with the JMMB Joan Duncan Foundation." />
         </div>
         <div className="lp-page">
           <LevelsSection n="06" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
@@ -218,7 +223,7 @@ function TwoWaysIn() {
             <h3 className="lp-h3 mt-2 text-[clamp(1.3rem,2.2vw,1.7rem)]">Recognition at the level agreed</h3>
             <ul className="mt-4 space-y-2">
               {[
-                "Recognition at the level agreed, in front of students, families and schools",
+                "Recognition at the level agreed",
                 "Association with entrepreneurship, technology and youth opportunity",
                 "Content and storytelling around Jamaican innovation",
               ].map((t) => (
@@ -256,12 +261,12 @@ function GoldPartner() {
       <div className="lp-wrap relative">
         <Kicker n="03">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
-          Become a Platinum Partner of the inaugural Hack876.
+          Become a {PLATINUM.name} of the inaugural Hack876.
         </h2>
 
         <div className="lp-keep mt-10 border-y lp-rule py-8 print:mt-6 print:py-5">
-          <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">J$1,000,000</p>
-          <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">Founding Partner · Inaugural Hack876</p>
+          <p className="lp-num lp-accent text-[clamp(3.6rem,12vw,9.5rem)] text-sun">{PLATINUM.range}</p>
+          <p className="mt-4 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">{PLATINUM.name} · Inaugural Hack876</p>
         </div>
 
         <div className="mt-8 print:mt-5">
@@ -288,7 +293,7 @@ function GoldPartner() {
           <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-7 sm:p-9">
             <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed recognition</figcaption>
             <p className="mt-6 text-[clamp(1.5rem,2.8vw,2rem)] leading-tight font-extrabold tracking-tight">{SPONSOR}</p>
-            <p className="lp-accent mt-2 text-lg font-bold text-sun">Platinum Partner · Inaugural Hack876</p>
+            <p className="lp-accent mt-2 text-lg font-bold text-sun">{PLATINUM.name} · Inaugural Hack876</p>
           </figure>
         </div>
       </div>

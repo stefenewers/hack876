@@ -23,7 +23,7 @@ const deck: SponsorDeckData = {
     request: "A Gold contribution toward the prizes and the student programme.",
     enables: "Helps support the prizes for the top teams, and the mentoring and judging on the day.",
     outcome: "About {students} students complete a one-day STEAM build in teams. The Foundation receives Gold recognition and a written recap of what was built.",
-    next: "A reply on whether the Foundation would consider a contribution this year, at Gold or any other level.",
+    next: "A conversation about whether the Foundation would consider supporting the inaugural event, at Gold or any other level. A detailed budget will follow before any formal commitment.",
   },
   why: {
     headline: "Hack876 is the next step after the code and the robots.",
