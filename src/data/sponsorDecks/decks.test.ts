@@ -49,7 +49,6 @@ test("no page in a deck's plan can render empty", () => {
     assert.equal(plan[0], "summary");
     if (plan.includes("why") || plan.includes("supply") || plan.includes("explore")) assert.ok(d.why.points.length > 0, `${d.slug} has no why points`);
     if (plan.includes("why")) assert.ok(d.story.items.length > 0, `${d.slug} has no story items`);
-    if (plan.includes("how")) assert.ok(d.paths.length > 0 && d.roles.length > 0, `${d.slug} has an empty how page`);
     if (plan.includes("supply")) assert.ok(d.ask.inkind?.length, `${d.slug} asks for nothing on its request page`);
     if (plan.includes("terms")) assert.ok(d.tool, `${d.slug} has a terms page but no tool`);
     if (plan.includes("explore")) assert.ok(d.ask.inkind?.length && d.ask.restriction, `${d.slug} has an empty explore page`);
@@ -100,6 +99,17 @@ test("decks only mention awards that exist, and the register matches", () => {
       const d = decks.find((x) => x.slug === slug);
       if (d) assert.equal(d.ask.presents, o.award, `awards.ts lists ${slug} for ${o.award} but the deck does not`);
     }
+  }
+});
+
+test("no deck asks a partner for people, except Norus", () => {
+  const ask = /\b(as|their|your|our) (mentors?|judges?|speakers?|volunteers?)\b|\b(mentors?|judges?|speakers?|volunteers?) (from|on the day|in the room)\b|people in the room/i;
+  for (const d of decks) {
+    const t = JSON.stringify({ brief: { ...d.brief, logistics: [] }, ask: d.ask, future: d.future });
+    assert.doesNotMatch(t, ask, `${d.slug} asks for people`);
+  }
+  for (const p of pages.filter((p) => p.slug !== "norus")) {
+    assert.doesNotMatch(p.src, /MoreThanMoney|People in the room|ShowUp/, `${p.slug} still has a people-in-the-room section`);
   }
 });
 

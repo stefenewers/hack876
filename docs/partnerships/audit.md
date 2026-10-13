@@ -42,9 +42,19 @@ No new organisation research was needed for this pass, because it removed claims
 - Contact sheets of the final PDFs were reviewed for 34 of the 36. Seprod Foundation and JN Foundation were reviewed on an earlier render and share their templates with decks reviewed on the final one.
 - `npm test`, typecheck, lint and build pass.
 
+## Follow-up, same day: no requests for people
+
+The organisers do not need mentors, judges, speakers or volunteers from partners. Norus is the exception, its team has agreed to come, and its deck was left as it was.
+
+- The "how it would work" page, with its people-in-the-room list, was removed from the shared template. Major decks are now six pages and smaller cash decks five.
+- `roles`, `paths` and `bridge` were removed from the deck type. A test fails if a deck asks for people.
+- Microsoft and Tank-Weld lead with a contribution again (Gold and Silver). The USF and British Council briefs now ask only for information and for the call to be shared.
+- The "people in the room" pages were removed from Loring, GK General Insurance, Scotia, JMMB and Cardinal Law, and the "show up" page from Obvious. Cardinal Law now leads with a contribution, not a legal session.
+- The extra Platinum benefits pages were removed from Loring and GK General Insurance, so both now show only the shared Platinum benefits.
+
 ## Not changed
 
 - Student prizes, eligibility, the date, the venue and school statuses in `event.ts`.
 - The contribution levels and their boundaries.
 - The Partnership Hub's behaviour.
-- The Platinum benefits lists in the Loring and GK General Insurance decks, which include items such as a "dedicated presence" and "recognition in school communications" that go beyond the shared Platinum benefits. See the decision register entry `platinum-benefits`. These two decks should be reconciled with the shared benefits before they are sent.
+- The Norus deck, in the follow-up above.

@@ -23,6 +23,7 @@ If the brief does not make sense on its own, the deck is not ready. Rules for wr
 - No invented reach, impressions, hires or pipelines. About 80 students in a first-year event is what it is.
 - Use `{students}`, `{teams}`, `{venue}`, `{date}`, `{lunch}`, `{doors}` and `{wrap}` for shared facts. They are filled from `event.ts`, so a deck cannot drift from the site.
 - Say "contributes toward" or "helps support". A partner never has to cover a whole cost.
+- Do not ask a partner for mentors, judges, speakers or volunteers. Hack876 has its own. Ask for a contribution, goods, product access or information. Norus is the one exception, and its team has already agreed to come.
 
 ## Pick the shortest format that fits
 
@@ -30,8 +31,8 @@ The format follows from `kind` and `ask.lead` (see [`framing.ts`](./framing.ts))
 
 | Format | When | Pages |
 |---|---|---|
-| Major | `kind: "full"` with a cash lead | Summary, why, request, how it would work, delivery, next decision, appendix |
-| Standard | `kind: "prize"` with a cash lead | Summary, why, request, how it would work, delivery and next decision, appendix |
+| Major | `kind: "full"` with a cash lead | Summary, why, request, delivery, next decision, appendix |
+| Standard | `kind: "prize"` with a cash lead | Summary, why, request, delivery and next decision, appendix |
 | Supplier | `ask.lead: "inkind"` or `kind: "tool"` | Summary, request, (terms for tools), delivery and next decision, levels if cash is an alternative |
 | Exploratory | `ask.lead: "exploratory"` | Summary, what we understand and what we would ask |
 
@@ -70,7 +71,7 @@ The levels are the commercial framework underneath a tailored proposal. They sit
 
 ## Awards
 
-The only special awards are the ones in `event.ts`. A deck may not invent an award to personalise a pitch. It may suggest that a partner present one existing award by setting `ask.presents`, and that use must be recorded in `awards.ts`. Each award has one presenter: first to confirm takes it.
+The only special awards are the ones in `event.ts`. A deck may not invent an award to personalise a pitch. It may suggest that a partner's support is recognised alongside one existing award by setting `ask.presents`, and that use must be recorded in `awards.ts`. Each award is linked to one partner: first to confirm takes it.
 
 ## Exploratory briefs
 

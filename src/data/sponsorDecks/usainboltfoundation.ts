@@ -22,8 +22,8 @@ const deck: SponsorDeckData = {
     fit: "The Usain Bolt Foundation creates opportunities for children through education and cultural development, and has donated laptops and computers to schools.",
     request: "A Bronze contribution toward the existing Boldest Idea award and the student programme.",
     enables: "Helps support the award for the boldest idea of the day, and mentoring for every team.",
-    outcome: "Bronze recognition, the option to present the Boldest Idea award, and a written recap.",
-    next: "A reply on whether the Foundation would consider this, and whether a representative would like to present.",
+    outcome: "Bronze recognition and a written recap.",
+    next: "A reply on whether the Foundation would consider this, and how it prefers to receive a request.",
   },
   why: {
     headline: "Education, culture and technology, for children.",
@@ -82,17 +82,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "The Foundation already puts technology and opportunity in children's hands. Hack876 is one day where students show what they can build with them.",
   },
-  paths: [
-    {
-      label: "Foundation",
-      title: "Support for the Boldest Idea award",
-      points: [
-        "Contribute toward the existing Boldest Idea award",
-        "Presented on the day by a Foundation representative, if the Foundation wishes",
-        "Small, specific and easy to report on",
-      ],
-    },
-  ],
   ask: {
     lead: "band",
     band: "bronze",
@@ -100,23 +89,8 @@ const deck: SponsorDeckData = {
     why: "A contribution toward the Boldest Idea award is a small, clear commitment that matches the Foundation's 'Dare to Dream' value. The amount is the Foundation's choice.",
     recognition: "Bronze Partner · Inaugural Hack876",
     tracks: ["Culture", "Learn", "Wellbeing"],
-    inkind: [
-      "A Foundation representative to present the Boldest Idea award",
-      "A short recorded message to students from the Foundation, if it would like to share one",
-    ],
     presents: "Boldest Idea",
   },
-  roles: [
-    { title: "Award presenter", text: "A Foundation representative presents the award at the close, if the Foundation wishes." },
-    {
-      title: "A message to students",
-      text: "An open invitation for the Foundation to share a short message, recorded or in person, entirely at its discretion.",
-    },
-    {
-      title: "Judging support",
-      text: "Board members or volunteers with an education or child-development background are welcome as guest judges, if they would like to take part.",
-    },
-  ],
   groundRules: [
     "No marketing to students and no sign-ups on the day. Sponsors do not collect student contact details or data.",
     "No student photos or names in sponsor promotion without school and parent consent.",

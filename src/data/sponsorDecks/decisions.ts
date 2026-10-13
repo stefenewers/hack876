@@ -25,13 +25,6 @@ export const decisions: Decision[] = [
     holdSending: true,
   },
   {
-    id: "platinum-benefits",
-    question: "The Loring and GK General Insurance decks list Platinum benefits that go beyond the shared ones, such as a dedicated presence at the event and recognition in school communications.",
-    recommendation: "Approve those extras for Platinum in sponsorship.ts, or cut the two lists back to the shared benefits before sending.",
-    affects: ["loring", "gracekennedy"],
-    holdSending: true,
-  },
-  {
     id: "registered-recipient",
     question: "Several funders give only to a registered organisation or a school. The decks do not say who would receive funds for Hack876.",
     recommendation: "Name the registered partner or host school that can receive and account for grants, then add it to the AFJ deck before any application.",
@@ -78,13 +71,6 @@ export const decisions: Decision[] = [
     question: "Gold and Platinum include a shirt logo only if shirts are produced. That has not been decided.",
     recommendation: "Decide before any Gold or Platinum partner confirms, and tell them the artwork deadline.",
     affects: [],
-    holdSending: false,
-  },
-  {
-    id: "people-first-requests",
-    question: "Microsoft, Tank-Weld and the USF now lead with people and practical help, with money as the alternative. That was an editorial call.",
-    recommendation: "Confirm, or switch any of them back to a cash-led request by setting `ask.lead` to \"band\".",
-    affects: ["microsoft", "tankweld", "universalservicefund"],
     holdSending: false,
   },
   {

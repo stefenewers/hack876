@@ -6,7 +6,7 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { Shelter } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, eventWhen } from "@/data/event";
+import { event, eventWhen } from "@/data/event";
 import { BandStrip, LevelsSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 import { DeliverySection, NextSection, OpeningSummary } from "@/components/proposal/PartnershipSections";
@@ -35,7 +35,6 @@ export const metadata: Metadata = {
   twitter: null };
 
 /* Canonical numbers come from the event data. */
-const STUDENTS = eligibility.maxHackers;
 /* -------------------------------------------------------------------------- */
 /*  Page                                                                      */
 /* -------------------------------------------------------------------------- */
@@ -84,10 +83,10 @@ export default function GraceKennedyOpportunityPage() {
             sub={`Hack876 has a Resilience track, where teams build for storms, outages and the things families need to prepare for. Risk is what an insurer understands best.`}
             brief={{
               fit: `GK General Insurance’s own leadership story began with a GraceKennedy Foundation scholarship in 1999 and an entry-level underwriting role in 2003.`,
-              request: `A Platinum contribution toward the inaugural event, with GK General Insurance professionals mentoring teams on risk and resilience.`,
-              enables: `Helps support the equipment teams build with, the prizes, student meals and the running of the day. Mentors help teams think about risk the way an insurer does.`,
-              outcome: `GK people work directly with about ${STUDENTS} students for a day. GK General Insurance receives Platinum recognition and a written recap of what teams built, including any resilience projects.`,
-              next: `A reply on whether GK General Insurance would consider Platinum or another level, and who should coordinate mentors.` }}
+              request: `A Platinum contribution toward the inaugural event.`,
+              enables: `Helps support the equipment teams build with, the prizes, student meals and the running of the day.`,
+              outcome: `Platinum recognition, and a written recap of what teams built, including any resilience projects.`,
+              next: `A reply on whether GK General Insurance would consider Platinum or another level.` }}
             requestDetail={`Platinum Partner: J$1,000,000+. Any level is welcome, and the levels are set out in the appendix.`}
           />
         </div>
@@ -95,22 +94,16 @@ export default function GraceKennedyOpportunityPage() {
           <WhyGraceKennedy />
         </div>
         <div className="lp-page">
-          <MoreThanMoney />
-        </div>
-        <div className="lp-page">
           <GoldPartner />
         </div>
         <div className="lp-page">
-          <GoldBenefits />
+          <DeliverySection n="03" />
         </div>
         <div className="lp-page">
-          <DeliverySection n="05" />
+          <NextSection n="04" next="A reply on whether GK General Insurance would consider Platinum or another level." closing="This proposal is for GK General Insurance. It is separate from any conversation with the GraceKennedy Foundation." />
         </div>
         <div className="lp-page">
-          <NextSection n="06" next="A reply on whether GK General Insurance would consider Platinum or another level, and who should coordinate mentors." closing="This proposal is for GK General Insurance. It is separate from any conversation with the GraceKennedy Foundation." />
-        </div>
-        <div className="lp-page">
-          <LevelsSection n="07" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
+          <LevelsSection n="05" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
         </div>
         <div className="lp-page">
           <Closing />
@@ -186,74 +179,6 @@ function WhyGraceKennedy() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  10 More than money                                                        */
-/* -------------------------------------------------------------------------- */
-
-const ROLES = [
-  { title: "Mentors", text: "Helping teams reason through real constraints." },
-  { title: "Judges", text: "Evaluating problem selection, creativity, execution and communication." },
-  { title: "Speakers", text: "Showing students the variety of careers inside a modern Jamaican company." },
-  { title: "Challenge partners", text: "Optionally offering a real-world problem around resilience, customer experience, technology, data or risk." },
-  { title: "Long-term connectors", text: "Continuing appropriate relationships with schools, students and future Hack876 events." },
-];
-
-function MoreThanMoney() {
-  return (
-    <section aria-labelledby="lp-more" className="lp-section lp-dense lp-center bg-paper">
-      <div className="lp-wrap">
-        <Kicker n="02">More than money</Kicker>
-        <h2 id="lp-more" className="lp-h2 mt-6 max-w-[22ch]">
-          What {SPONSOR} brings cannot be measured only in dollars.
-        </h2>
-        <Lines className="mt-8" items={["Funding makes Hack876 possible.", "But GraceKennedy can contribute something equally valuable:"]} />
-
-        <p className="lp-marker lp-keep mt-10 text-[clamp(3rem,9vw,7rem)] text-emerald-deep print:mt-6">People in the room.</p>
-
-        <div className="mt-8 grid gap-10 md:grid-cols-[1fr_1.3fr] print:mt-5 print:grid-cols-[1fr_1.3fr]">
-          <div>
-            <p className="font-bold">People who understand:</p>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {["Trust", "Risk", "Customers", "Technology", "Data", "Finance", "Operations", "Resilience", "Businesses that last"].map((t) => (
-                <li key={t} className="rounded-full border lp-rule bg-cream px-3 py-1 text-sm font-bold">
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <ul className="grid gap-y-3 text-lg font-semibold text-ink-2">
-            {[
-              "People who can take a 17-year-old’s idea seriously.",
-              "People who can ask sharper questions.",
-              "People who can show students careers and problems they have never encountered.",
-            ].map((t) => (
-              <li key={t} className="border-l-2 border-emerald pl-4">
-                {t}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 print:mt-6 print:grid-cols-5">
-          {ROLES.map((r, i) => (
-            <li key={r.title} className="rounded-2xl border lp-rule bg-cream p-5">
-              <p className="lp-num text-3xl text-emerald-deep">{String(i + 1).padStart(2, "0")}</p>
-              <h3 className="lp-h3 mt-3">{r.title}</h3>
-              <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-2">{r.text}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="lp-note mt-3">Any sponsor challenge is optional and sits alongside the open competition. Hack876 stays open.</p>
-
-        <div className="lp-keep mt-12 print:mt-6">
-          <p className="lp-statement max-w-[24ch]">We do not simply want GraceKennedy&rsquo;s logo in the room.</p>
-          <p className="lp-sub mt-3 text-emerald-deep">We want GraceKennedy people in the room.</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
 /*  11 Platinum Partner                                                           */
 /* -------------------------------------------------------------------------- */
 
@@ -272,7 +197,7 @@ function GoldPartner() {
   return (
     <section aria-labelledby="lp-gold" className="lp-section lp-dark relative overflow-hidden">
       <div className="lp-wrap relative">
-        <Kicker n="03">Our invitation</Kicker>
+        <Kicker n="02">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
           Become a Platinum Partner of the inaugural Hack876.
         </h2>
@@ -327,48 +252,6 @@ function GoldPartner() {
 /* -------------------------------------------------------------------------- */
 /*  12 Platinum Partner benefits                                                  */
 /* -------------------------------------------------------------------------- */
-
-const BENEFITS = [
-  "Prominent Platinum Partner recognition across Hack876 event materials and digital experiences",
-  "Recognition during opening and closing programming",
-  "Opportunity for GraceKennedy leadership to address students",
-  "Participation of GraceKennedy professionals as judges, mentors and speakers",
-  "Dedicated GraceKennedy presence within the event",
-  "Recognition in relevant school and participant communications",
-  "Inclusion in Hack876 photography, recap content and post-event storytelling",
-  "Opportunity to collaborate on an appropriate challenge, workshop, for example in resilience, customer experience, technology or financial capability",
-  "Early conversation around future Hack876 events and expansion",
-];
-
-function GoldBenefits() {
-  return (
-    <section aria-labelledby="lp-benefits" className="lp-section">
-      <div className="lp-wrap">
-        <Kicker n="04">Platinum Partnership</Kicker>
-        <h2 id="lp-benefits" className="lp-h2 mt-6">
-          What Platinum Partnership looks like.
-        </h2>
-        <p className="lp-prose mt-4">Potential integration includes:</p>
-
-        <ol className="mt-10 grid border-t lp-rule sm:grid-cols-2 lg:grid-cols-3 print:mt-6 print:grid-cols-3">
-          {BENEFITS.map((b, i) => (
-            <li key={b} className="flex gap-4 border-b lp-rule py-6 pr-6">
-              <span className="lp-num text-2xl text-emerald-deep">{String(i + 1).padStart(2, "0")}</span>
-              <span className="text-[1.05rem] leading-snug font-semibold">{b}</span>
-            </li>
-          ))}
-        </ol>
-
-        <div className="lp-keep mt-14 rounded-3xl bg-night p-8 text-cream sm:p-12 print:mt-8">
-          <p className="lp-sub max-w-[38ch]">
-            <span className="text-sun">Most importantly:</span> direct participation in the experience of approximately{" "}
-            {STUDENTS} young Jamaicans at a formative point in their education and career thinking.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Closing() {
   return (

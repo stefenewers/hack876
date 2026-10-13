@@ -193,7 +193,6 @@ const HELP = [
     k: "Guide",
     d: "Share what works: judging, rules, code of conduct, submissions, team formation, demos, pacing and student safety.",
     c: "bg-sun" },
-  { k: "Show up", d: "Send a coach, mentor, judge or speaker. Remote or in person.", c: "bg-mint" },
   {
     k: "Connect",
     d: "Where it fits, help us reach the developer tools, credits and partner resources MLH brings into hackathons.",
@@ -212,7 +211,7 @@ function ElseWhere() {
         <h2 id="mh-else" className="mh-h mh-lg mt-6 max-w-[20ch]" data-reveal>
           We&rsquo;re doing the work. We&rsquo;d love the experience.
         </h2>
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4">
+        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 print:grid-cols-3">
           {HELP.map((h, i) => (
             <li
               key={h.k}
@@ -248,7 +247,6 @@ function Closing() {
         </h2>
         <div className="lp-prose mx-auto mt-8" data-reveal>
           <p>If there&rsquo;s a way for MLH to be part of Hack 876, we&rsquo;d love to figure out what that looks like.</p>
-          <p>Mike, if Jamaica sounds like a good place to judge a hackathon, the door is very open.</p>
         </div>
 
         <div className="lp-no-print mt-10 flex flex-wrap justify-center gap-4">

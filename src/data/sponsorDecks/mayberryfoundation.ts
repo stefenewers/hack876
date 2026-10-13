@@ -100,22 +100,6 @@ const deck: SponsorDeckData = {
     text: "The Mayberry Foundation gave J$7,650,000 to the St. George's College Scholarship Fund and has supported its fifth-formers. St.",
     ref: 1,
   },
-  paths: [
-    {
-      label: "Foundation",
-      title: "Support for the students' day",
-      points: [
-        "Contributes toward the day's meals and refreshments",
-        "A short thank-you moment on stage",
-        "A simple report after: meals served, photos, highlights",
-      ],
-    },
-    {
-      label: "People",
-      title: "Mayberry people in the room",
-      points: ["Business-track mentors on pricing and pitch realism", "Volunteer lunch hosts from the Mayberry team"],
-    },
-  ],
   pathsNote: {
     text: "Mayberry's CSR policy asks for requests in writing, with the organisation's details, the purpose and the amount, at least 30 days before the event. We will follow it.",
     ref: 7,
@@ -128,22 +112,14 @@ const deck: SponsorDeckData = {
     why: "It is the same kind of support Mayberry gave Christel House Jamaica: a full day of meals and transport, so students can focus on learning. As a cash gift, it is concrete and easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
     tracks: ["Business", "Learn", "Life"],
-    inkind: ["Mentors for the Business track", "Volunteer lunch hosts"],
   },
-  roles: [
-    { title: "Business mentors", text: "Advisors who ask the honest questions: who pays, how much, and could this really work?" },
-    { title: "Lunch hosts", text: "Mayberry volunteers who help serve lunch and talk with students about their builds." },
-    { title: "Money-smart minute", text: "A short, general talk on budgeting and pricing an idea, with no products named." },
-  ],
   groundRules: [
     "No marketing of investment products, accounts, trading apps or other financial services to students, and no sign-ups on the day.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
-    "Sponsor staff mentor and present; the judging panel decides every award.",
   ],
   future: [
     "A Mayberry Day at every Hack876, alongside its other annual youth commitments.",
     "A pre-event build session at St. George's College for fifth-formers.",
-    "Mayberry mentors returning to the Business track each year.",
   ],
   closingLine: "We would love to explore the right first step with Kayree and the Mayberry Foundation team.",
   sources: [

@@ -19,9 +19,9 @@ const deck: SponsorDeckData = {
   },
   brief: {
     fit: "Figma for Education offers its design tools free to eligible students and educators, with age and region limits for high-school use.",
-    request: "Advice on the right access route for Jamaican high-school students, and a short training session or resources before the day. No accounts are requested.",
+    request: "Advice on the right access route for Jamaican high-school students, and any teaching resources Figma can share. No accounts are requested.",
     enables: "Teams that want to design and prototype in Figma can do so properly, within Figma's own age and region rules. Other teams use other tools.",
-    outcome: "Design Tools Partner recognition, a written recap, and the option to present the existing Best Design award.",
+    outcome: "Design Tools Partner recognition and a written recap.",
     next: "A reply from the Education team on which access route, if any, applies in Jamaica.",
   },
   why: {
@@ -80,26 +80,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "Figma already backs students who learn by making. Hack876 is one more classroom for that, in Kingston.",
   },
-  paths: [
-    {
-      label: "Education team",
-      title: "An award and some guidance",
-      points: [
-        "Figma presents the Best Design award",
-        "Advice on the right way for our students to use Figma",
-        "A short training session or resources before the day",
-      ],
-    },
-    {
-      label: "Schools",
-      title: "The school route, if Figma offers it here",
-      points: [
-        "Participating schools contact Figma for Education directly",
-        "Schools sign Figma's terms for schools, if available in Jamaica",
-        "Teachers keep using it after the hackathon",
-      ],
-    },
-  ],
   pathsNote: {
     text: "Outside its listed regions, Figma may only be used by students above the age of consent in their jurisdiction, and Figma asks schools to reach out at education@figma.com.",
     ref: 6,
@@ -108,15 +88,10 @@ const deck: SponsorDeckData = {
     lead: "inkind",
     bands: [],
     uses: ["awards"],
-    why: "We are not asking for accounts. We are asking for Figma's advice on how Jamaican students can use it properly, and whether Figma would like to present the Best Design award.",
+    why: "We are not asking for accounts. We are asking for Figma's advice on how Jamaican students can use it properly.",
     recognition: "Design Tools Partner · Inaugural Hack876",
     tracks: ["Culture", "Learn", "Life", "Business"],
-    inkind: [
-      "Presenting the existing Best Design award, if Figma would like to",
-      "Guidance on access for Jamaican high-school students",
-      "A short live training session for students or teachers",
-      "Teaching resources from Figma's high-school curriculum",
-    ],
+    inkind: ["Guidance on access for Jamaican high-school students", "Teaching resources from Figma's high-school curriculum"],
     presents: "Best Design",
   },
   tool: {
@@ -130,13 +105,6 @@ const deck: SponsorDeckData = {
     ],
     ageNote: "Figma's Help Center says high-school students must be old enough to consent to the services by themselves, not by a parent or guardian, must apply with a school-issued email, and that Figma for Education is only available in select regions. Figma's Terms require users to be of legal age in their jurisdiction, and 18 or older for Figma AI. Hack876 treats every student under 18 as a minor who needs a parent or guardian's consent. We have not confirmed that Figma for Education is available in Jamaica, Figma has not approved access for our students, and we will follow whatever Figma advises.",
   },
-  roles: [
-    { title: "Award presenter", text: "Someone from Figma presents Best Design, in person or by video." },
-    { title: "Judging adviser", text: "A Figma designer helps shape the Best Design criteria. The judging panel makes the final call." },
-    { title: "Pre-event session", text: "A short live training for students or teachers in the weeks before the day." },
-    { title: "Remote mentors", text: "Designers on a call who help teams with layout, flow and feedback." },
-    { title: "Teacher resources", text: "Pointers to Figma's high-school curriculum for computing and art teachers." },
-  ],
   groundRules: [
     "No marketing or sign-up drives aimed at students, and no Figma branding beyond what Figma approves.",
     "No student data collected for, or shared with, Figma. Any account is between a student, their school and Figma, under Figma's own terms.",

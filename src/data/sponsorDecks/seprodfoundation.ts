@@ -83,23 +83,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "Coding, robotics and game design are already in place. Hack876 adds a day where older students put them together to solve a problem they chose.",
   },
-  paths: [
-    {
-      label: "Path 1 · The Foundation",
-      title: "A STEAM pillar grant",
-      points: [
-        "Fits the STEAM education pillar directly",
-        "A contained, one-day commitment",
-        "Contributes toward the prizes students compete for",
-        "Followed by a written recap with photos and outcomes",
-      ],
-    },
-    {
-      label: "Path 2 · People",
-      title: "Time and expertise from the Seprod team",
-      points: ["A Foundation judge for impact and real-world value", "Mentors from manufacturing, operations or supply chain", "Volunteers on the day"],
-    },
-  ],
   ask: {
     lead: "band",
     band: "gold",
@@ -108,16 +91,6 @@ const deck: SponsorDeckData = {
     recognition: "Gold Partner · Inaugural Hack876",
     tracks: ["Resilience", "Learn", "Life", "Wildcard"],
   },
-  roles: [
-    { title: "Judge", text: "Lisa D'Oyen or a Foundation colleague on the panel, judging for impact and real-world problem solving." },
-    {
-      title: "Mentors",
-      text: "Seprod people from manufacturing, logistics or operations helping teams think through how things really get made and moved.",
-    },
-    { title: "Volunteers", text: "A small team on the day helping with check-in, lunch and the demo floor." },
-    { title: "Speaker", text: "A Foundation scholar or programme alumnus sharing what came after their first build." },
-    { title: "Challenge input", text: "A real food security or community resilience problem teams could choose to take on." },
-  ],
   groundRules: [
     "Many participants are minors. There is no marketing or product sampling aimed at students, and no student contact details are shared with sponsors.",
     "Recognition stays with the Seprod Foundation name. Students are never asked to promote a brand.",

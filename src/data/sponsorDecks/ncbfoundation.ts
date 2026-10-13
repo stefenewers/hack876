@@ -83,27 +83,6 @@ const deck: SponsorDeckData = {
     text: "The Foundation's Chair, Thalia Lyn, is an Immaculate alumna and the school's first Hall of Fame inductee, and has backed a technology scholarship there. Our judge Sheneska Williams is an Immaculate alumna too.",
     ref: 6,
   },
-  paths: [
-    {
-      label: "Path 1 · The Foundation",
-      title: "A grant from the N.C.B. Foundation",
-      points: [
-        "Fits the Foundation's focus on digital skills and education.",
-        "Follows naturally from the CSEC IT bursary.",
-        "Reported back in students, schools and builds.",
-        "Recognition for the Foundation, not NCB products.",
-      ],
-    },
-    {
-      label: "Path 2 · NCB sponsorships",
-      title: "Through NCB's sponsorship request",
-      points: [
-        "Uses NCB's own sponsorship form.",
-        "Speaks to Empowering People, Unlocking Dreams, Building Communities.",
-        "Includes a clear plan for measuring success.",
-      ],
-    },
-  ],
   pathsNote: {
     text: "NCB's sponsorship form asks how an initiative aligns with Empowering People, Unlocking Dreams, Building Communities, and how success will be measured. We have answered both here.",
     ref: 7,
@@ -116,13 +95,6 @@ const deck: SponsorDeckData = {
     recognition: "Platinum Partner · Inaugural Hack876",
     tracks: ["Learn", "Business"],
   },
-  roles: [
-    { title: "NCBees on the floor", text: "A few NCBees volunteers to help with check-in, timekeeping and keeping teams moving." },
-    { title: "Judges", text: "People from NCB's technology, digital and data teams to judge alongside our panel." },
-    { title: "Business-track mentors", text: "Finance and business staff to help teams in the Business track test their numbers." },
-    { title: "A word to open the day", text: "Perrin Gayle or someone from the Foundation on why digital skills matter for Jamaica." },
-    { title: "A scholar's story", text: "A Foundation scholar from a tech discipline, if one is willing, on what came after their first build." },
-  ],
   groundRules: [
     "No banking products, accounts or financial offers are marketed to students. Many participants are minors.",
     "No student data is collected or shared for the Foundation or NCB. Any recap uses group numbers and school-approved photos only.",
@@ -132,7 +104,6 @@ const deck: SponsorDeckData = {
     "Places for students from CSEC IT bursary schools as Hack876 grows.",
     "A clear signpost from Hack876 to the Foundation's Digital and National Scholarships.",
     "A link to the Level Up Grants Programme for students who want to keep building.",
-    "NCBees-led prep sessions in schools before the day.",
   ],
   closingLine: "We would love to explore the right first step with Perrin, Thalia and the N.C.B. Foundation team.",
   sources: [

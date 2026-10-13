@@ -10,6 +10,9 @@ import type { BandKey, PurposeKey } from "../sponsorship";
  * here, and never quote a sponsorship amount in a deck's own copy. Every sponsor-specific claim carries a
  * `ref` that points at an entry in `sources` (first-party wherever possible).
  *
+ * Hack876 does not ask partners for mentors, judges, speakers or volunteers.
+ * Requests are for a contribution, goods, product access or information.
+ *
  * Copy rules: no em dashes; never "Title Sponsor" or naming rights; never
  * imply the sponsor has agreed to anything; no invented people, quotes,
  * titles or numbers.
@@ -94,13 +97,10 @@ export type SponsorDeckData = {
     takeaway: string;
   };
 
-  /** Only a real, confirmed person. Omit when there is no bridge. */
-  bridge?: { name: string; role: string; lines: string[] };
   /** Highlighted in the school list when the sponsor has a documented tie to one of our schools. */
   linkedSchool?: { school: School; text: string; ref?: number };
 
-  /** 1 or 2 routes in, e.g. foundation vs marketing. */
-  paths: { label: string; title: string; points: string[] }[];
+  /** How this organisation takes requests, if it has said. Shown beside the decision we ask for. */
   pathsNote?: Sourced;
 
   /**
@@ -153,8 +153,6 @@ export type SponsorDeckData = {
     ageNote: string;
   };
 
-  /** Ways their people could take part. Only roles we would actually use; the first 4 are shown. */
-  roles: { title: string; text: string }[];
   /** 2 or 3 rules we hold ourselves to (minors, marketing, data). */
   groundRules: string[];
   /** 3 to 6 year-two possibilities grounded in their existing programmes. */

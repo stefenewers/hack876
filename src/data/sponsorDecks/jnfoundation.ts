@@ -22,7 +22,7 @@ const deck: SponsorDeckData = {
     fit: "The JN Foundation names innovation as a guiding principle and runs youth and education programmes.",
     request: "A Bronze contribution toward the student programme and an existing special award.",
     enables: "Helps support mentoring and judging on the day, and one of the three special awards students compete for.",
-    outcome: "Bronze recognition, a written recap of who took part and what they built, and the option for JN technology staff to mentor.",
+    outcome: "Bronze recognition, and a written recap of who took part and what they built.",
     next: "A reply on whether the Foundation would consider this, and whether Youth and Education Programmes is the right team.",
   },
   why: {
@@ -88,26 +88,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "The JN Foundation already brings culture, technology and careers to young Jamaicans. Hack876 is a place for them to build.",
   },
-  paths: [
-    {
-      label: "Foundation",
-      title: "Support for a special award",
-      points: [
-        "Contribute toward a special award",
-        "One of the existing special awards, if available",
-        "Small, specific and easy to report on",
-      ],
-    },
-    {
-      label: "People",
-      title: "JN people in the room",
-      points: [
-        "IT, cyber security and fintech staff as mentors",
-        "A short talk on technology careers, with JN's introduction",
-        "Volunteers for check-in and the day's logistics",
-      ],
-    },
-  ],
   pathsNote: {
     text: "Sydoney Preddie leads Youth and Education Programmes at the JN Foundation, and would be a natural colleague to include.",
     ref: 7,
@@ -119,30 +99,12 @@ const deck: SponsorDeckData = {
     why: "It turns \"Innovation is a must\" into a day of practice for students, and it is a small, clear commitment that is easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
     tracks: ["Culture", "Business", "Learn", "Resilience"],
-    inkind: [
-      "Mentors from JN Group's IT, cyber security or fintech teams",
-      "A speaker on technology careers in financial services",
-      "Volunteers for check-in and judging logistics",
-    ],
   },
-  roles: [
-    { title: "Mentors", text: "Technologists and security people who help teams get unstuck, without building the project for them." },
-    { title: "Speaker", text: "A short, honest talk on building a career in technology, from someone JN would like to introduce." },
-    {
-      title: "Volunteers",
-      text: "Staff and JN Circle members, if the Foundation wishes, who help with check-in, meals and keeping the day on time.",
-    },
-  ],
   groundRules: [
     "No marketing of bank accounts, loans, insurance or other financial products to students, and no sign-ups on the day.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
-    "Sponsor staff mentor and present; the judging panel decides every award.",
   ],
-  future: [
-    "A Hack876-style challenge inside the JN Scholars summer camp.",
-    "A Culture and code challenge in the spirit of Science Genius Jamaica.",
-    "JN professionals as mentors through the year, alongside the new scholar mentorship programme.",
-  ],
+  future: ["A Hack876-style challenge inside the JN Scholars summer camp.", "A Culture and code challenge in the spirit of Science Genius Jamaica."],
   closingLine: "We would love to explore the right first step with Claudine and the JN Foundation team.",
   sources: [
     { id: 1, org: "JN Foundation", label: "Claudine Allen, General Manager (profile)", href: "https://www.jnfoundation.com/claudine-allen/" },

@@ -19,16 +19,10 @@ const deck: SponsorDeckData = {
   },
   brief: {
     fit: "Tank-Weld began as a steel fabrication company and has built computer and homework centres in Jamaican communities.",
-    request: "Engineers and technical staff as mentors, and safe materials for physical prototypes.",
-    enables: "Teams building physical things get advice from people who make things for a living, and light materials to build with.",
-    outcome: "In-kind recognition, a written recap of what teams built, and Tank-Weld staff working with about {students} students for a day.",
-    next: "A reply on whether mentors or materials are possible, and who should coordinate.",
-    logistics: [
-      "Mentors: any part of the build period on the day, in person at {venue}.",
-      "Materials: light, safe items only, agreed in advance with the Hack876 team.",
-      "No welding, cutting or other hazardous fabrication at the event.",
-      "Help moving equipment to the venue, only if Tank-Weld has capacity.",
-    ],
+    request: "A Silver contribution toward the equipment and materials teams build with.",
+    enables: "Teams can build something physical, not only something on a screen.",
+    outcome: "Silver recognition, and a written recap of what teams built, including any physical prototypes.",
+    next: "A reply on whether Tank-Weld would consider a contribution this year, at Silver or any other level.",
   },
   why: {
     headline: "A company that builds, in a room full of students learning to.",
@@ -78,57 +72,24 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "Tank-Weld has already put computers in front of children who did not have them. Hack876 is what a student can do with one a few years later.",
   },
-  paths: [
-    {
-      label: "People and practical help",
-      title: "Builders in the room",
-      points: [
-        "Engineers and technical staff as mentors",
-        "Safe materials for physical prototypes",
-        "A short talk on careers in engineering, manufacturing and logistics",
-        "Help moving equipment to the venue, if useful",
-      ],
-    },
-    {
-      label: "Contribution",
-      title: "A Silver contribution",
-      points: [
-        "Toward equipment and materials teams build with",
-        "Helps support mentoring and the student programme",
-        "Any amount, at any level, is welcome",
-      ],
-    },
-  ],
   pathsNote: {
     text: "Tank-Weld lists info@tankweld.com for enquiries.",
     ref: 2,
   },
   ask: {
-    lead: "inkind",
+    lead: "band",
     band: "silver",
     uses: ["equipment", "materials", "programming", "logistics"],
-    why: "People and practical help come first. If a monetary contribution suits Tank-Weld better, Silver is our suggestion and any level is welcome.",
-    recognition: "In-kind Partner · Inaugural Hack876",
+    why: "Silver helps support the equipment and materials that let teams build something physical, not only something on a screen. If a different level suits Tank-Weld better, any of them is welcome.",
+    recognition: "Silver Partner · Inaugural Hack876",
     tracks: ["Move", "Resilience", "Business"],
-    inkind: ["Engineers and technical staff as mentors", "Safe prototyping materials", "A careers talk", "Help with moving equipment"],
+    inkind: ["Safe prototyping materials", "A careers talk", "Help with moving equipment"],
   },
-  roles: [
-    { title: "Technical mentors", text: "Engineers and technical staff who help teams think through how a physical thing would actually be made." },
-    { title: "Speaker", text: "A short talk on what work in engineering, manufacturing and logistics looks like in Jamaica." },
-    { title: "Judging support", text: "Tank-Weld staff can advise on practical feasibility; the final call sits with the judging panel." },
-    { title: "Materials", text: "Safe, light materials for prototypes, agreed in advance with the Hack876 team." },
-    { title: "Logistics", text: "Help getting equipment to and from the venue, if Tank-Weld has capacity." },
-  ],
   groundRules: [
     "No welding, cutting or other hazardous fabrication at the event. Prototypes use safe, light materials only.",
     "No collection of student contact details by sponsors. Photos and names only with school and parent consent.",
-    "Sponsor staff mentor and present; the judging panel decides every award.",
   ],
-  future: [
-    "A Tank-Weld engineer on the mentor bench each year.",
-    "A build challenge drawn from a real engineering or logistics problem.",
-    "Site or workshop visits for interested students, arranged through their schools.",
-  ],
+  future: ["A build challenge drawn from a real engineering or logistics problem."],
   closingLine: "We would love to explore the right first step with the Tank-Weld team.",
   sources: [
     { id: 1, org: "Tank-Weld", label: "Giving Back", href: "https://www.tankweld.com/giving-back/" },

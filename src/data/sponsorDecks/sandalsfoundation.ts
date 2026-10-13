@@ -77,18 +77,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "We have read the guidelines. A one-day event on its own does not meet them, and we are not asking for an exception.",
   },
-  paths: [
-    {
-      label: "To explore",
-      title: "Is there a suitable route, now or later?",
-      points: [
-        "A future cycle, if the lasting part of the work fits",
-        "Resources schools could reuse after the day",
-        "Mentoring that continues after the event",
-        "Or simply an introduction, with nothing asked",
-      ],
-    },
-  ],
   pathsNote: {
     text: "The Foundation takes enquiries through the contact page on its website.",
     ref: 3,
@@ -108,20 +96,11 @@ const deck: SponsorDeckData = {
       "Who is the right person to speak with, and when?",
     ],
   },
-  roles: [
-    { title: "A guest at the finals", text: "Someone from the Foundation is welcome to watch the final pitches and meet the students." },
-    { title: "Advice", text: "Guidance on what lasting benefit would need to look like for work of this kind." },
-    { title: "An introduction", text: "If another organisation is a better home for this, we would be glad to be pointed to it." },
-  ],
   groundRules: [
     "No marketing to students and no sign-ups on the day.",
     "No collection of student contact details by partners. Photos and names only with school and parent consent.",
   ],
-  future: [
-    "Resources from the day that schools could reuse in class.",
-    "Follow-up mentoring for teams after the event.",
-    "A concept application in a future cycle, if the work fits and Hack876 is eligible.",
-  ],
+  future: ["Resources from the day that schools could reuse in class.", "A concept application in a future cycle, if the work fits and Hack876 is eligible."],
   closingLine: "We would welcome a conversation with the Sandals Foundation team, whatever the answer turns out to be.",
   sources: [
     {

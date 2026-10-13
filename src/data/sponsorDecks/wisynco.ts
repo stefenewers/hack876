@@ -21,13 +21,12 @@ const deck: SponsorDeckData = {
     fit: "WATA already keeps students supplied with water at school sports days through its School Tour.",
     request: "Bottled WATA for the students and adults at Hack876, for the full day, in kind.",
     enables: "Water for everyone in the room across a long build day.",
-    outcome: "Hydration Partner recognition, a WATA hydration station if the brand team would like one, and a written recap.",
+    outcome: "Hydration Partner recognition and a written recap.",
     next: "A reply from the WATA team on whether in-kind water is possible. We will then confirm the headcount and a delivery date.",
     logistics: [
       "For about {students} students, plus mentors, judges, teachers and volunteers, from {doors} to {wrap}. We will give a final headcount in writing.",
       "Delivered to {venue} in Kingston. The venue is confirmed.",
       "The date, {date}, is tentative until schools confirm it.",
-      "A staffed hydration station is optional.",
     ],
   },
   why: {
@@ -75,23 +74,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "WATA already shows up for students on the field and in the classroom. Hack876 is one more room where that fits.",
   },
-  paths: [
-    {
-      label: "Brand",
-      title: "WATA as the hydration partner for the day",
-      points: [
-        "Bottled WATA for everyone in the room, all day",
-        "A WATA hydration station, like the sports day setup",
-        "Recognition on stage and in event materials",
-        "Small, practical and quick to say yes or no to",
-      ],
-    },
-    {
-      label: "People",
-      title: "The WATA team in the room",
-      points: ["The brand team runs the hydration station", "A short welcome on stage", "Staff who help with set-up and keeping the day moving"],
-    },
-  ],
   pathsNote: {
     text: "Wisynco lists admin@wisynco.com and 876-665-9000 at Lakespen, St Catherine. We would address the request to Brittany Thwaites and the WATA team.",
     ref: 7,
@@ -104,19 +86,8 @@ const deck: SponsorDeckData = {
     why: "Water is what WATA already brings to school days, and it is the one thing every student will reach for. It keeps the ask small and close to the work the School Tour already does.",
     recognition: "Hydration Partner · Inaugural Hack876",
     tracks: ["Wellbeing", "Learn", "Resilience"],
-    inkind: [
-      "Cases of bottled WATA for students, mentors, judges and volunteers across the full day",
-      "Delivery to {venue} ahead of the day",
-      "A WATA hydration station, staffed by the brand team if that suits",
-      "WATA presence on stage and in event materials, agreed together",
-    ],
+    inkind: ["Cases of bottled WATA for the students and adults at the event, for the full day", "Delivery to {venue} ahead of the day", "WATA presence on stage and in event materials, agreed together"],
   },
-  roles: [
-    { title: "Hydration station", text: "The WATA team keeps the station stocked, the way it does at school sports days." },
-    { title: "Welcome", text: "A short hello from WATA at the opening, kept to a minute or two." },
-    { title: "Brand mentor", text: "A marketer who helps teams think about how they name, pitch and present what they built." },
-    { title: "Volunteers", text: "Staff who help with set-up, meals and keeping the day on time." },
-  ],
   groundRules: [
     "No alcohol brands anywhere: not at the venue, on signage, in photos or in any Hack876 material. WATA water only.",
     "No marketing campaigns aimed at students beyond the water provided and the hydration station: no sampling drives, contests, surveys or social pushes to students.",

@@ -91,26 +91,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "The Foundation already builds the rooms and runs the days. Hack876 adds a place where students from many schools build side by side.",
   },
-  paths: [
-    {
-      label: "Path 1 · The Foundation",
-      title: "A direct partnership with the Digicel Foundation",
-      points: [
-        "Fits the To Build Minds goal: technology and learning in schools.",
-        "One gift that helps support the day itself, not a long programme.",
-        "Recognition for the Foundation, not Digicel products.",
-        "Reported back in students, schools and working builds.",
-      ],
-    },
-    {
-      label: "Path 2 · Girls in ICT",
-      title: "Alongside the Foundation's Girls in ICT work",
-      points: [
-        "Complements the Foundation's own girls' hackathons rather than repeating them.",
-        "Board and staff mentors on the floor alongside the students.",
-      ],
-    },
-  ],
   pathsNote: {
     text: "The Foundation's formal grant calls open in set windows for community groups, schools and non-profits. We are asking directly because Hack876 is a single day, but we are happy to follow whichever route suits the Foundation.",
     ref: 8,
@@ -123,22 +103,6 @@ const deck: SponsorDeckData = {
     recognition: "Platinum Partner · Inaugural Hack876",
     tracks: ["Learn", "Wellbeing", "Resilience", "Move"],
   },
-  roles: [
-    {
-      title: "Staff on the floor",
-      text: "A few Digicel Foundation and Digicel volunteers to help with check-in, timekeeping and keeping teams moving.",
-    },
-    { title: "Judges", text: "People from Digicel's network, cybersecurity and digital teams to judge alongside our panel." },
-    {
-      title: "Mentors who have done it",
-      text: "Engineers such as board director Antoinette Heirs, who already mentors girls on ICT careers, if they are willing.",
-    },
-    {
-      title: "A word to open the day",
-      text: "Charmaine Daniels or someone from the Foundation on why access to technology matters for every student.",
-    },
-    { title: "Safer internet, in a minute", text: "A short, practical safer-internet moment drawn from the Safer Internet Together programme." },
-  ],
   groundRules: [
     "No phones, SIMs, data plans or other Digicel products or offers are marketed to students. Many participants are minors.",
     "No student data, phone numbers or contact details are collected or shared for the Foundation or Digicel. Any recap uses group numbers and school-approved photos only.",
@@ -147,7 +111,6 @@ const deck: SponsorDeckData = {
   future: [
     "Teams from Smart Lab schools joining Hack876 as it grows.",
     "Safer Internet Together sessions in participating schools before the day.",
-    "Student teachers from Smart Lab colleges volunteering as mentors.",
     "A signpost from Hack876 to the Foundation's own girls' AI hackathons and STEM camps.",
   ],
   closingLine: "We would love to explore the right first step with Charmaine and the Digicel Foundation team.",

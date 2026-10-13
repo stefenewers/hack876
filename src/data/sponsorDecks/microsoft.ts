@@ -19,16 +19,10 @@ const deck: SponsorDeckData = {
   },
   brief: {
     fit: "Microsoft already invests in young Jamaican builders through Project Blue Mountain, and a Hack876 judge works at Microsoft.",
-    request: "Three to five Microsoft mentors for AI, cloud and data on the day, in person or remote.",
-    enables: "Teams building with AI and data get help from people who do it professionally, and a short AI fundamentals session beforehand if Microsoft can offer one.",
-    outcome: "In-kind recognition, a written recap, and Microsoft staff working directly with about {students} students a few years before university.",
-    next: "A reply on whether mentors are possible, and who inside Microsoft would need to approve it.",
-    logistics: [
-      "Mentors: any part of the build period on the day, at {venue} or by video.",
-      "Optional: a short AI fundamentals session for teams before the day.",
-      "No student accounts are required. Any cloud credits would be held by organisers.",
-      "A contribution toward the prizes is welcome as an alternative or an addition.",
-    ],
+    request: "A Gold contribution toward the prizes and the student programme.",
+    enables: "Helps support the prizes for the top teams, and the mentoring and judging on the day.",
+    outcome: "Gold recognition, and a written recap of who took part and what they built.",
+    next: "A reply on whether Microsoft would consider a contribution this year, at Gold or any other level, and who would need to approve it.",
   },
   why: {
     headline: "Young Jamaicans, real skills, real builds.",
@@ -94,56 +88,19 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "Microsoft keeps reaching younger students in Jamaica. Hack876 is a natural next step: a build day for fifth and sixth formers.",
   },
-  bridge: {
-    name: "Jordan Howell",
-    role: "Hack876 judge · Microsoft",
-    lines: [
-      "Jordan is a confirmed Hack876 judge who works at Microsoft.",
-      "Jordan is also a Campion College alumnus, one of the schools in our network.",
-      "If open to it, Jordan could be a friendly first point of contact on the Microsoft side.",
-      "Because Jordan judges, any Microsoft-funded award would be decided by a judge who does not work at Microsoft.",
-    ],
-  },
   linkedSchool: {
     school: "Campion College",
     text: "Our judge Jordan Howell, who works at Microsoft, is a Campion College alumnus.",
   },
-  paths: [
-    {
-      label: "Prize",
-      title: "Support for the prizes",
-      points: [
-        "One of the existing special awards, if available",
-        "Open to any tools, so the best build wins",
-        "Decided by a judge who does not work at Microsoft",
-      ],
-    },
-    {
-      label: "People",
-      title: "Microsoft people in the room",
-      points: ["Three to five mentors for AI, cloud and data", "A short talk on building a tech career from Jamaica", "Remote mentoring works too"],
-    },
-  ],
   ask: {
-    lead: "inkind",
+    lead: "band",
     band: "gold",
     uses: ["prizes", "awards", "programming"],
-    why: "Mentors are the request. Microsoft already funds student hackathon prizes in Jamaica, so a contribution toward the Hack876 prizes is a natural alternative.",
-    recognition: "In-kind Partner · Inaugural Hack876",
+    why: "Microsoft already funds student hackathon prizes in Jamaica. Contributing toward the Hack876 prizes extends that to students a few years younger.",
+    recognition: "Gold Partner · Inaugural Hack876",
     tracks: ["Resilience", "Learn", "Business", "Life"],
-    inkind: [
-      "Microsoft mentors for AI, cloud and data, in person or remote",
-      "A short pre-event AI fundamentals session for teams",
-      "Cloud credits held by organisers to host team demos, with no student accounts required",
-      "A speaker from Microsoft in Jamaica",
-    ],
+    inkind: ["Cloud credits held by organisers to host team demos, with no student accounts required"],
   },
-  roles: [
-    { title: "Mentors", text: "Engineers who help teams get unstuck, without building the project for them." },
-    { title: "Speaker", text: "A short, honest talk on coming home to build and give back." },
-    { title: "Workshop lead", text: "A short AI fundamentals session before the day, open to every team." },
-    { title: "Judge", text: "Jordan already judges. Microsoft-funded awards go to a judge outside Microsoft." },
-  ],
   groundRules: [
     "No marketing, product sign-ups or account creation pushed to students, before, during or after the day.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
@@ -151,7 +108,6 @@ const deck: SponsorDeckData = {
   ],
   future: [
     "Hack876 finalists invited to a future Tech Wave, if the Project Blue Mountain team would welcome them.",
-    "A Microsoft mentor bench each year, growing as more alumni join.",
     "Support for network schools exploring Microsoft's education tools with their own IT teams.",
     "A pathway into Microsoft's university-level skills programmes once students leave school.",
   ],

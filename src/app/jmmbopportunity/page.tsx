@@ -103,19 +103,16 @@ export default function JmmbOpportunityPage() {
           <TwoWaysIn />
         </div>
         <div className="lp-page">
-          <MoreThanMoney />
-        </div>
-        <div className="lp-page">
           <GoldPartner />
         </div>
         <div className="lp-page">
-          <DeliverySection n="05" />
+          <DeliverySection n="04" />
         </div>
         <div className="lp-page">
-          <NextSection n="06" next="A reply on whether the Foundation will consider this as a grant request, at Platinum or another level." route="Jonathan Bair at JMMB knows Hack876 and can give context internally." closing="We would love to explore the right first step with the JMMB Joan Duncan Foundation." />
+          <NextSection n="05" next="A reply on whether the Foundation will consider this as a grant request, at Platinum or another level." route="Jonathan Bair at JMMB knows Hack876 and can give context internally." closing="We would love to explore the right first step with the JMMB Joan Duncan Foundation." />
         </div>
         <div className="lp-page">
-          <LevelsSection n="07" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
+          <LevelsSection n="06" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
         </div>
         <div className="lp-page">
           <Closing />
@@ -218,12 +215,11 @@ function TwoWaysIn() {
           </article>
           <article className="lp-keep rounded-2xl border-2 border-ink bg-sun-light p-6">
             <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">The alternative · Marketing and sponsorship</p>
-            <h3 className="lp-h3 mt-2 text-[clamp(1.3rem,2.2vw,1.7rem)]">Recognition and people in the room</h3>
+            <h3 className="lp-h3 mt-2 text-[clamp(1.3rem,2.2vw,1.7rem)]">Recognition at the level agreed</h3>
             <ul className="mt-4 space-y-2">
               {[
                 "Recognition at the level agreed, in front of students, families and schools",
                 "Association with entrepreneurship, technology and youth opportunity",
-                "JMMB people in the room as judges, mentors and speakers",
                 "Content and storytelling around Jamaican innovation",
               ].map((t) => (
                 <li key={t} className="flex gap-2.5 font-semibold">
@@ -233,58 +229,6 @@ function TwoWaysIn() {
               ))}
             </ul>
           </article>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  11 More than money                                                        */
-/* -------------------------------------------------------------------------- */
-
-const ROLES = [
-  { title: "Judges", text: "Evaluating problem selection, execution and the pitch." },
-  { title: "Mentors", text: "Business-model and customer thinking for teams that want it." },
-  { title: "Speakers", text: "Showing students what a path into finance and business can look like." },
-  { title: "Founder coaching", text: "Helping teams pressure-test an idea like a first-time founder." },
-  { title: "Volunteers", text: "JMMB team members helping the day run well." },
-  { title: "General business education", text: "An optional, non-commercial touchpoint where it fits the programme." },
-];
-
-function MoreThanMoney() {
-  return (
-    <section aria-labelledby="lp-more" className="lp-section lp-dense lp-center bg-paper">
-      <div className="lp-wrap">
-        <Kicker n="03">More than money</Kicker>
-        <h2 id="lp-more" className="lp-h2 mt-6 max-w-[24ch]">
-          JMMB&rsquo;s contribution does not have to be purely financial.
-        </h2>
-        <p className="lp-marker lp-keep mt-6 text-[clamp(2.8rem,8vw,6rem)] text-emerald-deep print:mt-4">People in the room.</p>
-
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 print:mt-5 print:grid-cols-3">
-          {ROLES.map((r, i) => (
-            <li key={r.title} className="rounded-2xl border lp-rule bg-cream p-5">
-              <p className="lp-num text-3xl text-emerald-deep">{String(i + 1).padStart(2, "0")}</p>
-              <h3 className="lp-h3 mt-2">{r.title}</h3>
-              <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{r.text}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className="lp-keep mt-8 rounded-2xl border-2 border-dashed border-ink/40 p-5 print:mt-5">
-          <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Ground rules we will hold ourselves to</p>
-          <ul className="mt-3 grid gap-2 sm:grid-cols-3 print:grid-cols-3">
-            {[
-              "No marketing of investment products to students.",
-              "No collection of students’ financial information.",
-              "No implied employment, internships or accounts unless separately agreed.",
-            ].map((t) => (
-              <li key={t} className="font-semibold">
-                {t}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>
@@ -310,7 +254,7 @@ function GoldPartner() {
   return (
     <section aria-labelledby="lp-gold" className="lp-section lp-dark relative overflow-hidden">
       <div className="lp-wrap relative">
-        <Kicker n="04">Our invitation</Kicker>
+        <Kicker n="03">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
           Become a Platinum Partner of the inaugural Hack876.
         </h2>

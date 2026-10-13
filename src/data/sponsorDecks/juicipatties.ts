@@ -21,7 +21,7 @@ const deck: SponsorDeckData = {
     fit: "Juici Patties has backed young people in Jamaica since 2004, including through its Youth Leadership Workshop.",
     request: "Patties and coco bread for lunch, in kind, for the students and adults at Hack876.",
     enables: "Lunch for the whole room in the middle of a long build day.",
-    outcome: "Food Partner recognition, Juici staff in the room if they would like to be, and a written recap.",
+    outcome: "Food Partner recognition and a written recap.",
     next: "A reply from the marketing team on whether an in-kind lunch is possible. We will then confirm the headcount in writing.",
     logistics: [
       "For about {students} students, plus mentors, judges, teachers and volunteers. We will give a final headcount in writing before anything is ordered.",
@@ -92,27 +92,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "Juici already invests in young people well beyond the counter. Hack876 is a new kind of room for that same commitment, built around technology.",
   },
-  paths: [
-    {
-      label: "Marketing",
-      title: "A Juici lunch at Hack876",
-      points: [
-        "Lunch for students, judges, mentors and volunteers",
-        "Vegetarian and vegan patties on the table",
-        "Recognised as the food partner on the day",
-        "Simple to plan: one venue, one meal",
-      ],
-    },
-    {
-      label: "People",
-      title: "The Juici team in the room",
-      points: [
-        "Marketing staff as mentors for Business track pitches",
-        "A short talk on growing a Jamaican brand from one shop",
-        "Staff volunteers, as in the Youth Leadership Workshop",
-      ],
-    },
-  ],
   pathsNote: {
     text: "Juici Patties' published contact is info@juicipatties.com, at Lot 1, Clarendon Park, May Pen.",
     ref: 5,
@@ -124,19 +103,8 @@ const deck: SponsorDeckData = {
     why: "Lunch is the one moment every student shares, and it is something Juici already does better than anyone. In kind is the simplest way to make it happen.",
     recognition: "Food Partner · Inaugural Hack876",
     tracks: ["Culture", "Business", "Life"],
-    inkind: [
-      "Beef and Chicken Patties for lunch",
-      "Vegetable Patty and Plant Based Patty options for vegetarian and vegan students",
-      "Coco bread",
-      "Juici team members to help serve on the day",
-    ],
+    inkind: ["Beef and Chicken Patties for lunch", "Vegetable Patty and Plant Based Patty options for vegetarian and vegan students", "Coco bread"],
   },
-  roles: [
-    { title: "Lunch partner", text: "Juici provides the midday meal, and the team helps it run smoothly." },
-    { title: "Mentors", text: "Marketing staff help Business track teams think about customers and brand, without building the project for them." },
-    { title: "Speaker", text: "A Juici leader on building a Jamaican brand from a single shop in Clarendon." },
-    { title: "Volunteers", text: "Staff who help with check-in, meals and keeping the day on time." },
-  ],
   groundRules: [
     "No marketing or sampling campaigns aimed at students beyond the meal provided, and no sign-ups, coupons or promotions on the day.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
@@ -146,7 +114,6 @@ const deck: SponsorDeckData = {
     "A recurring Juici lunch at every Hack876.",
     "Introductions between Hack876 students and the Youth Leadership Workshop, since both serve high-schoolers.",
     "A community tech day, modelled on the Osbourne Store computer room renovation.",
-    "Juici marketing mentors on the Business track each year.",
   ],
   closingLine: "We would love to explore the right first step with Kellon and the Juici Patties team.",
   sources: [

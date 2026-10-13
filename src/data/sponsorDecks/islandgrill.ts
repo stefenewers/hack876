@@ -21,7 +21,7 @@ const deck: SponsorDeckData = {
     fit: "Island Grill already takes its food and its team into community projects, and its founder has backed a technology scholarship at Immaculate Conception High School.",
     request: "One lunch, in kind, for the students and adults at Hack876.",
     enables: "A proper Jamaican lunch at the midpoint of a long build day, so no student has to bring or buy food.",
-    outcome: "Food Partner recognition, Island Grill team members serving if they would like to, and a written recap.",
+    outcome: "Food Partner recognition and a written recap.",
     next: "A reply on whether a sponsored lunch is possible. We will then confirm the final headcount and any dietary needs in writing.",
     logistics: [
       "For about {students} students, plus mentors, judges, teachers and volunteers. We will give a final headcount in writing before anything is ordered.",
@@ -95,27 +95,6 @@ const deck: SponsorDeckData = {
     text: "Thalia Lyn is an Immaculate alumna, the first inductee of its Hall of Fame in 2013, and announced a technology scholarship there in 2024. Our judge Sheneska Williams is an Immaculate alumna too.",
     ref: 3,
   },
-  paths: [
-    {
-      label: "Food",
-      title: "Feed the room for one day",
-      points: [
-        "One sponsored lunch, in kind, on the day",
-        "Not a catering or canteen arrangement",
-        "Plates from the regular menu, vegetarian included",
-        "Island Grill team members serving, if they would like to",
-      ],
-    },
-    {
-      label: "People",
-      title: "Island Grill people in the room",
-      points: [
-        "A short founder talk on starting small and trying new things",
-        "Mentors for Business track teams",
-        "One of the existing special awards, if available",
-      ],
-    },
-  ],
   ask: {
     lead: "inkind",
     band: "bronze",
@@ -123,17 +102,8 @@ const deck: SponsorDeckData = {
     why: "Lunch is the one moment every student shares. A one-day, in-kind Island Grill lunch is simple, concrete and close to how Island Grill already serves communities.",
     recognition: "Food Partner · Inaugural Hack876",
     tracks: ["Business", "Culture", "Wellbeing"],
-    inkind: [
-      "Lunch for students, mentors, judges and volunteers, delivered to the venue",
-      "Grilled chicken, fried fish and vegetarian meals with rice and peas or festival",
-      "Island Grill team members to help serve, as they do on community projects",
-    ],
+    inkind: ["One lunch for the students and adults at the event, delivered to {venue}", "Grilled chicken, fried fish and vegetarian meals with rice and peas or festival"],
   },
-  roles: [
-    { title: "Lunch team", text: "Island Grill staff who serve the meal and keep the line moving." },
-    { title: "Speaker", text: "A short, honest talk on building a Jamaican brand by trying new things." },
-    { title: "Mentors", text: "Innovation and marketing staff who help Business track teams think like operators." },
-  ],
   groundRules: [
     "The lunch is the contribution: no promotions, coupons, sign-ups or marketing campaigns aimed at students beyond the meal itself.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",

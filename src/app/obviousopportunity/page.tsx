@@ -76,7 +76,7 @@ export default function ObviousOpportunityPage() {
               request: `API or token credits for the Hack 876 teams that choose to build with Obvious during the event.`,
               enables: `Teams can build with a serious AI tool for a day, under whatever access structure Obvious recommends.`,
               outcome: `Recognition as a tools partner, and a written recap of what teams built with Obvious.`,
-              next: `A reply on whether credits are possible, and how Obvious would want access set up. Judges, mentors and speakers from Obvious are welcome too.` }}
+              next: `A reply on whether credits are possible, and how Obvious would want access set up.` }}
             requestDetail={`No sponsorship package and no tiers. No funding is requested.`}
           />
         </div>
@@ -85,9 +85,6 @@ export default function ObviousOpportunityPage() {
         </div>
         <div className="lp-page">
           <Credits />
-        </div>
-        <div className="lp-page">
-          <ShowUp />
         </div>
         <div className="lp-page">
           <Closing />
@@ -234,45 +231,6 @@ function Credits() {
 /* -------------------------------------------------------------------------- */
 /*  7 · If Obvious wants to show up                                           */
 /* -------------------------------------------------------------------------- */
-
-const ROLES = [
-  { k: "Judge", d: "Help evaluate what students build." },
-  { k: "Mentor", d: "Spend part of the day helping teams get unblocked." },
-  { k: "Speaker", d: "Share how modern AI products actually get built." },
-];
-
-function ShowUp() {
-  return (
-    <section id="show-up" aria-labelledby="ob-show" className="lp-section ob-panel scroll-mt-6">
-      <div className="lp-wrap">
-        <Label n="03">If Obvious wants to show up</Label>
-        <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-          <h2 id="ob-show" className="ob-h ob-lg max-w-[16ch]" data-reveal>
-            The door is very open.
-          </h2>
-          <p className="ob-mono text-[0.85rem] font-semibold text-[var(--ob-muted)] print:text-[1.15rem]">remote | in person</p>
-        </div>
-        <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 print:grid-cols-3">
-          {ROLES.map((r, i) => (
-            <li key={r.k} className="ob-card ob-sec p-6" data-reveal style={{ "--reveal-delay": `${i * 70}ms` } as CSSProperties}>
-              <p className="ob-mono text-xs font-semibold tracking-[0.14em] text-[var(--ob-orange)] uppercase print:text-[1rem]">{r.k}</p>
-              <p className="mt-3 text-[1.05rem] leading-snug text-[var(--ob-ink-2)] print:text-[1.4rem]">{r.d}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-10 grid gap-6 border-t lp-rule pt-8 lg:grid-cols-2 print:grid-cols-2">
-          <p className="ob-body">
-            If someone from Obvious wants to spend a few hours with Jamaica&rsquo;s next generation of builders, we&rsquo;d love to
-            have them. Saran, that very much includes you.
-          </p>
-          <p className="ob-body text-[var(--ob-muted)]">
-            The event stays platform-neutral. Teams choose their own tools, and every award is open whatever they build with.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Closing() {
   return (

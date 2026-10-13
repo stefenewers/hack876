@@ -5,10 +5,10 @@
  * Rules:
  * - The only special awards are the ones in event.ts (`prizes` without a
  *   `place`). A deck may not invent a new award to personalise a pitch.
- * - A deck may suggest that a partner present or help support one existing
- *   award, by setting `ask.presents` to its name. That is a suggestion, never
+ * - A deck may suggest that a partner's support is recognised alongside one
+ *   existing award, by setting `ask.presents` to its name. That is a suggestion, never
  *   a naming right, and the judging panel always decides the winner.
- * - Each award can have one presenting partner. When more than one deck
+ * - Each award can be linked to one partner. When more than one deck
  *   mentions the same award, the first partner to confirm takes it and the
  *   other decks must be updated before they are sent again.
  *

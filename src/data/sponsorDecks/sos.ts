@@ -75,23 +75,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "A locally made notebook on every team table is a small thing that students would actually use.",
   },
-  paths: [
-    {
-      label: "In kind",
-      title: "Materials on every team table",
-      points: [
-        "Notebooks and pens for students",
-        "Planning materials for each team",
-        "Supplies for the final pitches",
-        "Sized to the event, nothing left over",
-      ],
-    },
-    {
-      label: "Alternative",
-      title: "A discount, or a contribution",
-      points: ["A discount on materials Hack876 buys", "Part of the quantity, if all of it is too much", "Or a monetary contribution at any level"],
-    },
-  ],
   pathsNote: {
     text: "SOS takes enquiries through the contact form on its website, and by phone at its Kingston and Montego Bay showrooms.",
     ref: 3,
@@ -112,12 +95,6 @@ const deck: SponsorDeckData = {
       "Or a discount on any of these",
     ],
   },
-  roles: [
-    { title: "Materials partner", text: "SOS materials on each team table from the first minute of the day." },
-    { title: "Speaker", text: "A short talk on how a Jamaican product gets designed, made and sold, if someone at SOS would enjoy giving it." },
-    { title: "Mentors", text: "Staff who can help teams think through a product, a customer or a price." },
-    { title: "Volunteers", text: "Staff who help hand out materials and keep the day on time." },
-  ],
   groundRules: [
     "No selling to students and no sign-ups on the day.",
     "No collection of student contact details by sponsors. Photos and names only with school and parent consent.",

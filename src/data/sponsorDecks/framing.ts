@@ -35,9 +35,9 @@ export const pagePlan = (deck: Pick<SponsorDeckData, "kind" | "ask" | "sources">
   const levels = showsBands(deck.ask) || deck.sources.length > 5 ? ["appendix"] : [];
   switch (deckFormat(deck)) {
     case "major":
-      return ["summary", "why", "request", "how", "delivery", "next", "appendix"];
+      return ["summary", "why", "request", "delivery", "next", "appendix"];
     case "standard":
-      return ["summary", "why", "request", "how", "deliverynext", "appendix"];
+      return ["summary", "why", "request", "deliverynext", "appendix"];
     case "supplier":
       return ["summary", "supply", ...(deck.kind === "tool" ? ["terms"] : []), "deliverynext", ...levels];
     case "exploratory":

@@ -19,7 +19,7 @@ const deck: SponsorDeckData = {
   },
   brief: {
     fit: "Replit runs an event support programme that provides credits to events, and lets students build and publish from a browser.",
-    request: "Replit event credits for the teams that choose to build on Replit, held in organiser and mentor accounts.",
+    request: "Replit event credits for the teams that choose to build on Replit, held in adult organiser accounts.",
     enables: "A team without a strong laptop can build and publish a working app from a browser in one day.",
     outcome: "Build Tools Partner recognition, and a written recap that says which projects were built on Replit.",
     next: "We will submit Replit's event support request form once the date is confirmed. Advice on events with under-18 participants would help before then.",
@@ -74,17 +74,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "Replit already backs events where people build fast and ship. Hack876 is one more, in Kingston.",
   },
-  paths: [
-    {
-      label: "Event support",
-      title: "Replit's event credit request",
-      points: [
-        "We submit Replit's event support request form, with this brief in \"Tell us about your event\"",
-        "The form asks for an event date, so we confirm the date with Replit before or as we submit",
-        "Replit's team reviews the request and decides whether and how it can help",
-      ],
-    },
-  ],
   pathsNote: {
     text: "Replit's Terms of Service say users must be at least 13, and anyone under 18 must have a parent or guardian's permission to use the Service.",
     ref: 7,
@@ -96,12 +85,7 @@ const deck: SponsorDeckData = {
     why: "Replit gives credits, not cash, and that is all we are asking for: credits for the teams that choose to build on Replit, plus anything Replit suggests on how best to use them.",
     recognition: "Build Tools Partner · Inaugural Hack876",
     tracks: ["Learn", "Life", "Business", "Wildcard"],
-    inkind: [
-      "Replit event credits for teams that opt in",
-      "Credits for organiser and mentor accounts to support teams",
-      "A short remote session on getting from prompt to published app",
-      "Remote help from the Replit community during build hours, if Replit offers it",
-    ],
+    inkind: ["Replit event credits for teams that opt in", "Credits held in organiser accounts, not student accounts"],
   },
   tool: {
     headline: "Replit credits for every team that wants to ship.",
@@ -114,11 +98,6 @@ const deck: SponsorDeckData = {
     ],
     ageNote: "Replit's Terms of Service say users must be at least 13, and anyone under 18 needs a parent or guardian's permission to use the Service. Most Hack876 students are under 18, so any student who uses Replit would do so only with that permission, and Hack876 will not create student accounts or promise any student an account. Replit has not approved access for our students, and we will follow whatever Replit advises.",
   },
-  roles: [
-    { title: "Pre-event session", text: "A short remote walkthrough from blank prompt to published app, before hacking starts." },
-    { title: "Remote mentors", text: "Replit builders on a call during build hours to help teams get unstuck." },
-    { title: "Organiser guidance", text: "Advice on setting up credits and workspaces for a one-day event with under-18s." },
-  ],
   groundRules: [
     "No marketing, sign-up drives or promotions aimed at students. Replit is presented as one option among many, and teams may use any tools they like.",
     "No student data collected for, or shared with, Replit. Any account is between a student, their parent or guardian and Replit, under Replit's own terms.",

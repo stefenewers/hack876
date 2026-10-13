@@ -73,23 +73,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "The Foundation already rewards young people who build, pitch and grow. Hack876 adds a single day where older students do exactly that, side by side with students from other schools.",
   },
-  paths: [
-    {
-      label: "Path 1 · The Foundation",
-      title: "A Foundation prize grant",
-      points: [
-        "Fits the Foundation's focus on education and national development",
-        "A natural next step for students who grew up with camps like Junior Creators",
-        "Recognition in the Foundation's name only",
-        "Followed by a short written recap with photos and outcomes",
-      ],
-    },
-    {
-      label: "Path 2 · People",
-      title: "Time and expertise from the Foundation team",
-      points: ["Technology and innovation staff as judges or mentors", "A short talk on where building things can lead", "Volunteers on the day"],
-    },
-  ],
   pathsNote: {
     text: "The Foundation's focus areas include national development through improved access to education.",
     ref: 2,
@@ -102,13 +85,6 @@ const deck: SponsorDeckData = {
     recognition: "Gold Partner · Inaugural Hack876",
     tracks: ["Learn", "Business", "Life", "Wildcard"],
   },
-  roles: [
-    { title: "Judges", text: "Technology and innovation staff on the panel, judging how well a build really works." },
-    { title: "Mentors", text: "Foundation people moving between teams on the day, helping students get unstuck." },
-    { title: "Speaker", text: "Heather Goldson or a colleague on the road from a first robot to a real career." },
-    { title: "Alumni voices", text: "Older Junior Creators alumni sharing what building early meant to them, if the Foundation feels it fits." },
-    { title: "Volunteers", text: "A small team helping with check-in, lunch and the demo floor." },
-  ],
   groundRules: [
     "No gaming or lottery brands, products, games, odds or promotion anywhere near students, at the venue, in materials or online. Recognition uses the Supreme Ventures Foundation name and logo only.",
     "Many participants are minors. Schools approve all sponsor visuals in advance, and no student contact details or data are shared with sponsors.",

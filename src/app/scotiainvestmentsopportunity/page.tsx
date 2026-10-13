@@ -6,7 +6,7 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { Compounding } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, eventWhen } from "@/data/event";
+import { event, eventWhen } from "@/data/event";
 import { BandStrip, LevelsSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 import { DeliverySection, NextSection, OpeningSummary } from "@/components/proposal/PartnershipSections";
@@ -34,7 +34,6 @@ export const metadata: Metadata = {
   twitter: null };
 
 /* Canonical numbers come from the event data. */
-const STUDENTS = eligibility.maxHackers;
 /* -------------------------------------------------------------------------- */
 /*  Page                                                                      */
 /* -------------------------------------------------------------------------- */
@@ -113,12 +112,12 @@ export default function ScotiaInvestmentsOpportunityPage() {
             org="Scotia Investments"
             headline={`The best investments are often made before the potential is obvious.`}
             highlight={`obvious`}
-            sub={`Hack876 gives secondary-school students one day to build something real. Scotia professionals can help them think about what it would cost, and who would pay for it.`}
+            sub={`Hack876 gives secondary-school students one day to build something real. It is a small, early investment in young Jamaicans, in line with what ScotiaRISE already supports.`}
             brief={{
               fit: `Scotiabank’s ScotiaRISE programme is a 10-year commitment to economic resilience with a focus on youth and education, and Scotia Investments advises clients to invest early and for the long haul.`,
-              request: `A Platinum contribution toward the inaugural event, with Scotia professionals mentoring teams on business models and money.`,
-              enables: `Helps support the equipment teams build with, the prizes, student meals and the running of the day. Mentors help teams work out who would pay for what they build, and what it would cost to run.`,
-              outcome: `Scotia people work with about ${STUDENTS} students on financial thinking applied to their own projects. Scotia Investments receives Platinum recognition and a written recap.`,
+              request: `A Platinum contribution toward the inaugural event.`,
+              enables: `Helps support the equipment teams build with, the prizes, student meals and the running of the day.`,
+              outcome: `Platinum recognition, and a written recap of what teams built, including any business and money projects.`,
               next: `A conversation with Padrique Duncan, who knows both Scotia Investments and Hack876, on the right level and who would approve it.`,
             }}
             requestDetail={`Platinum Partner: J$1,000,000+. Any level is welcome, and the levels are set out in the appendix.`}
@@ -131,19 +130,16 @@ export default function ScotiaInvestmentsOpportunityPage() {
           <AlreadyInvests />
         </div>
         <div className="lp-page">
-          <MoreThanMoney />
-        </div>
-        <div className="lp-page">
           <GoldPartner />
         </div>
         <div className="lp-page">
-          <DeliverySection n="05" linked="Jamaica College" />
+          <DeliverySection n="04" linked="Jamaica College" />
         </div>
         <div className="lp-page">
-          <NextSection n="06" next="A reply on whether Scotia Investments would consider Platinum or another level, and which professionals could mentor." route="Padrique Duncan of Scotia Investments is a Hack876 partner and can give context internally." closing="We would love to explore the right first step with the Scotia Investments team." />
+          <NextSection n="05" next="A reply on whether Scotia Investments would consider Platinum or another level." route="Padrique Duncan of Scotia Investments is a Hack876 partner and can give context internally." closing="We would love to explore the right first step with the Scotia Investments team." />
         </div>
         <div className="lp-page">
-          <LevelsSection n="07" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
+          <LevelsSection n="06" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
         </div>
         <div className="lp-page">
           <Closing />
@@ -269,58 +265,6 @@ function AlreadyInvests() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  09 More than money                                                        */
-/* -------------------------------------------------------------------------- */
-
-const ROLES = [
-  { title: "Judges", text: "Evaluating problem selection, execution and communication." },
-  { title: "Mentors", text: "Business-model, finance and product thinking for teams that want it." },
-  { title: "Speakers", text: "Showing students the range of careers inside a modern financial institution." },
-  { title: "Founder sounding board", text: "Helping students pressure-test an idea like a first-time founder." },
-  { title: "Careers conversation", text: "Honest, informal conversations about paths into finance and business." },
-  { title: "Financial-literacy touchpoint", text: "An optional, general-education session if it fits the programme." },
-];
-
-function MoreThanMoney() {
-  return (
-    <section aria-labelledby="lp-more" className="lp-section lp-dense lp-center bg-paper">
-      <div className="lp-wrap">
-        <Kicker n="03">More than money</Kicker>
-        <h2 id="lp-more" className="lp-h2 mt-6 max-w-[24ch]">
-          The most valuable thing Scotia can bring is not necessarily the cheque.
-        </h2>
-        <p className="lp-marker lp-keep mt-8 text-[clamp(3rem,9vw,6.5rem)] text-emerald-deep print:mt-5">People in the room.</p>
-
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 print:mt-6 print:grid-cols-3">
-          {ROLES.map((r, i) => (
-            <li key={r.title} className="rounded-2xl border lp-rule bg-cream p-5">
-              <p className="lp-num text-3xl text-emerald-deep">{String(i + 1).padStart(2, "0")}</p>
-              <h3 className="lp-h3 mt-2">{r.title}</h3>
-              <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{r.text}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className="lp-keep mt-8 rounded-2xl border-2 border-dashed border-ink/40 p-5 print:mt-5">
-          <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Ground rules we will hold ourselves to</p>
-          <ul className="mt-3 grid gap-2 sm:grid-cols-3 print:grid-cols-3">
-            {[
-              "No selling of investment products to students.",
-              "No collection of students’ financial information.",
-              "No implied employment, internships or accounts unless separately agreed.",
-            ].map((t) => (
-              <li key={t} className="font-semibold">
-                {t}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
 /*  10 Platinum Partner                                                           */
 /* -------------------------------------------------------------------------- */
 
@@ -339,7 +283,7 @@ function GoldPartner() {
   return (
     <section aria-labelledby="lp-gold" className="lp-section lp-dark relative overflow-hidden">
       <div className="lp-wrap relative">
-        <Kicker n="04">Our invitation</Kicker>
+        <Kicker n="03">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
           Become a Platinum Partner of the inaugural Hack876.
         </h2>

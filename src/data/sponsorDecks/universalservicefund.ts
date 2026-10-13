@@ -20,14 +20,14 @@ const deck: SponsorDeckData = {
   },
   brief: {
     fit: "The USF connects Jamaicans and funds the skills to use that access, including through its ICT Education Grant.",
-    request: "A USF speaker and technical mentors on the day. We are testing the venue's Wi-Fi first, and would ask about temporary connectivity only if that shows a gap.",
-    enables: "Students hear how connectivity reaches communities, and teams get help from people who build networks.",
-    outcome: "In-kind recognition and a written recap. Older students hear about the ICT Education Grant directly from the USF.",
-    next: "A reply on whether a speaker and mentors are possible. If the venue test shows a gap, we will write formally to the CEO with the details.",
+    request: "Information on the ICT Education Grant that we can pass to older students. We are testing the venue's Wi-Fi first, and would ask about temporary connectivity only if that shows a gap.",
+    enables: "Students who could use the grant hear about it, and every team can work online if the venue needs help.",
+    outcome: "In-kind recognition and a written recap.",
+    next: "A reply on what grant information we may share. If the venue test shows a gap, we will write formally to the CEO with the details.",
     logistics: [
-      "Speaker: one short talk on the day, at {venue}.",
-      "Mentors: any part of the build period, in person.",
+      "Grant information: whatever the USF already publishes, for us to hand to students and teachers.",
       "Connectivity: the venue is a hotel with its own network. We will test it for about {students} students working at once before asking for anything.",
+      "No funding and no staff time on the day are requested.",
     ],
   },
   why: {
@@ -94,49 +94,15 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "The USF already builds the access and the skills. Hack876 is a place to see both at work in one room.",
   },
-  paths: [
-    {
-      label: "Connectivity",
-      title: "Connectivity, only if the venue needs it",
-      points: [
-        "We are testing the venue's Wi-Fi before asking for anything",
-        "Shaped around whatever the USF is able to provide",
-        "A formal letter to the CEO, with Marketing and Public Relations copied",
-        "We will follow the USF's own approval process and timelines",
-      ],
-    },
-    {
-      label: "People",
-      title: "USF people in the room",
-      points: [
-        "Technical staff as mentors on networks and connectivity",
-        "A short talk on connectivity and capacity",
-        "Information for older students on the ICT Education Grant",
-      ],
-    },
-  ],
   ask: {
     lead: "inkind",
     bands: [],
     uses: ["equipment", "programming"],
-    why: "People first: a speaker and mentors keep the request simple for a public agency. Connectivity support would follow only if the venue needs it.",
+    why: "This keeps the request simple for a public agency. Connectivity support would follow only if the venue needs it.",
     recognition: "In-kind Partner · Inaugural Hack876",
     tracks: ["Learn", "Life"],
-    inkind: [
-      "A USF speaker on connectivity, digital skills and the ICT Education Grant",
-      "Mentors from the USF projects and technical teams",
-      "Temporary event connectivity, only if the venue test shows a gap",
-    ],
+    inkind: ["Information on the ICT Education Grant for older students", "Temporary event connectivity, only if the venue test shows a gap"],
   },
-  roles: [
-    { title: "Connectivity", text: "USF advice or support so every team stays online from start to finish." },
-    { title: "Mentors", text: "Network and technical staff who help teams get unstuck, without building the project for them." },
-    { title: "Speaker", text: "A short, practical talk on what young people can do with access, not only how to get it." },
-    {
-      title: "Grant information",
-      text: "A simple handout on the ICT Education Grant for students old enough to apply, shared through their schools.",
-    },
-  ],
   groundRules: [
     "No marketing to students and no sign-ups on the day. Grant information goes out through schools only.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",

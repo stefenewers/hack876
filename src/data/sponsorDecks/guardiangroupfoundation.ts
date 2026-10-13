@@ -22,7 +22,7 @@ const deck: SponsorDeckData = {
     fitRef: 3,
     request: "A Bronze contribution toward the student programme and an existing special award.",
     enables: "Helps support mentoring and judging on the day, and one of the three special awards students compete for.",
-    outcome: "Bronze recognition, a written recap of who took part and what they built, and the option for Guardian technologists to mentor.",
+    outcome: "Bronze recognition, and a written recap of who took part and what they built.",
     next: "A reply on whether the Foundation would consider a Bronze contribution, and how it prefers to receive a request.",
   },
   why: {
@@ -82,22 +82,6 @@ const deck: SponsorDeckData = {
     text: "Guardian's 2026 Women in STEM Grant went to the St Andrew High School for Girls Robotics Club.",
     ref: 3,
   },
-  paths: [
-    {
-      label: "Foundation",
-      title: "Support for a special award",
-      points: [
-        "Contribute toward a special award",
-        "One of the existing special awards, if available",
-        "Small, specific and easy to report on",
-      ],
-    },
-    {
-      label: "People",
-      title: "Guardian technologists in the room",
-      points: ["IT and transformation staff as mentors", "A short talk on technology careers in insurance", "Help on the day with set check-in windows"],
-    },
-  ],
   pathsNote: {
     text: "Guardian Group Foundation enquiries go through GuardianGroupFoundation@myguardiangroup.com at Guardian Life Limited, 12 Trafalgar Road, Kingston 5.",
     ref: 6,
@@ -109,19 +93,12 @@ const deck: SponsorDeckData = {
     why: "It is close in size to the Women in STEM Grant Guardian already gives, and it supports something specific and easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
     tracks: ["Wellbeing", "Life", "Learn"],
-    inkind: ["Mentors from the IT and transformation team", "A speaker on technology careers in insurance", "Volunteers for check-in and judging logistics"],
   },
-  roles: [
-    { title: "Mentors", text: "Technologists who help teams get unstuck, without building the project for them." },
-    { title: "Speaker", text: "A short, honest talk on what technology work inside an insurer looks like." },
-    { title: "Volunteers", text: "Staff who help with check-in, meals and keeping the day on time." },
-  ],
   groundRules: [
     "No marketing of insurance, pensions or other financial products to students, and no sign-ups on the day.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
-    "Sponsor staff mentor and present; the judging panel decides every award.",
   ],
-  future: ["Girls' robotics clubs Guardian already supports entering as teams.", "A Guardian technologist on the mentor bench each year."],
+  future: ["Girls' robotics clubs Guardian already supports entering as teams."],
   closingLine: "We would love to explore the right first step with Debby and the Guardian Group Foundation team.",
   sources: [
     {

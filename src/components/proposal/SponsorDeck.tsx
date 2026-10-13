@@ -21,7 +21,6 @@ import "@/components/proposal/proposal.css";
  *   summary       the whole proposal on page one
  *   why           one or two verified facts, tied to the proposed activity
  *   request       what we ask, what it supports, what the partner receives
- *   how           routes in, people in the room, ground rules
  *   delivery      why Hack876 can deliver
  *   next          reporting, the decision asked for, the contact
  *   appendix      contribution levels and sources
@@ -99,12 +98,17 @@ export function SponsorDeck({ deck: raw }: { deck: SponsorDeckData }) {
   const pages: Record<string, (n: string) => ReactNode> = {
     why: (n) => <Why n={n} deck={deck} />,
     request: (n) => <Request n={n} deck={deck} />,
-    how: (n) => <How n={n} deck={deck} />,
     supply: (n) => <Supply n={n} deck={deck} />,
     terms: (n) => <Terms n={n} deck={deck} />,
     explore: (n) => <Explore n={n} deck={deck} sources={sources} />,
     delivery: (n) => <DeliverySection n={n} linked={linked?.school} linkedNote={linkedNote} />,
-    next: (n) => <NextSection n={n} next={deck.brief.next} route={route} future={deck.future} closing={deck.closingLine} />,
+    next: (n) => (
+      <NextSection n={n} next={deck.brief.next} route={route} future={deck.future} closing={deck.closingLine}>
+        <div className="mt-6">
+          <GroundRules rules={deck.groundRules.slice(0, 3)} />
+        </div>
+      </NextSection>
+    ),
     deliverynext: (n) => (
       <DeliveryAndNext n={n} next={deck.brief.next} route={route} linkedNote={linkedNote}>
         {last === "deliverynext" && sources}
@@ -241,7 +245,8 @@ function Presents({ deck, dark = false }: { deck: SponsorDeckData; dark?: boolea
   if (!deck.ask.presents) return null;
   return (
     <p className={`mt-3 text-[0.92rem] leading-snug print:text-[1.32rem] ${dark ? "text-cream/80" : "text-ink-2"}`}>
-      {Nm(deck)} could present the existing {deck.ask.presents} award, if it is still available. The judging panel decides the winner, and the award keeps its name.
+      {Nm(deck)}&rsquo;s support could be recognised alongside the existing {deck.ask.presents} award, if it is still available. The judging panel decides the winner, and the
+      award keeps its name.
     </p>
   );
 }
@@ -328,61 +333,6 @@ function GroundRules({ rules }: { rules: string[] }) {
   );
 }
 
-function How({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  return (
-    <section aria-labelledby="lp-how" className="lp-section lp-dense lp-center bg-paper">
-      <div className="lp-wrap">
-        <Kicker n={n}>How it would work</Kicker>
-        <h2 id="lp-how" className="lp-h2 mt-6 max-w-[26ch]">
-          How {nm(deck)} could take part.
-        </h2>
-        {deck.bridge && (
-          <p className="lp-prose mt-4">
-            <strong className="text-ink">
-              {deck.bridge.name}, {deck.bridge.role}.
-            </strong>{" "}
-            {deck.bridge.lines[0]}
-          </p>
-        )}
-
-        <div className="mt-7 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
-          <div className="grid h-fit gap-4 print:gap-[1.1rem]">
-            {deck.paths.map((p, i) => (
-              <article key={p.title} className={`lp-keep rounded-2xl border-2 border-ink p-5 print:p-[1.2rem] ${i ? "bg-sun-light" : "bg-mint/60"}`}>
-                <p className={`text-xs font-extrabold tracking-[0.16em] uppercase ${i ? "text-ink-soft" : "text-emerald-deep"}`}>{p.label}</p>
-                <h3 className="mt-1.5 text-[1.2rem] leading-tight font-extrabold print:text-[1.89rem]">{p.title}</h3>
-                <ul className="mt-3 space-y-1.5">
-                  {p.points.map((t) => (
-                    <li key={t} className="flex gap-2.5 text-[0.98rem] leading-snug font-semibold print:text-[1.28rem]">
-                      <Check className={`mt-0.5 h-4 w-4 ${i ? "text-ink" : "text-emerald-deep"}`} />
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-          <div>
-            <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">People in the room, if {nm(deck)} would like</p>
-            <dl className="mt-3 border-t lp-rule">
-              {deck.roles.slice(0, deck.paths.reduce((n, p) => n + p.points.length, 0) > 6 ? 3 : 4).map((r) => (
-                <div key={r.title} className="lp-keep border-b lp-rule py-2.5 print:py-[0.7rem]">
-                  <dt className="text-[1rem] font-extrabold print:text-[1.53rem]">{r.title}</dt>
-                  <dd className="text-[0.95rem] leading-snug text-ink-2 print:text-[1.36rem]">{r.text}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <GroundRules rules={deck.groundRules} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* -------------------------------------------------------------------------- */
 /*  Supplier and tool requests                                                */
 /* -------------------------------------------------------------------------- */
@@ -414,14 +364,6 @@ function Supply({ n, deck }: { n: string; deck: SponsorDeckData }) {
           {ask.title ? `What ${aOrAn(ask.title)} ${ask.title} would provide.` : "What we are asking for, and how it would be used."}
         </h2>
 
-        {deck.bridge && (
-          <p className="lp-prose mt-4">
-            <strong className="text-ink">
-              {deck.bridge.name}, {deck.bridge.role}.
-            </strong>{" "}
-            {deck.bridge.lines[0]}
-          </p>
-        )}
 
         <div className="mt-7 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
           <div>

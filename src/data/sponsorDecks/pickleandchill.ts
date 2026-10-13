@@ -67,13 +67,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "Students who have never played would be welcome there, which is the whole point.",
   },
-  paths: [
-    {
-      label: "In kind",
-      title: "A team-play experience",
-      points: ["Court-time vouchers for a team", "An introductory lesson for first-time players", "Used later, at a time that suits the club"],
-    },
-  ],
   pathsNote: {
     text: "Pickle & Chill lists pickleandchilljamaica@gmail.com for enquiries.",
     ref: 1,
@@ -88,16 +81,11 @@ const deck: SponsorDeckData = {
     tracks: ["Wellbeing", "Move"],
     inkind: ["Court-time vouchers for a team of up to four", "An introductory lesson for a team", "Or a monetary contribution at any level"],
   },
-  roles: [
-    { title: "Experience partner", text: "Vouchers handed to a team at the close of the day." },
-    { title: "Presenter", text: "Someone from Pickle & Chill hands over the vouchers on stage, if they would like to." },
-    { title: "Break-time energy", text: "A five-minute stretch or warm-up between build sessions, led by a coach." },
-  ],
   groundRules: [
     "Vouchers go to students through their schools, and are used with a parent or guardian's knowledge.",
     "No collection of student contact details by sponsors, and no sign-ups on the day.",
   ],
-  future: ["A team-play experience at every Hack876.", "A social game for mentors and volunteers.", "A student clinic day arranged with schools."],
+  future: ["A team-play experience at every Hack876.", "A student clinic day arranged with schools."],
   closingLine: "We would love to explore the right first step with the Pickle & Chill team.",
   sources: [
     { id: 1, org: "Pickle & Chill", label: "Home", href: "https://pickleandchilljamaica.com/" },

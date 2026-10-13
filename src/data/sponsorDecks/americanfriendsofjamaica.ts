@@ -56,27 +56,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "Every cycle, AFJ backs the organisations doing the work. Hack876 would like to earn a place in a coming one.",
   },
-  paths: [
-    {
-      label: "Grant application",
-      title: "A programme grant through AFJ's annual cycle",
-      points: [
-        "A short interest check now. The full case goes in the application.",
-        "Submitted by a partner registered under the Jamaica Charities Act, or by a school through its Principal's office.",
-        "Funds programme costs only: student meals, materials, production and recognition.",
-        "Reported back the way AFJ asks of every grantee, every six months.",
-      ],
-    },
-    {
-      label: "Donor directed",
-      title: "A route for AFJ supporters who ask about Hack876",
-      points: [
-        "AFJ also processes donor directed grants, with a one-time 5% administrative fee.",
-        "Only if a supporter raises it. We would never approach AFJ's donors without you.",
-        "Same registered recipient and the same reporting as a programme grant.",
-      ],
-    },
-  ],
   pathsNote: {
     text: "AFJ does not conduct pre-proposal meetings, so this page is a brief interest check, not a request for one.",
     ref: 6,
@@ -92,13 +71,6 @@ const deck: SponsorDeckData = {
     tracks: ["Learn", "Business", "Resilience"],
     figure: "A programme grant",
   },
-  roles: [
-    { title: "Finals guest", text: "An AFJ representative in the room for the final pitches, if the calendar allows." },
-    { title: "Judge", text: "A board or staff member on the judging panel for one track." },
-    { title: "Observer", text: "AFJ's on-site Program Analyst is welcome to watch the day from kickoff to demos." },
-    { title: "Mentor", text: "Someone from a tutoring or job-training grantee spending an hour with a team." },
-    { title: "Reviewer", text: "A quick read of our outcome measures before the day, so the report answers AFJ's questions." },
-  ],
   groundRules: [
     "No marketing to students. AFJ appears as a supporter, never in anything pitched at them.",
     "No student data is collected for or shared with partners. Names and photos only with school and parental consent.",

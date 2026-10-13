@@ -76,33 +76,30 @@ export default function CardinalLawOpportunityPage() {
             org="Cardinal Law"
             headline={`Every big idea eventually meets the real world.`}
             highlight={`meets the real world`}
-            sub={`When a prototype works, new questions appear: who owns it, whose data it uses, and what you have promised. Cardinal answers those for a living.`}
+            sub={`Hack876 gives Jamaica’s next generation of builders a place to start. Cardinal advises on what happens when an idea becomes something more.`}
             brief={{
               fit: `Cardinal Law is a Jamaican firm formed by four attorneys. Two of its partners attended Campion College and St. George’s College, both in the Hack876 school network.`,
-              request: `One short session from Cardinal’s lawyers on what happens after a prototype works: ownership, privacy and contracts. Lawyers as mentors or judges are welcome too.`,
-              enables: `Students learn that ownership, privacy and trust are part of building something real, from people who advise on exactly that.`,
-              outcome: `Cardinal’s lawyers in front of about ${STUDENTS} students and their teachers for a day, recognition that matches any contribution, and a written recap.`,
-              next: `A reply from Abuna Jones Campbell or D’Angello G. Foster on whether a session is possible, and whether Cardinal would also consider a contribution.` }}
-            requestDetail={`A monetary contribution is welcome and optional. Platinum is our invitation, and every level is set out in the appendix.`}
+              request: `A Platinum contribution toward the inaugural event. Any level is welcome.`,
+              enables: `Helps support the equipment teams build with, the prizes, student meals and the running of the day.`,
+              outcome: `Recognition at the level agreed, in front of about ${STUDENTS} students, their teachers and families, and a written recap.`,
+              next: `A reply from Abuna Jones Campbell or D’Angello G. Foster on whether Cardinal would consider a contribution, and at what level.` }}
+            requestDetail={`Platinum Partner: J$1,000,000+. Every level is set out in the appendix.`}
           />
         </div>
         <div className="lp-page">
           <WhyCardinal />
         </div>
         <div className="lp-page">
-          <MoreThanMoney />
-        </div>
-        <div className="lp-page">
           <GoldPartner />
         </div>
         <div className="lp-page">
-          <DeliverySection n="04" />
+          <DeliverySection n="03" />
         </div>
         <div className="lp-page">
-          <NextSection n="05" next="A reply on whether a session is possible, who would lead it, and whether Cardinal would also consider a contribution at any level." closing="We would love Cardinal Law to help make that first room possible." />
+          <NextSection n="04" next="A reply on whether Cardinal would consider a contribution, and at what level." closing="We would love Cardinal Law to help make that first room possible." />
         </div>
         <div className="lp-page">
-          <LevelsSection n="06" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
+          <LevelsSection n="05" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
         </div>
         <div className="lp-page">
           <Closing />
@@ -188,59 +185,6 @@ function WhyCardinal() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  09 More than money                                                        */
-/* -------------------------------------------------------------------------- */
-
-const ROLES = [
-  { title: "Judges", text: "Weighing the problem, the build and the thinking behind it." },
-  { title: "Mentors", text: "Bringing commercial and real-world thinking to teams during the day." },
-  { title: "A short session", text: "“Your prototype worked. Now what?” IP, privacy, contracts and business structure, age-appropriately." },
-  { title: "Finals and awards", text: "Cardinal people in the room when the finalists pitch." },
-];
-
-function MoreThanMoney() {
-  return (
-    <section aria-labelledby="lp-more" className="lp-section lp-dense lp-center bg-paper">
-      <div className="lp-wrap">
-        <Kicker n="02">More than money</Kicker>
-        <h2 id="lp-more" className="lp-h2 mt-6 max-w-[24ch]">
-          We are not looking for Cardinal&rsquo;s logo alone.
-        </h2>
-        <p className="lp-marker lp-keep mt-6 text-[clamp(2.4rem,7vw,5rem)] text-emerald-deep print:mt-4">
-          We would like Cardinal&rsquo;s thinking in the room.
-        </p>
-
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 print:mt-5 print:grid-cols-5">
-          {ROLES.map((r, i) => (
-            <li key={r.title} className="rounded-2xl border lp-rule bg-cream p-5">
-              <p className="lp-num text-3xl text-emerald-deep">{String(i + 1).padStart(2, "0")}</p>
-              <h3 className="lp-h3 mt-2">{r.title}</h3>
-              <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{r.text}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className="lp-keep mt-8 rounded-2xl border-2 border-dashed border-ink/40 p-5 print:mt-5">
-          <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Boundaries we will hold to</p>
-          <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4">
-            {[
-              "Any legal content is general education, not individual legal advice.",
-              "No solicitor-client relationship with students is created or implied.",
-              "No sensitive legal information is collected from students.",
-              "Many participants are minors, and every session is designed with that in mind.",
-            ].map((t) => (
-              <li key={t} className="font-semibold">
-                {t}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
 /*  11 Platinum Partner                                                           */
 /* -------------------------------------------------------------------------- */
 
@@ -259,7 +203,7 @@ function GoldPartner() {
   return (
     <section aria-labelledby="lp-gold" className="lp-section lp-dark relative overflow-hidden">
       <div className="lp-wrap relative">
-        <Kicker n="03">Our invitation</Kicker>
+        <Kicker n="02">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
           Become a Platinum Partner of the inaugural Hack876.
         </h2>

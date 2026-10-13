@@ -20,8 +20,8 @@ const deck: SponsorDeckData = {
   },
   brief: {
     fit: "The AJA Scholarship has helped students of Jamaican heritage, in metro Atlanta and in Jamaica, since 1995.",
-    request: "A Bronze contribution from the Association or pooled from its members, and a few members as remote mentors or judges.",
-    enables: "Helps support an existing special award and the mentoring students get on the day. Remote mentors can join by video from Atlanta.",
+    request: "A Bronze contribution from the Association, or pooled from its members.",
+    enables: "Helps support an existing special award and the student programme on the day.",
     outcome: "Bronze recognition, a written recap the AJA can share with members, and Hack876 organisers reporting back at a monthly meeting.",
     next: "A reply from the President on whether to bring this to the membership, and at which monthly meeting.",
   },
@@ -79,28 +79,6 @@ const deck: SponsorDeckData = {
     text: "Evette Taylor-Reynolds began a teaching career at Campion College, according to the 2026 Marcus Garvey Symposium programme. Both Hack876 organisers are Campion alumni.",
     ref: 7,
   },
-  paths: [
-    {
-      label: "Association",
-      title: "Collective support from the AJA",
-      points: [
-        "Contribute toward an existing special award",
-        "From the Association, or pooled from members",
-        "Routed through whichever AJA entity suits the purpose",
-        "Small, specific and easy to report back to members",
-      ],
-    },
-    {
-      label: "Members",
-      title: "The diaspora in the room",
-      points: [
-        "Members as remote judges and mentors",
-        "A short video message from the AJA to the students",
-        "A slot at a monthly meeting to share what students built",
-        "Two Hack876 organisers are Georgia Tech alumni and would gladly join a meeting",
-      ],
-    },
-  ],
   pathsNote: {
     text: "The AJA meets on the second Saturday of each month at 6:00 p.m., except August and December, and welcomes all. The President can be reached at president@atlantajamaicanassociation.org.",
     ref: 2,
@@ -112,18 +90,7 @@ const deck: SponsorDeckData = {
     why: "It is small and concrete, close in spirit to the scholarships the AJA already gives, and it lets members see exactly what their support did.",
     recognition: "Bronze Partner · Inaugural Hack876",
     tracks: ["Culture", "Learn", "Life"],
-    inkind: [
-      "Members as remote judges or mentors",
-      "A recorded message from the AJA for the opening",
-      "Members visiting Kingston who could volunteer on the day",
-    ],
   },
-  roles: [
-    { title: "Diaspora judges", text: "Members with tech, business or education experience who score projects remotely or on the day." },
-    { title: "Mentors", text: "Remote mentors who help teams get unstuck, without building the project for them." },
-    { title: "A message from Atlanta", text: "A short recorded welcome from the AJA, so students know the diaspora is watching." },
-    { title: "Storytellers", text: "Share the winning builds with members at a monthly meeting or in AJA news." },
-  ],
   groundRules: [
     "No marketing, membership drives or fundraising aimed at students, and no sign-ups on the day.",
     "No collection of student contact details or data by partners. Photos and names only with school and parent consent.",

@@ -102,23 +102,6 @@ const deck: SponsorDeckData = {
     text: "St. George's College won the People's Choice Award at the 2026 EcoSpark Innovation Challenge for its Rain Garden within a Miniature Sponge City.",
     ref: 6,
   },
-  paths: [
-    {
-      label: "Path 1 · The Foundation",
-      title: "A STEM education grant",
-      points: [
-        "Fits the STEM education and climate resilience pillars",
-        "Complements EcoSpark and the Energy Clubs rather than competing with them",
-        "A contained, one-day commitment",
-        "Followed by a short written recap with photos and outcomes",
-      ],
-    },
-    {
-      label: "Path 2 · People",
-      title: "Time and expertise from the JPS team",
-      points: ["Engineers as judges and mentors", "A short talk on how energy careers really work", "Volunteers on the day"],
-    },
-  ],
   pathsNote: {
     text: "The Foundation's mission names STEM Education and partnership as two of the ways it works.",
     ref: 2,
@@ -131,13 +114,6 @@ const deck: SponsorDeckData = {
     recognition: "Gold Partner · Inaugural Hack876",
     tracks: ["Resilience", "Move", "Learn", "Wildcard"],
   },
-  roles: [
-    { title: "Judges", text: "JPS engineers on the panel for the Resilience track, judging how well a build would really work." },
-    { title: "Mentors", text: "JPS people moving between teams on the day, in the same spirit as the Foundation's Mentorship Programme." },
-    { title: "Speaker", text: "Sophia Lewis or a JPS engineer on what a career in energy actually looks like." },
-    { title: "Challenge input", text: "A real energy efficiency or community resilience problem teams could choose to take on." },
-    { title: "Volunteers", text: "A small JPS team helping with check-in, lunch and the demo floor." },
-  ],
   groundRules: [
     "Many participants are minors. There is no marketing aimed at students, and no student contact details or data are shared with sponsors.",
     "Any hardware or electrical build is supervised by a qualified adult, with safe, low-voltage kits only.",

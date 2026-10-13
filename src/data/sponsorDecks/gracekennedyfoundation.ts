@@ -80,18 +80,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "We have read the published criteria. We are asking about fit, not asking for an exception.",
   },
-  paths: [
-    {
-      label: "To explore",
-      title: "Is there a suitable route, now or later?",
-      points: [
-        "A future grant cycle, if its focus is ever a fit",
-        "A separate route for a school-linked educational activity",
-        "Educational materials students and schools keep using",
-        "Or simply an introduction, with nothing asked",
-      ],
-    },
-  ],
   pathsNote: {
     text: "The Foundation lists gkfoundation@gkco.com for enquiries about its grants.",
     ref: 1,
@@ -111,11 +99,6 @@ const deck: SponsorDeckData = {
       "Who is the right person to speak with, and when?",
     ],
   },
-  roles: [
-    { title: "A guest at the finals", text: "Someone from the Foundation is welcome to watch the final pitches and meet the students." },
-    { title: "Advice", text: "Guidance on what would make a project like this a fit for the Foundation, in this year or a later one." },
-    { title: "An introduction", text: "If another part of the education community is a better home for this, we would be glad to be pointed to it." },
-  ],
   groundRules: [
     "No marketing to students and no sign-ups on the day.",
     "No collection of student contact details by partners. Photos and names only with school and parent consent.",

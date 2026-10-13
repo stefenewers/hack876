@@ -82,26 +82,6 @@ const deck: SponsorDeckData = {
     ],
     takeaway: "Seeed already backs makers who learn by building together. Hack876 would be one more room full of them, in Kingston.",
   },
-  paths: [
-    {
-      label: "Community program",
-      title: "Meshtastic Community Sponsorship",
-      points: [
-        "We apply through Seeed's Meshtastic Sponsorship Application once the Hack876 date is confirmed",
-        "At least 3 weeks before the event, plus extra time for shipping and customs into Jamaica",
-        "We commit to the standard deliverables, and to a higher-quality one if we ask for more kits",
-      ],
-    },
-    {
-      label: "Education",
-      title: "Seeed Education",
-      points: [
-        "Seeed's educator form, or the education team at education@seeed.cc",
-        "A good fit for Grove sensor kits for teams on the Hardware build type",
-        "Teachers in our schools keep building with Seeed after the day",
-      ],
-    },
-  ],
   pathsNote: {
     text: "Seeed asks organisers to apply at least 3 weeks before the event date, with a shipping address and phone number.",
     ref: 4,
@@ -117,7 +97,6 @@ const deck: SponsorDeckData = {
       "Seeed's standard Meshtastic package: 10 DIY kits, a SenseCAP T1000-E and a Wio Tracker L1",
       "An upgraded quantity, if Seeed thinks our event and content justify it",
       "Grove sensor kits for teams building other kinds of hardware",
-      "A short remote walkthrough of the kits for our hardware mentors",
     ],
   },
   tool: {
@@ -131,15 +110,6 @@ const deck: SponsorDeckData = {
     ],
     ageNote: "Every kit is low-voltage and used only at supervised stations with an adult hardware mentor. Students do not open, modify or swap batteries. Seeed's wiki recommends a qualified 3.7V lithium battery with a protection circuit for these kits, and we would follow that and every other Seeed safety note. Meshtastic devices need the right LoRa region set, so before the day we will confirm with Seeed which frequency variant suits Jamaica and that its use here is permitted. Seeed's standard shipping terms are DAP, with duties and clearance fees paid by the receiver, so Hack876 would plan for those and allow extra time for customs. Seeed has not agreed to any of this, and we will follow its advice.",
   },
-  roles: [
-    { title: "Kit walkthrough", text: "A short call before the day so our hardware mentors know the kits inside out." },
-    { title: "Engineering Q&A", text: "Someone from Seeed reachable for a tricky setup question during the build." },
-    { title: "Judging adviser", text: "A Seeed engineer helps shape the hardware criteria. The judging panel makes the final call." },
-    {
-      title: "Content partner",
-      text: "Seeed shares our recap and project write-ups on its own channels, with student photos only where parents or guardians have consented.",
-    },
-  ],
   groundRules: [
     "Low-voltage hardware only, always under adult supervision. No mains wiring, and no opening or modifying batteries.",
     "No student data shared with Seeed. Photos of students go out only with parent or guardian consent, and attendee feedback is shared without names.",
