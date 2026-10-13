@@ -48,9 +48,13 @@ The organisers do not need mentors, judges, speakers or volunteers from partners
 
 - The "how it would work" page, with its people-in-the-room list, was removed from the shared template. Major decks are now six pages and smaller cash decks five.
 - `roles`, `paths` and `bridge` were removed from the deck type. A test fails if a deck asks for people.
-- Microsoft and Tank-Weld lead with a contribution again (Gold and Silver). The USF and British Council briefs now ask only for information and for the call to be shared.
+- Microsoft and Tank-Weld lead with a contribution again (Gold and Silver). The USF and British Council briefs were reduced to requests for information, then withdrawn (see below).
 - The "people in the room" pages were removed from Loring, GK General Insurance, Scotia, JMMB and Cardinal Law, and the "show up" page from Obvious. Cardinal Law now leads with a contribution, not a legal session.
 - The extra Platinum benefits pages were removed from Loring and GK General Insurance, so both now show only the shared Platinum benefits.
+
+## Decks withdrawn
+
+British Council Jamaica and the Universal Service Fund were removed on 13 October 2026. Once requests for people were dropped, neither had a request worth sending. The inventory is now 34 decks.
 
 ## Not changed
 

@@ -55,8 +55,8 @@ export const decisions: Decision[] = [
   {
     id: "venue-wifi",
     question: "Nobody has tested whether the venue's Wi-Fi can carry about 80 students working at once.",
-    recommendation: "Test it at the hotel. If it holds, drop connectivity from the USF deck. If not, write to the USF with the measured gap.",
-    affects: ["universalservicefund", "replit", "obvious"],
+    recommendation: "Test it at the hotel before the event. If it falls short, arrange extra connectivity directly.",
+    affects: ["replit", "obvious"],
     holdSending: false,
   },
   {

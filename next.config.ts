@@ -53,10 +53,6 @@ const nextConfig: NextConfig = {
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
       },
       {
-        source: "/britishcounciljamaicaopportunity",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
-      },
-      {
         source: "/guardiangroupfoundationopportunity",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
       },
@@ -114,10 +110,6 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/seeedstudioopportunity",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
-      },
-      {
-        source: "/universalservicefundopportunity",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
       },
       {

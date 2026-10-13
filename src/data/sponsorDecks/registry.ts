@@ -322,23 +322,6 @@ export const deckRegistry: DeckEntry[] = [
 
   /* --------------------------------------- Community & Institutional Partners */
   {
-    name: "British Council Jamaica",
-    category: "Community & Institutional Partners",
-    focus: "Sharing the call with STEAM programme schools, and challenge resources. No funding requested.",
-    route: "/britishcounciljamaicaopportunity",
-    pdf: `${P}britishcounciljamaica-partnership-proposal.pdf`,
-    filename: "Hack876 x British Council Jamaica - Partnership Proposal.pdf",
-  },
-  {
-    name: "Universal Service Fund",
-    aka: "USF",
-    category: "Community & Institutional Partners",
-    focus: "ICT Education Grant information for students. Connectivity only if the venue test shows a gap.",
-    route: "/universalservicefundopportunity",
-    pdf: `${P}universalservicefund-partnership-proposal.pdf`,
-    filename: "Hack876 x Universal Service Fund - Partnership Proposal.pdf",
-  },
-  {
     name: "The Atlanta Jamaican Association, Inc.",
     aka: "AJA diaspora",
     category: "Community & Institutional Partners",
