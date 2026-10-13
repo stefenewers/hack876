@@ -16,6 +16,8 @@ import { people, type School } from "./event";
 
 export type SchoolBrief = {
   slug: string;
+  /** `true` keeps the page off the public /schools listing. Use for proposals a school has not yet discussed. */
+  unlisted?: boolean;
   school: School;
   /** How the school is referred to in running copy. */
   short: string;
@@ -38,7 +40,18 @@ export type SchoolBrief = {
    * Shows confirmed Hack 876 judges and organizers who attended this school,
    * pulled from event.ts. Omit when there are none worth a section.
    */
-  alumni?: { kicker: string; headline: string; lead: string; note: string };
+  alumni?: {
+    kicker: string;
+    headline: string;
+    lead: string;
+    note: string;
+    /** Education path to show for a named person, when the order is known, e.g. "Hillel → Campion College → Georgia Tech". */
+    paths?: Record<string, string>;
+  };
+  /** A plain explanation of the event for readers new to hackathons, shown in "The event" section. */
+  eventIntro?: string;
+  /** Replaces the default "what happens next" timeline. */
+  nextSteps?: { k: string; v: string }[];
   /** Early-planning cohort range. Always shown as provisional. */
   planningRange: { min: number; max: number };
   /** Replaces the default list of asks. */
@@ -262,6 +275,110 @@ export const schoolBriefs: SchoolBrief[] = [
       {
         label: "The Gleaner: Jamaican students shine on the 2025 CSEC merit list (November 8, 2025)",
         href: "https://jamaica-gleaner.com/article/news/20251108/jamaican-students-shine-campion-colleges-mijaun-talbot-tops-caribbean-csec",
+      },
+    ],
+  },
+  {
+    slug: "hillel",
+    /* Pre-meeting proposal: reachable by direct link only. */
+    unlisted: true,
+    school: "Hillel Academy",
+    short: "Hillel",
+    people: "Hillel students",
+    crest: "/schools/hillel-academy.png",
+    /* Blue and pale gold sampled from the crest file. Official colours not confirmed in writing. */
+    colors: { primary: "#0b4f8a", secondary: "#e3d48f", ink: "#062e57" },
+    motto: { original: "Learning for Living", translation: "Hillel Academy’s motto." },
+    hero: {
+      lead: "Hillel calls it learning for living.",
+      line: "Hack 876 is one day of exactly that.",
+    },
+    fit: {
+      headline: "Learning for living, in a single day.",
+      lead: "Hillel’s mission is to inspire problem-solving, lifelong learners. Hack 876 asks students to do precisely that: find a real problem and build an answer to it, together, in one day.",
+      points: [
+        { k: "Real-world learning", v: "The High School describes its approach as connecting learning “through real-world application”." },
+        { k: "IB World School", v: "Hillel offers the IB Diploma, with Creativity, Activity and Service as part of the programme." },
+        { k: "Beyond the classroom", v: "Every High School student is expected to take part in at least two co-curricular activities each term." },
+        { k: "Robotics", v: "The Hillel Panthers were selected to represent Jamaica at the FIRST World Championship in Houston in April 2025." },
+      ],
+      quote: {
+        text: "To inspire well-rounded, problem-solving, lifelong learners and confident global citizens prepared to change the world.",
+        by: "Hillel Academy mission statement",
+        source: 1,
+        cite: "hillelacademyjm.com",
+      },
+      bridge:
+        "Hack 876 adds something a school timetable cannot easily provide: students from other schools, a fixed deadline, mentors from industry, and judges who ask students to explain their decisions. It is an addition to what Hillel already does, not a replacement for any of it.",
+    },
+    alumni: {
+      kicker: "The Hillel connection",
+      headline: "Built by people Hillel helped shape.",
+      lead: "One of Hack 876’s organizers and one of its confirmed judges attended Hillel. They are helping build this because they would have wanted it as students.",
+      note: "Employers are listed as each person’s affiliation. They are not event sponsors unless stated elsewhere.",
+      paths: { "Stefen Ewers": "Hillel → Campion College → Georgia Tech" },
+    },
+    eventIntro:
+      "A hackathon is an event where small teams build something from scratch in a single day, then present it to judges. No programming experience is needed: teams also need students who design, research, write and present. Mentors who work in industry help throughout the day.",
+    planningRange: { min: 8, max: 12 },
+    asks: [
+      "Support in principle for eligible Hillel students, in Grades 11 to 13, to take part.",
+      "A meeting to review this proposal and any administrative requirements.",
+      "A faculty liaison of the school’s choosing, possibly within Technology Education.",
+      "Guidance in identifying one or two student ambassadors.",
+      "Help reaching curious, motivated students, and recommending those who are interested.",
+      "Guidance on permissions, communication with parents and any school-specific expectations.",
+    ],
+    asksNote:
+      "We’re not asking Hillel for financial support, or to organize anything. Hack 876 runs the event, the applications, the judging and the participant materials. What form of support is appropriate is for the school to decide.",
+    liaison: {
+      name: "Mr. Lloyd Holmes",
+      title: "High School Principal · Hillel Academy",
+      credentials: "At Hillel since 2004 · High School Principal since 2017",
+      photo: null,
+      kicker: "Working with Hillel",
+      headline: "A conversation first.",
+      intro:
+        "We would like Hack 876 to become something Hillel students can return to each year, not a single Saturday. That starts with a conversation with the school’s leadership.",
+      tag: "Prepared for",
+      role: "We would welcome a meeting with Mr. Holmes to walk through this proposal, hear his questions, and understand what approval Hillel would require.",
+      note: "This is a proposal. Hillel Academy has not approved or confirmed participation, nobody at Hillel has accepted a role, and student places are not guaranteed.",
+      also: [
+        {
+          title: "Ms. Delrose Coburn",
+          tag: "Potential faculty liaison",
+          text: "Head of Technology Education. Ms. Coburn has been part of our early conversations. Who acts as faculty liaison, if anyone, is for Hillel to decide.",
+        },
+        {
+          title: "Student ambassadors",
+          tag: "Proposed",
+          text: "One or two students, chosen with the school, who help classmates understand the opportunity and bring their questions back.",
+        },
+      ],
+    },
+    nextSteps: [
+      { k: "First", v: "A meeting with Mr. Holmes to review this proposal." },
+      { k: "If Hillel agrees", v: "Support in principle, and any approval steps the school requires." },
+      { k: "Then", v: "A faculty liaison and one or two student ambassadors." },
+      { k: "Before the event", v: "Teachers recommend students, students apply, and families receive consent forms." },
+      { k: "Event day", v: "Hack 876." },
+    ],
+    closing: {
+      lead: "Hillel teaches learning for living.",
+      line: "Let’s give a few Hillel students one day to live it.",
+    },
+    pdf: {
+      href: "/proposals/hack876-hillel-participation-brief.pdf",
+      filename: "Hack 876 x Hillel Academy - Participation Brief.pdf",
+    },
+    sources: [
+      { label: "Hillel Academy: Mission and Values", href: "https://hillelacademyjm.com/mission-and-values/" },
+      { label: "Hillel Academy: The Principal, High School", href: "https://hillelacademyjm.com/the-principal-middle-school/" },
+      { label: "Hillel Academy: About Us", href: "https://hillelacademyjm.com/about-us/" },
+      { label: "Hillel Academy: High School co-curricular programme", href: "https://hillelacademyjm.com/high-school/" },
+      {
+        label: "Jamaica Observer: 2024-25 FIRST Tech Challenge Jamaica Robotics Championship (April 16, 2025)",
+        href: "https://www.jamaicaobserver.com/2025/04/16/campion-college-clinches-2025-high-school-robotics-championship-title/",
       },
     ],
   },

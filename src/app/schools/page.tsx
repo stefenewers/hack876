@@ -31,7 +31,9 @@ export default function SchoolsPage() {
           </p>
 
           <ul className="mt-12 grid gap-5 sm:grid-cols-2">
-            {schoolBriefs.map((b) => (
+            {schoolBriefs
+              .filter((b) => !b.unlisted)
+              .map((b) => (
               <li key={b.slug}>
                 <Link href={`/schools/${b.slug}`} className="sticker sticker-hover group flex h-full flex-col bg-paper p-6">
                   <div className="flex items-center gap-4">

@@ -6,7 +6,7 @@ import { HackerPass } from "@/components/art/HackerPass";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { applications, buildTypes, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule, schools } from "@/data/event";
+import { applications, buildTypes, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule, schools, venue } from "@/data/event";
 import type { Person } from "@/data/event";
 import type { SchoolBrief } from "@/data/schoolBriefs";
 import "@/components/proposal/proposal.css";
@@ -69,7 +69,7 @@ export function SchoolBriefPage({ brief }: { brief: SchoolBrief }) {
           </div>
         )}
         <div className="lp-page">
-          <TheEvent n={n()} />
+          <TheEvent n={n()} intro={brief.eventIntro} />
         </div>
         <div className="lp-page">
           <Gains n={n()} />
@@ -267,13 +267,19 @@ function Alumni({ n, brief }: { n: string; brief: SchoolBrief }) {
                   </p>
                   <p className="mt-0.5 text-lg leading-tight font-extrabold text-cream print:text-[1.5rem]">{p.name}</p>
                   <p className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm leading-snug text-cream/75 print:text-[1.05rem]">
-                    <span className="font-bold text-cream">{brief.short}</span>
-                    {after.map((s) => (
-                      <span key={s} className="flex items-center gap-1.5">
-                        <span aria-hidden>→</span>
-                        {s}
-                      </span>
-                    ))}
+                    {a.paths?.[p.name] ? (
+                      <span className="font-bold text-cream">{a.paths[p.name]}</span>
+                    ) : (
+                      <>
+                        <span className="font-bold text-cream">{brief.short}</span>
+                        {after.map((s) => (
+                          <span key={s} className="flex items-center gap-1.5">
+                            <span aria-hidden>→</span>
+                            {s}
+                          </span>
+                        ))}
+                      </>
+                    )}
                   </p>
                   {p.organization && <p className="mt-1 text-sm font-bold text-sun print:text-[1.1rem]">Now: {p.organization}</p>}
                 </div>
@@ -298,7 +304,7 @@ const VERBS = [
   { v: "Present", d: "Demo it to judges and explain the decisions." },
 ];
 
-function TheEvent({ n }: { n: string }) {
+function TheEvent({ n, intro }: { n: string; intro?: string }) {
   const numbers = [
     { v: `~${eligibility.maxHackers}`, l: "Total builders", c: "bg-emerald text-white", r: "-2deg" },
     { v: TEAM_SIZE, l: "Per team", c: "bg-sun", r: "1.5deg" },
@@ -326,8 +332,13 @@ function TheEvent({ n }: { n: string }) {
             ))}
           </ul>
         </div>
+        {intro && (
+          <p className="lp-prose mt-6 max-w-3xl print:max-w-none" data-reveal>
+            {intro}
+          </p>
+        )}
 
-        <ol className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4">
+        <ol className={`grid gap-3 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4 ${intro ? "mt-8" : "mt-12"}`}>
           {VERBS.map((s, i) => (
             <li key={s.v} className="sb-card relative p-5" data-reveal style={{ "--reveal-delay": `${i * 70}ms` } as CSSProperties}>
               <p className="text-xs font-extrabold tracking-[0.16em] text-[var(--sb-primary)] uppercase print:text-[0.95rem]">Step {i + 1}</p>
@@ -649,10 +660,10 @@ function Bridge({ n, brief }: { n: string; brief: SchoolBrief }) {
 /* -------------------------------------------------------------------------- */
 
 function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
-  const steps = [
+  const steps = brief.nextSteps ?? [
     { k: "Now", v: `Build the relationship with ${brief.short}.` },
     { k: "Next", v: "Confirm a school contact and a student outreach path." },
-    { k: "Then", v: "Confirm the date and venue, then applications and logistics." },
+    { k: "Then", v: venue.confirmed ? "Confirm the date, then applications and logistics." : "Confirm the date and venue, then applications and logistics." },
     { k: "Before the event", v: "Student and parent briefing, preparation and requirements." },
     { k: "Event day", v: "Hack 876." },
   ];
@@ -663,6 +674,7 @@ function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
       c: "bg-mint",
       items: [
         "One-day build competition",
+        ...(venue.confirmed ? [`Venue: ${venue.name}, ${venue.area.split(",")[0]}`] : []),
         eligibility.forms,
         `About ${eligibility.maxHackers} places`,
         "Schools recommend, students apply",
@@ -684,7 +696,11 @@ function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
       k: "Being finalized",
       c: "bg-cream",
       items: [
-        eventWhen.tentative ? "Confirming the date, and the venue" : "Venue",
+        ...(venue.confirmed
+          ? eventWhen.tentative
+            ? ["Confirming the date"]
+            : []
+          : [eventWhen.tentative ? "Confirming the date, and the venue" : "Venue"]),
         "School-level allocations and team rules",
         "Cost and transport",
         "Prize items",
