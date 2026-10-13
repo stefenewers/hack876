@@ -5,25 +5,36 @@ const deck: SponsorDeckData = {
   kind: "prize",
   sponsor: "Wisynco Group Limited (WATA)",
   short: "WATA",
-  // Theme "primary" colour on WATA's own Hydrate to Educate site (educate.wisynco.com).
   accent: "#253aba",
-
-  recipient: { name: "Brittany Thwaites", title: "Brand Manager, WATA Portfolio, Wisynco Group Limited", ref: 1 },
-  preparedFor:
-    "A private partnership proposal prepared for Brittany Thwaites, Brand Manager, WATA Portfolio, Wisynco Group Limited.",
-
+  recipient: {
+    name: "Brittany Thwaites",
+    title: "Brand Manager, WATA Portfolio, Wisynco Group Limited",
+    ref: 1,
+  },
+  preparedFor: "A private partnership proposal prepared for Brittany Thwaites, Brand Manager, WATA Portfolio, Wisynco Group Limited.",
   hero: {
     headline: "A long day of building runs on WATA.",
     highlight: "WATA",
     sub: "WATA already keeps students going at school sports days. Hack876 is a different kind of school day, and every team in the room will need water to get through it.",
   },
-
+  brief: {
+    fit: "WATA already keeps students supplied with water at school sports days through its School Tour.",
+    request: "Bottled WATA for the students and adults at Hack876, for the full day, in kind.",
+    enables: "Water for everyone in the room across a long build day.",
+    outcome: "Hydration Partner recognition, a WATA hydration station if the brand team would like one, and a written recap.",
+    next: "A reply from the WATA team on whether in-kind water is possible. We will then confirm the headcount and a delivery date.",
+    logistics: [
+      "For about {students} students, plus mentors, judges, teachers and volunteers, from {doors} to {wrap}. We will give a final headcount in writing.",
+      "Delivered to {venue} in Kingston. The venue is confirmed.",
+      "The date, {date}, is tentative until schools confirm it.",
+      "A staffed hydration station is optional.",
+    ],
+  },
   why: {
     headline: "Water, wellbeing and school days.",
     mission: {
       label: "Brittany Thwaites, Brand Manager, WATA Portfolio",
-      quote:
-        "Hydrate to Educate is rooted in the belief that every young person deserves the opportunity to pursue their education with the support they need.",
+      quote: "Hydrate to Educate is rooted in the belief that every young person deserves the opportunity to pursue their education with the support they need.",
       ref: 1,
     },
     points: [
@@ -35,18 +46,11 @@ const deck: SponsorDeckData = {
         text: "Wisynco says the WATA School Tour engaged thousands of students island wide on hydration, wellness and positive lifestyle habits.",
         ref: 3,
       },
-      {
-        text: "For 2026, Hydrate to Educate set out to invest more than J$12 million in students and schools.",
-        ref: 1,
-      },
-      {
-        text: "Now in its fourth year, the initiative is supporting 31 students and 14 schools.",
-        ref: 4,
-      },
+      { text: "For 2026, Hydrate to Educate set out to invest more than J$12 million in students and schools.", ref: 1 },
+      { text: "Now in its fourth year, the initiative is supporting 31 students and 14 schools.", ref: 4 },
     ],
     tie: "A day of building is thirsty work, and WATA already knows how to show up for students on days like this.",
   },
-
   story: {
     kicker: "What WATA already backs",
     headline: "Years of showing up for students.",
@@ -67,16 +71,10 @@ const deck: SponsorDeckData = {
         text: "J$17 million through the WATA brand behind ISSA Schoolboy Football and the DaCosta Cup, supporting student-athletes across Jamaica.",
         ref: 3,
       },
-      {
-        label: "2026",
-        text: "Hydration stations at school sports days, then Hydrate to Educate support for 31 students and 14 schools.",
-        ref: 4,
-      },
+      { label: "2026", text: "Hydration stations at school sports days, then Hydrate to Educate support for 31 students and 14 schools.", ref: 4 },
     ],
     takeaway: "WATA already shows up for students on the field and in the classroom. Hack876 is one more room where that fits.",
-    art: "Seedling",
   },
-
   paths: [
     {
       label: "Brand",
@@ -91,18 +89,13 @@ const deck: SponsorDeckData = {
     {
       label: "People",
       title: "The WATA team in the room",
-      points: [
-        "The brand team runs the hydration station",
-        "A short welcome or award moment on stage",
-        "Staff who help with set-up and keeping the day moving",
-      ],
+      points: ["The brand team runs the hydration station", "A short welcome on stage", "Staff who help with set-up and keeping the day moving"],
     },
   ],
   pathsNote: {
     text: "Wisynco lists admin@wisynco.com and 876-665-9000 at Lakespen, St Catherine. We would address the request to Brittany Thwaites and the WATA team.",
     ref: 7,
   },
-
   ask: {
     lead: "inkind",
     band: "bronze",
@@ -110,51 +103,32 @@ const deck: SponsorDeckData = {
     title: "Hydration Partner",
     why: "Water is what WATA already brings to school days, and it is the one thing every student will reach for. It keeps the ask small and close to the work the School Tour already does.",
     recognition: "Hydration Partner · Inaugural Hack876",
-    award: {
-      name: "WATA Wellbeing Award (proposed)",
-      text: "A suggestion only: recognition for the build that best helps young people look after their health and wellbeing, with criteria agreed together and the judging panel making the call.",
-    },
     tracks: ["Wellbeing", "Learn", "Resilience"],
     inkind: [
       "Cases of bottled WATA for students, mentors, judges and volunteers across the full day",
-      "Delivery to the host school ahead of the day, once the venue and date are set",
+      "Delivery to {venue} ahead of the day",
       "A WATA hydration station, staffed by the brand team if that suits",
       "WATA presence on stage and in event materials, agreed together",
     ],
   },
-
   roles: [
     { title: "Hydration station", text: "The WATA team keeps the station stocked, the way it does at school sports days." },
     { title: "Welcome", text: "A short hello from WATA at the opening, kept to a minute or two." },
-    { title: "Award presenter", text: "Someone from WATA presents an award on stage at the close." },
     { title: "Brand mentor", text: "A marketer who helps teams think about how they name, pitch and present what they built." },
     { title: "Volunteers", text: "Staff who help with set-up, meals and keeping the day on time." },
   ],
-
   groundRules: [
     "No alcohol brands anywhere: not at the venue, on signage, in photos or in any Hack876 material. WATA water only.",
     "No marketing campaigns aimed at students beyond the water provided and the hydration station: no sampling drives, contests, surveys or social pushes to students.",
     "No student data: no sign-ups or contact details collected by sponsors. Photos and names only with school and parent consent.",
   ],
-
   future: [
     "Hack876 as a stop on the WATA Hydrate to Educate School Tour.",
     "Pointing Hack876 students and teachers to Hydrate to Educate nominations when they open.",
     "A recycling challenge on the Resilience track, building on Wisynco's work with Recycling Partners of Jamaica.",
     "WATA as the hydration partner at every Hack876, growing with the event.",
   ],
-
-  questions: [
-    "How much water do you need, and when and where should it be delivered?",
-    "What does WATA's recognition look like on the day and in materials?",
-    "Which schools are taking part, and where is it being held?",
-    "Will any other beverage brand be at the event?",
-    "How are students protected on consent, data and marketing?",
-    "Can our team run a hydration station on site?",
-  ],
-
   closingLine: "We would love to explore the right first step with Brittany and the WATA team.",
-
   sources: [
     {
       id: 1,
@@ -192,12 +166,7 @@ const deck: SponsorDeckData = {
       label: "Schools, students to receive $12 million in grants: Wisynco Give Back Programme (2023)",
       href: "https://wisynco.com/students-to-receive-12-million-in-grants/",
     },
-    {
-      id: 7,
-      org: "Wisynco Group",
-      label: "Contact Us",
-      href: "https://wisynco.com/contact-us-2/",
-    },
+    { id: 7, org: "Wisynco Group", label: "Contact Us", href: "https://wisynco.com/contact-us-2/" },
   ],
 };
 

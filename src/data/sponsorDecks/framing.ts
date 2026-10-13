@@ -16,3 +16,31 @@ export const showsBands = (ask: Ask) => !isExploratory(ask) && (!ask.bands || as
 /** Tool-access and exploratory decks are briefs. Everything else is a proposal. */
 export const docType = (deck: Pick<SponsorDeckData, "kind" | "ask">): "brief" | "proposal" =>
   deck.kind === "tool" || isExploratory(deck.ask) ? "brief" : "proposal";
+
+/**
+ * The reading format, which sets how many pages a deck gets.
+ * "major"       full corporate or foundation proposal
+ * "standard"    a smaller cash proposal
+ * "supplier"    goods, services, people or product access
+ * "exploratory" a question about fit
+ */
+export type DeckFormat = "major" | "standard" | "supplier" | "exploratory";
+
+export const deckFormat = (deck: Pick<SponsorDeckData, "kind" | "ask">): DeckFormat =>
+  isExploratory(deck.ask) ? "exploratory" : deck.kind === "tool" || deck.ask.lead === "inkind" ? "supplier" : deck.kind === "full" ? "major" : "standard";
+
+/** Pages after the opening summary, in order. Used by the renderer and checked in tests so no format produces an empty page. */
+export const pagePlan = (deck: Pick<SponsorDeckData, "kind" | "ask" | "sources">): string[] => {
+  /* The appendix carries the levels. A long source list also gets it, so sources never crowd the decision page. */
+  const levels = showsBands(deck.ask) || deck.sources.length > 5 ? ["appendix"] : [];
+  switch (deckFormat(deck)) {
+    case "major":
+      return ["summary", "why", "request", "how", "delivery", "next", "appendix"];
+    case "standard":
+      return ["summary", "why", "request", "how", "deliverynext", "appendix"];
+    case "supplier":
+      return ["summary", "supply", ...(deck.kind === "tool" ? ["terms"] : []), "deliverynext", ...levels];
+    case "exploratory":
+      return ["summary", "explore"];
+  }
+};

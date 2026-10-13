@@ -7,26 +7,29 @@ const deck: SponsorDeckData = {
   short: "JN Foundation",
   article: "the",
   accent: "#004B91",
-
   recipient: {
     name: "Claudine Allen",
     title: "General Manager, JN Foundation",
     ref: 1,
   },
   preparedFor: "A private partnership proposal prepared for Claudine Allen, General Manager, JN Foundation.",
-
   hero: {
     headline: "Innovation is a must. Let's start it early.",
     highlight: "Innovation",
-    sub: "The JN Foundation names innovation as a guiding principle. Hack876 gives secondary-school students one day to build their first idea, and a JN award would tell them it matters.",
+    sub: "The JN Foundation names innovation as a guiding principle. Hack876 gives secondary-school students one day to build their first idea.",
   },
-
+  brief: {
+    fit: "The JN Foundation names innovation as a guiding principle and runs youth and education programmes.",
+    request: "A Bronze contribution toward the student programme and an existing special award.",
+    enables: "Helps support mentoring and judging on the day, and one of the three special awards students compete for.",
+    outcome: "Bronze recognition, a written recap of who took part and what they built, and the option for JN technology staff to mentor.",
+    next: "A reply on whether the Foundation would consider this, and whether Youth and Education Programmes is the right team.",
+  },
   why: {
     headline: "Youth, education and innovation, in one room.",
     mission: {
       label: "JN Foundation mission",
-      quote:
-        "The JN Foundation works with internal and external partners to identify, develop and provide technical and financial support to projects and programmes that focus on issues relating to rural development, health, housing, education, youth, community, crime and safety.",
+      quote: "The JN Foundation works with internal and external partners to identify, develop and provide technical and financial support to projects and programmes that focus on issues relating to rural development, health, housing, education, youth, community, crime and safety.",
       ref: 2,
     },
     points: [
@@ -53,7 +56,6 @@ const deck: SponsorDeckData = {
     ],
     tie: "Hack876 is where a secondary-school student first turns an idea into something that works, with technology and a team beside them.",
   },
-
   story: {
     kicker: "What the JN Foundation already backs",
     headline: "Young people, culture and tech.",
@@ -85,17 +87,14 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "The JN Foundation already brings culture, technology and careers to young Jamaicans. Hack876 is a place for them to build.",
-    art: "IdeaToRealWorld",
   },
-
   paths: [
     {
       label: "Foundation",
-      title: "A JN special award",
+      title: "Support for a special award",
       points: [
         "Contribute toward a special award",
-        "A proposed JN Innovation Award, if it fits",
-        "Presented on stage by the JN Foundation team",
+        "One of the existing special awards, if available",
         "Small, specific and easy to report on",
       ],
     },
@@ -113,17 +112,12 @@ const deck: SponsorDeckData = {
     text: "Sydoney Preddie leads Youth and Education Programmes at the JN Foundation, and would be a natural colleague to include.",
     ref: 7,
   },
-
   ask: {
     lead: "band",
     band: "bronze",
     uses: ["awards", "programming"],
-    why: "It turns \"Innovation is a must\" into something a student can win, and it is a small, clear commitment that is easy to report on.",
+    why: "It turns \"Innovation is a must\" into a day of practice for students, and it is a small, clear commitment that is easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    award: {
-      name: "JN Innovation Award (proposed)",
-      text: "A suggestion only: an award for the boldest, most original build, in the spirit of \"Innovation is a must\". A Culture-track version, echoing Science Genius Jamaica, could work too. Criteria would be agreed together, and the judging panel would decide.",
-    },
     tracks: ["Culture", "Business", "Learn", "Resilience"],
     inkind: [
       "Mentors from JN Group's IT, cyber security or fintech teams",
@@ -131,64 +125,35 @@ const deck: SponsorDeckData = {
       "Volunteers for check-in and judging logistics",
     ],
   },
-
   roles: [
     { title: "Mentors", text: "Technologists and security people who help teams get unstuck, without building the project for them." },
-    { title: "Award presenters", text: "The JN Foundation team presents its award on stage at the close." },
     { title: "Speaker", text: "A short, honest talk on building a career in technology, from someone JN would like to introduce." },
-    { title: "Judging support", text: "The JN Foundation can advise on the award criteria; the final call sits with the judging panel." },
-    { title: "Volunteers", text: "Staff and JN Circle members, if the Foundation wishes, who help with check-in, meals and keeping the day on time." },
+    {
+      title: "Volunteers",
+      text: "Staff and JN Circle members, if the Foundation wishes, who help with check-in, meals and keeping the day on time.",
+    },
   ],
-
   groundRules: [
     "No marketing of bank accounts, loans, insurance or other financial products to students, and no sign-ups on the day.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
     "Sponsor staff mentor and present; the judging panel decides every award.",
   ],
-
   future: [
-    "A recurring JN Innovation Award at every Hack876.",
     "A Hack876-style challenge inside the JN Scholars summer camp.",
     "A Culture and code challenge in the spirit of Science Genius Jamaica.",
     "JN professionals as mentors through the year, alongside the new scholar mentorship programme.",
   ],
-
-  questions: [
-    "Is this a grant, and who would receive the funds?",
-    "How does this fit our youth, education and innovation priorities?",
-    "Which schools and students take part?",
-    "When and where is it?",
-    "How are students protected on consent, data and marketing?",
-    "How much staff time would mentoring or judging support take?",
-  ],
-
   closingLine: "We would love to explore the right first step with Claudine and the JN Foundation team.",
-
   sources: [
-    {
-      id: 1,
-      org: "JN Foundation",
-      label: "Claudine Allen, General Manager (profile)",
-      href: "https://www.jnfoundation.com/claudine-allen/",
-    },
-    {
-      id: 2,
-      org: "JN Foundation",
-      label: "About Us (mission, vision, guiding principles, mantra)",
-      href: "https://www.jnfoundation.com/about-us/",
-    },
+    { id: 1, org: "JN Foundation", label: "Claudine Allen, General Manager (profile)", href: "https://www.jnfoundation.com/claudine-allen/" },
+    { id: 2, org: "JN Foundation", label: "About Us (mission, vision, guiding principles, mantra)", href: "https://www.jnfoundation.com/about-us/" },
     {
       id: 3,
       org: "JN Foundation",
       label: "AI in Fintech Can Address Financial Inclusion, Claudine Allen (August 14, 2023)",
       href: "https://www.jnfoundation.com/ai-in-fintech-can-address-financial-inclusion-claudine-allen/",
     },
-    {
-      id: 4,
-      org: "JN Foundation",
-      label: "Science Genius Jamaica",
-      href: "https://www.jnfoundation.com/science-genius-jamaica/",
-    },
+    { id: 4, org: "JN Foundation", label: "Science Genius Jamaica", href: "https://www.jnfoundation.com/science-genius-jamaica/" },
     {
       id: 5,
       org: "JN Foundation",
@@ -201,12 +166,7 @@ const deck: SponsorDeckData = {
       label: "NextGen Leaders Gain Firsthand Lessons from JN Group Professionals (September 30, 2026)",
       href: "https://www.jnfoundation.com/nextgen-leaders-gain-firsthand-lessons-from-jn-group-professionals/",
     },
-    {
-      id: 7,
-      org: "JN Foundation",
-      label: "Our Team",
-      href: "https://www.jnfoundation.com/our-team/",
-    },
+    { id: 7, org: "JN Foundation", label: "Our Team", href: "https://www.jnfoundation.com/our-team/" },
   ],
 };
 

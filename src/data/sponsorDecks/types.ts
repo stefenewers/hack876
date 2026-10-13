@@ -28,8 +28,6 @@ export type DeckSource = { id: number; org: string; label: string; href: string 
 /** A sourced sentence. `ref` must exist in `sources`. */
 export type Sourced = { text: string; ref: number };
 
-export type Illustration = "Seedling" | "Shelter" | "Blueprint" | "Compounding" | "IdeaToRealWorld" | "MentorRoom" | "none";
-
 export type SponsorDeckData = {
   /** Lowercase, no separators. Route is /<slug>opportunity. */
   slug: string;
@@ -56,8 +54,27 @@ export type SponsorDeckData = {
     sub: string;
   };
 
-  /** full only: five futures for the "big idea" illustration. Icons from components/art/Icons. */
-  futurePaths?: { icon: string; label: string }[];
+  /**
+   * The opening summary. Write this first: it is the whole proposal in five
+   * sentences, and it must make sense to someone who reads nothing else.
+   * Plain statements only. No amounts (the level's range is added from
+   * sponsorship.ts), no superlatives, nothing the organisation has not published.
+   */
+  brief: {
+    /** Why this organisation, built on one verified fact from `sources`. */
+    fit: string;
+    fitRef?: number;
+    /** The primary request, stated plainly. One request, not a menu. */
+    request: string;
+    /** What that contribution makes possible on the day. */
+    enables: string;
+    /** What the organisation receives or achieves. Concrete, and true of an event of this size. */
+    outcome: string;
+    /** The decision or reply we are asking for next. */
+    next: string;
+    /** Supplier decks: quantities, timing and delivery needs. */
+    logistics?: string[];
+  };
 
   why: {
     headline: string;
@@ -75,7 +92,6 @@ export type SponsorDeckData = {
     /** 4 to 6 items. `label` is a year for milestones, a short kicker otherwise. */
     items: { label: string; title?: string; text: string; ref: number }[];
     takeaway: string;
-    art: Illustration;
   };
 
   /** Only a real, confirmed person. Omit when there is no bridge. */
@@ -101,8 +117,10 @@ export type SponsorDeckData = {
      *   Use with `bands: []`, no `band`, and a sourced `restriction`.
      */
     lead: "band" | "inkind" | "exploratory";
-    /** Suggested contribution level. Required when `lead` is "band". */
+    /** Suggested contribution level. Required when `lead` is "band", unless `figure` is set. */
     band?: BandKey;
+    /** Replaces the level's range as the headline figure when the funder sets its own terms, e.g. "A programme grant". Never an amount. */
+    figure?: string;
     /** Levels to show. Omit for all four. An empty list shows no cash ladder at all. */
     bands?: BandKey[];
     /** What a contribution could help support, most relevant first. */
@@ -115,8 +133,11 @@ export type SponsorDeckData = {
     recognition: string;
     /** Names the invitation when a band name does not fit, e.g. "Programme Partner". */
     title?: string;
-    /** A proposed custom award, clearly a suggestion. */
-    award?: { name: string; text: string };
+    /**
+     * An existing special award (named exactly as in event.ts) that this partner could present or help support.
+     * Decks may not invent awards. Record every use in awards.ts.
+     */
+    presents?: string;
     /** Hack876 tracks they map to: Life, Learn, Culture, Business, Move, Wellbeing, Resilience, Wildcard. */
     tracks: string[];
     /** What an in-kind contribution could actually be, for this sponsor. Exploratory: the questions we would like to ask. */
@@ -132,14 +153,12 @@ export type SponsorDeckData = {
     ageNote: string;
   };
 
-  /** 4 to 6 ways their people could take part. */
+  /** Ways their people could take part. Only roles we would actually use; the first 4 are shown. */
   roles: { title: string; text: string }[];
   /** 2 or 3 rules we hold ourselves to (minors, marketing, data). */
   groundRules: string[];
   /** 3 to 6 year-two possibilities grounded in their existing programmes. */
   future: string[];
-  /** 4 to 6 questions this reader is likely to ask. */
-  questions: string[];
   /** Closing sentence, e.g. "We would love to explore the right first step with Lisa and the Seprod Foundation team." */
   closingLine: string;
 

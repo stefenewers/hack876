@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
-import { TailLine } from "@/components/art/Marks";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { DeviceArt } from "@/components/proposal/Illustrations";
-import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, eventWhen, prizes, schools, stats } from "@/data/event";
+import { Check, Kicker } from "@/components/proposal/primitives";
+import { event, eventWhen, prizes } from "@/data/event";
 import { inKind } from "@/data/sponsorship";
 import "@/components/proposal/proposal.css";
+import { OpeningSummary } from "@/components/proposal/PartnershipSections";
 
 /*
  * Private prize-partnership proposal for MacSpot Jamaica (via Jordan Witter).
@@ -34,9 +34,6 @@ export const metadata: Metadata = {
 };
 
 /* Canonical numbers and prizes come from the event data. */
-const STUDENTS = eligibility.maxHackers;
-const PARTNER_SCHOOLS = schools.length;
-const TEAMS = stats.find((s) => s.label === "teams")?.value ?? 20;
 const byName = (n: string) => prizes.find((p) => p.name === n);
 const WINNER = prizes.find((p) => p.place === 1)!;
 const SECOND = prizes.find((p) => p.place === 2)!;
@@ -45,11 +42,11 @@ const BEST_DESIGN = byName("Best Design");
 const PEOPLES_CHOICE = prizes.find((p) => p.name.startsWith("People"));
 
 /* First-party MacSpot source. */
-const SOURCES = [{ id: 1, org: "MacSpot Jamaica", label: "Home", href: "https://macspotjamaica.com/" }] as const;
-
 /* -------------------------------------------------------------------------- */
 /*  Page                                                                      */
 /* -------------------------------------------------------------------------- */
+
+const SOURCES = [{ id: 1, org: "MacSpot Jamaica", label: "Home", href: "https://macspotjamaica.com/" }] as const;
 
 export default function MacSpotOpportunityPage() {
   return (
@@ -64,10 +61,21 @@ export default function MacSpotOpportunityPage() {
 
       <main id="main">
         <div className="lp-page">
-          <Hero />
-        </div>
-        <div className="lp-page">
-          <TheFit />
+          <OpeningSummary
+            label={DECK_LABEL}
+            docLabel="Private partnership proposal"
+            org="MacSpot Jamaica"
+            headline={`Put the tools in the hands of Jamaica’s next builders.`}
+            highlight={`in the hands`}
+            sub={`The strongest Hack876 teams should leave with technology that helps them keep building.`}
+            brief={{
+              fit: `MacSpot Jamaica sells the iPads, AirPods and accessories that are already on the Hack876 prize list.`,
+              request: `Help with one prize: donating it, donating part of it, gift cards or store credit, a discount, or a contribution toward buying it.`,
+              enables: `Winning students take home technology they can keep building with.`,
+              outcome: `Recognition beside the specific prize MacSpot provides, a thank-you at the awards, and a place in the written recap.`,
+              next: `A reply from Jordan on which prize, if any, makes sense for MacSpot.`,
+            }}
+          />
         </div>
         <div className="lp-page">
           <PrizeBoard />
@@ -83,99 +91,6 @@ export default function MacSpotOpportunityPage() {
         </div>
       </main>
     </div>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Hero                                                                      */
-/* -------------------------------------------------------------------------- */
-
-function Hero() {
-  const heroStats = [
-    { n: STUDENTS, label: "students" },
-    { n: TEAMS, label: "teams" },
-    { n: PARTNER_SCHOOLS, label: "school relationships" },
-    { n: 1, label: "day" },
-  ];
-  return (
-    <section aria-labelledby="lp-hero-title" className="lp-hero lp-grid-bg relative flex min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden border-y lp-rule">
-      <div className="lp-wrap w-full pt-16 sm:pt-24">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-sm font-bold tracking-[0.16em] text-ink-soft uppercase">{DECK_LABEL}</p>
-          <p className="inline-flex items-center gap-2 rounded-full border lp-rule bg-paper px-3 py-1 text-xs font-bold tracking-[0.12em] text-ink-soft uppercase">
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-ink" />
-            Private partnership proposal
-          </p>
-        </div>
-
-        <h1 id="lp-hero-title" className="lp-h1 mt-10 max-w-[15ch] sm:mt-14">
-          Put the tools in the hands of{" "}
-          <span className="relative inline-block text-emerald-deep">
-            Jamaica&rsquo;s next builders.
-            <TailLine draw={false} className="absolute -bottom-2 left-0 h-4 w-full" />
-          </span>
-        </h1>
-        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-2 sm:text-xl">
-          Hack876 brings ambitious secondary-school students together to build real things in one day. {SPONSOR} can make the
-          moment they walk away with their prize genuinely memorable.
-        </p>
-        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
-          {eventWhen.note}</p>
-      </div>
-
-      <div className="lp-wrap relative w-full pt-12 pb-10 sm:pb-14">
-        <div aria-hidden className="pointer-events-none absolute -top-24 right-4 hidden w-44 opacity-95 sm:block lg:right-10 lg:w-56 print:block print:-top-32 print:w-56">
-          <DoctorBird flutter={false} className="w-full" />
-        </div>
-        <dl className="grid grid-cols-2 border-t lp-rule sm:grid-cols-4 print:grid-cols-4">
-          {heroStats.map((s, i) => (
-            <div key={s.label} className={`pt-5 ${i ? "sm:border-l lp-rule sm:pl-6 print:border-l print:pl-6" : ""}`}>
-              <dt className="sr-only">{s.label}</dt>
-              <dd>
-                <span className="lp-num block text-[clamp(3rem,9vw,6.5rem)]">{s.n}</span>
-                <span className="mt-2 block text-sm font-bold tracking-[0.12em] text-ink-soft uppercase">{s.label}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  01 The fit                                                                */
-/* -------------------------------------------------------------------------- */
-
-function TheFit() {
-  return (
-    <section aria-labelledby="lp-fit" className="lp-section">
-      <div className="lp-wrap grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center print:grid-cols-[1.1fr_0.9fr] print:gap-10">
-        <div>
-          <Kicker n="01">The fit</Kicker>
-          <h2 id="lp-fit" className="lp-h2 mt-6">
-            Not another logo. Something tangible.
-          </h2>
-          <Lines
-            className="mt-8"
-            items={[
-              "Students spend the day designing, coding, experimenting, building and presenting.",
-              "At the end of it, the strongest teams should leave with technology that helps them keep building.",
-              <span key="m">
-                {SPONSOR} already works in that world: iPhone, MacBook, iPad, AirPods, Apple Watch and accessories, plus device
-                repair and trade-in.
-                <Ref id={1} />
-              </span>,
-            ]}
-          />
-        </div>
-        <div className="lp-keep rounded-3xl border-2 border-ink bg-ink p-8 text-cream shadow-[6px_8px_0_0_var(--color-emerald)] sm:p-10">
-          <p className="lp-marker text-[clamp(2.2rem,4.6vw,3.6rem)] leading-[1.02]">
-            One of the rare partnerships where the sponsor&rsquo;s product can literally become the prize.
-          </p>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -236,9 +151,9 @@ function PrizeBoard() {
     },
   ];
   return (
-    <section aria-labelledby="lp-board" className="lp-section lp-dense lp-grid-bg">
+    <section aria-labelledby="lp-board" className="lp-section lp-dense lp-center lp-grid-bg">
       <div className="lp-wrap">
-        <Kicker n="02">The prize board</Kicker>
+        <Kicker n="01">The prize board</Kicker>
         <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
           <h2 id="lp-board" className="lp-h2 max-w-[20ch]">
             Pick the slot that works for {SPONSOR}.
@@ -284,7 +199,7 @@ function NotFree() {
     <section aria-labelledby="lp-free" className="lp-section bg-paper">
       <div className="lp-wrap grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-start print:grid-cols-2 print:gap-10">
         <div>
-          <Kicker n="03">Another way to help</Kicker>
+          <Kicker n="02">Another way to help</Kicker>
           <h2 id="lp-free" className="lp-h2 mt-6">
             It doesn&rsquo;t have to be free.
           </h2>
@@ -335,9 +250,9 @@ function WhatMacSpotGets() {
     "Jordan or a MacSpot representative invited to present the award on stage",
   ];
   return (
-    <section aria-labelledby="lp-gets" className="lp-section lp-dense">
+    <section aria-labelledby="lp-gets" className="lp-section lp-dense lp-center">
       <div className="lp-wrap">
-        <Kicker n="04">What MacSpot gets</Kicker>
+        <Kicker n="03">What MacSpot gets</Kicker>
         <h2 id="lp-gets" className="lp-h2 mt-6 max-w-[22ch]">
           Recognition that matches the contribution.
         </h2>
@@ -371,10 +286,6 @@ function WhatMacSpotGets() {
     </section>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  Closing                                                                   */
-/* -------------------------------------------------------------------------- */
 
 function Closing() {
   return (

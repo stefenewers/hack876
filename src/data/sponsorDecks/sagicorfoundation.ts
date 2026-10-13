@@ -7,27 +7,29 @@ const deck: SponsorDeckData = {
   short: "Sagicor Foundation",
   article: "the",
   accent: "#00A9E0",
-
   recipient: {
     name: "Nicole Campbell Robinson",
     title: "Vice-President, Communications, Social Media and Corporate Social Responsibility, Sagicor Group Jamaica",
     ref: 1,
   },
-  preparedFor:
-    "A private partnership proposal prepared for Nicole Campbell Robinson, Vice-President, Communications, Social Media and Corporate Social Responsibility, Sagicor Group Jamaica, for Sagicor Foundation Jamaica.",
-
+  preparedFor: "A private partnership proposal prepared for Nicole Campbell Robinson, Vice-President, Communications, Social Media and Corporate Social Responsibility, Sagicor Group Jamaica, for Sagicor Foundation Jamaica.",
   hero: {
     headline: "Where Jamaica's next innovators start.",
     highlight: "innovators",
-    sub: "Sagicor already rewards young people who use technology to drive positive change. Hack876 gives secondary-school students one day to try it for the first time, and a Sagicor award would tell them it counts.",
+    sub: "Sagicor already rewards young people who use technology to drive positive change. Hack876 gives secondary-school students one day to try it for the first time.",
   },
-
+  brief: {
+    fit: "Since 2024 the Sagicor Foundation's Chairman's Innovation Award has recognised tertiary scholars who use technology to drive positive change.",
+    request: "A Bronze contribution toward the student programme and an existing special award.",
+    enables: "Helps support mentoring and judging on the day, and one of the three special awards students compete for.",
+    outcome: "Bronze recognition, a written recap of who took part and what they built, and the option for Sagicor technology staff to mentor.",
+    next: "A reply on whether the Foundation would consider this, and how it prefers to receive a request.",
+  },
   why: {
     headline: "Education, innovation and youth, in one room.",
     mission: {
       label: "Christopher Zacca, Chairman, Sagicor Foundation Jamaica (2026)",
-      quote:
-        "Sagicor Foundation Jamaica stands firmly on its mandate to be a key player in the drive to improve the lives of our youth and provide pathways through which each young person can access quality education.",
+      quote: "Sagicor Foundation Jamaica stands firmly on its mandate to be a key player in the drive to improve the lives of our youth and provide pathways through which each young person can access quality education.",
       ref: 1,
     },
     points: [
@@ -43,10 +45,7 @@ const deck: SponsorDeckData = {
         text: "In 2026 the Foundation awarded J$27.8 million in scholarships, grants and renewals, across fields that include engineering and technology.",
         ref: 1,
       },
-      {
-        text: "Sagicor scholars commit to at least 40 hours of volunteer service each year.",
-        ref: 2,
-      },
+      { text: "Sagicor scholars commit to at least 40 hours of volunteer service each year.", ref: 2 },
       {
         text: "In October 2026 a J$25 million Sagicor Foundation investment restored the Hope Brooks Painting Studio at Edna Manley College.",
         ref: 4,
@@ -54,7 +53,6 @@ const deck: SponsorDeckData = {
     ],
     tie: "Hack876 is where a secondary-school student builds a first idea with technology, years before anyone hands them an innovation award.",
   },
-
   story: {
     kicker: "What the Sagicor Foundation already backs",
     headline: "Rewarding young people who build.",
@@ -92,17 +90,14 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "Sagicor already celebrates young Jamaicans who turn technology into change. Hack876 is where many of them could take the very first step.",
-    art: "IdeaToRealWorld",
   },
-
   paths: [
     {
       label: "Foundation",
-      title: "A Sagicor special award",
+      title: "Support for a special award",
       points: [
         "Contribute toward a special award",
-        "A proposed Sagicor Young Innovator Award, if it fits",
-        "Presented on stage by the Sagicor team",
+        "One of the existing special awards, if available",
         "Small, specific and easy to report on",
       ],
     },
@@ -116,17 +111,12 @@ const deck: SponsorDeckData = {
       ],
     },
   ],
-
   ask: {
     lead: "band",
     band: "bronze",
     uses: ["awards", "programming"],
-    why: "It sits naturally beside the Chairman's Innovation Award, at secondary-school level, and it is a small, clear commitment that is easy to report on.",
+    why: "It supports secondary-school students at the stage before the Chairman's Innovation Award, and it is a small, clear commitment that is easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    award: {
-      name: "Sagicor Young Innovator Award (proposed)",
-      text: "A suggestion only: an award for the build that best uses technology to drive positive change, echoing the spirit of the Chairman's Innovation Award. Criteria would be agreed together, and the judging panel would decide.",
-    },
     tracks: ["Learn", "Wellbeing", "Culture"],
     inkind: [
       "Mentors from Sagicor's digital, technology or data teams",
@@ -134,39 +124,21 @@ const deck: SponsorDeckData = {
       "Volunteers for check-in and judging logistics",
     ],
   },
-
   roles: [
     { title: "Mentors", text: "Technologists and data people who help teams get unstuck, without building the project for them." },
-    { title: "Award presenters", text: "The Sagicor team presents its award on stage at the close." },
     { title: "Speaker", text: "A short, honest talk on what building with technology looks like inside a large Jamaican group." },
-    { title: "Judging support", text: "Sagicor can advise on the award criteria; the final call sits with the judging panel." },
     { title: "Volunteers", text: "Staff, and Sagicor scholars if Sagicor wishes, who help with check-in, meals and keeping the day on time." },
   ],
-
   groundRules: [
     "No marketing of insurance, pensions, investments or other financial products to students, and no sign-ups on the day.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
     "Sponsor staff mentor and present; the judging panel decides every award.",
   ],
-
   future: [
-    "A recurring Sagicor Young Innovator Award at every Hack876.",
-    "A past Chairman's Innovation Award winner speaking to students, if Sagicor would like to make the introduction.",
     "Hack876 as a place Sagicor scholars could give volunteer hours, on Sagicor's terms.",
     "A Wellbeing challenge shaped with input from Sagicor's people.",
   ],
-
-  questions: [
-    "How does this fit our focus on education and youth?",
-    "Are other insurers or financial groups involved, and how is that handled?",
-    "What visibility would the Foundation get, and what can we share on our channels?",
-    "When and where is it?",
-    "How are students protected on consent, data and marketing?",
-    "How much staff time would mentoring or judging support take?",
-  ],
-
   closingLine: "We would love to explore the right first step with Nicole and the Sagicor Foundation team.",
-
   sources: [
     {
       id: 1,

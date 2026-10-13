@@ -7,27 +7,34 @@ const deck: SponsorDeckData = {
   short: "USF",
   article: "the",
   accent: "#17265A",
-
   recipient: {
     name: "Charlton McFarlane",
     title: "Chief Executive Officer, Universal Service Fund",
     ref: 1,
   },
-  preparedFor:
-    "A private partnership proposal prepared for Charlton McFarlane, Chief Executive Officer, Universal Service Fund.",
-
+  preparedFor: "A private partnership proposal prepared for Charlton McFarlane, Chief Executive Officer, Universal Service Fund.",
   hero: {
     headline: "Connectivity, put to work by young Jamaicans.",
     highlight: "put to work",
     sub: "The USF connects Jamaicans and invests in the skills to use that access. Hack876 is one day where secondary-school students do exactly that, building real things on a reliable connection.",
   },
-
+  brief: {
+    fit: "The USF connects Jamaicans and funds the skills to use that access, including through its ICT Education Grant.",
+    request: "A USF speaker and technical mentors on the day. We are testing the venue's Wi-Fi first, and would ask about temporary connectivity only if that shows a gap.",
+    enables: "Students hear how connectivity reaches communities, and teams get help from people who build networks.",
+    outcome: "In-kind recognition and a written recap. Older students hear about the ICT Education Grant directly from the USF.",
+    next: "A reply on whether a speaker and mentors are possible. If the venue test shows a gap, we will write formally to the CEO with the details.",
+    logistics: [
+      "Speaker: one short talk on the day, at {venue}.",
+      "Mentors: any part of the build period, in person.",
+      "Connectivity: the venue is a hotel with its own network. We will test it for about {students} students working at once before asking for anything.",
+    ],
+  },
   why: {
     headline: "Connectivity matched with capacity.",
     mission: {
       label: "Charlton McFarlane, Chief Executive Officer, Universal Service Fund (2026)",
-      quote:
-        "These grants are important because connectivity must be matched with capacity. By investing in education and digital skills we are helping to ensure that more Jamaicans can participate in, contribute to, and shape Jamaica's digital transformation.",
+      quote: "These grants are important because connectivity must be matched with capacity. By investing in education and digital skills we are helping to ensure that more Jamaicans can participate in, contribute to, and shape Jamaica's digital transformation.",
       ref: 2,
     },
     points: [
@@ -39,14 +46,8 @@ const deck: SponsorDeckData = {
         text: "For 25 years the USF has run the ICT Education Grant Programme, including an Emerging Digital Leaders Grant for people aged 17 to 28.",
         ref: 2,
       },
-      {
-        text: "The USF supports ICT clubs in more than 35 secondary schools, alongside free public Wi-Fi and Community Access Points.",
-        ref: 3,
-      },
-      {
-        text: "In 2024 the USF ran Crack the Code, a youth coding competition for Jamaicans 21 and under, with a laptop for first place.",
-        ref: 4,
-      },
+      { text: "The USF supports ICT clubs in more than 35 secondary schools, alongside free public Wi-Fi and Community Access Points.", ref: 3 },
+      { text: "In 2024 the USF ran Crack the Code, a youth coding competition for Jamaicans 21 and under, with a laptop for first place.", ref: 4 },
       {
         text: "The USF has served as Official Connectivity Partner for a JISA schools event, describing its belief in \"powering opportunities through connectivity\".",
         ref: 5,
@@ -54,7 +55,6 @@ const deck: SponsorDeckData = {
     ],
     tie: "Hack876 is where secondary-school students turn access into something they built themselves.",
   },
-
   story: {
     kicker: "What the USF already does for young Jamaicans",
     headline: "From access to ability.",
@@ -84,12 +84,7 @@ const deck: SponsorDeckData = {
         text: "Twelve Jamaicans received grants in 2026, chosen from more than 130 applicants.",
         ref: 2,
       },
-      {
-        label: "Access",
-        title: "Public Wi-Fi",
-        text: "Plans for 126 new Wi-Fi sites in 2026/27 to complement Community Access Points.",
-        ref: 7,
-      },
+      { label: "Access", title: "Public Wi-Fi", text: "Plans for 126 new Wi-Fi sites in 2026/27 to complement Community Access Points.", ref: 7 },
       {
         label: "Events",
         title: "Official Connectivity Partner",
@@ -98,15 +93,13 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "The USF already builds the access and the skills. Hack876 is a place to see both at work in one room.",
-    art: "Blueprint",
   },
-
   paths: [
     {
       label: "Connectivity",
-      title: "A Connectivity Partner for the day",
+      title: "Connectivity, only if the venue needs it",
       points: [
-        "Reliable internet for every team on a school campus",
+        "We are testing the venue's Wi-Fi before asking for anything",
         "Shaped around whatever the USF is able to provide",
         "A formal letter to the CEO, with Marketing and Public Relations copied",
         "We will follow the USF's own approval process and timelines",
@@ -122,66 +115,41 @@ const deck: SponsorDeckData = {
       ],
     },
   ],
-
   ask: {
     lead: "inkind",
     bands: [],
     uses: ["equipment", "programming"],
-    title: "Connectivity Partner",
-    why: "An in-kind connectivity role mirrors what the USF already does for youth events, and it keeps the request simple for a public agency.",
-    recognition: "Connectivity Partner · Inaugural Hack876",
-    award: {
-      name: "USF Digital Inclusion Award (proposed)",
-      text: "A suggestion only: an award for the build that best widens access to technology or digital skills. Criteria would be agreed together, and the judging panel would decide.",
-    },
+    why: "People first: a speaker and mentors keep the request simple for a public agency. Connectivity support would follow only if the venue needs it.",
+    recognition: "In-kind Partner · Inaugural Hack876",
     tracks: ["Learn", "Life"],
     inkind: [
-      "Event connectivity, such as Wi-Fi capacity for the venue on the day",
-      "Devices as prizes, such as laptops or tablets, if the USF can provide them",
       "A USF speaker on connectivity, digital skills and the ICT Education Grant",
       "Mentors from the USF projects and technical teams",
+      "Temporary event connectivity, only if the venue test shows a gap",
     ],
   },
-
   roles: [
     { title: "Connectivity", text: "USF advice or support so every team stays online from start to finish." },
     { title: "Mentors", text: "Network and technical staff who help teams get unstuck, without building the project for them." },
     { title: "Speaker", text: "A short, practical talk on what young people can do with access, not only how to get it." },
-    { title: "Award presenters", text: "The USF team presents any USF award on stage at the close." },
-    { title: "Grant information", text: "A simple handout on the ICT Education Grant for students old enough to apply, shared through their schools." },
+    {
+      title: "Grant information",
+      text: "A simple handout on the ICT Education Grant for students old enough to apply, shared through their schools.",
+    },
   ],
-
   groundRules: [
     "No marketing to students and no sign-ups on the day. Grant information goes out through schools only.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
     "Any devices or connectivity are used under adult supervision, and the judging panel decides every award.",
   ],
-
   future: [
     "A Hack876 edition hosted with USF ICT club schools in other parishes.",
     "A Crack the Code style online challenge that leads into Hack876.",
-    "A recurring USF Digital Inclusion Award at every Hack876.",
     "A past ICT Education Grant recipient speaking to students, if the USF would like to make the introduction.",
   ],
-
-  questions: [
-    "How does this fit the USF's mandate on digital inclusion?",
-    "Is Hack876 a registered entity, and who would we contract with?",
-    "Which schools take part, and how could students from underserved communities be included in future?",
-    "What lead time does the USF need for approval?",
-    "What exactly would connectivity support involve on the day?",
-    "How are students protected on consent, data and marketing?",
-  ],
-
   closingLine: "We would welcome a conversation with Mr. McFarlane and the USF team about the right first step.",
-
   sources: [
-    {
-      id: 1,
-      org: "Universal Service Fund",
-      label: "Management Team",
-      href: "https://usf.gov.jm/management-team/",
-    },
+    { id: 1, org: "Universal Service Fund", label: "Management Team", href: "https://usf.gov.jm/management-team/" },
     {
       id: 2,
       org: "Jamaica Observer",

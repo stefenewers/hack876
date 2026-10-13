@@ -1,40 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
-import { Icon } from "@/components/art/Icons";
-import { TailLine } from "@/components/art/Marks";
+import { BirdMark } from "@/components/art/DoctorBird";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { Blueprint, Bridge, Compounding, FuturePaths, IdeaToRealWorld, MentorRoom, Seedling, Shelter } from "@/components/proposal/Illustrations";
+import { DeliveryAndNext, DeliverySection, NextSection, OpeningSummary, SourcesFooter } from "@/components/proposal/PartnershipSections";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, eventWhen, schools, stats } from "@/data/event";
-import { AwardIdea, BandStrip, LevelsSection, SupportSection } from "@/components/proposal/Sponsorship";
-import { docType, isExploratory, showsBands as asksShowBands } from "@/data/sponsorDecks/framing";
+import { BandStrip, BenefitsMatrix } from "@/components/proposal/Sponsorship";
+import { schoolStatus } from "@/data/event";
+import { fill, schoolStatusLabel } from "@/data/partnership";
+import { deckFormat, docType, isExploratory, pagePlan, showsBands as asksShowBands } from "@/data/sponsorDecks/framing";
 import type { SponsorDeckData } from "@/data/sponsorDecks/types";
-import { band, inKind } from "@/data/sponsorship";
+import { band, benefitNotes, directionNote, inKind, purposes } from "@/data/sponsorship";
 import "@/components/proposal/proposal.css";
 
 /*
- * The shared private sponsor proposal. Same sections, classes and print
- * system as the hand-built JMMB (full) and Norus (prize) decks, driven by one
- * SponsorDeckData entry so every deck in the series stays consistent.
+ * The shared private partnership deck, driven by one SponsorDeckData entry.
+ *
+ * Reading order (see framing.ts for which pages each format gets):
+ *   summary       the whole proposal on page one
+ *   why           one or two verified facts, tied to the proposed activity
+ *   request       what we ask, what it supports, what the partner receives
+ *   how           routes in, people in the room, ground rules
+ *   delivery      why Hack876 can deliver
+ *   next          reporting, the decision asked for, the contact
+ *   appendix      contribution levels and sources
+ * Shorter formats merge or drop pages. No page renders without content.
  */
 
-/* Canonical numbers come from the event data. */
-const STUDENTS = eligibility.maxHackers;
-const PARTNER_SCHOOLS = schools.length;
-const TEAMS = stats.find((s) => s.label === "teams")?.value;
-const FORMS = eligibility.formOptions;
-const TEAM_SIZE = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
 /** The short name as it reads mid-sentence, or at the start of one. */
 const nm = (deck: SponsorDeckData) => (deck.article ? `the ${deck.short}` : deck.short);
 const Nm = (deck: SponsorDeckData) => (deck.article ? `The ${deck.short}` : deck.short);
 const aOrAn = (word: string) => (/^[AEIOU]/i.test(word) ? "an" : "a");
-
-/* Joins list items into one sentence, lowercasing later items unless they start with an acronym. */
-const sentence = (items: string[]) =>
-  items.map((t, i) => (i && !/^[A-Z]{2}/.test(t) ? t[0].toLowerCase() + t.slice(1) : t)).join(", ") + ".";
 
 /** Whether a deck shows the cash ladder at all. */
 const showsBands = (deck: SponsorDeckData) => asksShowBands(deck.ask);
@@ -66,63 +63,55 @@ export function deckMetadata(deck: SponsorDeckData): Metadata {
 /*  Page                                                                      */
 /* -------------------------------------------------------------------------- */
 
-type Section = { key: string; render: (n: string) => ReactNode };
+/** Shared facts ({students}, {venue}...) are filled into the copy that carries them. */
+function filled(deck: SponsorDeckData): SponsorDeckData {
+  const b = deck.brief;
+  return {
+    ...deck,
+    brief: { ...b, fit: fill(b.fit), request: fill(b.request), enables: fill(b.enables), outcome: fill(b.outcome), next: fill(b.next), logistics: b.logistics?.map(fill) },
+    ask: { ...deck.ask, inkind: deck.ask.inkind?.map(fill) },
+  };
+}
 
-export function SponsorDeck({ deck }: { deck: SponsorDeckData }) {
+export function SponsorDeck({ deck: raw }: { deck: SponsorDeckData }) {
+  const deck = filled(raw);
   const label = `Hack876 × ${deck.sponsor}`;
   const pdf = deckPdf(deck);
-  const full = deck.kind === "full";
-  const tool = deck.kind === "tool";
+  const plan = pagePlan(deck);
+  const last = plan[plan.length - 1];
   const exploring = isExploratory(deck.ask);
+  const cash = deck.ask.lead === "band" && deck.ask.band ? band(deck.ask.band) : null;
+  const sources = <SourcesFooter sources={deck.sources} preparedFor={deck.preparedFor} />;
+  const route = deck.pathsNote ? (
+    <>
+      {deck.pathsNote.text}
+      <Ref id={deck.pathsNote.ref} />
+    </>
+  ) : undefined;
+  const linked = deck.linkedSchool;
+  const linkedNote = linked ? (
+    <>
+      {linked.text}
+      {linked.ref && <Ref id={linked.ref} />} Status with Hack876: {schoolStatusLabel[schoolStatus(linked.school)].toLowerCase()}.
+    </>
+  ) : undefined;
 
-  const sections: (Section | false)[] = [
-    full && { key: "idea", render: (n) => <BigIdea n={n} deck={deck} /> },
-    { key: "meet", render: (n) => <MeetHack876 n={n} /> },
-    full && { key: "apps", render: (n) => <NotJustApps n={n} /> },
-    { key: "why", render: (n) => <Why n={n} deck={deck} /> },
-    { key: "story", render: (n) => <Story n={n} deck={deck} /> },
-    { key: "schools", render: (n) => <SchoolNetwork n={n} deck={deck} /> },
-    !!deck.bridge && { key: "bridge", render: (n) => <BridgeSection n={n} deck={deck} /> },
-    { key: "paths", render: (n) => <WaysIn n={n} deck={deck} /> },
-    { key: "people", render: (n) => <MoreThanMoney n={n} deck={deck} /> },
-    full && { key: "audience", render: (n) => <AudienceValue n={n} deck={deck} /> },
-    tool
-      ? { key: "tool", render: (n) => <ToolAsk n={n} deck={deck} /> }
-      : exploring
-        ? { key: "invite", render: (n) => <Conversation n={n} deck={deck} /> }
-        : { key: "invite", render: (n) => <Invitation n={n} deck={deck} /> },
-    !tool &&
-      showsBands(deck) && {
-        key: "levels",
-        render: (n) => (
-          <LevelsSection
-            n={n}
-            heading={deck.ask.lead === "band" ? "What each level receives." : "Or a monetary contribution."}
-            lead={deck.ask.lead === "inkind" ? `If a monetary contribution suits ${nm(deck)} better than support in kind, these are the levels.` : undefined}
-            recommended={deck.ask.band}
-            show={deck.ask.bands}
-          />
-        ),
-      },
-    !tool && {
-      key: "support",
-      render: (n) => (
-        <SupportSection
-          n={n}
-          heading={exploring ? "Ideas to explore, not a request." : "No contribution has to cover a whole cost."}
-          uses={deck.ask.uses}
-          restriction={deck.ask.restriction}
-          exploratory={exploring}
-        >
-          {deck.ask.award && <AwardIdea name={deck.ask.award.name} text={deck.ask.award.text} />}
-        </SupportSection>
-      ),
-    },
-    tool && { key: "summary", render: (n) => <Summary n={n} deck={deck} /> },
-    { key: "direct", render: (n) => <DirectLine n={n} deck={deck} /> },
-    { key: "future", render: (n) => <YearOneAndBeyond n={n} deck={deck} /> },
-  ];
-  const visible = sections.filter((s): s is Section => !!s);
+  const pages: Record<string, (n: string) => ReactNode> = {
+    why: (n) => <Why n={n} deck={deck} />,
+    request: (n) => <Request n={n} deck={deck} />,
+    how: (n) => <How n={n} deck={deck} />,
+    supply: (n) => <Supply n={n} deck={deck} />,
+    terms: (n) => <Terms n={n} deck={deck} />,
+    explore: (n) => <Explore n={n} deck={deck} sources={sources} />,
+    delivery: (n) => <DeliverySection n={n} linked={linked?.school} linkedNote={linkedNote} />,
+    next: (n) => <NextSection n={n} next={deck.brief.next} route={route} future={deck.future} closing={deck.closingLine} />,
+    deliverynext: (n) => (
+      <DeliveryAndNext n={n} next={deck.brief.next} route={route} linkedNote={linkedNote}>
+        {last === "deliverynext" && sources}
+      </DeliveryAndNext>
+    ),
+    appendix: (n) => <Appendix n={n} deck={deck} sources={sources} />,
+  };
 
   return (
     <div
@@ -140,369 +129,86 @@ export function SponsorDeck({ deck }: { deck: SponsorDeckData }) {
 
       <main id="main">
         <div className="lp-page">
-          <Hero deck={deck} label={label} />
+          <OpeningSummary
+            label={label}
+            docLabel={exploring ? "Private exploratory brief" : `Private partnership ${docType(deck)}`}
+            org={nm(deck)}
+            headline={deck.hero.headline}
+            highlight={deck.hero.highlight}
+            sub={deck.hero.sub}
+            brief={{
+              ...deck.brief,
+              fit: (
+                <>
+                  {deck.brief.fit}
+                  {deck.brief.fitRef && <Ref id={deck.brief.fitRef} />}
+                </>
+              ),
+            }}
+            requestDetail={cash ? `${cash.name}: ${cash.range}. Any amount within the level is welcome.` : exploring ? deck.ask.recognition : undefined}
+            outcomeLabel={exploring ? "What we hope to learn" : undefined}
+          />
         </div>
-        {visible.map((s, i) => (
-          <div key={s.key} className="lp-page">
-            {s.render(String(i + 1).padStart(2, "0"))}
+        {plan.slice(1).map((key, i) => (
+          <div key={key} className="lp-page">
+            {pages[key](String(i + 1).padStart(2, "0"))}
           </div>
         ))}
-        <div className="lp-page">
-          <Closing deck={deck} label={label} />
-        </div>
       </main>
     </div>
   );
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Hero                                                                      */
-/* -------------------------------------------------------------------------- */
-
-function Highlighted({ text, highlight }: { text: string; highlight: string }) {
-  const i = highlight ? text.indexOf(highlight) : -1;
-  if (i < 0) return <>{text}</>;
-  return (
-    <>
-      {text.slice(0, i)}
-      <span className="relative inline-block text-emerald-deep">
-        {highlight}
-        <TailLine draw={false} className="absolute -bottom-2 left-0 h-4 w-full" />
-      </span>
-      {text.slice(i + highlight.length)}
-    </>
-  );
-}
-
-function Hero({ deck, label }: { deck: SponsorDeckData; label: string }) {
-  const heroStats = [
-    { n: STUDENTS, label: "students" },
-    { n: PARTNER_SCHOOLS, label: "school network" },
-    { n: 1, label: "day" },
-  ];
-  return (
-    <section aria-labelledby="lp-hero-title" className="lp-hero lp-grid-bg relative flex min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden border-y lp-rule">
-      <div className="lp-wrap w-full pt-16 sm:pt-24">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-sm font-bold tracking-[0.16em] text-ink-soft uppercase">{label}</p>
-          <p className="inline-flex items-center gap-2 rounded-full border lp-rule bg-paper px-3 py-1 text-xs font-bold tracking-[0.12em] text-ink-soft uppercase">
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[var(--deck-accent)]" />
-            {isExploratory(deck.ask) ? "Private exploratory brief" : `Private partnership ${docType(deck)}`}
-          </p>
-        </div>
-
-        <h1 id="lp-hero-title" className="lp-h1 mt-10 max-w-[16ch] sm:mt-14">
-          <Highlighted text={deck.hero.headline} highlight={deck.hero.highlight} />
-        </h1>
-        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-2 sm:text-xl">{deck.hero.sub}</p>
-        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
-          {eventWhen.note}</p>
-      </div>
-
-      <div className="lp-wrap relative w-full pt-12 pb-10 sm:pb-14">
-        <div aria-hidden className="pointer-events-none absolute -top-24 right-4 hidden w-44 opacity-95 sm:block lg:right-10 lg:w-56 print:block print:-top-32 print:w-60">
-          <DoctorBird flutter={false} className="w-full" />
-        </div>
-        <dl className="grid grid-cols-3 border-t lp-rule">
-          {heroStats.map((s, i) => (
-            <div key={s.label} className={`pt-5 ${i ? "border-l lp-rule pl-4 sm:pl-8" : ""}`}>
-              <dt className="sr-only">{s.label}</dt>
-              <dd>
-                <span className="lp-num block text-[clamp(3.4rem,11vw,8rem)]">{s.n}</span>
-                <span className="mt-2 block text-sm font-bold tracking-[0.12em] text-ink-soft uppercase sm:text-base">{s.label}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className="lp-marker mt-10 text-[clamp(1.6rem,3.4vw,2.6rem)]">One day to build something that should exist.</p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Shared Hack876 sections                                                   */
-/* -------------------------------------------------------------------------- */
-
-function BigIdea({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  return (
-    <section aria-labelledby="lp-idea" className="lp-section lp-dense relative">
-      <div className="lp-wrap">
-        <Kicker n={n}>The big idea</Kicker>
-        <h2 id="lp-idea" className="lp-statement mt-6 max-w-[22ch]" data-reveal>
-          What if young Jamaicans experienced themselves as builders before anyone told them what career they should have?
-        </h2>
-        <div className="mt-12 grid gap-10 md:grid-cols-[1fr_1.3fr] md:items-center print:mt-4 print:grid-cols-[0.8fr_1.3fr] print:items-center">
-          {deck.futurePaths && (
-            <div aria-hidden className="hidden md:block print:block">
-              <FuturePaths paths={deck.futurePaths} className="mx-auto w-full max-w-md print:max-w-[3.1in]" />
-            </div>
-          )}
-          <div data-reveal>
-            <Lines items={["Before the degree.", "Before the first job.", "Before anyone hands them a title."]} className="font-semibold text-ink" />
-            <Lines
-              className="mt-5"
-              items={[
-                "There is usually a first moment when someone realizes: I can build this.",
-                "For most young people, that moment arrives late, if it arrives at all.",
-              ]}
-            />
-            <p className="lp-sub mt-6 text-emerald-deep">Hack876 is designed to create more of those moments.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MeetHack876({ n }: { n: string }) {
-  return (
-    <section aria-labelledby="lp-meet" className="lp-section lp-dense border-t lp-rule">
-      <div className="lp-wrap">
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 print:grid-cols-[0.6fr_1.4fr] print:gap-10">
-          <div className="lg:sticky lg:top-10 lg:self-start">
-            <Kicker n={n}>What is Hack876?</Kicker>
-            <h2 id="lp-meet" className="lp-h2 mt-6">
-              Meet <span className="whitespace-nowrap">Hack876.</span>
-            </h2>
-            <div aria-hidden className="mt-10 hidden gap-3 lg:flex print:flex">
-              {["laptop", "notebook", "sticky", "people"].map((name, i) => (
-                <Icon key={name} name={name} className="diecut h-14 w-14" style={{ rotate: `${[-8, 5, -3, 9][i]}deg` }} />
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <div className="lp-prose">
-              <p>
-                Hack876 is a one-day build competition for approximately{" "}
-                <strong className="text-ink">{STUDENTS} secondary-school students</strong> from {FORMS[0]} through{" "}
-                {FORMS[FORMS.length - 1]}, working in teams of {TEAM_SIZE}
-                {TEAMS ? `, roughly ${TEAMS} teams in all` : ""}, on {eventWhen.long}
-                {eventWhen.note}.
-              </p>
-              <p>
-                Teams pick a real problem, use modern tools including AI, get guidance from mentors, and finish the day with a
-                working prototype and a pitch to judges. It is not a school assignment and there is no answer key.
-              </p>
-              <p>
-                Our <strong className="text-ink">{PARTNER_SCHOOLS}-school network</strong> in Kingston is made up of the
-                schools where the Hack876 team currently has relationships and can coordinate most reliably. It is not an
-                exclusive eligibility list.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="lp-keep mt-10 text-center print:mt-6">
-          <p className="lp-marker relative inline-block text-[clamp(2.6rem,7vw,5.6rem)]" data-reveal>
-            Build something that should exist.
-            <TailLine className="absolute -bottom-4 left-[5%] h-5 w-[90%]" />
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const BUILDS: { label: string; icon: string; physical?: boolean }[] = [
-  { label: "A piece of software", icon: "browser" },
-  { label: "An AI tool", icon: "spark" },
-  { label: "An automation", icon: "bot-free" },
-  { label: "A data product", icon: "chart" },
-  { label: "A tool for small businesses", icon: "business" },
-  { label: "Hardware", icon: "board", physical: true },
-  { label: "A robot", icon: "gear", physical: true },
-  { label: "A physical prototype", icon: "hand", physical: true },
-  { label: "A resilience solution", icon: "resilience", physical: true },
-];
-
-function NotJustApps({ n }: { n: string }) {
-  return (
-    <section aria-labelledby="lp-apps" className="lp-section lp-grid-bg border-y lp-rule bg-paper">
-      <div className="lp-wrap">
-        <Kicker n={n}>Not just apps</Kicker>
-        <h2 id="lp-apps" className="lp-h2 mt-6 max-w-[16ch]">
-          A hackathon is bigger than software.
-        </h2>
-        <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_1.4fr] print:mt-5 print:grid-cols-[1fr_1.6fr]">
-          <Lines
-            items={[
-              "Hack876 is an open build competition. Teams choose the problem and the medium.",
-              "Some will write code. Some will wire circuits. Some will design a service, a business or a tool nobody has thought of yet.",
-              "A team might build:",
-            ]}
-          />
-          <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-            {BUILDS.map((b) => (
-              <li
-                key={b.label}
-                className={`flex items-center gap-3 rounded-xl border px-3.5 py-2.5 font-semibold ${b.physical ? "border-ink/25 bg-mint/60" : "border-ink/15 bg-cream"}`}
-              >
-                <Icon name={b.icon} className="h-8 w-8 shrink-0" />
-                {b.label}
-              </li>
-            ))}
-            <li className="flex items-center gap-3 rounded-xl border border-dashed border-ink/30 px-3.5 py-2.5 font-semibold">
-              <Icon name="wildcard" className="h-8 w-8 shrink-0" />
-              Something none of us expected
-            </li>
-          </ul>
-        </div>
-
-        <div className="lp-keep mt-14 print:mt-8">
-          <p className="lp-statement">The medium does not matter.</p>
-          <p className="lp-sub mt-2 text-emerald-deep">The instinct to create does.</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Why the sponsor + their story                                             */
+/*  Why this partnership                                                      */
 /* -------------------------------------------------------------------------- */
 
 function Why({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const { why } = deck;
+  const { why, story } = deck;
   return (
-    <section aria-labelledby="lp-why" className="lp-section lp-dense">
-      <div className="lp-wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 print:grid-cols-[0.7fr_1.3fr]">
-        <div>
-          <Kicker n={n}>Why {nm(deck)}</Kicker>
-          <h2 id="lp-why" className="lp-h2 mt-6">
-            {why.headline}
-          </h2>
-          <div aria-hidden className="mt-3 h-1 w-16 rounded-full bg-[var(--deck-accent)]" />
-          <p className="lp-sub mt-8 text-emerald-deep">{why.tie}</p>
-        </div>
-        <div>
-          {why.mission && (
-            <blockquote className="lp-keep rounded-2xl border-2 border-ink bg-paper p-6 shadow-[4px_5px_0_0_var(--color-emerald)] sm:p-8">
-              <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">{why.mission.label}</p>
-              <p className="mt-3 text-[clamp(1.4rem,2.6vw,2rem)] leading-snug font-extrabold tracking-tight">
-                &ldquo;{why.mission.quote}&rdquo;
-                <Ref id={why.mission.ref} />
-              </p>
-            </blockquote>
-          )}
-          <div className={`lp-prose ${why.mission ? "mt-8" : ""}`}>
-            {why.points.map((p) => (
-              <p key={p.text}>
-                {p.text}
-                <Ref id={p.ref} />
-              </p>
-            ))}
+    <section aria-labelledby="lp-why" className="lp-section lp-dense lp-center">
+      <div className="lp-wrap">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14 print:grid-cols-[0.75fr_1.25fr] print:gap-[2.6rem]">
+          <div>
+            <Kicker n={n}>Why {nm(deck)}</Kicker>
+            <h2 id="lp-why" className="lp-h2 mt-6">
+              {why.headline}
+            </h2>
+            <div aria-hidden className="mt-3 h-1 w-16 rounded-full bg-[var(--deck-accent)]" />
+            <p className="mt-6 text-[1.15rem] leading-snug font-bold text-emerald-deep print:text-[1.89rem]">{why.tie}</p>
+          </div>
+          <div>
+            {why.mission && (
+              <blockquote className="lp-keep rounded-2xl border-2 border-ink bg-paper p-5 print:p-[1.4rem]">
+                <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">{why.mission.label}</p>
+                <p className="mt-2 text-[1.12rem] leading-snug font-extrabold tracking-tight print:text-[1.77rem]">
+                  &ldquo;{why.mission.quote}&rdquo;
+                  <Ref id={why.mission.ref} />
+                </p>
+              </blockquote>
+            )}
+            <div className={`lp-prose ${why.mission ? "mt-5" : ""}`}>
+              {why.points.slice(0, 3).map((p) => (
+                <p key={p.text}>
+                  {p.text}
+                  <Ref id={p.ref} />
+                </p>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function StoryArt({ art }: { art: SponsorDeckData["story"]["art"] }) {
-  const cls = "mx-auto w-full max-w-xs print:max-w-[2.7in]";
-  switch (art) {
-    case "Seedling":
-      return <Seedling className={cls} />;
-    case "Shelter":
-      return <Shelter className={cls} />;
-    case "Blueprint":
-      return <Blueprint className={cls} />;
-    case "Compounding":
-      return <Compounding className={cls} />;
-    case "IdeaToRealWorld":
-      return <IdeaToRealWorld labels={["Idea", "Team", "Prototype", "Pitch", "Real world"]} className={cls} />;
-    case "MentorRoom":
-      return <MentorRoom teams={TEAMS ?? 20} mentors={6} className={cls} />;
-    default:
-      return null;
-  }
-}
-
-function Story({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const { story } = deck;
-  const hasArt = story.art !== "none";
-  return (
-    <section aria-labelledby="lp-story" className="lp-section lp-dense bg-paper">
-      <div className={`lp-wrap grid gap-12 ${hasArt ? "lg:grid-cols-[1.35fr_0.65fr] lg:items-center print:grid-cols-[1.4fr_0.6fr] print:items-center print:gap-10" : ""}`}>
-        <div>
-          <Kicker n={n}>{story.kicker}</Kicker>
-          <h2 id="lp-story" className="lp-h2 mt-6 max-w-[22ch]">
-            {story.headline}
-          </h2>
-
-          {story.format === "milestones" ? (
-            <ol className="mt-8 border-t lp-rule">
-              {story.items.map((it) => (
-                <li key={it.text} className="lp-keep grid grid-cols-[5.5rem_1fr] gap-4 border-b lp-rule py-4 sm:grid-cols-[7rem_1fr]">
-                  <span className="lp-num text-2xl text-emerald-deep">{it.label}</span>
-                  <span className="text-[1.02rem] leading-snug">
-                    {it.title && <strong className="block font-extrabold">{it.title}</strong>}
-                    <span className="text-ink-2">{it.text}</span>
-                    <Ref id={it.ref} />
-                  </span>
-                </li>
-              ))}
-            </ol>
-          ) : (
-            <ul className="mt-8 grid gap-4 sm:grid-cols-2 print:grid-cols-2">
-              {story.items.map((it) => (
-                <li key={it.text} className="lp-keep rounded-2xl border lp-rule border-t-4 border-t-[var(--deck-accent)] bg-cream p-5">
-                  <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">{it.label}</p>
-                  {it.title && <h3 className="lp-h3 mt-1.5">{it.title}</h3>}
-                  <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">
-                    {it.text}
-                    <Ref id={it.ref} />
-                  </p>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <p className="lp-sub mt-8 text-emerald-deep">{story.takeaway}</p>
-        </div>
-        {hasArt && (
-          <div aria-hidden className="hidden lg:block print:block">
-            <StoryArt art={story.art} />
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Schools + bridge                                                          */
-/* -------------------------------------------------------------------------- */
-
-function SchoolNetwork({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const linked = deck.linkedSchool;
-  return (
-    <section aria-labelledby="lp-schools" className="lp-section lp-dense">
-      <div className="lp-wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 print:grid-cols-[0.7fr_1.3fr] print:gap-10">
-        <div>
-          <Kicker n={n}>The school network</Kicker>
-          <h2 id="lp-schools" className="lp-h2 mt-6">
-            {PARTNER_SCHOOLS} schools. One room.
-          </h2>
-          {linked && (
-            <p className="lp-prose mt-6">
-              {linked.text}
-              {linked.ref && <Ref id={linked.ref} />}
-            </p>
-          )}
-        </div>
-        <div>
-          <Lines
-            items={[
-              "Hack876 begins with the schools where we already have relationships and can coordinate most reliably for the inaugural staging. Formal confirmations are still in progress, and the network is not an exclusive eligibility list.",
-            ]}
-          />
-          <ul className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 print:grid-cols-2">
-            {schools.map((s) => (
-              <li key={s} className={`rounded-xl border px-4 py-2.5 font-semibold ${linked?.school === s ? "border-2 border-ink bg-sun-light" : "lp-rule bg-cream"}`}>
-                {s}
+        <div className="mt-8 border-t lp-rule pt-5 print:pt-[1.2rem]">
+          <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">{story.kicker}</p>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4 print:gap-[1rem]">
+            {story.items.slice(0, 4).map((it) => (
+              <li key={it.text} className="lp-keep rounded-2xl border lp-rule border-t-4 border-t-[var(--deck-accent)] bg-paper p-4 print:p-[1.1rem]">
+                <p className="text-[0.68rem] font-extrabold tracking-[0.14em] text-ink-soft uppercase print:text-[1.06rem]">{it.label}</p>
+                {it.title && <h3 className="mt-1 text-[1rem] leading-tight font-extrabold print:text-[1.47rem]">{it.title}</h3>}
+                <p className="mt-1 text-[0.9rem] leading-snug text-ink-2 print:text-[1.27rem]">
+                  {it.text}
+                  <Ref id={it.ref} />
+                </p>
               </li>
             ))}
           </ul>
@@ -512,219 +218,89 @@ function SchoolNetwork({ n, deck }: { n: string; deck: SponsorDeckData }) {
   );
 }
 
-function BridgeSection({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const b = deck.bridge!;
+/* -------------------------------------------------------------------------- */
+/*  The request                                                               */
+/* -------------------------------------------------------------------------- */
+
+function UsesList({ deck, dark = false }: { deck: SponsorDeckData; dark?: boolean }) {
   return (
-    <section aria-labelledby="lp-bridge" className="lp-section lp-dense lp-grid-bg border-t lp-rule">
-      <div className="lp-wrap">
-        <Kicker n={n}>A bridge already exists</Kicker>
-        <h2 id="lp-bridge" className="lp-h2 mt-6 max-w-[22ch]">
-          Partnerships work better when someone carries the context.
-        </h2>
-        <Bridge labels={[deck.short, b.name, "Hack876"]} className="mx-auto mt-10 hidden w-full max-w-3xl sm:block print:mt-4 print:block print:max-w-[6in]" />
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 print:mt-6 print:grid-cols-[1.2fr_0.8fr] print:gap-8">
-          <Lines items={b.lines} />
-          <div className="lp-keep h-fit rounded-2xl border-2 border-ink bg-paper p-6 shadow-[4px_5px_0_0_var(--color-emerald)]">
-            <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">The bridge</p>
-            <p className="mt-3 text-2xl font-extrabold">{b.name}</p>
-            <p className="mt-1 font-semibold text-ink-2">{b.role}</p>
-            <p className="lp-note mt-4">An invitation, not an obligation.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ul className="mt-2.5 space-y-1.5">
+      {deck.ask.uses.map((u) => (
+        <li key={u} className="flex gap-2.5 text-[0.98rem] leading-snug print:text-[1.44rem]">
+          <Check className={`mt-0.5 h-4 w-4 ${dark ? "lp-accent text-sun" : "text-emerald-deep"}`} />
+          <span>
+            <strong>{purposes[u].label}.</strong> {purposes[u].text}
+          </span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Ways in + people                                                          */
-/* -------------------------------------------------------------------------- */
-
-function WaysIn({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const two = deck.paths.length > 1;
-  const exploring = isExploratory(deck.ask);
+function Presents({ deck, dark = false }: { deck: SponsorDeckData; dark?: boolean }) {
+  if (!deck.ask.presents) return null;
   return (
-    <section aria-labelledby="lp-paths" className="lp-section lp-dense">
-      <div className="lp-wrap">
-        <Kicker n={n}>{exploring ? "What we would like to explore" : two ? "Two ways in" : "The way in"}</Kicker>
-        <h2 id="lp-paths" className="lp-h2 mt-6 max-w-[24ch]">
-          {exploring
-            ? `Whether there is a route that suits ${nm(deck)}.`
-            : two
-              ? `There are two natural homes for this inside ${nm(deck)}.`
-              : `Where this fits inside ${nm(deck)}.`}
-        </h2>
-        {deck.pathsNote && (
-          <p className="lp-prose mt-4">
-            {deck.pathsNote.text}
-            <Ref id={deck.pathsNote.ref} />
-          </p>
-        )}
-        <div className={`mt-10 grid gap-5 print:mt-6 ${two ? "md:grid-cols-2 print:grid-cols-2" : "max-w-3xl"}`}>
-          {deck.paths.map((p, i) => (
-            <article key={p.title} className={`lp-keep rounded-2xl border-2 border-ink p-6 ${i ? "bg-sun-light" : "bg-mint/60"}`}>
-              <p className={`text-xs font-extrabold tracking-[0.16em] uppercase ${i ? "text-ink-soft" : "text-emerald-deep"}`}>{p.label}</p>
-              <h3 className="lp-h3 mt-2 text-[clamp(1.3rem,2.2vw,1.7rem)]">{p.title}</h3>
-              <ul className="mt-4 space-y-2">
-                {p.points.map((t) => (
-                  <li key={t} className="flex gap-2.5 font-semibold">
-                    <Check className={`mt-0.5 ${i ? "text-ink" : "text-emerald-deep"}`} />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+    <p className={`mt-3 text-[0.92rem] leading-snug print:text-[1.32rem] ${dark ? "text-cream/80" : "text-ink-2"}`}>
+      {Nm(deck)} could present the existing {deck.ask.presents} award, if it is still available. The judging panel decides the winner, and the award keeps its name.
+    </p>
   );
 }
 
-function MoreThanMoney({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  return (
-    <section aria-labelledby="lp-more" className="lp-section lp-dense bg-paper">
-      <div className="lp-wrap">
-        <Kicker n={n}>More than money</Kicker>
-        <div className="mt-6 grid gap-10 lg:grid-cols-[1.4fr_0.6fr] lg:items-end print:grid-cols-[1.5fr_0.5fr] print:items-end">
-          <div>
-            <h2 id="lp-more" className="lp-h2 max-w-[24ch]">
-              {isExploratory(deck.ask) ? "If there is a fit, it does not have to be financial." : <>{Nm(deck)}&rsquo;s contribution does not have to be purely financial.</>}
-            </h2>
-            <p className="lp-marker lp-keep mt-6 text-[clamp(2.8rem,8vw,6rem)] text-emerald-deep print:mt-4">People in the room.</p>
-          </div>
-          <div aria-hidden className="hidden lg:block print:block">
-            <MentorRoom teams={8} mentors={3} mentorColor={deck.accent} className="mx-auto w-full max-w-[16rem] print:max-w-[2.4in]" />
-          </div>
-        </div>
-
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 print:mt-5 print:grid-cols-3">
-          {deck.roles.map((r, i) => (
-            <li key={r.title} className="rounded-2xl border lp-rule bg-cream p-5">
-              <p className="lp-num text-3xl text-emerald-deep">{String(i + 1).padStart(2, "0")}</p>
-              <h3 className="lp-h3 mt-2">{r.title}</h3>
-              <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{r.text}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className="lp-keep mt-8 rounded-2xl border-2 border-dashed border-ink/40 p-5 print:mt-5">
-          <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Ground rules we will hold ourselves to</p>
-          <ul className={`mt-3 grid gap-2 ${deck.groundRules.length > 2 ? "sm:grid-cols-3 print:grid-cols-3" : "sm:grid-cols-2 print:grid-cols-2"}`}>
-            {deck.groundRules.map((t) => (
-              <li key={t} className="font-semibold">
-                {t}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AudienceValue({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const audience = [
-    { title: "Ambitious secondary-school students", text: `Approximately ${STUDENTS} of them, from ${FORMS[0]} through ${FORMS[FORMS.length - 1]}.` },
-    { title: "Parents and families", text: "Who see who showed up for their children." },
-    { title: "Teachers and school communities", text: `Across our network of ${PARTNER_SCHOOLS} schools in Kingston.` },
-    { title: "Future university students", text: "Making choices about what to study and where." },
-    { title: "Future founders and professionals", text: `Meeting ${nm(deck)} early, and in the right way.` },
-  ];
-  return (
-    <section aria-labelledby="lp-audience" className="lp-section">
-      <div className="lp-wrap">
-        <Kicker n={n}>Audience and brand value</Kicker>
-        <div className="mt-6 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] print:grid-cols-[0.9fr_1.1fr] print:gap-8">
-          <div>
-            <h2 id="lp-audience" className="lp-h2">
-              The honest answer to the visibility questions.
-            </h2>
-            <Lines
-              className="mt-6"
-              items={[
-                `Will ${nm(deck)} be visible? Yes, across event materials, programming and post-event storytelling, at a level that matches the partnership.`,
-                "Is the audience relevant? It is the next generation of Jamaican builders, professionals and leaders, met early.",
-                "Can it build longer relationships? Yes, through people, schools and a second year, not through leads.",
-              ]}
-            />
-          </div>
-          <div>
-            <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Who is in and around the room</p>
-            <ul className="mt-4 space-y-3">
-              {audience.map((a) => (
-                <li key={a.title} className="rounded-2xl border lp-rule bg-paper px-5 py-4">
-                  <p className="font-extrabold">{a.title}</p>
-                  <p className="mt-0.5 text-ink-2">{a.text}</p>
-                </li>
-              ))}
-            </ul>
-            <p className="lp-note mt-4">Many participants are minors. We will not promise leads, reach, impressions or data.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  The ask                                                                   */
-/* -------------------------------------------------------------------------- */
-
-function Invitation({ n, deck }: { n: string; deck: SponsorDeckData }) {
+function Request({ n, deck }: { n: string; deck: SponsorDeckData }) {
   const { ask } = deck;
-  const cash = ask.lead === "band" && ask.band ? band(ask.band) : null;
-  const name = ask.title ?? (cash ? cash.name : "an in-kind partner");
-  const inkindList = ask.inkind ?? [];
+  const cash = ask.band ? band(ask.band) : null;
+  const name = ask.title ?? cash?.name;
   return (
-    <section aria-labelledby="lp-invite" className="lp-section lp-dense lp-dark relative overflow-hidden">
+    <section aria-labelledby="lp-invite" className="lp-section lp-dense lp-center lp-dark relative overflow-hidden">
       <div className="lp-wrap relative">
-        <Kicker n={n}>Our invitation</Kicker>
-        <h2 id="lp-invite" className="lp-h2 mt-6 max-w-[22ch]">
-          {ask.title || cash ? `Become ${aOrAn(name)} ${name} of the inaugural Hack876.` : "Support the inaugural Hack876 in kind."}
+        <Kicker n={n}>Our request</Kicker>
+        <h2 id="lp-invite" className="lp-h2 mt-6 max-w-[24ch]">
+          {name ? `Become ${aOrAn(name)} ${name} of the inaugural Hack876.` : deck.brief.request}
         </h2>
 
-        <div className="lp-keep mt-8 border-y lp-rule py-6 print:mt-5 print:py-4">
-          <p className="lp-num lp-accent text-[clamp(2.6rem,8vw,6rem)] text-sun">{cash ? cash.range : "In kind"}</p>
-          <p className="mt-3 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">{ask.recognition}</p>
+        <div className="lp-keep mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-1 border-y lp-rule py-4 print:py-[1.1rem]">
+          <p className="lp-num lp-accent text-[clamp(2rem,5.5vw,3.6rem)] text-sun print:text-[4.2rem]">{ask.figure ?? cash?.range ?? "In kind"}</p>
+          <p className="text-sm font-bold tracking-[0.14em] uppercase sm:text-base print:text-[1.53rem]">{ask.recognition}</p>
         </div>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14 print:mt-5 print:grid-cols-2 print:gap-8">
+        <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
           <div>
             <Lines items={[ask.why]} />
-            {cash ? (
-              <p className="lp-note mt-4">
-                Any amount within the level is welcome. It is a flexible contribution toward the event, with no naming rights attached.
-              </p>
-            ) : (
-              inkindList.length > 0 && (
-                <ul className="mt-5 grid grid-cols-1 gap-2">
-                  {inkindList.map((a) => (
-                    <li key={a} className="flex items-start gap-2.5 font-semibold">
-                      <Check className="lp-accent mt-0.5 shrink-0 text-sun" />
-                      {a}
-                    </li>
-                  ))}
-                </ul>
-              )
+            <p className="mt-5 text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">What it helps support</p>
+            <UsesList deck={deck} dark />
+            <p className="lp-note mt-3">{directionNote} No contribution has to cover a whole cost.</p>
+            {ask.restriction && (
+              <p className="mt-3 rounded-xl border border-dashed border-cream/40 px-3.5 py-2.5 text-[0.92rem] leading-snug font-semibold print:text-[1.36rem]">{ask.restriction}</p>
             )}
           </div>
-          <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-6 sm:p-7">
-            <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed recognition</figcaption>
-            <p className="mt-4 text-[clamp(1.4rem,2.6vw,1.9rem)] leading-tight font-extrabold tracking-tight">{deck.sponsor}</p>
-            <p className="lp-accent mt-1.5 text-lg font-bold text-sun">{ask.recognition}</p>
-            {ask.tracks.length > 0 && <p className="mt-4 text-sm font-semibold text-cream/70">Closest Hack876 tracks: {ask.tracks.join(", ")}</p>}
+          <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-6 print:p-[1.6rem]">
+            <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">What {nm(deck)} would receive</figcaption>
+            {cash && !ask.figure ? (
+              <ul className="mt-3 space-y-1.5">
+                {cash.benefits.map((b) => (
+                  <li key={b} className="flex gap-2.5 text-[0.98rem] leading-snug font-semibold print:text-[1.47rem]">
+                    <Check className="lp-accent mt-0.5 h-4 w-4 text-sun" />
+                    {b}
+                  </li>
+                ))}
+                <li className="flex gap-2.5 text-[0.98rem] leading-snug font-semibold print:text-[1.47rem]">
+                  <Check className="lp-accent mt-0.5 h-4 w-4 text-sun" />A written recap after the event
+                </li>
+              </ul>
+            ) : (
+              <p className="mt-3 text-[0.98rem] leading-snug font-semibold print:text-[1.47rem]">
+                {showsBands(deck) ? "Recognition that matches the level agreed, set out in the appendix, and a written recap after the event." : `Recognition agreed with ${nm(deck)}, and a written recap after the event.`}
+              </p>
+            )}
+            <Presents deck={deck} dark />
+            <p className="lp-note mt-3">{benefitNotes[0]}</p>
+            <p className="lp-note mt-1.5">{benefitNotes[2]}</p>
           </figure>
         </div>
 
         {showsBands(deck) && (
-          <div className="mt-8 print:mt-5">
-            <BandStrip
-              dark
-              recommended={ask.band}
-              show={ask.bands}
-              label={cash ? undefined : "Prefer a monetary contribution? Any amount within a level is welcome."}
-            />
+          <div className="mt-6">
+            <BandStrip dark recommended={ask.band} show={ask.bands} />
           </div>
         )}
       </div>
@@ -732,264 +308,280 @@ function Invitation({ n, deck }: { n: string; deck: SponsorDeckData }) {
   );
 }
 
-/** Exploratory briefs: an invitation to discuss fit. No amount, no ladder, no partner title. */
-function Conversation({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const { ask } = deck;
-  const asks = ask.inkind ?? [];
-  return (
-    <section aria-labelledby="lp-invite" className="lp-section lp-dense lp-dark relative overflow-hidden">
-      <div className="lp-wrap relative">
-        <Kicker n={n}>Our invitation</Kicker>
-        <h2 id="lp-invite" className="lp-h2 mt-6 max-w-[22ch]">
-          {ask.title ?? "An introduction, and a conversation about fit."}
-        </h2>
+/* -------------------------------------------------------------------------- */
+/*  How it would work                                                         */
+/* -------------------------------------------------------------------------- */
 
-        <div className="lp-keep mt-8 border-y lp-rule py-6 print:mt-5 print:py-4">
-          <p className="lp-num lp-accent text-[clamp(2.6rem,8vw,6rem)] text-sun">A conversation</p>
-          <p className="mt-3 text-lg font-bold tracking-[0.14em] uppercase sm:text-xl">{ask.recognition}</p>
+function GroundRules({ rules }: { rules: string[] }) {
+  if (rules.length === 0) return null;
+  return (
+    <div className="lp-keep rounded-2xl border-2 border-dashed border-ink/40 p-5 print:p-[1.3rem]">
+      <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Ground rules we will hold ourselves to</p>
+      <ul className={`mt-2.5 grid gap-x-6 gap-y-1.5 ${rules.length > 2 ? "sm:grid-cols-3 print:grid-cols-3" : "sm:grid-cols-2 print:grid-cols-2"}`}>
+        {rules.map((t) => (
+          <li key={t} className="text-[0.92rem] leading-snug font-semibold print:text-[1.32rem]">
+            {t}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function How({ n, deck }: { n: string; deck: SponsorDeckData }) {
+  return (
+    <section aria-labelledby="lp-how" className="lp-section lp-dense lp-center bg-paper">
+      <div className="lp-wrap">
+        <Kicker n={n}>How it would work</Kicker>
+        <h2 id="lp-how" className="lp-h2 mt-6 max-w-[26ch]">
+          How {nm(deck)} could take part.
+        </h2>
+        {deck.bridge && (
+          <p className="lp-prose mt-4">
+            <strong className="text-ink">
+              {deck.bridge.name}, {deck.bridge.role}.
+            </strong>{" "}
+            {deck.bridge.lines[0]}
+          </p>
+        )}
+
+        <div className="mt-7 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
+          <div className="grid h-fit gap-4 print:gap-[1.1rem]">
+            {deck.paths.map((p, i) => (
+              <article key={p.title} className={`lp-keep rounded-2xl border-2 border-ink p-5 print:p-[1.2rem] ${i ? "bg-sun-light" : "bg-mint/60"}`}>
+                <p className={`text-xs font-extrabold tracking-[0.16em] uppercase ${i ? "text-ink-soft" : "text-emerald-deep"}`}>{p.label}</p>
+                <h3 className="mt-1.5 text-[1.2rem] leading-tight font-extrabold print:text-[1.89rem]">{p.title}</h3>
+                <ul className="mt-3 space-y-1.5">
+                  {p.points.map((t) => (
+                    <li key={t} className="flex gap-2.5 text-[0.98rem] leading-snug font-semibold print:text-[1.28rem]">
+                      <Check className={`mt-0.5 h-4 w-4 ${i ? "text-ink" : "text-emerald-deep"}`} />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <div>
+            <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">People in the room, if {nm(deck)} would like</p>
+            <dl className="mt-3 border-t lp-rule">
+              {deck.roles.slice(0, deck.paths.reduce((n, p) => n + p.points.length, 0) > 6 ? 3 : 4).map((r) => (
+                <div key={r.title} className="lp-keep border-b lp-rule py-2.5 print:py-[0.7rem]">
+                  <dt className="text-[1rem] font-extrabold print:text-[1.53rem]">{r.title}</dt>
+                  <dd className="text-[0.95rem] leading-snug text-ink-2 print:text-[1.36rem]">{r.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14 print:mt-5 print:grid-cols-2 print:gap-8">
-          <div>
-            <Lines items={[ask.why]} />
-            <p className="lp-note mt-4">
-              This brief is not an application and does not assume Hack876 is eligible for funding. It asks whether a suitable route exists.
-            </p>
-          </div>
-          {asks.length > 0 && (
-            <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-6 sm:p-7">
-              <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">What we would like to ask</figcaption>
-              <ul className="mt-4 grid grid-cols-1 gap-2">
-                {asks.map((a) => (
-                  <li key={a} className="flex items-start gap-2.5 font-semibold">
-                    <Check className="lp-accent mt-0.5 shrink-0 text-sun" />
-                    {a}
-                  </li>
-                ))}
-              </ul>
-            </figure>
-          )}
+        <div className="mt-6">
+          <GroundRules rules={deck.groundRules} />
         </div>
       </div>
     </section>
   );
 }
 
-function ToolAsk({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const t = deck.tool!;
+/* -------------------------------------------------------------------------- */
+/*  Supplier and tool requests                                                */
+/* -------------------------------------------------------------------------- */
+
+function WhyCompact({ deck }: { deck: SponsorDeckData }) {
   return (
-    <section aria-labelledby="lp-tool" className="lp-section lp-dark lp-grid-bg relative overflow-hidden">
+    <div>
+      <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Why {nm(deck)}</p>
+      <ul className="mt-2.5 space-y-2">
+        {deck.why.points.slice(0, 3).map((p) => (
+          <li key={p.text} className="text-[0.95rem] leading-snug text-ink-2 print:text-[1.39rem]">
+            {p.text}
+            <Ref id={p.ref} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Supply({ n, deck }: { n: string; deck: SponsorDeckData }) {
+  const { ask, brief } = deck;
+  const items = ask.inkind ?? [];
+  return (
+    <section aria-labelledby="lp-supply" className="lp-section lp-dense lp-center bg-paper">
       <div className="lp-wrap">
-        <Kicker n={n}>The ask</Kicker>
-        <h2 id="lp-tool" className="lp-h2 mt-6 max-w-[20ch]">
+        <Kicker n={n}>The request</Kicker>
+        <h2 id="lp-supply" className="lp-h2 mt-6 max-w-[32ch] print:!text-[3.4rem]">
+          {ask.title ? `What ${aOrAn(ask.title)} ${ask.title} would provide.` : "What we are asking for, and how it would be used."}
+        </h2>
+
+        {deck.bridge && (
+          <p className="lp-prose mt-4">
+            <strong className="text-ink">
+              {deck.bridge.name}, {deck.bridge.role}.
+            </strong>{" "}
+            {deck.bridge.lines[0]}
+          </p>
+        )}
+
+        <div className="mt-7 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
+          <div>
+            <Lines items={[ask.why]} />
+            {items.length > 0 && (
+              <ul className="mt-4 space-y-2">
+                {items.map((a) => (
+                  <li key={a} className="flex items-start gap-2.5 text-[1rem] leading-snug font-semibold print:text-[1.53rem]">
+                    <Check className="mt-0.5 shrink-0 text-emerald-deep" />
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {brief.logistics && brief.logistics.length > 0 && (
+              <div className="lp-keep mt-5 rounded-2xl border-2 border-ink bg-sun-light p-5 print:p-[1.3rem]">
+                <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Quantities, timing and delivery</p>
+                <ul className="mt-2.5 space-y-1.5">
+                  {brief.logistics.map((t) => (
+                    <li key={t} className="text-[0.95rem] leading-snug font-semibold print:text-[1.39rem]">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          <div className="grid h-fit gap-5 print:gap-[1.3rem]">
+            <WhyCompact deck={deck} />
+            <div className="lp-keep rounded-2xl border-2 border-ink bg-mint/60 p-5 print:p-[1.3rem]">
+              <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">What {nm(deck)} would receive</p>
+              <p className="mt-2 text-[1.05rem] leading-snug font-extrabold print:text-[1.59rem]">{ask.recognition}</p>
+              <p className="mt-1.5 text-[0.92rem] leading-snug text-ink-2 print:text-[1.32rem]">{inKind.recognition}</p>
+              <Presents deck={deck} />
+              {showsBands(deck) && <p className="mt-2 text-[0.92rem] leading-snug text-ink-2 print:text-[1.32rem]">A monetary contribution is welcome instead. The levels are on the last page.</p>}
+            </div>
+            {ask.restriction && <p className="rounded-xl border border-dashed border-ink/40 px-3.5 py-2.5 text-[0.92rem] leading-snug font-semibold print:text-[1.36rem]">{ask.restriction}</p>}
+          </div>
+        </div>
+
+        {deck.kind !== "tool" && !brief.logistics?.length && (
+          <div className="mt-6">
+            <GroundRules rules={deck.groundRules.slice(0, 2)} />
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function Terms({ n, deck }: { n: string; deck: SponsorDeckData }) {
+  const t = deck.tool;
+  if (!t) return null;
+  return (
+    <section aria-labelledby="lp-terms" className="lp-section lp-dense lp-center">
+      <div className="lp-wrap">
+        <Kicker n={n}>Access, age and safeguards</Kicker>
+        <h2 id="lp-terms" className="lp-h2 mt-6 max-w-[24ch]">
           {t.headline}
         </h2>
-        <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16 print:mt-6 print:grid-cols-2 print:gap-8">
+        <div className="mt-7 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
           <div>
-            <Lines items={[t.what, "Possible structures:"]} />
-            <ul className="mt-5 space-y-2">
+            <Lines items={[t.what]} />
+            <p className="mt-5 text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Possible structures</p>
+            <ul className="mt-2.5 space-y-2">
               {t.structures.map((s) => (
-                <li key={s} className="flex items-center gap-2.5 font-semibold">
-                  <Check className="lp-accent shrink-0 text-sun" />
+                <li key={s} className="flex items-start gap-2.5 text-[0.95rem] leading-snug print:text-[1.39rem]">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-deep" />
                   {s}
                 </li>
               ))}
             </ul>
           </div>
-          <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-7">
-            <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Age and account terms</figcaption>
-            <p className="mt-4 text-lg leading-relaxed text-cream/90">{t.ageNote}</p>
-            <p className="lp-accent mt-5 font-bold text-sun">{deck.ask.recognition}</p>
+          <figure className="lp-keep h-fit rounded-2xl border-2 border-ink bg-paper p-6 print:p-[1.5rem]">
+            <figcaption className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Age and account terms</figcaption>
+            <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-2 print:text-[1.36rem] print:leading-snug">{t.ageNote}</p>
           </figure>
         </div>
+        <div className="mt-6">
+          <GroundRules rules={deck.groundRules} />
+        </div>
       </div>
     </section>
   );
 }
 
-/** Tool briefs only: the access ask, with the other ways to be involved. No cash ladder. */
-function Summary({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const others: { name: string; amount: string; text: string }[] = [
-    ...(deck.ask.award ? [{ name: deck.ask.award.name, amount: "Proposed", text: "One award, shaped together." }] : []),
-    { name: inKind.name, amount: "In kind", text: `${inKind.examples.join(", ")}.` },
-    { name: "People in the room", amount: "Time", text: sentence(deck.roles.map((r) => r.title)) },
-  ];
+/* -------------------------------------------------------------------------- */
+/*  Exploratory briefs                                                        */
+/* -------------------------------------------------------------------------- */
+
+/** An invitation to discuss fit. No amount, no ladder, no partner title. */
+function Explore({ n, deck, sources }: { n: string; deck: SponsorDeckData; sources: ReactNode }) {
+  const { ask } = deck;
+  const asks = ask.inkind ?? [];
   return (
-    <section aria-labelledby="lp-summary" className="lp-section">
+    <section aria-labelledby="lp-invite" className="lp-section lp-dense lp-center">
       <div className="lp-wrap">
-        <Kicker n={n}>Partnership summary</Kicker>
-        <h2 id="lp-summary" className="lp-h2 mt-6">
-          Every option at a glance.
+        <Kicker n={n}>What we understand, and what we would ask</Kicker>
+        <h2 id="lp-invite" className="lp-h2 mt-6 max-w-[24ch]">
+          {ask.title ?? "An introduction, and a question about fit."}
         </h2>
-        <div className="mt-10 grid gap-5 lg:grid-cols-5 print:mt-6 print:grid-cols-5">
-          <div className="lp-keep flex flex-col justify-between rounded-3xl bg-night p-8 text-cream lg:col-span-2 print:col-span-2">
-            <div>
-              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">The ask</p>
-              <p className="lp-num mt-5 text-[clamp(2.4rem,5vw,4.2rem)] text-sun">Access</p>
-              <p className="mt-2 text-sm font-bold tracking-[0.12em] text-cream/70 uppercase">Inaugural Hack876</p>
-            </div>
-            <p className="mt-8 text-lg leading-relaxed text-cream/90">{deck.tool!.what}</p>
+        <div className="mt-7 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
+          <div className="grid h-fit gap-5 print:gap-[1.3rem]">
+            {ask.restriction && (
+              <div className="lp-keep rounded-2xl border-2 border-ink bg-mint/60 p-5 print:p-[1.4rem]">
+                <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">What we understand from the published guidelines</p>
+                <p className="mt-2 text-[0.98rem] leading-snug font-semibold print:text-[1.44rem]">{ask.restriction}</p>
+              </div>
+            )}
+            <WhyCompact deck={deck} />
           </div>
-          <ul className="grid gap-3 lg:col-span-3 print:col-span-3">
-            {others.map((o) => (
-              <li key={o.name} className="lp-keep flex flex-wrap items-center justify-between gap-x-6 gap-y-1 rounded-2xl border lp-rule bg-paper px-5 py-3.5">
-                <div>
-                  <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">{o.name}</p>
-                  <p className="mt-1 text-ink-2">{o.text}</p>
-                </div>
-                <p className="lp-num text-3xl">{o.amount}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <p className="lp-sub mt-8 max-w-[34ch] text-emerald-deep">The size of the commitment can change. The invitation to be part of the first one does not.</p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Direct line + future + closing                                            */
-/* -------------------------------------------------------------------------- */
-
-function DirectLine({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  const r = deck.recipient;
-  return (
-    <section aria-labelledby="lp-direct" className="lp-section lp-grid-bg">
-      <div className="lp-wrap grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center print:grid-cols-[1.1fr_0.9fr] print:items-center">
-        <div>
-          <Kicker n={n}>A direct line</Kicker>
-          <h2 id="lp-direct" className="lp-h2 mt-6 max-w-[20ch]">
-            {isExploratory(deck.ask) ? "We would rather ask than assume." : "There is no faceless sponsorship process here."}
-          </h2>
-          <Lines
-            className="mt-6"
-            items={[
-              <span key="r">
-                This {isExploratory(deck.ask) ? "brief" : "proposal"} is for{" "}
-                <strong className="text-ink">
-                  {r.name}
-                  {r.title ? `, ${r.title}` : ""}
-                </strong>
-                .{r.ref ? <Ref id={r.ref} /> : null}
-              </span>,
-              isExploratory(deck.ask)
-                ? `If ${nm(deck)} sees a possible fit, we would welcome guidance on the right route and timing. If not, thank you for reading.`
-                : `If ${nm(deck)} is interested, we can decide together what involvement should actually look like.`,
-            ]}
-          />
-        </div>
-        <div className="lp-keep rounded-2xl border-2 border-ink bg-paper p-6 shadow-[4px_5px_0_0_var(--color-emerald)]">
-          <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Questions we would answer together</p>
-          <ul className="mt-4 space-y-2.5">
-            {deck.questions.map((t) => (
-              <li key={t} className="flex gap-2.5 font-semibold">
-                <Check className="mt-0.5 shrink-0 text-emerald-deep" />
-                {t}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 font-extrabold text-emerald-deep">A conversation, not a workload.</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function YearOneAndBeyond({ n, deck }: { n: string; deck: SponsorDeckData }) {
-  return (
-    <section aria-labelledby="lp-future" className="lp-section bg-paper">
-      <div className="lp-wrap">
-        <Kicker n={n}>Year one, and what {nm(deck)} could make possible</Kicker>
-        <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr] print:grid-cols-[1fr_1fr] print:gap-8">
           <div>
-            <h2 id="lp-future" className="lp-h2">
-              Deliberately focused.
-            </h2>
-            <Lines
-              className="mt-6"
-              items={[
-                "Our vision is national. This inaugural staging does not have national-event resources, and we will not pretend it does.",
-                `Approximately ${STUDENTS} students. A school network of ${PARTNER_SCHOOLS} in Kingston. One day, done properly.`,
-              ]}
-            />
-            <ul className="mt-6 space-y-1">
-              {["Build the first one well.", "Learn from it.", "Earn the right to make the second one bigger."].map((t, i) => (
-                <li key={t} className="lp-sub" style={{ color: ["var(--color-ink)", "var(--color-ink-2)", "var(--color-emerald-deep)"][i] }}>
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="flex flex-col gap-5">
-            <div className="lp-keep rounded-2xl border-2 border-ink bg-sun-light p-6">
-              <p className="lp-num text-5xl">{event.year}</p>
-              <p className="mt-3 text-xl font-extrabold">{isExploratory(deck.ask) ? "Start with a conversation." : "Help make the first Hack876 happen."}</p>
-              <p className="mt-2 text-ink-2">{isExploratory(deck.ask) ? "No funding or commitment is being requested." : "No multi-year commitment required."}</p>
-            </div>
-            <div className="lp-keep rounded-2xl border border-dashed border-ink/40 p-6">
-              <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">
-                Future possibilities, only if both sides find it valuable. Not commitments.
-              </p>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {deck.future.map((t) => (
-                  <li key={t} className="rounded-full border lp-rule bg-cream px-3.5 py-1.5 text-sm font-semibold">
-                    {t}
+            <div className="lp-keep rounded-2xl border-2 border-ink bg-night p-6 text-cream print:p-[1.5rem]">
+              <p className="text-xs font-extrabold tracking-[0.16em] text-sun uppercase">What we would like to ask</p>
+              <ul className="mt-3 space-y-2">
+                {asks.map((a) => (
+                  <li key={a} className="flex items-start gap-2.5 text-[1rem] leading-snug font-semibold print:text-[1.51rem]">
+                    <Check className="lp-accent mt-0.5 h-4 w-4 shrink-0 text-sun" />
+                    {a}
                   </li>
                 ))}
               </ul>
             </div>
+            <p className="mt-4 text-[0.95rem] leading-snug text-ink-2 print:text-[1.39rem]">
+              Areas a conversation could cover: {ask.uses.map((u) => purposes[u].label.toLowerCase()).join(", ")}. These are ideas to explore. None is an agreed activity or a
+              funding request.
+            </p>
+            <p className="lp-note mt-3">This brief is not an application and does not assume Hack876 is eligible for funding. It asks whether a suitable route exists.</p>
           </div>
         </div>
+        {sources}
       </div>
     </section>
   );
 }
 
-function Closing({ deck, label }: { deck: SponsorDeckData; label: string }) {
+/* -------------------------------------------------------------------------- */
+/*  Appendix                                                                  */
+/* -------------------------------------------------------------------------- */
+
+function Appendix({ n, deck, sources }: { n: string; deck: SponsorDeckData; sources: ReactNode }) {
+  const levels = showsBands(deck);
+  const supplier = deckFormat(deck) === "supplier";
   return (
-    <section aria-labelledby="lp-close" className="lp-section lp-close lp-grid-bg border-t lp-rule text-center">
-      <div className="lp-wrap flex flex-col items-center">
-        <div aria-hidden className="w-28 sm:w-36">
-          <DoctorBird flutter={false} className="w-full" />
-        </div>
-        <p className="mt-6 text-sm font-extrabold tracking-[0.18em] text-ink-soft uppercase">{label}</p>
-        <div className="lp-prose mx-auto mt-6 max-w-2xl text-center">
-          <p>Somewhere in that room may be a future founder, engineer, designer or leader.</p>
-          <p>They do not need us to decide who they become.</p>
-          <p className="font-semibold text-ink">They need an opportunity to begin.</p>
-        </div>
-        <h2 id="lp-close" className="lp-marker mt-8 text-[clamp(3rem,9vw,6.8rem)]">
-          Help us build that opportunity.
+    <section aria-labelledby="lp-appendix" className="lp-section lp-dense lp-center bg-cream-2">
+      <div className="lp-wrap">
+        <Kicker n={n}>Appendix</Kicker>
+        <h2 id="lp-appendix" className="mt-4 text-[clamp(1.5rem,2.6vw,2.1rem)] leading-tight font-extrabold tracking-tight print:text-[2.2rem]">
+          {levels ? (supplier ? "If a monetary contribution suits better: the levels." : "Contribution levels, and what each receives.") : "Sources."}
         </h2>
-        <p className="lp-prose mx-auto mt-6 max-w-2xl text-center">{deck.closingLine}</p>
-        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
-          {eventWhen.note}</p>
-        <p className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
-          <a href={event.siteUrl} className="underline decoration-2 underline-offset-4">
-            {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}
-          </a>
-          {event.contactEmail && (
-            <a href={`mailto:${event.contactEmail}`} className="underline decoration-2 underline-offset-4">
-              {event.contactEmail}
-            </a>
-          )}
-        </p>
+        {levels && (
+          <div className="mt-6">
+            <BenefitsMatrix recommended={deck.ask.band} show={deck.ask.bands} />
+            <p className="lp-note mt-2">
+              <strong>{inKind.name}:</strong> {inKind.text} {inKind.recognition}
+            </p>
+          </div>
+        )}
+        {sources}
       </div>
-      <footer className="lp-wrap mt-16 text-left print:mt-auto print:pt-6">
-        <h2 className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Sources</h2>
-        <ol className="mt-3 space-y-1.5">
-          {deck.sources.map((s) => (
-            <li key={s.id} id={`source-${s.id}`} className="lp-note scroll-mt-6">
-              <span className="font-bold">{s.id}.</span> {s.org}, &ldquo;{s.label}.&rdquo;{" "}
-              <a href={s.href} className="break-all underline decoration-ink/30 underline-offset-2 hover:decoration-ink">
-                {s.href.replace("https://", "")}
-              </a>
-            </li>
-          ))}
-        </ol>
-        <p className="lp-note mt-6">{deck.preparedFor}</p>
-      </footer>
     </section>
   );
 }

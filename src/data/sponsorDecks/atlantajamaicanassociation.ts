@@ -7,23 +7,29 @@ const deck: SponsorDeckData = {
   short: "AJA",
   article: "the",
   accent: "#194F0C",
-
-  recipient: { name: "Evette Taylor-Reynolds", title: "President, The Atlanta Jamaican Association, Inc.", ref: 1 },
-  preparedFor:
-    "A private partnership proposal prepared for Evette Taylor-Reynolds, President, The Atlanta Jamaican Association.",
-
+  recipient: {
+    name: "Evette Taylor-Reynolds",
+    title: "President, The Atlanta Jamaican Association, Inc.",
+    ref: 1,
+  },
+  preparedFor: "A private partnership proposal prepared for Evette Taylor-Reynolds, President, The Atlanta Jamaican Association.",
   hero: {
     headline: "From Atlanta, a hand back home.",
     highlight: "a hand back home",
     sub: "The AJA has backed students of Jamaican heritage, in Atlanta and in Jamaica, for decades. Hack876 gives Kingston students one day to build something real, and a reason to know the diaspora is cheering them on.",
   },
-
+  brief: {
+    fit: "The AJA Scholarship has helped students of Jamaican heritage, in metro Atlanta and in Jamaica, since 1995.",
+    request: "A Bronze contribution from the Association or pooled from its members, and a few members as remote mentors or judges.",
+    enables: "Helps support an existing special award and the mentoring students get on the day. Remote mentors can join by video from Atlanta.",
+    outcome: "Bronze recognition, a written recap the AJA can share with members, and Hack876 organisers reporting back at a monthly meeting.",
+    next: "A reply from the President on whether to bring this to the membership, and at which monthly meeting.",
+  },
   why: {
     headline: "Roots in Jamaica. Community in Atlanta. Students in both.",
     mission: {
       label: "The Atlanta Jamaican Association, mission",
-      quote:
-        "The mission of the Atlanta Jamaican Association, Inc. (AJA) is to foster goodwill and understanding among Jamaicans and all peoples in metro Atlanta, through civic, economic, cultural, and philanthropic programs and activities; and to provide assistance to Jamaicans living in the area and in Jamaica.",
+      quote: "The mission of the Atlanta Jamaican Association, Inc. (AJA) is to foster goodwill and understanding among Jamaicans and all peoples in metro Atlanta, through civic, economic, cultural, and philanthropic programs and activities; and to provide assistance to Jamaicans living in the area and in Jamaica.",
       ref: 2,
     },
     points: [
@@ -35,10 +41,7 @@ const deck: SponsorDeckData = {
         text: "Since 2016, the AJA has given $200K in scholarships and aid, and more than 150 students have received its help with university studies.",
         ref: 4,
       },
-      {
-        text: "Its outreach to Jamaica has included books, supplies and equipment for basic schools.",
-        ref: 5,
-      },
+      { text: "Its outreach to Jamaica has included books, supplies and equipment for basic schools.", ref: 5 },
       {
         text: "Through Rep Yuh Parish, members team up to choose, fund and take part in a community project in the parish they are closest to.",
         ref: 5,
@@ -46,7 +49,6 @@ const deck: SponsorDeckData = {
     ],
     tie: "Hack876 is a chance for Atlanta's Jamaican community to cheer on students back home on the day they build something of their own.",
   },
-
   story: {
     kicker: "What the AJA already does",
     headline: "Nearly fifty years of looking after our own.",
@@ -62,16 +64,8 @@ const deck: SponsorDeckData = {
         text: "The AJA Scholarship begins, run with the AJ Cultural & Educational Fund, for students of Jamaican heritage in metro Atlanta and in Jamaica.",
         ref: 3,
       },
-      {
-        label: "2016",
-        text: "The start of a run that has since reached $200K in scholarships and aid for students.",
-        ref: 4,
-      },
-      {
-        label: "2021",
-        text: "Rep Yuh Parish launches, with members funding projects in their home parishes in Jamaica.",
-        ref: 5,
-      },
+      { label: "2016", text: "The start of a run that has since reached $200K in scholarships and aid for students.", ref: 4 },
+      { label: "2021", text: "Rep Yuh Parish launches, with members funding projects in their home parishes in Jamaica.", ref: 5 },
       {
         label: "2026",
         text: "A sold-out Independence Ball and Scholarship Awards under the theme \"Jamaica 64: A Legacy of Resilience\", and a new Tony Gray Memorial Scholarship.",
@@ -79,22 +73,19 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "The AJA already invests in students on both sides of the water. Hack876 is one more place where that support shows up for young Jamaicans.",
-    art: "Seedling",
   },
-
   linkedSchool: {
     school: "Campion College",
-    text: "Evette Taylor-Reynolds began a teaching career at Campion College, according to the 2026 Marcus Garvey Symposium programme. Both Hack876 organisers are Campion alumni. Campion has confirmed its participation in Hack876.",
+    text: "Evette Taylor-Reynolds began a teaching career at Campion College, according to the 2026 Marcus Garvey Symposium programme. Both Hack876 organisers are Campion alumni.",
     ref: 7,
   },
-
   paths: [
     {
       label: "Association",
-      title: "An AJA special award",
+      title: "Collective support from the AJA",
       points: [
-        "Contribute toward a special award",
-        "A proposed AJA Culture Award, if it fits",
+        "Contribute toward an existing special award",
+        "From the Association, or pooled from members",
         "Routed through whichever AJA entity suits the purpose",
         "Small, specific and easy to report back to members",
       ],
@@ -114,17 +105,12 @@ const deck: SponsorDeckData = {
     text: "The AJA meets on the second Saturday of each month at 6:00 p.m., except August and December, and welcomes all. The President can be reached at president@atlantajamaicanassociation.org.",
     ref: 2,
   },
-
   ask: {
     lead: "band",
     band: "bronze",
     uses: ["awards", "programming"],
     why: "It is small and concrete, close in spirit to the scholarships the AJA already gives, and it lets members see exactly what their support did.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    award: {
-      name: "AJA Culture Award (proposed)",
-      text: "A suggestion only: an award for the build that best celebrates or carries forward Jamaican culture, language or heritage, with criteria agreed together. It would echo the cultural programmes the AJA already runs.",
-    },
     tracks: ["Culture", "Learn", "Life"],
     inkind: [
       "Members as remote judges or mentors",
@@ -132,65 +118,32 @@ const deck: SponsorDeckData = {
       "Members visiting Kingston who could volunteer on the day",
     ],
   },
-
   roles: [
     { title: "Diaspora judges", text: "Members with tech, business or education experience who score projects remotely or on the day." },
     { title: "Mentors", text: "Remote mentors who help teams get unstuck, without building the project for them." },
     { title: "A message from Atlanta", text: "A short recorded welcome from the AJA, so students know the diaspora is watching." },
-    { title: "Award criteria", text: "The Cultural Committee could help shape what a Culture award should reward; the judging panel makes the final call." },
     { title: "Storytellers", text: "Share the winning builds with members at a monthly meeting or in AJA news." },
   ],
-
   groundRules: [
     "No marketing, membership drives or fundraising aimed at students, and no sign-ups on the day.",
     "No collection of student contact details or data by partners. Photos and names only with school and parent consent.",
     "Anyone volunteering in person follows our safeguarding rules and is never alone with students; the judging panel decides every award.",
   ],
-
   future: [
-    "A recurring AJA award at every Hack876.",
     "Pointing eligible finalists heading to college toward the AJA Scholarship, on its usual terms.",
-    "A Hack876 moment at the AJA Independence Ball & Scholarship Awards.",
     "Rep Yuh Parish teams picking up a student build that could help their parish.",
-    "A special award to mark the AJA's 50th anniversary.",
   ],
-
-  questions: [
-    "Which AJA entity would the support come from, and how does it reach Jamaica?",
-    "Who are the students, and will Campion College take part?",
-    "When is it, and how much lead time does the board need?",
-    "Can members take part from Atlanta?",
-    "How would a Culture award be judged, and who decides?",
-    "How are students protected on consent, data and marketing?",
-  ],
-
   closingLine: "We would love to explore the right first step with Evette and the Atlanta Jamaican Association family.",
-
   sources: [
-    {
-      id: 1,
-      org: "Atlanta Jamaican Association",
-      label: "2026 Board of Directors",
-      href: "https://www.atlantajamaicanassociation.org/board",
-    },
+    { id: 1, org: "Atlanta Jamaican Association", label: "2026 Board of Directors", href: "https://www.atlantajamaicanassociation.org/board" },
     {
       id: 2,
       org: "Atlanta Jamaican Association",
       label: "About Us: mission, history, lasting impact, meetings and contact",
       href: "https://www.atlantajamaicanassociation.org/about-1",
     },
-    {
-      id: 3,
-      org: "Atlanta Jamaican Association",
-      label: "The AJA Scholarship",
-      href: "https://www.atlantajamaicanassociation.org/scholarship",
-    },
-    {
-      id: 4,
-      org: "Atlanta Jamaican Association",
-      label: "Home: our impact",
-      href: "https://www.atlantajamaicanassociation.org/",
-    },
+    { id: 3, org: "Atlanta Jamaican Association", label: "The AJA Scholarship", href: "https://www.atlantajamaicanassociation.org/scholarship" },
+    { id: 4, org: "Atlanta Jamaican Association", label: "Home: our impact", href: "https://www.atlantajamaicanassociation.org/" },
     {
       id: 5,
       org: "Atlanta Jamaican Association",

@@ -3,12 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
-import { HackerPass } from "@/components/art/HackerPass";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { eligibility, event, eventWhen, schools } from "@/data/event";
+import { eligibility, event, eventWhen } from "@/data/event";
 import "@/components/proposal/proposal.css";
 import "./mlh.css";
+import { OpeningSummary } from "@/components/proposal/PartnershipSections";
 
 /*
  * Private partnership brief for Major League Hacking, written for Mike Swift.
@@ -31,26 +31,11 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
     nocache: true,
-    googleBot: { index: false, follow: false, noimageindex: true },
-  },
+    googleBot: { index: false, follow: false, noimageindex: true } },
   openGraph: null,
-  twitter: null,
-};
+  twitter: null };
 
 const STUDENTS = eligibility.maxHackers;
-const TEAM_MAX = eligibility.teamSize.max;
-
-/* -------------------------------------------------------------------------- */
-
-function Label({ n, children }: { n?: string; children: ReactNode }) {
-  return (
-    <p className="mh-label flex items-center gap-3">
-      {n && <span className="mh-label-n">{n}</span>}
-      <span>{children}</span>
-    </p>
-  );
-}
-
 /* -------------------------------------------------------------------------- */
 /*  Page                                                                      */
 /* -------------------------------------------------------------------------- */
@@ -68,17 +53,23 @@ export default function MlhOpportunityPage() {
 
       <main id="main">
         <div className="lp-page">
-          <Hero />
+          <OpeningSummary
+            label={DECK_LABEL}
+            docLabel="Private partnership brief"
+            org="MLH"
+            headline={`Jamaica has the students. We’re building the room.`}
+            highlight={`building the room`}
+            sub={`Hack 876 brings about ${STUDENTS} Jamaican secondary-school students together for one day to build, ship and present something real.`}
+            brief={{
+              fit: `MLH has spent years helping student hackathons run well, and Mike met one of our organisers as a hacker at HackGT.`,
+              request: `Hacker swag for first-time hackers, such as stickers, shirts or lanyards, and MLH’s guidance on running the day well.`,
+              enables: `For many of these students it is a first hackathon. They leave feeling part of a wider builder community.`,
+              outcome: `A first student hackathon in Jamaica that follows MLH’s guidance, with MLH recognised as a community partner, and a written recap.`,
+              next: `A reply from Mike on what MLH could send or share. No funding is requested.` }}
+          />
         </div>
         <div className="lp-page">
           <Note />
-        </div>
-        <div className="lp-page">
-          <Numbers />
-          <TheDay />
-        </div>
-        <div className="lp-page">
-          <WhyMlh />
         </div>
         <div className="lp-page">
           <BiggestAsk />
@@ -87,77 +78,10 @@ export default function MlhOpportunityPage() {
           <ElseWhere />
         </div>
         <div className="lp-page">
-          <NotFunding />
-        </div>
-        <div className="lp-page">
           <Closing />
         </div>
       </main>
     </div>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  1 · Hero                                                                  */
-/* -------------------------------------------------------------------------- */
-
-function Hero() {
-  const meta = ["Jamaica", `~${STUDENTS} student builders`, `Teams ≤${TEAM_MAX}`, "1 day", `${eventWhen.short}${eventWhen.note}`];
-  return (
-    <section aria-labelledby="mh-hero" className="lp-hero relative flex min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden border-y lp-rule">
-      <div className="lp-wrap relative w-full pt-14 sm:pt-20">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="mh-label flex items-center gap-2.5">
-            <span aria-hidden className="mh-px" />
-            Private partnership brief
-          </p>
-          <p className="mh-label">Hack 876 × Major League Hacking</p>
-        </div>
-
-        <h1 id="mh-hero" className="mh-h mh-xl mt-12 max-w-[18ch] sm:mt-16">
-          Jamaica has the students.
-          <br />
-          We&rsquo;re building the room.
-          <br />
-          <span className="mh-mark">Help us build the hackathon right.</span>
-        </h1>
-
-        <div className="lp-prose mt-10">
-          <p>
-            Hack 876 is bringing about {STUDENTS} Jamaican secondary-school students together for one day to build, ship and
-            present something real.
-          </p>
-          <p>
-            We&rsquo;re not primarily looking for financial sponsorship.{" "}
-            <strong className="font-bold text-ink">We&rsquo;re looking for the things MLH knows how to do best.</strong>
-          </p>
-        </div>
-
-        <div className="lp-no-print mt-10 flex flex-wrap items-center gap-4">
-          <a href="#where-mlh-fits" className="btn btn-primary">
-            See where MLH fits <span aria-hidden>↓</span>
-          </a>
-          <a href={PDF} download={PDF_NAME} className="btn btn-secondary">
-            Download brief
-          </a>
-        </div>
-
-        <div aria-hidden className="pointer-events-none absolute top-24 right-6 hidden w-44 xl:block print:hidden">
-          <DoctorBird className="w-full" mood="happy" />
-        </div>
-      </div>
-
-      <div className="lp-wrap w-full pt-14 pb-10">
-        <ul className="mh-mono flex flex-wrap gap-x-5 gap-y-2 border-t lp-rule pt-5 text-[0.8rem] font-semibold tracking-[0.12em] text-ink-soft uppercase">
-          {meta.map((m, i) => (
-            <li key={m} className="flex items-center gap-5">
-              {i > 0 && <span aria-hidden className="mh-px opacity-70" />}
-              {m}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
   );
 }
 
@@ -210,172 +134,6 @@ function Note() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  3 · The event: numbers                                                    */
-/* -------------------------------------------------------------------------- */
-
-const NUMBERS = [
-  { v: `~${STUDENTS}`, l: "Student builders", bg: "bg-emerald text-white", r: "-3deg" },
-  { v: `≤${TEAM_MAX}`, l: "Per team", bg: "bg-sun text-ink", r: "2deg" },
-  { v: "1", l: "Day", bg: "bg-[var(--mh-orange)] text-ink", r: "-1.5deg" },
-];
-
-function Numbers() {
-  return (
-    <section aria-labelledby="mh-event" className="lp-section mh-dots">
-      <div className="lp-wrap grid items-center gap-14 lg:grid-cols-[1.4fr_1fr] print:grid-cols-[1.5fr_1fr]">
-        <div>
-          <Label n="02">The event</Label>
-          <h2 id="mh-event" className="mh-h mh-lg mt-6 max-w-[16ch]" data-reveal>
-            One day. One room. Build something real.
-          </h2>
-          <ul className="mt-12 grid grid-cols-3 gap-4 sm:gap-6">
-            {NUMBERS.map((n, i) => (
-              <li
-                key={n.l}
-                data-reveal="pop"
-                style={{ "--reveal-rot": n.r, "--reveal-delay": `${i * 90}ms`, rotate: n.r } as CSSProperties}
-                className={`sticker grid place-items-center px-2 py-5 text-center sm:py-7 print:py-9 ${n.bg}`}
-              >
-                <span className="lp-num text-[clamp(2.6rem,7vw,4.6rem)] print:text-[6.4rem]">{n.v}</span>
-                <span className="mh-mono mt-2 text-[0.66rem] font-bold tracking-[0.14em] uppercase sm:text-xs print:text-[1.1rem]">{n.l}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="lp-prose mt-10">
-            Secondary-school students, mostly 5th Form through Upper 6th, in Kingston for one day: {eventWhen.long}
-            {eventWhen.note}.
-          </p>
-        </div>
-
-        <HackerPass className="print:max-w-[27rem]" />
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  4 · The day                                                               */
-/* -------------------------------------------------------------------------- */
-
-const STEPS = [
-  { v: "Think", d: "Find a real problem worth a day.", c: "bg-sky-light" },
-  { v: "Build", d: "Turn it into a working prototype.", c: "bg-mint" },
-  { v: "Ship", d: "Get it running. Imperfect is fine. Real is the rule.", c: "bg-sun-light" },
-  { v: "Present", d: "Demo it. Explain the decisions.", c: "bg-peach" },
-];
-
-const BUILDS = ["Web apps", "Mobile apps", "Games", "Hardware", "AI products", "Education tools", "Fintech", "Civic tools", "Design-led products"];
-
-function TheDay() {
-  return (
-    <section aria-labelledby="mh-day" className="lp-section mh-dense mh-dots pt-0 print:pt-[0.55in]">
-      <div className="lp-wrap">
-        <h3 id="mh-day" className="mh-label">
-          <span className="mh-label-n">The day</span>
-        </h3>
-        <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4">
-          {STEPS.map((s, i) => (
-            <li
-              key={s.v}
-              data-reveal
-              style={{ "--reveal-delay": `${i * 80}ms` } as CSSProperties}
-              className={`sticker sticker-hover p-5 ${s.c}`}
-            >
-              <p className="mh-mono text-xs font-bold text-ink-soft">0{i + 1}</p>
-              <p className="mh-h mt-2 text-[2.1rem] print:text-[2.8rem]">{s.v}</p>
-              <p className="mt-2 text-[1.02rem] leading-snug text-ink-2 print:text-[1.35rem]">{s.d}</p>
-            </li>
-          ))}
-        </ol>
-
-        <div className="mt-12 grid gap-10 lg:grid-cols-2 print:grid-cols-2 print:gap-12">
-          <div>
-            <p className="mh-h text-[clamp(1.5rem,2.6vw,2.1rem)] tracking-[-0.03em] print:text-[2.6rem]">Not a talent gap. An exposure gap.</p>
-            <div className="lp-prose mt-4">
-              <p>
-                Jamaica already produces excellent engineers, designers and founders. Most of its secondary-school students will
-                not meet a hackathon until university, if at all.
-              </p>
-              <p>Hack 876 moves that first one earlier. It is not an AI hackathon. Teams build whatever the problem needs.</p>
-            </div>
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {BUILDS.map((b) => (
-                <li key={b} className="rounded-full border-2 border-ink/70 bg-paper px-3 py-1 text-sm font-bold print:text-[1.15rem]">
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="mh-label">Schools we&rsquo;re already talking with</p>
-            <ul className="mt-4 grid gap-x-6 gap-y-2 sm:grid-cols-2 print:grid-cols-2">
-              {schools.map((s) => (
-                <li key={s} className="flex items-baseline gap-2.5 border-b lp-rule pb-2 text-[1.02rem] font-semibold print:text-[1.3rem]">
-                  <span aria-hidden className="mh-px translate-y-[-0.1em]" />
-                  {s}
-                </li>
-              ))}
-            </ul>
-            <p className="lp-note mt-4">Participation isn&rsquo;t limited to these schools.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  5 · Why MLH                                                               */
-/* -------------------------------------------------------------------------- */
-
-const LITTLE_THINGS = ["Structure.", "Culture.", "Tools.", "Mentorship.", "The little things hackers remember."];
-const LEARN = ["Work as a team", "Scope", "Make tradeoffs", "Build against a clock", "Demo", "Explain their decisions", "Ship something imperfect but real"];
-
-function WhyMlh() {
-  return (
-    <section aria-labelledby="mh-why" className="lp-section lp-dark lp-grid-bg">
-      <div className="lp-wrap grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:items-center print:grid-cols-[1.2fr_1fr] print:items-center">
-        <div>
-          <Label n="03">Why MLH</Label>
-          <h2 id="mh-why" className="mh-h mh-lg mt-6 max-w-[17ch]" data-reveal>
-            You already know what makes a hackathon feel real.
-          </h2>
-          <div className="lp-prose mt-8" data-reveal>
-            <p>Hack 876 doesn&rsquo;t need another logo on the wall.</p>
-            <p>
-              It would benefit from an organization that has spent years helping student hackathons build the right room for
-              builders.
-            </p>
-          </div>
-          <div className="mt-8 rounded-xl border border-cream/15 bg-cream/[0.04] p-5" data-reveal>
-            <p className="mh-label">In one day, students learn to</p>
-            <p className="mt-3 text-[1.05rem] leading-relaxed text-cream/85 print:text-[1.35rem]">{LEARN.join(" · ")}</p>
-          </div>
-        </div>
-
-        <div data-reveal>
-          <ul className="space-y-3 sm:space-y-4">
-            {LITTLE_THINGS.map((t, i) => (
-              <li
-                key={t}
-                className={`mh-h flex items-baseline gap-4 text-[clamp(1.7rem,3.4vw,2.8rem)] tracking-[-0.03em] print:text-[3.6rem] ${i === LITTLE_THINGS.length - 1 ? "text-sun" : "text-cream"}`}
-              >
-                <span aria-hidden className="mh-px translate-y-[-0.2em]" />
-                {t}
-              </li>
-            ))}
-          </ul>
-          <p className="mh-mono mt-10 text-[1rem] font-semibold text-cream/80 print:text-[1.4rem]">
-            <span className="text-emerald-light">&gt;</span> That&rsquo;s where we think MLH can matter.
-            <span aria-hidden className="mh-cursor" />
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
 /*  6 · The biggest ask: swag + gear                                          */
 /* -------------------------------------------------------------------------- */
 
@@ -394,7 +152,7 @@ function BiggestAsk() {
     <section id="where-mlh-fits" aria-labelledby="mh-swag" className="lp-section mh-dense mh-dots scroll-mt-6 bg-cream-2">
       <div className="lp-wrap grid items-center gap-14 lg:grid-cols-[1fr_1.1fr] print:grid-cols-[1fr_1.15fr] print:gap-12">
         <div>
-          <Label n="04">The biggest ask</Label>
+          <Label n="02">The biggest ask</Label>
           <h2 id="mh-swag" className="mh-h mh-lg mt-6 max-w-[15ch]" data-reveal>
             Help us give them the hacker experience.
           </h2>
@@ -423,6 +181,112 @@ function BiggestAsk() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  7 · Where else MLH can help                                               */
+/* -------------------------------------------------------------------------- */
+
+const HELP = [
+  {
+    k: "Guide",
+    d: "Share what works: judging, rules, code of conduct, submissions, team formation, demos, pacing and student safety.",
+    c: "bg-sun" },
+  { k: "Show up", d: "Send a coach, mentor, judge or speaker. Remote or in person.", c: "bg-mint" },
+  {
+    k: "Connect",
+    d: "Where it fits, help us reach the developer tools, credits and partner resources MLH brings into hackathons.",
+    c: "bg-sky-light" },
+  {
+    k: "Affiliate",
+    d: "Help us understand whether there is an MLH structure that fits a secondary-school hackathon in Jamaica.",
+    c: "bg-peach" },
+];
+
+function ElseWhere() {
+  return (
+    <section aria-labelledby="mh-else" className="lp-section bg-paper mh-paper">
+      <div className="lp-wrap">
+        <Label n="03">Where else MLH can help</Label>
+        <h2 id="mh-else" className="mh-h mh-lg mt-6 max-w-[20ch]" data-reveal>
+          We&rsquo;re doing the work. We&rsquo;d love the experience.
+        </h2>
+        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4">
+          {HELP.map((h, i) => (
+            <li
+              key={h.k}
+              data-reveal="pop"
+              style={{ "--reveal-delay": `${i * 80}ms`, "--reveal-rot": "0deg", "--hover-rot": i % 2 ? "1.5deg" : "-1.5deg" } as CSSProperties}
+              className="sticker sticker-hover flex flex-col bg-cream p-6"
+            >
+              <span className={`mh-mono self-start rounded-md border-2 border-ink px-2.5 py-1 text-sm font-extrabold tracking-[0.14em] uppercase print:text-[1.15rem] ${h.c}`}>
+                {h.k}
+              </span>
+              <p className="mt-4 text-[1.05rem] leading-snug text-ink-2 print:text-[1.4rem]">{h.d}</p>
+            </li>
+          ))}
+        </ul>
+
+        {/* The "not a funding gap" section is web-only; the PDF carries it here. */}
+        <p className="hidden print:mt-10 print:block print:border-t print:border-[var(--lp-rule)] print:pt-5 print:text-[1.35rem] print:leading-snug">
+          <strong>Not a funding ask.</strong> Hack 876 is already in active conversations with Jamaican companies about financial
+          support. We&rsquo;re coming to MLH for expertise, culture, resources and a connection to the wider hackathon community.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function Closing() {
+  return (
+    <section aria-labelledby="mh-close" className="lp-section lp-close">
+      <div className="lp-wrap flex flex-col items-center text-center">
+        <DoctorBird className="w-28 sm:w-32 print:w-28" mood="happy" />
+        <h2 id="mh-close" className="mh-h mh-lg mt-8 max-w-[20ch]" data-reveal>
+          Help us give {STUDENTS} Jamaican students their first great hackathon.
+        </h2>
+        <div className="lp-prose mx-auto mt-8" data-reveal>
+          <p>If there&rsquo;s a way for MLH to be part of Hack 876, we&rsquo;d love to figure out what that looks like.</p>
+          <p>Mike, if Jamaica sounds like a good place to judge a hackathon, the door is very open.</p>
+        </div>
+
+        <div className="lp-no-print mt-10 flex flex-wrap justify-center gap-4">
+          <Link href="/partner" className="btn btn-primary">
+            Let&rsquo;s talk <span aria-hidden>→</span>
+          </Link>
+          <a href={PDF} download={PDF_NAME} className="btn btn-secondary">
+            Download brief
+          </a>
+        </div>
+
+        <div className="mt-12 grid gap-1">
+          <p className="text-lg font-extrabold">Stefen O. Ewers Jr.</p>
+          <p className="text-ink-soft">Organizing Team, Hack 876</p>
+          {event.contactEmail && (
+            <a href={`mailto:${event.contactEmail}`} className="font-semibold underline decoration-ink/30 underline-offset-4 hover:decoration-ink">
+              {event.contactEmail}
+            </a>
+          )}
+          <p className="mh-label mt-3">
+            Jamaica · {eventWhen.short}
+            {eventWhen.note}
+          </p>
+        </div>
+
+        <p className="lp-note mx-auto mt-12 max-w-xl">
+          This is a proposal. Hack 876 is not currently sponsored by, affiliated with or endorsed by Major League Hacking.
+        </p>
+      </div>
+    </section>
+  );
+}
+function Label({ n, children }: { n?: string; children: ReactNode }) {
+  return (
+    <p className="mh-label flex items-center gap-3">
+      {n && <span className="mh-label-n">{n}</span>}
+      <span>{children}</span>
+    </p>
   );
 }
 
@@ -483,131 +347,3 @@ function Laptop() {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  7 · Where else MLH can help                                               */
-/* -------------------------------------------------------------------------- */
-
-const HELP = [
-  {
-    k: "Guide",
-    d: "Share what works: judging, rules, code of conduct, submissions, team formation, demos, pacing and student safety.",
-    c: "bg-sun",
-  },
-  { k: "Show up", d: "Send a coach, mentor, judge or speaker. Remote or in person.", c: "bg-mint" },
-  {
-    k: "Connect",
-    d: "Where it fits, help us reach the developer tools, credits and partner resources MLH brings into hackathons.",
-    c: "bg-sky-light",
-  },
-  {
-    k: "Affiliate",
-    d: "Help us understand whether there is an MLH structure that fits a secondary-school hackathon in Jamaica.",
-    c: "bg-peach",
-  },
-];
-
-function ElseWhere() {
-  return (
-    <section aria-labelledby="mh-else" className="lp-section bg-paper mh-paper">
-      <div className="lp-wrap">
-        <Label n="05">Where else MLH can help</Label>
-        <h2 id="mh-else" className="mh-h mh-lg mt-6 max-w-[20ch]" data-reveal>
-          We&rsquo;re doing the work. We&rsquo;d love the experience.
-        </h2>
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4">
-          {HELP.map((h, i) => (
-            <li
-              key={h.k}
-              data-reveal="pop"
-              style={{ "--reveal-delay": `${i * 80}ms`, "--reveal-rot": "0deg", "--hover-rot": i % 2 ? "1.5deg" : "-1.5deg" } as CSSProperties}
-              className="sticker sticker-hover flex flex-col bg-cream p-6"
-            >
-              <span className={`mh-mono self-start rounded-md border-2 border-ink px-2.5 py-1 text-sm font-extrabold tracking-[0.14em] uppercase print:text-[1.15rem] ${h.c}`}>
-                {h.k}
-              </span>
-              <p className="mt-4 text-[1.05rem] leading-snug text-ink-2 print:text-[1.4rem]">{h.d}</p>
-            </li>
-          ))}
-        </ul>
-
-        {/* The "not a funding gap" section is web-only; the PDF carries it here. */}
-        <p className="hidden print:mt-10 print:block print:border-t print:border-[var(--lp-rule)] print:pt-5 print:text-[1.35rem] print:leading-snug">
-          <strong>Not a funding ask.</strong> Hack 876 is already in active conversations with Jamaican companies about financial
-          support. We&rsquo;re coming to MLH for expertise, culture, resources and a connection to the wider hackathon community.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  8 · What we are not asking for (web only)                                 */
-/* -------------------------------------------------------------------------- */
-
-function NotFunding() {
-  return (
-    <section aria-labelledby="mh-not" className="lp-section lp-no-print border-y lp-rule">
-      <div className="lp-wrap grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end">
-        <div>
-          <Label n="06">What we&rsquo;re not asking for</Label>
-          <h2 id="mh-not" className="mh-h mh-lg mt-6 max-w-[16ch]" data-reveal>
-            We&rsquo;re not coming to MLH with a funding gap.
-          </h2>
-        </div>
-        <div className="lp-prose" data-reveal>
-          <p>Hack 876 is already in active conversations with Jamaican companies about financial support for the event.</p>
-          <p>Our reason for approaching MLH is different.</p>
-          <p className="font-bold text-ink">Expertise. Culture. Resources. A connection to the wider hackathon community.</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  9 · Closing                                                               */
-/* -------------------------------------------------------------------------- */
-
-function Closing() {
-  return (
-    <section aria-labelledby="mh-close" className="lp-section lp-close">
-      <div className="lp-wrap flex flex-col items-center text-center">
-        <DoctorBird className="w-28 sm:w-32 print:w-28" mood="happy" />
-        <h2 id="mh-close" className="mh-h mh-lg mt-8 max-w-[20ch]" data-reveal>
-          Help us give {STUDENTS} Jamaican students their first great hackathon.
-        </h2>
-        <div className="lp-prose mx-auto mt-8" data-reveal>
-          <p>If there&rsquo;s a way for MLH to be part of Hack 876, we&rsquo;d love to figure out what that looks like.</p>
-          <p>Mike, if Jamaica sounds like a good place to judge a hackathon, the door is very open.</p>
-        </div>
-
-        <div className="lp-no-print mt-10 flex flex-wrap justify-center gap-4">
-          <Link href="/partner" className="btn btn-primary">
-            Let&rsquo;s talk <span aria-hidden>→</span>
-          </Link>
-          <a href={PDF} download={PDF_NAME} className="btn btn-secondary">
-            Download brief
-          </a>
-        </div>
-
-        <div className="mt-12 grid gap-1">
-          <p className="text-lg font-extrabold">Stefen O. Ewers Jr.</p>
-          <p className="text-ink-soft">Organizing Team, Hack 876</p>
-          {event.contactEmail && (
-            <a href={`mailto:${event.contactEmail}`} className="font-semibold underline decoration-ink/30 underline-offset-4 hover:decoration-ink">
-              {event.contactEmail}
-            </a>
-          )}
-          <p className="mh-label mt-3">
-            Jamaica · {eventWhen.short}
-            {eventWhen.note}
-          </p>
-        </div>
-
-        <p className="lp-note mx-auto mt-12 max-w-xl">
-          This is a proposal. Hack 876 is not currently sponsored by, affiliated with or endorsed by Major League Hacking.
-        </p>
-      </div>
-    </section>
-  );
-}

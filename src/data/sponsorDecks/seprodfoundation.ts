@@ -7,24 +7,24 @@ const deck: SponsorDeckData = {
   short: "Seprod Foundation",
   article: "the",
   accent: "#00642f",
-
-  recipient: { name: "Lisa D'Oyen", title: "Executive Director, Seprod Foundation", ref: 1 },
+  recipient: {
+    name: "Lisa D'Oyen",
+    title: "Executive Director, Seprod Foundation",
+    ref: 1,
+  },
   preparedFor: "A private partnership proposal prepared for Lisa D'Oyen, Executive Director, Seprod Foundation.",
-
   hero: {
     headline: "Real-world problems need young builders.",
     highlight: "young builders",
     sub: "The Seprod Foundation wants Jamaican children equipped to solve real-world problems and lead in science and technology. Hack876 gives secondary students one day to do exactly that, in teams, with a working build to show at the end.",
   },
-
-  futurePaths: [
-    { icon: "board", label: "Robotics engineer" },
-    { icon: "controller", label: "Game designer" },
-    { icon: "laptop", label: "Software developer" },
-    { icon: "life", label: "Agritech founder" },
-    { icon: "resilience", label: "Resilience planner" },
-  ],
-
+  brief: {
+    fit: "The Seprod Foundation funds STEAM education so that Jamaican children can solve real-world problems, and already backs youth competitions.",
+    request: "A Gold contribution toward the prizes and the student programme.",
+    enables: "Helps support the prizes for the top teams, and the mentoring and judging on the day.",
+    outcome: "About {students} students complete a one-day STEAM build in teams. The Foundation receives Gold recognition and a written recap of what was built.",
+    next: "A reply on whether the Foundation would consider a contribution this year, at Gold or any other level.",
+  },
   why: {
     headline: "Hack876 is the next step after the code and the robots.",
     mission: {
@@ -33,30 +33,17 @@ const deck: SponsorDeckData = {
       ref: 2,
     },
     points: [
-      {
-        text: "STEAM education is one of the Foundation's three pillars, alongside food security and community upliftment.",
-        ref: 2,
-      },
-      {
-        text: "Lisa D'Oyen: \"Our goal is to create opportunities for all Jamaican children to thrive in the digital age.\"",
-        ref: 1,
-      },
+      { text: "STEAM education is one of the Foundation's three pillars, alongside food security and community upliftment.", ref: 2 },
+      { text: "Lisa D'Oyen: \"Our goal is to create opportunities for all Jamaican children to thrive in the digital age.\"", ref: 1 },
       {
         text: "Since WRO came to Jamaica in 2018, the Foundation has been presenting sponsor of what it calls the first Robotics Competition in Jamaica.",
         ref: 3,
       },
-      {
-        text: "Lisa D'Oyen has called STEM education \"one of the foundation's primary pillars of focus.\"",
-        ref: 4,
-      },
-      {
-        text: "Its food security pillar works to grow interest in agriculture at the secondary and tertiary school levels.",
-        ref: 2,
-      },
+      { text: "Lisa D'Oyen has called STEM education \"one of the foundation's primary pillars of focus.\"", ref: 4 },
+      { text: "Its food security pillar works to grow interest in agriculture at the secondary and tertiary school levels.", ref: 2 },
     ],
     tie: "Hack876 is where secondary students take those skills and build something real in a single day.",
   },
-
   story: {
     kicker: "What the Foundation already does",
     headline: "A portfolio built around young people trying things.",
@@ -86,12 +73,7 @@ const deck: SponsorDeckData = {
         text: "75% scholarships for a 90+ hour game design course. Fellows designed games around education, agriculture or community.",
         ref: 5,
       },
-      {
-        label: "30+ years",
-        title: "Scholarships",
-        text: "The Foundation has been providing scholarships for over 30 years.",
-        ref: 6,
-      },
+      { label: "30+ years", title: "Scholarships", text: "The Foundation has been providing scholarships for over 30 years.", ref: 6 },
       {
         label: "2026",
         title: "Seaford Town Community Resilience Hub",
@@ -100,9 +82,7 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "Coding, robotics and game design are already in place. Hack876 adds a day where older students put them together to solve a problem they chose.",
-    art: "Blueprint",
   },
-
   paths: [
     {
       label: "Path 1 · The Foundation",
@@ -117,59 +97,38 @@ const deck: SponsorDeckData = {
     {
       label: "Path 2 · People",
       title: "Time and expertise from the Seprod team",
-      points: [
-        "A Foundation judge for impact and real-world value",
-        "Mentors from manufacturing, operations or supply chain",
-        "Volunteers on the day",
-      ],
+      points: ["A Foundation judge for impact and real-world value", "Mentors from manufacturing, operations or supply chain", "Volunteers on the day"],
     },
   ],
-
   ask: {
     lead: "band",
     band: "gold",
     uses: ["prizes", "awards", "programming"],
-    why: "The Foundation already backs youth competitions, so contributing toward the prizes is a familiar, contained ask. It puts the Seprod Foundation name on the moment students remember most.",
+    why: "The Foundation already backs youth competitions, so contributing toward the prizes is a familiar, contained ask.",
     recognition: "Gold Partner · Inaugural Hack876",
-    award: {
-      name: "Seprod Foundation Resilience Award (suggestion)",
-      text: "One idea: an award for the best Resilience-track build, in the spirit of the Foundation's community resilience work. A food security award would fit just as well. We would shape it together.",
-    },
     tracks: ["Resilience", "Learn", "Life", "Wildcard"],
   },
-
   roles: [
     { title: "Judge", text: "Lisa D'Oyen or a Foundation colleague on the panel, judging for impact and real-world problem solving." },
-    { title: "Mentors", text: "Seprod people from manufacturing, logistics or operations helping teams think through how things really get made and moved." },
+    {
+      title: "Mentors",
+      text: "Seprod people from manufacturing, logistics or operations helping teams think through how things really get made and moved.",
+    },
     { title: "Volunteers", text: "A small team on the day helping with check-in, lunch and the demo floor." },
     { title: "Speaker", text: "A Foundation scholar or programme alumnus sharing what came after their first build." },
     { title: "Challenge input", text: "A real food security or community resilience problem teams could choose to take on." },
   ],
-
   groundRules: [
     "Many participants are minors. There is no marketing or product sampling aimed at students, and no student contact details are shared with sponsors.",
     "Recognition stays with the Seprod Foundation name. Students are never asked to promote a brand.",
     "Judging stays independent. A sponsored award is decided by the full judging panel against the published criteria.",
   ],
-
   future: [
-    "A recurring Seprod Foundation award at every edition of Hack876.",
     "Hack876 as the secondary-school build day in a STEAM pathway that already runs from coding to robotics.",
     "A food security challenge co-designed with the Foundation's agriculture work.",
     "Bringing in students from communities the Foundation serves outside Kingston as Hack876 grows.",
   ],
-
-  questions: [
-    "How is Hack876 different from the competitions we already support?",
-    "When and where will it happen, and which schools are confirmed?",
-    "What exactly will our money pay for, and how will we hear about the results?",
-    "Can students from the communities we work with take part?",
-    "Who is running Hack876, and who is judging?",
-    "How are students under 18 kept safe on the day?",
-  ],
-
   closingLine: "We would love to explore the right first step with Lisa and the Seprod Foundation team.",
-
   sources: [
     {
       id: 1,
@@ -178,7 +137,12 @@ const deck: SponsorDeckData = {
       href: "https://www.seprod.com/seprod-foundation-and-afj-deepen-commitment-to-steam-education-through-code-jamaica/",
     },
     { id: 2, org: "Seprod", label: "Seprod Foundation", href: "https://www.seprod.com/seprod-foundation/" },
-    { id: 3, org: "Seprod Foundation", label: "World Robot Olympiad (WRO)", href: "https://seprodfoundation.org/portfolio/world-robot-olympiad-wro/" },
+    {
+      id: 3,
+      org: "Seprod Foundation",
+      label: "World Robot Olympiad (WRO)",
+      href: "https://seprodfoundation.org/portfolio/world-robot-olympiad-wro/",
+    },
     {
       id: 4,
       org: "Jamaica Observer",

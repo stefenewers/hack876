@@ -7,24 +7,24 @@ const deck: SponsorDeckData = {
   short: "JPS Foundation",
   article: "the",
   accent: "#0033A1",
-
-  recipient: { name: "Sophia Lewis", title: "Head, JPS Foundation", ref: 1 },
+  recipient: {
+    name: "Sophia Lewis",
+    title: "Head, JPS Foundation",
+    ref: 1,
+  },
   preparedFor: "A private partnership proposal prepared for Sophia Lewis, Head, JPS Foundation.",
-
   hero: {
     headline: "Students can be part of something bigger.",
     highlight: "something bigger",
     sub: "The JPS Foundation wants students to dream big about innovation and energy. Hack876 gives secondary students one day to build a working answer to a problem they care about, in teams, with mentors beside them.",
   },
-
-  futurePaths: [
-    { icon: "plug", label: "Grid engineer" },
-    { icon: "spark", label: "Renewable energy designer" },
-    { icon: "chart", label: "Climate data analyst" },
-    { icon: "move", label: "Electric vehicle engineer" },
-    { icon: "laptop", label: "Software developer" },
-  ],
-
+  brief: {
+    fit: "The JPS Foundation runs the EcoSpark Innovation Challenge and school Energy Clubs, and names STEM education in its mission.",
+    request: "A Gold contribution toward the prizes and the equipment teams build with.",
+    enables: "Helps support the prizes for the top teams, and equipment for teams building hardware.",
+    outcome: "About {students} students complete a one-day STEM build with mentors beside them. The Foundation receives Gold recognition and a written recap of what was built.",
+    next: "A reply on whether the Foundation would consider a contribution this year, at Gold or any other level, and how it prefers to receive a request.",
+  },
   why: {
     headline: "From awareness to action, one build at a time.",
     mission: {
@@ -33,10 +33,7 @@ const deck: SponsorDeckData = {
       ref: 2,
     },
     points: [
-      {
-        text: "Climate resilience, community empowerment and STEM education are the Foundation's three main pillars.",
-        ref: 2,
-      },
+      { text: "Climate resilience, community empowerment and STEM education are the Foundation's three main pillars.", ref: 2 },
       {
         text: "Sophia Lewis: \"The future of our country depends on a skilled and innovative workforce. By supporting students in technical disciplines, we are helping to build capacity and create opportunities for the next generation.\"",
         ref: 3,
@@ -56,7 +53,6 @@ const deck: SponsorDeckData = {
     ],
     tie: "Hack876 is a day where that motivation turns into something students can switch on and show.",
   },
-
   story: {
     kicker: "What the Foundation already does",
     headline: "A STEM pathway built around young Jamaicans.",
@@ -100,15 +96,12 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "Workshops, clubs, a pitch challenge and mentors are already in place. Hack876 adds a single day where students build across every kind of problem, side by side with students from other schools.",
-    art: "IdeaToRealWorld",
   },
-
   linkedSchool: {
     school: "St. George's College",
     text: "St. George's College won the People's Choice Award at the 2026 EcoSpark Innovation Challenge for its Rain Garden within a Miniature Sponge City.",
     ref: 6,
   },
-
   paths: [
     {
       label: "Path 1 · The Foundation",
@@ -123,31 +116,21 @@ const deck: SponsorDeckData = {
     {
       label: "Path 2 · People",
       title: "Time and expertise from the JPS team",
-      points: [
-        "Engineers as judges and mentors",
-        "A short talk on how energy careers really work",
-        "Volunteers on the day",
-      ],
+      points: ["Engineers as judges and mentors", "A short talk on how energy careers really work", "Volunteers on the day"],
     },
   ],
   pathsNote: {
     text: "The Foundation's mission names STEM Education and partnership as two of the ways it works.",
     ref: 2,
   },
-
   ask: {
     lead: "band",
     band: "gold",
     uses: ["prizes", "awards", "equipment"],
     why: "The Foundation already funds student prizes through EcoSpark, so contributing toward the Hack876 prizes is a familiar, contained ask. If a smaller first step fits better, a Bronze contribution toward a special award or JPS people on the day would still mean a great deal.",
     recognition: "Gold Partner · Inaugural Hack876",
-    award: {
-      name: "JPS Foundation Power Up Resilience Award (suggestion)",
-      text: "One idea: an award for the best Resilience-track build, in the spirit of EcoSpark's Grid Resilience category. Energy, communities and climate solutions would all count. We would shape the name and criteria together.",
-    },
     tracks: ["Resilience", "Move", "Learn", "Wildcard"],
   },
-
   roles: [
     { title: "Judges", text: "JPS engineers on the panel for the Resilience track, judging how well a build would really work." },
     { title: "Mentors", text: "JPS people moving between teams on the day, in the same spirit as the Foundation's Mentorship Programme." },
@@ -155,31 +138,18 @@ const deck: SponsorDeckData = {
     { title: "Challenge input", text: "A real energy efficiency or community resilience problem teams could choose to take on." },
     { title: "Volunteers", text: "A small JPS team helping with check-in, lunch and the demo floor." },
   ],
-
   groundRules: [
     "Many participants are minors. There is no marketing aimed at students, and no student contact details or data are shared with sponsors.",
     "Any hardware or electrical build is supervised by a qualified adult, with safe, low-voltage kits only.",
     "Judging stays independent. A sponsored award is decided by the full judging panel against the published criteria.",
   ],
-
   future: [
-    "A recurring JPS Foundation award at every edition of Hack876.",
     "A showcase slot for top Hack876 Resilience builds at a future Climate Action Conference and Expo.",
     "Inviting Power Up Energy Club members from Hack876 schools to apply.",
     "A hands-on energy hardware table, in the spirit of the Foundation's robotics and electric car sessions.",
     "Sharing Power Up Scholarship information with Hack876 finalists heading to university.",
   ],
-
-  questions: [
-    "How is Hack876 different from EcoSpark and the Energy Clubs?",
-    "When and where will it happen, and which schools are confirmed?",
-    "Will students build hardware, and how is that kept safe?",
-    "What exactly will our support pay for, and how will we hear about the results?",
-    "How are students under 18 kept safe on the day?",
-  ],
-
   closingLine: "We would love to explore the right first step with Sophia and the JPS Foundation team.",
-
   sources: [
     {
       id: 1,

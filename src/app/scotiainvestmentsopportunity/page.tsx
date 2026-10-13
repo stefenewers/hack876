@@ -2,15 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
-import { Icon } from "@/components/art/Icons";
-import { TailLine } from "@/components/art/Marks";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { Bridge, Compounding, FuturePaths, Seedling } from "@/components/proposal/Illustrations";
+import { Compounding } from "@/components/proposal/Illustrations";
 import { Check, Kicker, Lines, Ref } from "@/components/proposal/primitives";
-import { eligibility, event, eventWhen, schools, stats } from "@/data/event";
-import { BandStrip, LevelsSection, lowerLevels, SupportSection } from "@/components/proposal/Sponsorship";
+import { eligibility, event, eventWhen } from "@/data/event";
+import { BandStrip, LevelsSection } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
+import { DeliverySection, NextSection, OpeningSummary } from "@/components/proposal/PartnershipSections";
 
 /*
  * Private partnership proposal for Scotia Investments Jamaica Limited.
@@ -19,7 +18,6 @@ import "@/components/proposal/proposal.css";
  */
 
 const SPONSOR = "Scotia Investments Jamaica Limited";
-const SHORT = "Scotia Investments";
 const DECK_LABEL = `Hack876 × ${SPONSOR}`;
 /* Partner accent, used sparingly. */
 const SCOTIA_RED = "#ec111a";
@@ -37,12 +35,11 @@ export const metadata: Metadata = {
 
 /* Canonical numbers come from the event data. */
 const STUDENTS = eligibility.maxHackers;
-const PARTNER_SCHOOLS = schools.length;
-const TEAMS = stats.find((s) => s.label === "teams")?.value;
-const FORMS = eligibility.formOptions;
-const TEAM_SIZE = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
+/* -------------------------------------------------------------------------- */
+/*  Page                                                                      */
+/* -------------------------------------------------------------------------- */
 
-/* First-party Scotia sources for every Scotia claim on this page. */
+const SHORT = "Scotia Investments";
 const SOURCES = [
   {
     id: 1,
@@ -94,10 +91,6 @@ const SOURCES = [
   },
 ] as const;
 
-/* -------------------------------------------------------------------------- */
-/*  Page                                                                      */
-/* -------------------------------------------------------------------------- */
-
 export default function ScotiaInvestmentsOpportunityPage() {
   return (
     <div className="lp" style={{ "--lp-deck-label": `"${DECK_LABEL}"` } as CSSProperties}>
@@ -114,43 +107,43 @@ export default function ScotiaInvestmentsOpportunityPage() {
 
       <main id="main">
         <div className="lp-page">
-          <Hero />
-        </div>
-        <div className="lp-page">
-          <BigIdea />
-          <MeetHack876 />
-        </div>
-        <div className="lp-page">
-          <NotJustApps />
+          <OpeningSummary
+            label={DECK_LABEL}
+            docLabel="Private partnership proposal"
+            org="Scotia Investments"
+            headline={`The best investments are often made before the potential is obvious.`}
+            highlight={`obvious`}
+            sub={`Hack876 gives secondary-school students one day to build something real. Scotia professionals can help them think about what it would cost, and who would pay for it.`}
+            brief={{
+              fit: `Scotiabank’s ScotiaRISE programme is a 10-year commitment to economic resilience with a focus on youth and education, and Scotia Investments advises clients to invest early and for the long haul.`,
+              request: `A Platinum contribution toward the inaugural event, with Scotia professionals mentoring teams on business models and money.`,
+              enables: `Helps support the equipment teams build with, the prizes, student meals and the running of the day. Mentors help teams work out who would pay for what they build, and what it would cost to run.`,
+              outcome: `Scotia people work with about ${STUDENTS} students on financial thinking applied to their own projects. Scotia Investments receives Platinum recognition and a written recap.`,
+              next: `A conversation with Padrique Duncan, who knows both Scotia Investments and Hack876, on the right level and who would approve it.`,
+            }}
+            requestDetail={`Platinum Partner: J$1,000,000+. Any level is welcome, and the levels are set out in the appendix.`}
+          />
         </div>
         <div className="lp-page">
           <WhyScotia />
+        </div>
+        <div className="lp-page">
           <AlreadyInvests />
-        </div>
-        <div className="lp-page">
-          <PotentialCompounds />
-        </div>
-        <div className="lp-page">
-          <SchoolNetwork />
-          <BridgeSection />
         </div>
         <div className="lp-page">
           <MoreThanMoney />
         </div>
         <div className="lp-page">
           <GoldPartner />
-          <GoldBenefits />
         </div>
         <div className="lp-page">
-          <PrizeAndFood />
-          <SpecialAwards />
+          <DeliverySection n="05" linked="Jamaica College" />
         </div>
         <div className="lp-page">
-          <Summary />
+          <NextSection n="06" next="A reply on whether Scotia Investments would consider Platinum or another level, and which professionals could mentor." route="Padrique Duncan of Scotia Investments is a Hack876 partner and can give context internally." closing="We would love to explore the right first step with the Scotia Investments team." />
         </div>
         <div className="lp-page">
-          <YearOne />
-          <LongerView />
+          <LevelsSection n="07" heading="Contribution levels, and what each receives." lead="Any amount within a level is welcome." recommended="platinum" />
         </div>
         <div className="lp-page">
           <Closing />
@@ -161,264 +154,15 @@ export default function ScotiaInvestmentsOpportunityPage() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Hero                                                                      */
-/* -------------------------------------------------------------------------- */
-
-function Hero() {
-  const heroStats = [
-    { n: STUDENTS, label: "students" },
-    { n: PARTNER_SCHOOLS, label: "school network" },
-    { n: 1, label: "day" },
-  ];
-  return (
-    <section aria-labelledby="lp-hero-title" className="lp-hero lp-grid-bg relative flex min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden border-y lp-rule">
-      <div className="lp-wrap w-full pt-16 sm:pt-24">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-sm font-bold tracking-[0.16em] text-ink-soft uppercase">{DECK_LABEL}</p>
-          <p className="inline-flex items-center gap-2 rounded-full border lp-rule bg-paper px-3 py-1 text-xs font-bold tracking-[0.12em] text-ink-soft uppercase">
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ background: SCOTIA_RED }} />
-            Private partnership proposal
-          </p>
-        </div>
-
-        <h1 id="lp-hero-title" className="lp-h1 mt-10 max-w-[17ch] sm:mt-14">
-          The best investments are often made{" "}
-          <span className="relative inline-block text-emerald-deep">
-            before the potential is obvious.
-            <TailLine draw={false} className="absolute -bottom-2 left-0 h-4 w-full" />
-          </span>
-        </h1>
-        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-2 sm:text-xl">
-          Hack876 is inviting {SHORT} to back Jamaica&rsquo;s next generation of builders, founders and problem solvers
-          before the world knows their names.
-        </p>
-        <p className="mt-6 text-lg font-bold tracking-wide text-ink-2">Kingston, Jamaica · {eventWhen.short}
-          {eventWhen.note}</p>
-      </div>
-
-      <div className="lp-wrap relative w-full pt-12 pb-10 sm:pb-14">
-        <div aria-hidden className="pointer-events-none absolute -top-24 right-4 hidden w-44 opacity-95 sm:block lg:right-10 lg:w-56 print:block print:-top-32 print:w-60">
-          <DoctorBird flutter={false} className="w-full" />
-        </div>
-        <dl className="grid grid-cols-3 border-t lp-rule">
-          {heroStats.map((s, i) => (
-            <div key={s.label} className={`pt-5 ${i ? "border-l lp-rule pl-4 sm:pl-8" : ""}`}>
-              <dt className="sr-only">{s.label}</dt>
-              <dd>
-                <span className="lp-num block text-[clamp(3.4rem,11vw,8rem)]">{s.n}</span>
-                <span className="mt-2 block text-sm font-bold tracking-[0.12em] text-ink-soft uppercase sm:text-base">{s.label}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className="lp-marker mt-10 text-[clamp(1.6rem,3.4vw,2.6rem)]">One day to build something that should exist.</p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  01 The big idea                                                           */
-/* -------------------------------------------------------------------------- */
-
-function BigIdea() {
-  return (
-    <section aria-labelledby="lp-idea" className="lp-section lp-dense relative">
-      <div className="lp-wrap">
-        <Kicker n="01">The big idea</Kicker>
-        <h2 id="lp-idea" className="lp-statement mt-6 max-w-[20ch]" data-reveal>
-          Somewhere among the students who walk into Hack876 is a future founder.
-        </h2>
-        <div className="mt-12 grid gap-10 md:grid-cols-[1fr_1.3fr] md:items-center print:mt-4 print:grid-cols-[0.8fr_1.3fr] print:items-center">
-          <div aria-hidden className="hidden md:block print:block">
-            <FuturePaths
-              paths={[
-                { icon: "board", label: "Engineering" },
-                { icon: "chart", label: "Capital" },
-                { icon: "wildcard", label: "Unnoticed problems" },
-                { icon: "phone", label: "Products" },
-                { icon: "business", label: "A company" },
-              ]}
-              className="mx-auto w-full max-w-md print:max-w-[3.1in]"
-            />
-          </div>
-          <div data-reveal>
-            <Lines
-              items={[
-                "Another may become an engineer.",
-                "Another may manage capital.",
-                "Another may design products used by millions.",
-                "Another may build a company that employs hundreds of Jamaicans.",
-                "Another may solve a problem none of us has noticed yet.",
-                "Most institutions will first meet them later: at university, at a career fair, when a résumé arrives, or after somebody else has already recognized their potential.",
-              ]}
-            />
-            <p className="lp-sub mt-6 text-emerald-deep">Hack876 creates an opportunity to meet them sooner.</p>
-          </div>
-        </div>
-        <p className="lp-marker lp-keep mt-12 text-[clamp(2.4rem,6vw,4.6rem)] print:mt-6">Potential compounds too.</p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  02 Meet Hack876                                                           */
-/* -------------------------------------------------------------------------- */
-
-function MeetHack876() {
-  return (
-    <section aria-labelledby="lp-meet" className="lp-section lp-dense border-t lp-rule">
-      <div className="lp-wrap">
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 print:grid-cols-[0.6fr_1.4fr] print:gap-10">
-          <div className="lg:sticky lg:top-10 lg:self-start">
-            <Kicker n="02">What is Hack876?</Kicker>
-            <h2 id="lp-meet" className="lp-h2 mt-6">
-              Meet <span className="whitespace-nowrap">Hack876.</span>
-            </h2>
-            <div aria-hidden className="mt-10 hidden gap-3 lg:flex print:flex">
-              {["laptop", "notebook", "sticky", "people"].map((n, i) => (
-                <Icon key={n} name={n} className="diecut h-14 w-14" style={{ rotate: `${[-8, 5, -3, 9][i]}deg` }} />
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <div className="lp-prose">
-              <p>
-                Hack876 is a one-day build competition for approximately{" "}
-                <strong className="text-ink">{STUDENTS} secondary-school students</strong> from {FORMS[0]} through{" "}
-                {FORMS[FORMS.length - 1]}, working in teams of {TEAM_SIZE}
-                {TEAMS ? `, roughly ${TEAMS} teams in all` : ""}.
-              </p>
-              <p>
-                Teams pick a real problem, use modern tools including AI, get guidance from mentors, and finish the day with a
-                working prototype and a pitch to judges. It is not a school assignment and there is no answer key.
-              </p>
-              <p>
-                Our <strong className="text-ink">{PARTNER_SCHOOLS}-school network</strong> in Kingston is made up of the
-                schools where the Hack876 team currently has relationships and can coordinate most reliably. It is not an
-                exclusive eligibility list.
-              </p>
-            </div>
-
-            <div className="lp-keep my-9 rounded-2xl border-2 border-ink bg-paper p-6 shadow-[4px_5px_0_0_var(--color-emerald)] sm:p-8">
-              <h3 className="lp-h3 text-[clamp(1.3rem,2.2vw,1.7rem)]">Hack876 is open to eligible students beyond those schools.</h3>
-              <div className="lp-prose mt-4 text-[1.02rem]">
-                <p>Students from elsewhere in Kingston or other parts of Jamaica may apply, subject to capacity.</p>
-                <p>
-                  In this inaugural year, students outside our immediate network may need to make their own transportation and
-                  accommodation arrangements.
-                </p>
-                <p className="font-bold text-ink">That is a year-one capacity constraint, not a limit on the long-term vision.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="lp-keep mt-10 text-center print:mt-6">
-          <p className="lp-marker relative inline-block text-[clamp(2.6rem,7vw,5.6rem)]" data-reveal>
-            Build something that should exist.
-            <TailLine className="absolute -bottom-4 left-[5%] h-5 w-[90%]" />
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  03 Not just apps                                                          */
-/* -------------------------------------------------------------------------- */
-
-const BUILDS: { label: string; icon: string; physical?: boolean }[] = [
-  { label: "A piece of software", icon: "browser" },
-  { label: "An AI tool", icon: "spark" },
-  { label: "An automation", icon: "bot-free" },
-  { label: "A data product", icon: "chart" },
-  { label: "A financial tool", icon: "business" },
-  { label: "Hardware", icon: "board", physical: true },
-  { label: "A robot", icon: "gear", physical: true },
-  { label: "A physical prototype", icon: "hand", physical: true },
-  { label: "A resilience solution", icon: "resilience", physical: true },
-];
-
-const PROCESS = ["Identify a problem", "Understand the constraints", "Design a solution", "Build", "Test", "Explain", "Improve"];
-
-function NotJustApps() {
-  return (
-    <section aria-labelledby="lp-apps" className="lp-section lp-grid-bg border-y lp-rule bg-paper">
-      <div className="lp-wrap">
-        <Kicker n="03">Not just apps</Kicker>
-        <h2 id="lp-apps" className="lp-h2 mt-6 max-w-[16ch]">
-          A hackathon is bigger than software.
-        </h2>
-        <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_1.4fr] print:mt-5 print:grid-cols-[1fr_1.6fr]">
-          <Lines
-            items={[
-              "Innovation is broader than fintech, and Hack876 is broader than coding.",
-              "It is an open build competition. Teams choose the problem and the medium.",
-              "No team will be steered toward a finance challenge because of who sponsors the day.",
-              "A team might build:",
-            ]}
-          />
-          <div>
-            <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-              {BUILDS.map((b) => (
-                <li
-                  key={b.label}
-                  className={`flex items-center gap-3 rounded-xl border px-3.5 py-2.5 font-semibold ${
-                    b.physical ? "border-ink/25 bg-mint/60" : "border-ink/15 bg-cream"
-                  }`}
-                >
-                  <Icon name={b.icon} className="h-8 w-8 shrink-0" />
-                  {b.label}
-                </li>
-              ))}
-              <li className="flex items-center gap-3 rounded-xl border border-dashed border-ink/30 px-3.5 py-2.5 font-semibold">
-                <Icon name="wildcard" className="h-8 w-8 shrink-0" />
-                Something none of us expected
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="lp-keep mt-14 print:mt-8">
-          <p className="lp-statement">The medium does not matter.</p>
-          <p className="lp-sub mt-2 text-emerald-deep">The problem-solving mindset does.</p>
-        </div>
-
-        <figure className="lp-keep mt-12 print:mt-6">
-          <figcaption className="sr-only">The Hack876 process: {PROCESS.join(", then ")}. Then the loop repeats.</figcaption>
-          <ol className="relative grid gap-0 md:grid-cols-7 print:grid-cols-7">
-            {PROCESS.map((step, i) => (
-              <li key={step} className="relative flex items-center gap-4 py-2 md:flex-col md:items-start md:gap-3 md:py-0 print:flex-col print:items-start print:gap-3 print:py-0">
-                {i < PROCESS.length - 1 && (
-                  <span aria-hidden className="absolute top-12 left-[1.2rem] h-full w-px bg-ink/25 md:top-[1.2rem] md:left-10 md:h-px md:w-[calc(100%-2.5rem)] print:top-[1.2rem] print:left-10 print:h-px print:w-[calc(100%-2.5rem)]" />
-                )}
-                <span className={`relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full border-2 border-ink text-sm font-extrabold ${i === 3 ? "bg-sun" : "bg-paper"}`}>
-                  {i + 1}
-                </span>
-                <span className="pr-2 leading-snug font-bold">{step}</span>
-              </li>
-            ))}
-          </ol>
-        </figure>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
 /*  04 Why Scotia Investments                                                 */
 /* -------------------------------------------------------------------------- */
 
 function WhyScotia() {
   return (
-    <section aria-labelledby="lp-why" className="lp-section lp-dense">
+    <section aria-labelledby="lp-why" className="lp-section lp-dense lp-center">
       <div className="lp-wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 print:grid-cols-[0.7fr_1.3fr]">
         <div>
-          <Kicker n="04">Why Scotia Investments</Kicker>
+          <Kicker n="01">Why Scotia Investments</Kicker>
           <h2 id="lp-why" className="lp-h2 mt-6">
             Scotia already believes in long horizons.
           </h2>
@@ -486,7 +230,7 @@ function AlreadyInvests() {
   return (
     <section aria-labelledby="lp-already" className="lp-section lp-dark lp-grid-bg relative overflow-hidden">
       <div className="lp-wrap">
-        <Kicker n="05">Already in motion</Kicker>
+        <Kicker n="02">Already in motion</Kicker>
         <h2 id="lp-already" className="lp-h2 mt-6 max-w-[20ch]">
           This would extend a story Scotia is already telling.
         </h2>
@@ -525,164 +269,6 @@ function AlreadyInvests() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  06 Potential compounds                                                    */
-/* -------------------------------------------------------------------------- */
-
-const CHAIN = [
-  "Curiosity",
-  "Access",
-  "A first build",
-  "Confidence",
-  "University or training",
-  "A career or a company",
-  "Economic contribution",
-  "Someone else gets an opportunity",
-];
-
-function PotentialCompounds() {
-  return (
-    <section aria-labelledby="lp-compound" className="lp-section">
-      <div className="lp-wrap">
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 print:grid-cols-[0.7fr_1.3fr] print:gap-10">
-          <div>
-            <Kicker n="06">Potential compounds</Kicker>
-            <h2 id="lp-compound" className="lp-h2 mt-6">
-              The earliest investment is access.
-            </h2>
-          </div>
-          <Lines
-            items={[
-              "Talent is everywhere. Access to the room where talent gets noticed is not.",
-              "Hack876 puts ambitious students in that room earlier: with real problems, real tools and people who take their ideas seriously.",
-              <strong key="s" className="text-ink">What happens next can travel a long way.</strong>,
-            ]}
-          />
-        </div>
-
-        {/* The chain, rising like a compounding curve */}
-        <figure className="lp-keep mt-14 print:mt-8">
-          <figcaption className="sr-only">A progression: {CHAIN.join(", then ")}.</figcaption>
-          <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-8 lg:items-end print:grid-cols-8 print:items-end">
-            {CHAIN.map((c, i) => (
-              <li key={c} className="relative">
-                <div
-                  className={`flex h-full flex-col justify-end rounded-2xl border-2 p-4 ${
-                    i === CHAIN.length - 1 ? "border-ink bg-emerald text-white" : i === 1 ? "border-ink bg-sun" : "border-ink/70 bg-paper"
-                  }`}
-                  style={{ minHeight: `${4.5 + i * 1.1}rem` }}
-                >
-                  <span className={`text-xs font-extrabold tabular-nums ${i === CHAIN.length - 1 ? "text-white/80" : "text-ink-soft"}`}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="mt-1 leading-tight font-extrabold">{c}</span>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <TailLine draw={false} className="mt-4 hidden h-6 w-full lg:block print:block" />
-        </figure>
-
-        <p className="lp-sub mt-10 max-w-[34ch] text-emerald-deep">The return does not have to show up this quarter to matter.</p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  07 School network                                                         */
-/* -------------------------------------------------------------------------- */
-
-function SchoolNetwork() {
-  return (
-    <section aria-labelledby="lp-schools" className="lp-section lp-dense bg-paper">
-      <div className="lp-wrap">
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 print:grid-cols-[0.7fr_1.3fr] print:gap-10">
-          <div>
-            <Kicker n="07">The school network</Kicker>
-            <h2 id="lp-schools" className="lp-h2 mt-6">
-              {PARTNER_SCHOOLS} schools. One room.
-            </h2>
-          </div>
-          <div>
-            <Lines
-              items={[
-                "Hack876 begins with the schools where we already have relationships and can coordinate most reliably. Formal confirmations are still in progress for most of them, and the network is not an exclusive eligibility list.",
-              ]}
-            />
-            <ul className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 print:grid-cols-2">
-              {schools.map((s) => (
-                <li
-                  key={s}
-                  className={`rounded-xl border px-4 py-2.5 font-semibold ${s === "Jamaica College" ? "border-2 border-ink bg-sun-light" : "lp-rule bg-cream"}`}
-                >
-                  {s}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="lp-keep mt-10 max-w-3xl border-l-4 border-emerald pl-5 print:mt-6">
-          <p className="lp-prose">
-            <strong className="text-ink">Jamaica College</strong> matters to this conversation for a simple reason: a
-            relationship already connects Scotia Investments, Jamaica College and Hack876. JC does not own or host Hack876,
-            and Hack876 remains a multi-school event. But it is why this introduction feels natural.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  08 A bridge already exists                                                */
-/* -------------------------------------------------------------------------- */
-
-function BridgeSection() {
-  return (
-    <section aria-labelledby="lp-bridge" className="lp-section lp-dense lp-grid-bg border-t lp-rule">
-      <div className="lp-wrap">
-        <Kicker n="08">A bridge already exists</Kicker>
-        <h2 id="lp-bridge" className="lp-h2 mt-6 max-w-[22ch]">
-          Partnerships work better when someone carries the context.
-        </h2>
-
-        <Bridge labels={[SHORT, "Jamaica College", "Hack876"]} className="mx-auto mt-10 w-full max-w-3xl print:mt-4 print:max-w-[6in]" />
-
-        <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16 print:mt-6 print:grid-cols-2 print:gap-8">
-          <Lines
-            items={[
-              "Hack876 is not looking for a cheque and a logo followed by silence. We want a relationship Scotia understands internally and Hack876 can execute well externally.",
-              <span key="p">
-                <strong className="text-ink">Padrique Duncan</strong> is the person making this introduction possible.
-              </span>,
-              "If Padrique is open to it, we would love for him to help steward the relationship on Scotia’s side: carrying context in both directions, helping identify the right people to involve, and helping us build something useful over time.",
-            ]}
-          />
-          <div className="lp-keep rounded-2xl border-2 border-ink bg-paper p-6 shadow-[4px_5px_0_0_var(--color-emerald)]">
-            <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">What stewardship could look like</p>
-            <ul className="mt-4 space-y-2.5">
-              {[
-                "Carrying feedback between both sides",
-                "Helping coordinate internal Scotia conversations",
-                "Helping identify Scotia judges, mentors or speakers",
-                "Keeping the relationship focused and useful",
-                "Helping both sides decide what a second year could look like",
-              ].map((t) => (
-                <li key={t} className="flex gap-2.5 font-semibold">
-                  <Check className="mt-0.5 text-emerald-deep" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <p className="lp-note mt-4">An invitation, not an obligation.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
 /*  09 More than money                                                        */
 /* -------------------------------------------------------------------------- */
 
@@ -697,9 +283,9 @@ const ROLES = [
 
 function MoreThanMoney() {
   return (
-    <section aria-labelledby="lp-more" className="lp-section lp-dense bg-paper">
+    <section aria-labelledby="lp-more" className="lp-section lp-dense lp-center bg-paper">
       <div className="lp-wrap">
-        <Kicker n="09">More than money</Kicker>
+        <Kicker n="03">More than money</Kicker>
         <h2 id="lp-more" className="lp-h2 mt-6 max-w-[24ch]">
           The most valuable thing Scotia can bring is not necessarily the cheque.
         </h2>
@@ -753,7 +339,7 @@ function GoldPartner() {
   return (
     <section aria-labelledby="lp-gold" className="lp-section lp-dark relative overflow-hidden">
       <div className="lp-wrap relative">
-        <Kicker n="10">Our invitation</Kicker>
+        <Kicker n="04">Our invitation</Kicker>
         <h2 id="lp-gold" className="lp-h2 mt-6 max-w-[18ch]">
           Become a Platinum Partner of the inaugural Hack876.
         </h2>
@@ -794,201 +380,6 @@ function GoldPartner() {
     </section>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  11 Benefits                                                               */
-/* -------------------------------------------------------------------------- */
-
-const BENEFITS = [
-  "Founding-year association with the first Hack876",
-  "Meaningful participation for Scotia professionals as judges, mentors and speakers",
-  "Proximity to emerging Jamaican talent before it is widely visible",
-  "Relationships with the schools in the Hack876 network",
-  "A youth-development story Scotia can tell with substance",
-  "Photo and video storytelling from the event",
-  "Visibility across event materials, appropriate to the level selected",
-  "Invitation to the finals and awards",
-  "A post-event recap, and the option to explore a longer relationship after year one",
-];
-
-function GoldBenefits() {
-  return (
-    <section aria-labelledby="lp-benefits" className="lp-section">
-      <div className="lp-wrap">
-        <Kicker n="11">What partnership looks like</Kicker>
-        <h2 id="lp-benefits" className="lp-h2 mt-6">
-          More than a logo placement.
-        </h2>
-        <ol className="mt-10 grid border-t lp-rule sm:grid-cols-2 lg:grid-cols-3 print:mt-6 print:grid-cols-3">
-          {BENEFITS.map((b, i) => (
-            <li key={b} className="flex gap-4 border-b lp-rule py-6 pr-6">
-              <span className="lp-num text-2xl text-emerald-deep">{String(i + 1).padStart(2, "0")}</span>
-              <span className="text-[1.05rem] leading-snug font-semibold">{b}</span>
-            </li>
-          ))}
-        </ol>
-        <p className="lp-note mt-6">
-          We will not promise media reach, impressions, press coverage or data we cannot substantiate. Everything above is
-          deliverable by the Hack876 team.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  12 Prize and hospitality                                                  */
-/* -------------------------------------------------------------------------- */
-
-function PrizeAndFood() {
-  return (
-    <LevelsSection
-      n="12"
-      heading="The size of the commitment can change."
-      lead="The invitation to be part of the first Hack876 does not. Any amount within a level is welcome."
-      recommended="platinum"
-    />
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  13 Special awards                                                         */
-/* -------------------------------------------------------------------------- */
-
-
-function SpecialAwards() {
-  return <SupportSection n="13" heading="No contribution has to cover a whole cost." uses={["overall", "prizes", "awards", "meals", "production", "programming"]} />;
-}
-
-/* -------------------------------------------------------------------------- */
-/*  14 Summary                                                                */
-/* -------------------------------------------------------------------------- */
-
-function Summary() {
-  const options = lowerLevels();
-  return (
-    <section aria-labelledby="lp-summary" className="lp-section">
-      <div className="lp-wrap">
-        <Kicker n="14">Partnership summary</Kicker>
-        <h2 id="lp-summary" className="lp-h2 mt-6">
-          Every option at a glance.
-        </h2>
-
-        <div className="mt-10 grid gap-5 lg:grid-cols-5 print:mt-6 print:grid-cols-5">
-          <div className="lp-keep flex flex-col justify-between rounded-3xl bg-night p-8 text-cream lg:col-span-2 print:col-span-2">
-            <div>
-              <p className="text-sm font-extrabold tracking-[0.18em] text-sun uppercase">Platinum Partner</p>
-              <p className="lp-num mt-5 text-[clamp(2.8rem,6vw,4.6rem)] text-sun">J$1,000,000</p>
-              <p className="mt-2 text-sm font-bold tracking-[0.12em] text-cream/70 uppercase">Founding Partner · Inaugural Hack876</p>
-            </div>
-            <p className="mt-8 text-lg leading-relaxed text-cream/90">Flexible support for the inaugural Hack876 and the student experience.</p>
-          </div>
-          <ul className="grid gap-3 lg:col-span-3 print:col-span-3">
-            {options.map((o) => (
-              <li key={o.name} className="lp-keep flex flex-wrap items-center justify-between gap-x-6 gap-y-1 rounded-2xl border lp-rule bg-paper px-5 py-4">
-                <div>
-                  <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">{o.name}</p>
-                  <p className="mt-1 text-ink-2">{o.text}</p>
-                </div>
-                <p className="lp-num text-3xl">{o.amount}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <p className="lp-prose mt-8">
-          Independently of any sponsorship, Scotia professionals are welcome as judges, mentors or speakers, subject to
-          Hack876&rsquo;s final programming.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  15 Year one                                                               */
-/* -------------------------------------------------------------------------- */
-
-function YearOne() {
-  return (
-    <section aria-labelledby="lp-year1" className="lp-section bg-paper">
-      <div className="lp-wrap grid items-center gap-12 lg:grid-cols-[1.35fr_0.65fr] print:grid-cols-[1.4fr_0.6fr] print:gap-10">
-        <div>
-          <Kicker n="15">Year one</Kicker>
-          <h2 id="lp-year1" className="lp-h2 mt-6">
-            Deliberately focused.
-          </h2>
-          <Lines
-            className="mt-8"
-            items={[
-              "Our vision is national. This inaugural staging does not have national-event resources, and we will not pretend it does.",
-              `Approximately ${STUDENTS} students. A school network of ${PARTNER_SCHOOLS} in Kingston. One day, done properly.`,
-            ]}
-          />
-          <ul className="mt-8 space-y-1">
-            {["Build the first one well.", "Learn from it.", "Earn the right to make the second one bigger."].map((t, i) => (
-              <li key={t} className="lp-sub" style={{ color: ["var(--color-ink)", "var(--color-ink-2)", "var(--color-emerald-deep)"][i] }}>
-                {t}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div aria-hidden className="hidden lg:block print:block">
-          <Seedling className="mx-auto w-full max-w-xs print:max-w-[2.6in]" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  16 The longer view                                                        */
-/* -------------------------------------------------------------------------- */
-
-function LongerView() {
-  return (
-    <section aria-labelledby="lp-longer" className="lp-section lp-dense">
-      <div className="lp-wrap">
-        <Kicker n="16">The longer view</Kicker>
-        <h2 id="lp-longer" className="lp-h2 mt-6 max-w-[22ch]">
-          No multi-year commitment required.
-        </h2>
-
-        <div className="mt-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] print:mt-6 print:grid-cols-[0.8fr_1.2fr]">
-          <div className="lp-keep rounded-2xl border-2 border-ink bg-sun-light p-6">
-            <p className="lp-num text-5xl">{event.year}</p>
-            <p className="mt-3 text-xl font-extrabold">Support the first Hack876.</p>
-            <p className="mt-2 text-ink-2">That is the whole ask.</p>
-          </div>
-          <div className="lp-keep rounded-2xl border border-dashed border-ink/40 p-6">
-            <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">
-              Future possibilities, only if both sides find it valuable. Not commitments.
-            </p>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {[
-                "Recurring event partnership",
-                "Scotia colleagues returning as mentors and judges",
-                "Deeper entrepreneurship or financial-literacy programming",
-                "Support for students from outside Kingston",
-                "Career exposure once participants reach an appropriate age",
-                "Reaching more schools",
-                "A Hack876 alumni network",
-              ].map((t) => (
-                <li key={t} className="rounded-full border lp-rule bg-paper px-3.5 py-1.5 text-sm font-semibold">
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Closing                                                                   */
-/* -------------------------------------------------------------------------- */
 
 function Closing() {
   return (

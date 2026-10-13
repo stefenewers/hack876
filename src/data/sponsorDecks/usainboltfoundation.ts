@@ -6,22 +6,25 @@ const deck: SponsorDeckData = {
   sponsor: "Usain Bolt Foundation",
   short: "Usain Bolt Foundation",
   article: "the",
-  /* No distinct Foundation colour exists; avoid the personal wordmark gold. Hack876 green instead. */
   accent: "#0a7a3e",
-
   recipient: {
     name: "Rev. Winsome Wilkins",
     title: "Chairman, Usain Bolt Foundation",
     ref: 1,
   },
   preparedFor: "A private partnership proposal prepared for Rev. Winsome Wilkins, Chairman, Usain Bolt Foundation.",
-
   hero: {
     headline: "A day for young Jamaicans to dare to dream.",
     highlight: "dare to dream",
-    sub: "The Usain Bolt Foundation creates opportunities through education and cultural development. Hack876 gives secondary-school students one day to turn a bold idea into something real, and a Foundation award would tell them that idea counts.",
+    sub: "The Usain Bolt Foundation creates opportunities through education and cultural development. Hack876 gives secondary-school students one day to turn a bold idea into something real.",
   },
-
+  brief: {
+    fit: "The Usain Bolt Foundation creates opportunities for children through education and cultural development, and has donated laptops and computers to schools.",
+    request: "A Bronze contribution toward the existing Boldest Idea award and the student programme.",
+    enables: "Helps support the award for the boldest idea of the day, and mentoring for every team.",
+    outcome: "Bronze recognition, the option to present the Boldest Idea award, and a written recap.",
+    next: "A reply on whether the Foundation would consider this, and whether a representative would like to present.",
+  },
   why: {
     headline: "Education, culture and technology, for children.",
     mission: {
@@ -34,26 +37,13 @@ const deck: SponsorDeckData = {
         text: "The Foundation's values include giving every child the opportunity to 'Dare to Dream', and its practices include embracing innovation and the use of technology.",
         ref: 1,
       },
-      {
-        text: "In 2021 the Foundation donated 150 laptops, valued at US$40,000, to schools in rural Jamaica.",
-        ref: 2,
-      },
-      {
-        text: "In 2020 it joined Microsoft UK to bring computer equipment to seven schools in Trelawny.",
-        ref: 3,
-      },
-      {
-        text: "In 2025 it gave J$6.1 million in cash and kind to six rural high schools to help student-athletes prepare for ISSA Champs.",
-        ref: 4,
-      },
-      {
-        text: "In 2026 it gave just under J$10 million so that more than 100 students in western Jamaica could start secondary school.",
-        ref: 5,
-      },
+      { text: "In 2021 the Foundation donated 150 laptops, valued at US$40,000, to schools in rural Jamaica.", ref: 2 },
+      { text: "In 2020 it joined Microsoft UK to bring computer equipment to seven schools in Trelawny.", ref: 3 },
+      { text: "In 2025 it gave J$6.1 million in cash and kind to six rural high schools to help student-athletes prepare for ISSA Champs.", ref: 4 },
+      { text: "In 2026 it gave just under J$10 million so that more than 100 students in western Jamaica could start secondary school.", ref: 5 },
     ],
     tie: "Hack876 is a day when a young Jamaican's boldest idea gets taken seriously, often for the very first time.",
   },
-
   story: {
     kicker: "What the Usain Bolt Foundation already backs",
     headline: "Opportunity, one child at a time.",
@@ -91,80 +81,53 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "The Foundation already puts technology and opportunity in children's hands. Hack876 is one day where students show what they can build with them.",
-    art: "Seedling",
   },
-
   paths: [
     {
       label: "Foundation",
-      title: "A Foundation special award",
+      title: "Support for the Boldest Idea award",
       points: [
-        "Contribute toward a special award",
-        "A proposed Dare to Dream Award, if it fits",
+        "Contribute toward the existing Boldest Idea award",
         "Presented on the day by a Foundation representative, if the Foundation wishes",
         "Small, specific and easy to report on",
       ],
     },
-    {
-      label: "In-kind",
-      title: "A device for a young builder",
-      points: [
-        "A laptop or tablet as an award prize, in the spirit of past device donations",
-        "Recognition worded and approved by the Foundation",
-      ],
-    },
   ],
-
   ask: {
     lead: "band",
     band: "bronze",
     uses: ["awards", "programming"],
-    why: "A contribution toward a special award is a small, clear commitment that matches the Foundation's 'Dare to Dream' value. The amount and the award are the Foundation's choice.",
+    why: "A contribution toward the Boldest Idea award is a small, clear commitment that matches the Foundation's 'Dare to Dream' value. The amount is the Foundation's choice.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    award: {
-      name: "Dare to Dream Award (proposed)",
-      text: "A suggestion only: the Foundation could back the award for the boldest idea of the day, named for its 'Dare to Dream' value. Criteria would be agreed together, and the judging panel would decide.",
-    },
     tracks: ["Culture", "Learn", "Wellbeing"],
     inkind: [
-      "A laptop or tablet for the winning team of a Foundation award",
-      "A Foundation representative to present the award",
+      "A Foundation representative to present the Boldest Idea award",
       "A short recorded message to students from the Foundation, if it would like to share one",
     ],
+    presents: "Boldest Idea",
   },
-
   roles: [
-    { title: "Award presenter", text: "A Foundation representative presents its award at the close, if the Foundation wishes." },
-    { title: "Award criteria", text: "The Foundation can help shape what 'Dare to Dream' means for the award; the judging panel makes the final call." },
-    { title: "A message to students", text: "An open invitation for the Foundation to share a short message, recorded or in person, entirely at its discretion." },
-    { title: "Judging support", text: "Board members or volunteers with an education or child-development background are welcome as guest judges, if they would like to take part." },
+    { title: "Award presenter", text: "A Foundation representative presents the award at the close, if the Foundation wishes." },
+    {
+      title: "A message to students",
+      text: "An open invitation for the Foundation to share a short message, recorded or in person, entirely at its discretion.",
+    },
+    {
+      title: "Judging support",
+      text: "Board members or volunteers with an education or child-development background are welcome as guest judges, if they would like to take part.",
+    },
   ],
-
   groundRules: [
     "No marketing to students and no sign-ups on the day. Sponsors do not collect student contact details or data.",
     "No student photos or names in sponsor promotion without school and parent consent.",
     "The Foundation's name and any mention of it are used only as the Foundation approves. No athlete imagery or likeness appears in Hack876 materials.",
   ],
-
   future: [
-    "A recurring Dare to Dream Award at every Hack876.",
     "Travel bursaries so students from the Foundation's partner high schools in western Jamaica can take part.",
     "A Hack876 edition in western Jamaica, shaped with the Foundation.",
-    "Devices for award winners, building on the Foundation's laptop and computer donations.",
     "A junior edition for younger students, closer to the Foundation's primary-school focus.",
   ],
-
-  questions: [
-    "Our focus is children at basic and primary level. Why a secondary-school event?",
-    "Most of our giving is in rural and western Jamaica. Why Kingston?",
-    "How would the Foundation's name be used, and who approves it?",
-    "Who receives the funds, and how would we see the result?",
-    "When and where is it?",
-    "How are students protected on consent, data and marketing?",
-  ],
-
   closingLine: "We would love to explore the right first step with Rev. Wilkins and the Usain Bolt Foundation team.",
-
   sources: [
     {
       id: 1,

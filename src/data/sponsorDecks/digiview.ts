@@ -6,16 +6,24 @@ const deck: SponsorDeckData = {
   sponsor: "DigiView Security",
   short: "DigiView",
   accent: "#a7144c",
-
-  recipient: { name: "the marketing team at DigiView Security Limited", title: "", ref: 2 },
+  recipient: {
+    name: "the marketing team at DigiView Security Limited",
+    title: "",
+    ref: 2,
+  },
   preparedFor: "A private partnership proposal prepared for the marketing team at DigiView Security Limited.",
-
   hero: {
     headline: "Show students how technology works beyond the screen.",
     highlight: "beyond the screen",
     sub: "Most students meet technology as an app. DigiView's technicians meet it as cable, power, cameras and a network that has to work on site. Hack876 would like students to see that side too.",
   },
-
+  brief: {
+    fit: "DigiView installs the systems it sells, through its own trained technicians. That is the hands-on side of technology most students never see.",
+    request: "A Bronze contribution toward the equipment and materials teams build with. If a contribution is not possible, technicians as mentors would be just as welcome.",
+    enables: "Teams building physical projects get parts to work with, and people who can show them how wiring, power and networking fit together.",
+    outcome: "Bronze recognition, a written recap, and about {students} students who see installation and networking presented as a career.",
+    next: "A reply from the marketing team on a contribution, mentors, or both.",
+  },
   why: {
     headline: "Technology you can hold, wire and install.",
     points: [
@@ -26,14 +34,23 @@ const deck: SponsorDeckData = {
     ],
     tie: "Hack876 is open to hardware as well as software. Students who want to build something physical need to meet people who do it for a living.",
   },
-
   story: {
     kicker: "What DigiView already does",
     headline: "Electronics, networking and installation, done as a trade.",
     format: "evidence",
     items: [
-      { label: "Since 2007", title: "A Jamaican technology supplier.", text: "Security camera systems, sold directly and to resellers, installers and security companies.", ref: 1 },
-      { label: "Technicians", title: "People who install what they sell.", text: "Direct installations by trained technicians, with staff who help customers troubleshoot.", ref: 1 },
+      {
+        label: "Since 2007",
+        title: "A Jamaican technology supplier.",
+        text: "Security camera systems, sold directly and to resellers, installers and security companies.",
+        ref: 1,
+      },
+      {
+        label: "Technicians",
+        title: "People who install what they sell.",
+        text: "Direct installations by trained technicians, with staff who help customers troubleshoot.",
+        ref: 1,
+      },
       {
         label: "Distribution",
         title: "The parts behind a system.",
@@ -48,9 +65,7 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "Behind every one of these is a set of skills a student could learn: electronics, networking, power and working on site.",
-    art: "IdeaToRealWorld",
   },
-
   paths: [
     {
       label: "Contribution",
@@ -60,20 +75,18 @@ const deck: SponsorDeckData = {
     {
       label: "People",
       title: "Technicians in the room",
-      points: [
-        "Technical mentors for hardware teams",
-        "A supervised demonstration of how a system fits together",
-        "An honest talk about technical careers",
-      ],
+      points: ["Technical mentors for hardware teams", "A supervised demonstration of how a system fits together", "An honest talk about technical careers"],
     },
   ],
-  pathsNote: { text: "DigiView lists Marketing@digiviewsecurity.com and sales@digiviewsecurity.com for enquiries.", ref: 2 },
-
+  pathsNote: {
+    text: "DigiView lists Marketing@digiviewsecurity.com and sales@digiviewsecurity.com for enquiries.",
+    ref: 2,
+  },
   ask: {
     lead: "band",
     band: "bronze",
     uses: ["equipment", "programming", "materials"],
-    why: "A Bronze contribution helps support the equipment and materials teams build with. DigiView's technicians in the room would be worth as much again.",
+    why: "A Bronze contribution helps support the equipment and materials teams build with. The alternative is time: technicians mentoring hardware teams, or running a supervised demonstration.",
     recognition: "Bronze Partner · Inaugural Hack876",
     tracks: ["Resilience", "Business", "Wildcard"],
     inkind: [
@@ -82,36 +95,23 @@ const deck: SponsorDeckData = {
       "Cables, connectors or other suitable components",
     ],
   },
-
   roles: [
     { title: "Technical mentors", text: "Technicians who help teams with wiring, power and getting devices to talk to each other." },
     { title: "Demonstration", text: "A short, supervised look at how the parts of a system connect, run by DigiView staff." },
     { title: "Speaker", text: "A short talk on what a technical career in installation and networking looks like." },
     { title: "Volunteers", text: "Staff who help with set-up and keeping the day on time." },
   ],
-
   groundRules: [
     "Any demonstration is about how the equipment works. Students are not recorded or monitored, and DigiView is not being asked to secure the venue.",
     "No selling to students and no collection of student contact details by sponsors.",
     "Sponsor staff mentor and present; the judging panel decides every award.",
   ],
-
   future: [
     "A DigiView technician on the mentor bench each year.",
     "A hardware help desk for teams building physical projects.",
     "Workplace visits for interested students, arranged through their schools.",
   ],
-
-  questions: [
-    "What would a demonstration involve, and how is it supervised?",
-    "How much time would technicians need to give?",
-    "When and where is it?",
-    "What exactly would a contribution help pay for?",
-    "How are students protected on consent, data and marketing?",
-  ],
-
   closingLine: "We would love to explore the right first step with the DigiView team.",
-
   sources: [
     { id: 1, org: "DigiView Security", label: "About Us", href: "https://digiviewsecurity.com/about-us-2/" },
     { id: 2, org: "DigiView Security", label: "Contact Us", href: "https://digiviewsecurity.com/contact-us-2/" },

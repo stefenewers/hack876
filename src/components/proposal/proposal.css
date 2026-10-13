@@ -337,4 +337,16 @@
   .lp-dense .lp-kicker + * {
     margin-top: 0.4rem !important;
   }
+  /* Short decks: tight rhythm, but centred on the page instead of pinned to the top. */
+  .lp-dense.lp-center {
+    justify-content: center;
+  }
+  .lp-dense.lp-center .lp-prose {
+    font-size: 1.45rem;
+  }
+  .lp-center .lp-note,
+  .lp-summary .lp-note {
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
 }

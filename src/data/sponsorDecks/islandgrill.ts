@@ -6,23 +6,35 @@ const deck: SponsorDeckData = {
   sponsor: "Island Grill",
   short: "Island Grill",
   accent: "#d42222",
-
-  recipient: { name: "Thalia Lyn", title: "Founder and Deputy Chairman, Island Grill", ref: 1 },
-  preparedFor:
-    "A private partnership proposal prepared for Thalia Lyn, Founder and Deputy Chairman, Island Grill, with Tania Waldron-Gooden, Chief Executive Officer.",
-
+  recipient: {
+    name: "Thalia Lyn",
+    title: "Founder and Deputy Chairman, Island Grill",
+    ref: 1,
+  },
+  preparedFor: "A private partnership proposal prepared for Thalia Lyn, Founder and Deputy Chairman, Island Grill, with Tania Waldron-Gooden, Chief Executive Officer.",
   hero: {
     headline: "Eat good. Live good. Build something.",
     highlight: "Build something.",
     sub: "Island Grill has always reached beyond the restaurant walls. Hack876 is a long day of building for young Jamaicans, and a good Jamaican lunch keeps the ideas coming.",
   },
-
+  brief: {
+    fit: "Island Grill already takes its food and its team into community projects, and its founder has backed a technology scholarship at Immaculate Conception High School.",
+    request: "One lunch, in kind, for the students and adults at Hack876.",
+    enables: "A proper Jamaican lunch at the midpoint of a long build day, so no student has to bring or buy food.",
+    outcome: "Food Partner recognition, Island Grill team members serving if they would like to, and a written recap.",
+    next: "A reply on whether a sponsored lunch is possible. We will then confirm the final headcount and any dietary needs in writing.",
+    logistics: [
+      "For about {students} students, plus mentors, judges, teachers and volunteers. We will give a final headcount in writing before anything is ordered.",
+      "Served at lunch, {lunch}, at {venue} in Kingston. The venue is confirmed.",
+      "The date, {date}, is tentative until schools confirm it.",
+      "Vegetarian meals included. We will pass on any dietary needs we are told about.",
+    ],
+  },
   why: {
     headline: "Real food, and a real skill set, for young Jamaicans.",
     mission: {
       label: "Island Grill",
-      quote:
-        "We create value for all stakeholders by delighting our customers, each and every time, with excellent food and service, with ease, grace and joy; making it possible for all to Eat Good and Live Good.",
+      quote: "We create value for all stakeholders by delighting our customers, each and every time, with excellent food and service, with ease, grace and joy; making it possible for all to Eat Good and Live Good.",
       ref: 2,
     },
     points: [
@@ -45,7 +57,6 @@ const deck: SponsorDeckData = {
     ],
     tie: "Hack876 asks students to try something new and see it through, which is exactly how Island Grill was built.",
   },
-
   story: {
     kicker: "What Island Grill already does",
     headline: "A Jamaican brand that feeds more than its customers.",
@@ -75,23 +86,15 @@ const deck: SponsorDeckData = {
         text: "The Lyn Family/Island Grill Scholarship in Technology is announced at Immaculate Conception High School.",
         ref: 3,
       },
-      {
-        label: "2026",
-        title: "Still growing.",
-        text: "Eighteen restaurants, with a plan to reach 30 by 2030.",
-        ref: 1,
-      },
+      { label: "2026", title: "Still growing.", text: "Eighteen restaurants, with a plan to reach 30 by 2030.", ref: 1 },
     ],
     takeaway: "Island Grill already feeds communities and backs young people in technology. One lunch at Hack876 puts both in the same room.",
-    art: "Seedling",
   },
-
   linkedSchool: {
     school: "Immaculate Conception High School",
-    text: "Thalia Lyn is an Immaculate alumna, the first inductee of its Hall of Fame in 2013, and announced a technology scholarship there in 2024. Our judge Sheneska Williams is an Immaculate alumna too. Immaculate is in the Hack876 school network; its participation is not yet confirmed.",
+    text: "Thalia Lyn is an Immaculate alumna, the first inductee of its Hall of Fame in 2013, and announced a technology scholarship there in 2024. Our judge Sheneska Williams is an Immaculate alumna too.",
     ref: 3,
   },
-
   paths: [
     {
       label: "Food",
@@ -109,21 +112,16 @@ const deck: SponsorDeckData = {
       points: [
         "A short founder talk on starting small and trying new things",
         "Mentors for Business track teams",
-        "A proposed award, presented on stage",
+        "One of the existing special awards, if available",
       ],
     },
   ],
-
   ask: {
     lead: "inkind",
     band: "bronze",
     uses: ["meals"],
     why: "Lunch is the one moment every student shares. A one-day, in-kind Island Grill lunch is simple, concrete and close to how Island Grill already serves communities.",
     recognition: "Food Partner · Inaugural Hack876",
-    award: {
-      name: "Island Grill Business Builder Award (proposed)",
-      text: "A suggestion only: an award for the build that would most help a small Jamaican business, with criteria agreed together and the final call left to the judging panel.",
-    },
     tracks: ["Business", "Culture", "Wellbeing"],
     inkind: [
       "Lunch for students, mentors, judges and volunteers, delivered to the venue",
@@ -131,39 +129,23 @@ const deck: SponsorDeckData = {
       "Island Grill team members to help serve, as they do on community projects",
     ],
   },
-
   roles: [
     { title: "Lunch team", text: "Island Grill staff who serve the meal and keep the line moving." },
     { title: "Speaker", text: "A short, honest talk on building a Jamaican brand by trying new things." },
     { title: "Mentors", text: "Innovation and marketing staff who help Business track teams think like operators." },
-    { title: "Award presenters", text: "The Island Grill team presents its award on stage at the close." },
-    { title: "Judging support", text: "Island Grill can advise on award criteria; the judging panel decides." },
   ],
-
   groundRules: [
     "The lunch is the contribution: no promotions, coupons, sign-ups or marketing campaigns aimed at students beyond the meal itself.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
     "Dietary needs come first. Hack876 collects allergies and dietary requirements in advance and shares only the meal counts Island Grill needs.",
   ],
-
   future: [
     "A recurring Island Grill lunch at every Hack876.",
     "A Supaah Food lunch built around local produce.",
     "A Business track challenge built on a real Island Grill problem, if the team wants one.",
     "A Hack876 pathway toward the Lyn Family/Island Grill Scholarship in Technology, only if the family wishes.",
   ],
-
-  questions: [
-    "Is this a one-day lunch or a catering arrangement?",
-    "How many plates, where and when?",
-    "How much notice would our team get?",
-    "How are allergies and dietary needs handled?",
-    "Will Immaculate Conception take part?",
-    "Could our people do more than serve lunch?",
-  ],
-
   closingLine: "We would love to explore the right first step with Thalia and the Island Grill team.",
-
   sources: [
     {
       id: 1,
@@ -189,12 +171,7 @@ const deck: SponsorDeckData = {
       label: "Island Grill serving up soup to those in need (June 19, 2016)",
       href: "https://jamaica-gleaner.com/article/news/20160624/island-grill-serving-soup-those-need",
     },
-    {
-      id: 5,
-      org: "Island Grill",
-      label: "Press: Island Grill Launches Supaah Foods (July 26, 2017)",
-      href: "https://www.islandgrillja.com/press",
-    },
+    { id: 5, org: "Island Grill", label: "Press: Island Grill Launches Supaah Foods (July 26, 2017)", href: "https://www.islandgrillja.com/press" },
     {
       id: 6,
       org: "Jamaica Observer",

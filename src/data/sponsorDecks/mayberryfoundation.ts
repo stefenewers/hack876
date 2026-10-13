@@ -6,23 +6,29 @@ const deck: SponsorDeckData = {
   sponsor: "Mayberry Foundation",
   short: "Mayberry",
   accent: "#0257FF",
-
-  recipient: { name: "Kayree Berry-Teape", title: "CEO, Mayberry Foundation", ref: 1 },
-  preparedFor:
-    "A private partnership proposal prepared for Kayree Berry-Teape, Chief Executive Officer, Mayberry Foundation.",
-
+  recipient: {
+    name: "Kayree Berry-Teape",
+    title: "CEO, Mayberry Foundation",
+    ref: 1,
+  },
+  preparedFor: "A private partnership proposal prepared for Kayree Berry-Teape, Chief Executive Officer, Mayberry Foundation.",
   hero: {
     headline: "A full day, fed and focused.",
     highlight: "fed and focused",
     sub: "Mayberry has already given students a full day of meals and transport so they could simply learn. Hack876 hopes for a day like that, built around students making their first real things.",
   },
-
+  brief: {
+    fit: "The Mayberry Foundation funded a full day of meals and transport for Christel House Jamaica students so they could focus on learning.",
+    request: "A Bronze contribution toward student meals and the running of the day.",
+    enables: "Helps support meals and refreshments for about {students} students across a full day. Not prizes, because Mayberry's policy excludes contributions to individuals.",
+    outcome: "Bronze recognition, and a simple report afterwards: meals served, photos with consent, and highlights.",
+    next: "We will send a written request with our details, the purpose and the amount at least 30 days before the event, as Mayberry's CSR policy asks. A reply on whether to proceed would help.",
+  },
   why: {
     headline: "Youth, education and financial literacy, in one room.",
     mission: {
       label: "Christopher Berry, Chairman, Mayberry",
-      quote:
-        "Mayberry is committed to giving back to our community. We are especially focused on youth. We reach out to them by helping to build capacity in the key areas of Health, Education, Environment, Youth and Community Development as well as Financial Literacy.",
+      quote: "Mayberry is committed to giving back to our community. We are especially focused on youth. We reach out to them by helping to build capacity in the key areas of Health, Education, Environment, Youth and Community Development as well as Financial Literacy.",
       ref: 1,
     },
     points: [
@@ -43,9 +49,8 @@ const deck: SponsorDeckData = {
         ref: 5,
       },
     ],
-    tie: "Hack876 is a day where fifth-formers turn ideas into working tools, and a Mayberry Day would let them spend all of it learning.",
+    tie: "Hack876 is a day where fifth-formers turn ideas into working tools, and support for meals lets them spend all of it learning.",
   },
-
   story: {
     kicker: "What Mayberry already backs",
     headline: "Students first, again and again.",
@@ -89,22 +94,18 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "Mayberry already shows up for fifth-formers and for the days that help them learn. Hack876 is one more of those days.",
-    art: "Compounding",
   },
-
   linkedSchool: {
     school: "St. George's College",
-    text: "The Mayberry Foundation gave J$7,650,000 to the St. George's College Scholarship Fund and has supported its fifth-formers. St. George's is in the Hack876 school network; its participation is not yet confirmed.",
+    text: "The Mayberry Foundation gave J$7,650,000 to the St. George's College Scholarship Fund and has supported its fifth-formers. St.",
     ref: 1,
   },
-
   paths: [
     {
       label: "Foundation",
-      title: "A Mayberry Day at Hack876",
+      title: "Support for the students' day",
       points: [
-        "Lunch and the day's meals for every student",
-        "Help with transport for students who need it",
+        "Contributes toward the day's meals and refreshments",
         "A short thank-you moment on stage",
         "A simple report after: meals served, photos, highlights",
       ],
@@ -112,18 +113,13 @@ const deck: SponsorDeckData = {
     {
       label: "People",
       title: "Mayberry people in the room",
-      points: [
-        "Business-track mentors on pricing and pitch realism",
-        "Volunteer lunch hosts from the Mayberry team",
-        "A Mayberry presenter for a proposed award",
-      ],
+      points: ["Business-track mentors on pricing and pitch realism", "Volunteer lunch hosts from the Mayberry team"],
     },
   ],
   pathsNote: {
     text: "Mayberry's CSR policy asks for requests in writing, with the organisation's details, the purpose and the amount, at least 30 days before the event. We will follow it.",
     ref: 7,
   },
-
   ask: {
     lead: "band",
     band: "bronze",
@@ -131,50 +127,25 @@ const deck: SponsorDeckData = {
     restriction: "Mayberry's CSR policy excludes contributions to individuals, so a contribution would support the student experience and not prizes.",
     why: "It is the same kind of support Mayberry gave Christel House Jamaica: a full day of meals and transport, so students can focus on learning. As a cash gift, it is concrete and easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    award: {
-      name: "Mayberry Young Entrepreneur Award (proposed)",
-      text: "A suggestion only: an award for the Business-track build with the clearest path to helping a real small business, with criteria agreed together and the final call left to the judging panel.",
-    },
     tracks: ["Business", "Learn", "Life"],
-    inkind: [
-      "Mentors for the Business track",
-      "Volunteer lunch hosts",
-      "A presenter for the proposed award",
-    ],
+    inkind: ["Mentors for the Business track", "Volunteer lunch hosts"],
   },
-
   roles: [
     { title: "Business mentors", text: "Advisors who ask the honest questions: who pays, how much, and could this really work?" },
     { title: "Lunch hosts", text: "Mayberry volunteers who help serve lunch and talk with students about their builds." },
-    { title: "Award presenter", text: "A Mayberry representative presents the proposed award on stage at the close." },
     { title: "Money-smart minute", text: "A short, general talk on budgeting and pricing an idea, with no products named." },
-    { title: "Judging support", text: "Mayberry can advise on its award's criteria; the judging panel decides the winner." },
   ],
-
   groundRules: [
     "No marketing of investment products, accounts, trading apps or other financial services to students, and no sign-ups on the day.",
     "No collection of student contact details or data by sponsors. Photos and names only with school and parent consent.",
     "Sponsor staff mentor and present; the judging panel decides every award.",
   ],
-
   future: [
     "A Mayberry Day at every Hack876, alongside its other annual youth commitments.",
-    "A recurring Mayberry Young Entrepreneur Award for the Business track.",
     "A pre-event build session at St. George's College for fifth-formers.",
     "Mayberry mentors returning to the Business track each year.",
   ],
-
-  questions: [
-    "Which registered charity or school would receive the funds?",
-    "Will St. George's College take part?",
-    "When is it, and will we have the date at least 30 days ahead?",
-    "What exactly would our contribution pay for?",
-    "How will we see the impact afterwards?",
-    "How are students protected on consent, data and marketing?",
-  ],
-
   closingLine: "We would love to explore the right first step with Kayree and the Mayberry Foundation team.",
-
   sources: [
     {
       id: 1,

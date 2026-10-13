@@ -6,7 +6,7 @@ import type { SponsorDeckData } from "./types.ts";
 
 /* Loads every deck data file and checks how each one frames its ask. */
 
-const skip = new Set(["types.ts", "registry.ts", "framing.ts"]);
+const skip = new Set(["types.ts", "registry.ts", "framing.ts", "awards.ts", "decisions.ts"]);
 const files = readdirSync("src/data/sponsorDecks").filter((f) => f.endsWith(".ts") && !f.endsWith(".test.ts") && !skip.has(f));
 const decks: SponsorDeckData[] = await Promise.all(files.map(async (f) => (await import(`./${f}`)).default));
 
@@ -36,7 +36,7 @@ test("an exploratory brief never shows the ladder, even if levels are listed by 
 test("existing band and in-kind decks behave as before", () => {
   for (const d of decks.filter((d) => !isExploratory(d.ask))) {
     assert.ok(d.ask.lead === "band" || d.ask.lead === "inkind");
-    if (d.ask.lead === "band") assert.ok(d.ask.band, `${d.slug} leads with a level but names none`);
+    if (d.ask.lead === "band") assert.ok(d.ask.band || d.ask.figure, `${d.slug} leads with a level but names none`);
     assert.equal(showsBands(d.ask), !d.ask.bands || d.ask.bands.length > 0);
     assert.equal(docType(d), d.kind === "tool" ? "brief" : "proposal");
   }

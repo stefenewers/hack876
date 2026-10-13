@@ -7,38 +7,33 @@ const deck: SponsorDeckData = {
   short: "Digicel Foundation",
   article: "the",
   accent: "#e4022b",
-
-  recipient: { name: "Charmaine Daniels", title: "Chief Executive Officer, Digicel Foundation", ref: 1 },
-  preparedFor:
-    "A private partnership proposal prepared for Charmaine Daniels, Chief Executive Officer, Digicel Foundation.",
-
+  recipient: {
+    name: "Charmaine Daniels",
+    title: "Chief Executive Officer, Digicel Foundation",
+    ref: 1,
+  },
+  preparedFor: "A private partnership proposal prepared for Charmaine Daniels, Chief Executive Officer, Digicel Foundation.",
   hero: {
     headline: "Every child deserves a turn at building the future.",
     highlight: "building the future",
     sub: "The Digicel Foundation believes every child deserves access to technology and the future it brings. Hack876 gives students one day to take that technology and build something of their own.",
   },
-
-  futurePaths: [
-    { icon: "laptop", label: "Software developer" },
-    { icon: "plug", label: "Network engineer" },
-    { icon: "badge", label: "Cybersecurity analyst" },
-    { icon: "spark", label: "AI builder" },
-    { icon: "rocket", label: "Founder" },
-  ],
-
+  brief: {
+    fit: "The Digicel Foundation puts technology into schools under its To Build Minds goal, and runs its own Girls in ICT hackathons.",
+    request: "A Platinum contribution toward the inaugural event, or any level that suits the Foundation this year.",
+    enables: "Helps support the equipment teams build with, the prizes, and the running of the day.",
+    outcome: "About {students} secondary-school students spend a full day using technology to build a working prototype. The Foundation receives Platinum recognition and a written recap of who took part and what they built.",
+    next: "A reply on whether the Foundation would consider this directly, or would prefer it to come through one of its grant calls.",
+  },
   why: {
     headline: "You open the lab doors. We give students a reason to stay and build.",
     mission: {
       label: "Digicel Foundation mission",
-      quote:
-        "We aim to mobilise and distribute resources across Jamaican communities to improve education at the early childhood, primary, secondary, and tertiary levels, increase access and opportunities for persons with special needs, and stimulate sustainable entrepreneurial activity.",
+      quote: "We aim to mobilise and distribute resources across Jamaican communities to improve education at the early childhood, primary, secondary, and tertiary levels, increase access and opportunities for persons with special needs, and stimulate sustainable entrepreneurial activity.",
       ref: 1,
     },
     points: [
-      {
-        text: "One of the Foundation's goals is To Build Minds: improving literacy and access to technology in schools across Jamaica.",
-        ref: 1,
-      },
+      { text: "One of the Foundation's goals is To Build Minds: improving literacy and access to technology in schools across Jamaica.", ref: 1 },
       {
         text: "Its Girls in ICT work aims to narrow the technology gender gap. In May 2026 it hosted a full-day AI hackathon for girls from Denham Town and Tivoli Gardens high schools.",
         ref: 2,
@@ -58,7 +53,6 @@ const deck: SponsorDeckData = {
     ],
     tie: "Hack876 is a place where that access turns into something a student made with their own hands.",
   },
-
   story: {
     kicker: "The record",
     headline: "Two decades of putting technology in students' hands.",
@@ -96,9 +90,7 @@ const deck: SponsorDeckData = {
       },
     ],
     takeaway: "The Foundation already builds the rooms and runs the days. Hack876 adds a place where students from many schools build side by side.",
-    art: "IdeaToRealWorld",
   },
-
   paths: [
     {
       label: "Path 1 · The Foundation",
@@ -112,9 +104,8 @@ const deck: SponsorDeckData = {
     },
     {
       label: "Path 2 · Girls in ICT",
-      title: "An extension of the Foundation's Girls in ICT work",
+      title: "Alongside the Foundation's Girls in ICT work",
       points: [
-        "A suggested award that carries Girls in ICT into a mixed, multi-school build day.",
         "Complements the Foundation's own girls' hackathons rather than repeating them.",
         "Board and staff mentors on the floor alongside the students.",
       ],
@@ -124,60 +115,44 @@ const deck: SponsorDeckData = {
     text: "The Foundation's formal grant calls open in set windows for community groups, schools and non-profits. We are asking directly because Hack876 is a single day, but we are happy to follow whichever route suits the Foundation.",
     ref: 8,
   },
-
   ask: {
     lead: "band",
     band: "platinum",
     uses: ["overall", "prizes", "equipment", "production"],
     why: "Platinum is flexible: it helps support prizes, meals and the day itself in one gift. If a smaller gift fits the Foundation better this year, a contribution at any level is welcome.",
     recognition: "Platinum Partner · Inaugural Hack876",
-    award: {
-      name: "Digicel Foundation Girls in ICT Award (suggested)",
-      text: "A suggested award for the strongest build from a team where girls lead the technical work, carrying the Foundation's Girls in ICT commitment into Hack876.",
-    },
     tracks: ["Learn", "Wellbeing", "Resilience", "Move"],
   },
-
   roles: [
-    { title: "Staff on the floor", text: "A few Digicel Foundation and Digicel volunteers to help with check-in, timekeeping and keeping teams moving." },
+    {
+      title: "Staff on the floor",
+      text: "A few Digicel Foundation and Digicel volunteers to help with check-in, timekeeping and keeping teams moving.",
+    },
     { title: "Judges", text: "People from Digicel's network, cybersecurity and digital teams to judge alongside our panel." },
-    { title: "Mentors who have done it", text: "Engineers such as board director Antoinette Heirs, who already mentors girls on ICT careers, if they are willing." },
-    { title: "A word to open the day", text: "Charmaine Daniels or someone from the Foundation on why access to technology matters for every student." },
+    {
+      title: "Mentors who have done it",
+      text: "Engineers such as board director Antoinette Heirs, who already mentors girls on ICT careers, if they are willing.",
+    },
+    {
+      title: "A word to open the day",
+      text: "Charmaine Daniels or someone from the Foundation on why access to technology matters for every student.",
+    },
     { title: "Safer internet, in a minute", text: "A short, practical safer-internet moment drawn from the Safer Internet Together programme." },
   ],
-
   groundRules: [
     "No phones, SIMs, data plans or other Digicel products or offers are marketed to students. Many participants are minors.",
     "No student data, phone numbers or contact details are collected or shared for the Foundation or Digicel. Any recap uses group numbers and school-approved photos only.",
-    "Volunteers, mentors and judges work in open, supervised spaces under the host school's safeguarding rules.",
+    "Volunteers, mentors and judges work in open, supervised spaces.",
   ],
-
   future: [
-    "A Girls in ICT award that returns each year.",
     "Teams from Smart Lab schools joining Hack876 as it grows.",
     "Safer Internet Together sessions in participating schools before the day.",
     "Student teachers from Smart Lab colleges volunteering as mentors.",
     "A signpost from Hack876 to the Foundation's own girls' AI hackathons and STEM camps.",
   ],
-
-  questions: [
-    "How is this different from the girls' AI hackathons we already support?",
-    "Will students without their own laptop be able to take part?",
-    "What exactly would a Gold gift pay for, and what will you report back?",
-    "When is the date, and when would you need a decision?",
-    "Should this come through a grant call or as a direct partnership?",
-    "How do you protect students, especially the minors?",
-  ],
-
   closingLine: "We would love to explore the right first step with Charmaine and the Digicel Foundation team.",
-
   sources: [
-    {
-      id: 1,
-      org: "Digicel Foundation",
-      label: "About the Digicel Foundation",
-      href: "https://www.digicelfoundation.org/jm/en/about",
-    },
+    { id: 1, org: "Digicel Foundation", label: "About the Digicel Foundation", href: "https://www.digicelfoundation.org/jm/en/about" },
     {
       id: 2,
       org: "Jamaica Observer",
