@@ -6,7 +6,8 @@ import { HackerPass } from "@/components/art/HackerPass";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { applications, buildTypes, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule } from "@/data/event";
+import { applications, buildTypes, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule, schools } from "@/data/event";
+import type { Person } from "@/data/event";
 import type { SchoolBrief } from "@/data/schoolBriefs";
 import "@/components/proposal/proposal.css";
 import "./school.css";
@@ -41,6 +42,10 @@ export function SchoolBriefPage({ brief }: { brief: SchoolBrief }) {
     "--sb-ink": brief.colors.ink,
   } as CSSProperties;
 
+  /* Section numbers follow render order, so optional sections never leave gaps. */
+  let count = 0;
+  const n = () => String(++count).padStart(2, "0");
+
   return (
     <div className="lp sb" style={vars}>
       <header className="lp-wrap flex items-center justify-between gap-4 py-5">
@@ -56,28 +61,33 @@ export function SchoolBriefPage({ brief }: { brief: SchoolBrief }) {
           <Hero brief={brief} />
         </div>
         <div className="lp-page">
-          <Fit brief={brief} />
+          <Fit n={n()} brief={brief} />
+        </div>
+        {brief.alumni && (
+          <div className="lp-page">
+            <Alumni n={n()} brief={brief} />
+          </div>
+        )}
+        <div className="lp-page">
+          <TheEvent n={n()} />
         </div>
         <div className="lp-page">
-          <TheEvent />
+          <Gains n={n()} />
         </div>
         <div className="lp-page">
-          <Gains />
+          <BeforeUniversity n={n()} />
         </div>
         <div className="lp-page">
-          <BeforeUniversity />
+          <Participation n={n()} brief={brief} />
         </div>
         <div className="lp-page">
-          <Participation brief={brief} />
+          <Prizes n={n()} />
         </div>
         <div className="lp-page">
-          <Prizes />
+          <Bridge n={n()} brief={brief} />
         </div>
         <div className="lp-page">
-          <Bridge brief={brief} />
-        </div>
-        <div className="lp-page">
-          <Next brief={brief} />
+          <Next n={n()} brief={brief} />
         </div>
         <div className="lp-page">
           <Closing brief={brief} />
@@ -151,14 +161,14 @@ function Hero({ brief }: { brief: SchoolBrief }) {
 /*  2 · Why this school                                                       */
 /* -------------------------------------------------------------------------- */
 
-function Fit({ brief }: { brief: SchoolBrief }) {
+function Fit({ n, brief }: { n: string; brief: SchoolBrief }) {
   const { fit } = brief;
   const src = fit.quote ? brief.sources[fit.quote.source - 1] : undefined;
   return (
     <section id="fit" aria-labelledby="sb-fit" className="lp-section scroll-mt-6 bg-paper">
       <div className="lp-wrap grid gap-12 lg:grid-cols-[1fr_1.1fr] print:grid-cols-[1fr_1.1fr] print:gap-12">
         <div>
-          <Label n="01">Why {brief.short}</Label>
+          <Label n={n}>Why {brief.short}</Label>
           <h2 id="sb-fit" className="sb-h sb-lg mt-6 max-w-[14ch]" data-reveal>
             {fit.headline}
           </h2>
@@ -202,7 +212,7 @@ function Fit({ brief }: { brief: SchoolBrief }) {
                   <>
                     {" · "}
                     <a href={src.href} target="_blank" rel="noopener noreferrer" className="underline decoration-ink/30 underline-offset-2 hover:decoration-ink">
-                      UTech Jamaica, March 2026
+                      {fit.quote.cite}
                     </a>
                   </>
                 )}
@@ -210,6 +220,68 @@ function Fit({ brief }: { brief: SchoolBrief }) {
             </figure>
           )}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Alumni: judges and organizers who attended this school                    */
+/* -------------------------------------------------------------------------- */
+
+function Alumni({ n, brief }: { n: string; brief: SchoolBrief }) {
+  const a = brief.alumni!;
+  const roleTag: Partial<Record<Person["role"], string>> = { judge: "Judge", organizer: "Organizer" };
+  const alumni = people.filter((p) => p.confirmed && roleTag[p.role] && p.schools?.includes(brief.school));
+  if (alumni.length === 0) return null;
+  return (
+    <section aria-labelledby="sb-alumni" className="lp-section lp-dark lp-grid-bg">
+      <div className="lp-wrap">
+        <Label n={n}>{a.kicker}</Label>
+        <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-end print:grid-cols-[1fr_1.1fr] print:items-end">
+          <h2 id="sb-alumni" className="sb-h sb-lg" data-reveal>
+            {a.headline}
+          </h2>
+          <p className="lp-prose" data-reveal>
+            {a.lead}
+          </p>
+        </div>
+
+        <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 print:mt-7 print:grid-cols-3">
+          {alumni.map((p, i) => {
+            /* Only what came after secondary school; other network schools would imply an order we cannot vouch for. */
+            const after = (p.schools ?? []).filter((s) => !(schools as readonly string[]).includes(s));
+            return (
+              <li
+                key={p.name}
+                data-reveal
+                style={{ "--reveal-delay": `${(i % 3) * 70}ms` } as CSSProperties}
+                className="lp-keep flex gap-4 rounded-2xl border border-cream/20 bg-cream/[0.05] p-4"
+              >
+                {p.photo && (
+                  <Image src={p.photo} alt={p.name} width={88} height={88} className="h-[5.5rem] w-[5.5rem] shrink-0 rounded-xl border-2 border-cream/70 object-cover print:h-[8rem] print:w-[8rem]" />
+                )}
+                <div className="min-w-0">
+                  <p className="text-[0.66rem] font-extrabold tracking-[0.14em] text-[var(--sb-secondary)] uppercase print:text-[0.9rem]">
+                    {p.pending ? `${roleTag[p.role]} · pending` : `Confirmed ${roleTag[p.role]!.toLowerCase()}`}
+                  </p>
+                  <p className="mt-0.5 text-lg leading-tight font-extrabold text-cream print:text-[1.5rem]">{p.name}</p>
+                  <p className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm leading-snug text-cream/75 print:text-[1.05rem]">
+                    <span className="font-bold text-cream">{brief.short}</span>
+                    {after.map((s) => (
+                      <span key={s} className="flex items-center gap-1.5">
+                        <span aria-hidden>→</span>
+                        {s}
+                      </span>
+                    ))}
+                  </p>
+                  {p.organization && <p className="mt-1 text-sm font-bold text-sun print:text-[1.1rem]">Now: {p.organization}</p>}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="lp-note mt-6">{a.note}</p>
       </div>
     </section>
   );
@@ -226,7 +298,7 @@ const VERBS = [
   { v: "Present", d: "Demo it to judges and explain the decisions." },
 ];
 
-function TheEvent() {
+function TheEvent({ n }: { n: string }) {
   const numbers = [
     { v: `~${eligibility.maxHackers}`, l: "Total builders", c: "bg-emerald text-white", r: "-2deg" },
     { v: TEAM_SIZE, l: "Per team", c: "bg-sun", r: "1.5deg" },
@@ -235,7 +307,7 @@ function TheEvent() {
   return (
     <section aria-labelledby="sb-event" className="lp-section">
       <div className="lp-wrap">
-        <Label n="02">The event</Label>
+        <Label n={n}>The event</Label>
         <div className="mt-6 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-end print:grid-cols-[1.1fr_1fr] print:items-end">
           <h2 id="sb-event" className="sb-h sb-lg max-w-[14ch]" data-reveal>
             One day. Build something real.
@@ -300,11 +372,11 @@ const GAINS = [
   { k: "Confidence", v: "Moving from using technology to making it.", i: "spark" },
 ];
 
-function Gains() {
+function Gains({ n }: { n: string }) {
   return (
     <section aria-labelledby="sb-gain" className="lp-section bg-cream-2">
       <div className="lp-wrap">
-        <Label n="03">What students gain</Label>
+        <Label n={n}>What students gain</Label>
         <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
           <h2 id="sb-gain" className="sb-h sb-lg" data-reveal>
             More than a project.
@@ -345,12 +417,12 @@ const TASTE = [
   "Working across disciplines",
 ];
 
-function BeforeUniversity() {
+function BeforeUniversity({ n }: { n: string }) {
   return (
     <section aria-labelledby="sb-before" className="lp-section lp-dark lp-grid-bg">
       <div className="lp-wrap grid gap-14 lg:grid-cols-[1.2fr_1fr] lg:items-center print:grid-cols-[1.2fr_1fr] print:items-center">
         <div>
-          <Label n="04">Before university</Label>
+          <Label n={n}>Before university</Label>
           <h2 id="sb-before" className="sb-h sb-lg mt-6" data-reveal>
             Before the internship.
             <br />
@@ -388,8 +460,8 @@ function BeforeUniversity() {
 /*  6 · Participation                                                         */
 /* -------------------------------------------------------------------------- */
 
-function Participation({ brief }: { brief: SchoolBrief }) {
-  const asks = [
+function Participation({ n, brief }: { n: string; brief: SchoolBrief }) {
+  const asks = brief.asks ?? [
     "Share the opportunity with relevant students.",
     `Encourage interested ${eligibility.forms} students to apply.`,
     "Point us to students from Computer Science, IT, Maths, the Sciences, Robotics, Design, Business or anywhere else they shine.",
@@ -401,7 +473,7 @@ function Participation({ brief }: { brief: SchoolBrief }) {
     <section aria-labelledby="sb-part" className="lp-section bg-paper">
       <div className="lp-wrap grid gap-12 lg:grid-cols-[1fr_1fr] print:grid-cols-[1fr_1fr] print:gap-12">
         <div>
-          <Label n="05">Participation</Label>
+          <Label n={n}>Participation</Label>
           <h2 id="sb-part" className="sb-h sb-lg mt-6" data-reveal>
             {brief.short} in the room.
           </h2>
@@ -441,8 +513,12 @@ function Participation({ brief }: { brief: SchoolBrief }) {
             ))}
           </ol>
           <p className="mt-5 rounded-xl bg-[color-mix(in_srgb,var(--sb-secondary)_28%,transparent)] px-4 py-3 text-[0.98rem] font-semibold print:text-[1.2rem]">
-            We&rsquo;re not asking {brief.short} for financial support, and the school doesn&rsquo;t need to run its own selection
-            competition unless it wants to.
+            {brief.asksNote ?? (
+              <>
+                We&rsquo;re not asking {brief.short} for financial support, and the school doesn&rsquo;t need to run its own
+                selection competition unless it wants to.
+              </>
+            )}
           </p>
         </div>
       </div>
@@ -454,13 +530,13 @@ function Participation({ brief }: { brief: SchoolBrief }) {
 /*  7 · Prizes                                                                */
 /* -------------------------------------------------------------------------- */
 
-function Prizes() {
+function Prizes({ n }: { n: string }) {
   const podium = prizes.filter((p) => p.place).sort((a, b) => (a.place ?? 0) - (b.place ?? 0));
   const special = prizes.filter((p) => !p.place);
   return (
     <section aria-labelledby="sb-prizes" className="lp-section">
       <div className="lp-wrap">
-        <Label n="06">Competition</Label>
+        <Label n={n}>Competition</Label>
         <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
           <h2 id="sb-prizes" className="sb-h sb-lg max-w-[16ch]" data-reveal>
             Build it. Present it. Compete for it.
@@ -505,21 +581,21 @@ function Prizes() {
 /*  8 · The bridge                                                            */
 /* -------------------------------------------------------------------------- */
 
-function Bridge({ brief }: { brief: SchoolBrief }) {
+function Bridge({ n, brief }: { n: string; brief: SchoolBrief }) {
   const { liaison } = brief;
   const organizers = people.filter((p) => p.role === "organizer" && p.confirmed);
   return (
     <section aria-labelledby="sb-bridge" className="lp-section bg-cream-2">
       <div className="lp-wrap grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center print:grid-cols-[1fr_1.1fr] print:items-center">
         <div>
-          <Label n="07">Your bridge to Hack 876</Label>
+          <Label n={n}>{liaison.kicker ?? "Your bridge to Hack 876"}</Label>
           <h2 id="sb-bridge" className="sb-h sb-lg mt-6 max-w-[13ch]" data-reveal>
-            One relationship at a time.
+            {liaison.headline ?? "One relationship at a time."}
           </h2>
           <div className="lp-prose mt-7" data-reveal>
             <p>
-              Hack 876 grows through people who care about both their school and what students could build. For {brief.short},
-              that starts with {liaison.name.split(" ")[0]}.
+              {liaison.intro ??
+                `Hack 876 grows through people who care about both their school and what students could build. For ${brief.short}, that starts with ${liaison.name.split(" ")[0]}.`}
             </p>
           </div>
         </div>
@@ -531,6 +607,7 @@ function Bridge({ brief }: { brief: SchoolBrief }) {
                 <Image src={liaison.photo} alt={liaison.name} width={96} height={96} className="h-24 w-24 shrink-0 rounded-2xl border-2 border-ink object-cover" />
               )}
               <div>
+                {liaison.tag && <span className="sb-tag mb-2 border-2 border-dashed border-ink/40 text-ink-soft">{liaison.tag}</span>}
                 <p className="text-2xl font-extrabold print:text-[2.1rem]">{liaison.name}</p>
                 <p className="mt-0.5 font-bold text-[var(--sb-primary)] print:text-[1.2rem]">{liaison.title}</p>
                 <p className="mt-1 text-sm text-ink-soft print:text-[1.05rem]">{liaison.credentials}</p>
@@ -538,6 +615,15 @@ function Bridge({ brief }: { brief: SchoolBrief }) {
             </div>
             <p className="border-t-2 border-ink/10 px-5 py-4 text-[1rem] leading-snug text-ink-2 print:text-[1.25rem]">{liaison.role}</p>
           </div>
+          {liaison.also?.map((a) => (
+            <div key={a.title} className="sb-card p-5">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <p className="text-lg font-extrabold print:text-[1.5rem]">{a.title}</p>
+                {a.tag && <span className="sb-tag border-2 border-dashed border-ink/40 text-ink-soft">{a.tag}</span>}
+              </div>
+              <p className="mt-1.5 text-[1rem] leading-snug text-ink-2 print:text-[1.2rem]">{a.text}</p>
+            </div>
+          ))}
           <div className="sb-card flex items-center gap-4 p-5">
             <div className="flex shrink-0 -space-x-3">
               {organizers.map((o) =>
@@ -562,7 +648,7 @@ function Bridge({ brief }: { brief: SchoolBrief }) {
 /*  9 · What happens next                                                     */
 /* -------------------------------------------------------------------------- */
 
-function Next({ brief }: { brief: SchoolBrief }) {
+function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
   const steps = [
     { k: "Now", v: `Build the relationship with ${brief.short}.` },
     { k: "Next", v: "Confirm a school contact and a student outreach path." },
@@ -609,7 +695,7 @@ function Next({ brief }: { brief: SchoolBrief }) {
   return (
     <section aria-labelledby="sb-next" className="lp-section bg-paper">
       <div className="lp-wrap">
-        <Label n="08">What happens next</Label>
+        <Label n={n}>What happens next</Label>
         <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
           <h2 id="sb-next" className="sb-h sb-lg max-w-[16ch]" data-reveal>
             We&rsquo;ll fill in the details together.

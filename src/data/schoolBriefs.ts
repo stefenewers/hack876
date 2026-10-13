@@ -9,7 +9,8 @@ import type { School } from "./event";
  *
  * Rules:
  * - Never state that a school is participating or has endorsed Hack 876.
- * - Liaisons are community bridges, not school representatives.
+ * - Liaisons are community bridges or proposed contacts. Never present one as
+ *   having accepted a role unless they have.
  * - Institutional claims must link to a primary source in `sources`.
  */
 
@@ -29,19 +30,39 @@ export type SchoolBrief = {
     headline: string;
     lead: string;
     points: { k: string; v: string }[];
-    quote?: { text: string; by: string; source: number };
+    /** `cite` is the short link label, e.g. "UTech Jamaica, March 2026". */
+    quote?: { text: string; by: string; source: number; cite: string };
     bridge: string;
   };
+  /**
+   * Shows confirmed Hack 876 judges and organizers who attended this school,
+   * pulled from event.ts. Omit when there are none worth a section.
+   */
+  alumni?: { kicker: string; headline: string; lead: string; note: string };
   /** Early-planning cohort range. Always shown as provisional. */
   planningRange: { min: number; max: number };
+  /** Replaces the default list of asks. */
+  asks?: string[];
+  /** Replaces the default "not asking for money" note under the asks. */
+  asksNote?: string;
   liaison: {
     name: string;
     title: string;
     credentials: string;
     photo: string | null;
     role: string;
-    /** Makes clear the liaison is not a school representative. */
+    /** Makes clear what the liaison is not: a school representative, or someone who has agreed. */
     note: string;
+    /** Section kicker. Defaults to "Your bridge to Hack 876". */
+    kicker?: string;
+    /** Section headline. Defaults to "One relationship at a time." */
+    headline?: string;
+    /** Replaces the default intro paragraph. */
+    intro?: string;
+    /** A small status tag on the card, e.g. "Proposed · not yet confirmed". */
+    tag?: string;
+    /** Extra cards under the liaison, e.g. student ambassadors. */
+    also?: { title: string; tag?: string; text: string }[];
   };
   closing: { lead: string; line: string };
   pdf: { href: string; filename: string };
@@ -74,6 +95,7 @@ export const schoolBriefs: SchoolBrief[] = [
         text: "We strongly believe that they’re the future and they’re the ones who will impact us and make changes that are necessary.",
         by: "Dr. Jacqueline Pinto, Principal, Ardenne High School",
         source: 1,
+        cite: "UTech Jamaica, March 2026",
       },
       bridge:
         "Hack 876 offers those same students another arena: one day, one team, one idea, build something real. It doesn't replace anything Ardenne is doing. It adds a deadline, outside judges, and students from other schools.",
@@ -102,6 +124,101 @@ export const schoolBriefs: SchoolBrief[] = [
       },
       { label: "Jamaica Information Service: Science labs to be built, upgraded, equipped", href: "https://jis.gov.jm/science-labs-to-be-built-upgraded-equipped/" },
       { label: "Ardenne High School: History", href: "https://ardennehighschool.edu.jm/v2/history.php" },
+    ],
+  },
+  {
+    slug: "campion",
+    school: "Campion College",
+    short: "Campion",
+    people: "Campionites",
+    crest: "/schools/campion-college.png",
+    /* Campion's colours are red and white (Fact Book). The pale tint stands in for white as a highlight. */
+    colors: { primary: "#a51c2c", secondary: "#f2b8b5", ink: "#5e0f19" },
+    motto: { original: "Fortes in Fide et Opere", translation: "Strong in Faith and Work." },
+    hero: {
+      lead: "Campion helped produce some of the people making Hack 876 possible.",
+      line: "Let’s give the next generation the same chance to build.",
+    },
+    fit: {
+      headline: "Campion already builds.",
+      lead: "Campion was the Jamaican school with the most places on the 2025 CSEC merit list. Its students are also winning with robots and code, not only in exams.",
+      points: [
+        {
+          k: "Robotics",
+          v: "The Crimson Crocs won the Inspire Award, the top honour at the 2024–25 FIRST Tech Challenge Jamaica championship, earning a place at the World Championship in Houston.",
+        },
+        { k: "Coding", v: "Four Campion students won platinum in the Level 2 coding olympiad at the 2024 Caribbean STEM Olympiads, with a public-health project." },
+        { k: "Results", v: "35 mentions across subjects on the 2025 CSEC merit list, more than any other Jamaican school." },
+        { k: "Enterprise", v: "A Young Entrepreneurial Society where students already work on business projects." },
+      ],
+      quote: {
+        text: "Our mission is to cultivate a nurturing and intellectually stimulating environment that promotes academic excellence, moral integrity, and the development of lifelong learners who are well-prepared to navigate the complexities of the modern world.",
+        by: "Campion College mission statement",
+        source: 1,
+        cite: "campioncollege.com",
+      },
+      bridge:
+        "Hack 876 complements that classroom work with one day of practice: a mixed team, a real problem, a working prototype, and a pitch to industry judges. Students try software, AI, hardware or design, work alongside other schools, and get a first look at technology careers before university.",
+    },
+    alumni: {
+      kicker: "The Campion connection",
+      headline: "They sat where you sit.",
+      lead: "Four confirmed Hack 876 judges and both organizers went to Campion. They are coming back to see what the next Campionites build, and to tell them what happened after sixth form.",
+      note: "Employers are listed as each person’s affiliation. They are not event sponsors unless stated elsewhere.",
+    },
+    planningRange: { min: 8, max: 12 },
+    asks: [
+      "Mrs. Morrison’s guidance in introducing Hack 876 within Campion.",
+      "One or two enthusiastic student ambassadors.",
+      "Help recommending students from 5th Form through Upper 6th Form.",
+      "Help sharing the opportunity with relevant faculty, students and school leadership.",
+      "Guidance on any administrative requirements for formal school participation.",
+    ],
+    asksNote:
+      "We’re not asking Campion for financial support, or to organize anything. Hack 876 runs the event and supplies the information and materials.",
+    liaison: {
+      name: "Mrs. Keisha Morrison",
+      title: "Head of the Technology Department · Campion College",
+      credentials: "B.Sc. (Hons) UWI, Dip. Edu. · Computer Science and Information Technology Teacher",
+      photo: null,
+      kicker: "Working with the Technology Department",
+      headline: "A relationship, not a recruitment drive.",
+      intro:
+        "We would like to build something lasting with Campion’s Technology Department, beyond one event. We hope that can begin with Mrs. Morrison.",
+      tag: "Proposed faculty liaison · subject to her agreement",
+      role: "We would welcome Mrs. Morrison as our faculty liaison and principal point of contact in the department: helping us introduce Hack 876 at Campion in the right way and to the right people.",
+      note: "This is a proposal. Mrs. Morrison has not accepted any role, and Campion College has not endorsed Hack 876 or confirmed participation.",
+      also: [
+        {
+          title: "Student ambassadors",
+          tag: "Proposed",
+          text: "One or two students, chosen with the department, who help classmates understand the opportunity and bring their questions back to us.",
+        },
+      ],
+    },
+    closing: {
+      lead: "Campion has already helped produce some of the professionals making Hack 876 possible.",
+      line: "Let’s give the next generation the same chance to discover what they can build.",
+    },
+    pdf: {
+      href: "/proposals/hack876-campion-participation-brief.pdf",
+      filename: "Hack 876 x Campion College - Participation Brief.pdf",
+    },
+    sources: [
+      { label: "Campion College: mission, motto, results and clubs", href: "https://www.campioncollege.com/" },
+      { label: "Campion College: Fact Book (history and colours)", href: "https://www.campioncollege.com/factbook" },
+      {
+        label: "Jamaica Observer: Campion College clinches 2025 high school robotics championship title (April 16, 2025)",
+        href: "https://www.jamaicaobserver.com/2025/04/16/campion-college-clinches-2025-high-school-robotics-championship-title/",
+      },
+      {
+        label: "Jamaica Observer: Jamaican students dominate 2024 Caribbean STEM Olympiads (January 28, 2024)",
+        href: "https://www.jamaicaobserver.com/2024/01/28/jamaican-students-dominate-2024-caribbean-stem-olympiads/",
+      },
+      {
+        label: "The Gleaner: Jamaican students shine on the 2025 CSEC merit list (November 8, 2025)",
+        href: "https://jamaica-gleaner.com/article/news/20251108/jamaican-students-shine-campion-colleges-mijaun-talbot-tops-caribbean-csec",
+      },
     ],
   },
 ];
