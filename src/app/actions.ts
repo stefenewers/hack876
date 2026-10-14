@@ -1,6 +1,6 @@
 "use server";
 
-import { applications, eligibility, schools } from "@/data/event";
+import { applications, eligibility, event, schools } from "@/data/event";
 import {
   validateApplication,
   validatePartner,
@@ -38,7 +38,7 @@ export async function submitApplication(_prev: ApplyState, formData: FormData): 
     return {
       status: "error",
       errors: {},
-      message: "Something went wrong on our side and your application wasn’t saved. Please try again in a minute.",
+      message: `Something went wrong on our side and your application wasn’t saved. Please try again in a minute, or email us at ${event.contactEmail}.`,
     };
   }
 
@@ -62,7 +62,7 @@ export async function submitPartner(_prev: PartnerState, formData: FormData): Pr
     await saveSubmission("partners", result.value);
   } catch (err) {
     console.error("Failed to save partner enquiry", err);
-    return { status: "error", errors: {}, message: "Something went wrong on our side. Please try again in a minute." };
+    return { status: "error", errors: {}, message: `Something went wrong on our side and your message wasn’t sent. Please email us at ${event.contactEmail} instead.` };
   }
   return { status: "success" };
 }

@@ -35,7 +35,10 @@ Almost everything lives in **`src/data/event.ts`**:
 
 ## Form submissions
 
-Applications (`/apply`) and partner enquiries (`/partner`) are validated in the browser and again on the server (`src/lib/application.ts`), then saved by `src/lib/submissions.ts`:
+Applications (`/apply`) and partner enquiries (`/partner`) are validated in the browser and again on the server (`src/lib/application.ts`), then delivered by `src/lib/submissions.ts`:
 
-- **`SUBMISSIONS_WEBHOOK_URL` set** → each submission is POSTed as JSON (optional `SUBMISSIONS_WEBHOOK_SECRET` sent as a Bearer token). Use this in production.
-- **Not set** → appended to `.data/applications.jsonl` / `.data/partners.jsonl` (git-ignored). Good for local review and self-hosting; won't persist on serverless hosts.
+- **Email (production).** Set `SMTP_USER` (the Google Workspace address, `info@hack876.com`) and `SMTP_PASS` (a Google app password for that account). Each submission is emailed to `info@hack876.com`, with Reply-To set to the person who wrote in. Optional: `SUBMISSIONS_EMAIL_TO`, `SMTP_HOST`, `SMTP_PORT`.
+- **Webhook (optional, in addition).** `SUBMISSIONS_WEBHOOK_URL`, with an optional `SUBMISSIONS_WEBHOOK_SECRET` sent as a Bearer token.
+- **Local file.** With neither set and outside Vercel, submissions are appended to `.data/applications.jsonl` / `.data/partners.jsonl` (git-ignored).
+
+If nothing can be delivered, the form tells the person to email `info@hack876.com`, and the submission is written to the server log so it can be recovered from Vercel's logs.
