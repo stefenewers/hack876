@@ -52,6 +52,8 @@ export type SchoolBrief = {
   eventIntro?: string;
   /** Replaces the default "what happens next" timeline. */
   nextSteps?: { k: string; v: string }[];
+  /** The school's own names for the eligible years, e.g. "Grades 11 to 13". Shown beside the event's forms; never a separate rule. */
+  localForms?: string;
   /** Early-planning cohort range. Always shown as provisional. */
   planningRange: { min: number; max: number };
   /** Replaces the default list of asks. */
@@ -91,6 +93,11 @@ export type SchoolBrief = {
     faculty: { process: string[]; profiles: string[] };
     /** Where school-specific questions should go. */
     schoolChannel: string;
+    /**
+     * The faculty liaison as shown on the hub and teacher sheet. Defaults to `liaison`.
+     * Set it when the brief's addressee is not the liaison, or the liaison is not yet appointed.
+     */
+    liaison?: { name: string; title: string; text: string; pending?: boolean };
   };
   pdf: { href: string; filename: string };
   sources: { label: string; href: string }[];
@@ -280,7 +287,7 @@ export const schoolBriefs: SchoolBrief[] = [
   },
   {
     slug: "hillel",
-    /* Pre-meeting proposal: reachable by direct link only. */
+    /* Kept off the public /schools list until Hillel approves being listed. Reachable by direct link. */
     unlisted: true,
     school: "Hillel Academy",
     short: "Hillel",
@@ -320,10 +327,11 @@ export const schoolBriefs: SchoolBrief[] = [
     },
     eventIntro:
       "A hackathon is an event where small teams build something from scratch in a single day, then present it to judges. No programming experience is needed: teams also need students who design, research, write and present. Mentors who work in industry help throughout the day.",
+    localForms: "Grades 11 to 13",
     planningRange: { min: 8, max: 12 },
     asks: [
       "Support in principle for eligible Hillel students, in Grades 11 to 13, to take part.",
-      "A meeting to review this proposal and any administrative requirements.",
+      "Guidance from Hillel’s leadership on any administrative requirements.",
       "A faculty liaison of the school’s choosing, possibly within Technology Education.",
       "Guidance in identifying one or two student ambassadors.",
       "Help reaching curious, motivated students, and recommending those who are interested.",
@@ -339,10 +347,10 @@ export const schoolBriefs: SchoolBrief[] = [
       kicker: "Working with Hillel",
       headline: "A conversation first.",
       intro:
-        "We would like Hack 876 to become something Hillel students can return to each year, not a single Saturday. That starts with a conversation with the school’s leadership.",
+        "We would like Hack 876 to become something Hillel students can return to each year, not a single Saturday. That work is under way with the school’s leadership and its Technology Education team.",
       tag: "Prepared for",
-      role: "We would welcome a meeting with Mr. Holmes to walk through this proposal, hear his questions, and understand what approval Hillel would require.",
-      note: "This is a proposal. Hillel Academy has not approved or confirmed participation, nobody at Hillel has accepted a role, and student places are not guaranteed.",
+      role: "We are coordinating with Mr. Holmes and Hillel’s Technology Education team on what school participation would involve and what approval Hillel requires.",
+      note: "Hillel Academy has not yet confirmed its participation, nobody at Hillel has accepted a role, and student places are not guaranteed.",
       also: [
         {
           title: "Ms. Delrose Coburn",
@@ -357,12 +365,48 @@ export const schoolBriefs: SchoolBrief[] = [
       ],
     },
     nextSteps: [
-      { k: "First", v: "A meeting with Mr. Holmes to review this proposal." },
+      { k: "Now", v: "Coordination with Mr. Holmes and the Technology Education team on participation arrangements." },
       { k: "If Hillel agrees", v: "Support in principle, and any approval steps the school requires." },
       { k: "Then", v: "A faculty liaison and one or two student ambassadors." },
       { k: "Before the event", v: "Teachers recommend students, students apply, and families receive consent forms." },
       { k: "Event day", v: "Hack 876." },
     ],
+    hub: {
+      status:
+        "We are coordinating with Hillel’s leadership and Technology Education team. School participation arrangements and the faculty liaison are still being confirmed. Hack 876 is organized independently of Hillel Academy, and individual student places are not guaranteed.",
+      ambassadors: {
+        summary:
+          "One or two student ambassadors have been proposed. None has been nominated, and their names will not be published without permission.",
+        duties: [
+          "Share the Hack 876 flyer and this page with classmates.",
+          "Encourage eligible students to apply.",
+          "Point classmates to this page when they have questions.",
+          "Pass on questions they cannot answer to the Hack 876 organizing team.",
+        ],
+      },
+      faculty: {
+        process: [
+          "Share this page or the student flyer with students in Grades 11 to 13.",
+          "If you would like to recommend particular students, email their names to the Hack 876 organizing team at info@hack876.com. No form is needed.",
+          "Each student completes the application on the Hack 876 website. Teachers do not apply on their behalf.",
+          "The Hack 876 organizing team selects participants and contacts students and families directly.",
+        ],
+        profiles: [
+          "Curious students who like making things, in any subject.",
+          "Students taking Computer Science, Information Technology, Maths, the Sciences, Art, Design or Business.",
+          "Strong writers, presenters, organizers and researchers, as well as programmers.",
+          "Students who work well with people they have just met.",
+        ],
+      },
+      schoolChannel:
+        "For questions about Hillel’s own arrangements, such as school permission to attend, speak to the High School office or Hillel’s Technology Education department.",
+      liaison: {
+        name: "To be confirmed",
+        title: "Coordinating with Hillel’s leadership and Technology Education",
+        text: "We are working with Mr. Lloyd Holmes, High School Principal, and Ms. Delrose Coburn, Head of Technology Education. Who acts as Hillel’s faculty liaison is for the school to decide. Until then, teachers can send questions and recommendations to the organizing team.",
+        pending: true,
+      },
+    },
     closing: {
       lead: "Hillel teaches learning for living.",
       line: "Let’s give a few Hillel students one day to live it.",

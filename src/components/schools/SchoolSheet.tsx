@@ -2,9 +2,10 @@ import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
 import { Logo } from "@/components/art/Wordmark";
-import { buildTypes, eligibility, event, eventWhen, schedule, venue } from "@/data/event";
+import { buildTypes, eligibility, event, eventWhen, people, schedule, venue } from "@/data/event";
+import { judgeAlumniLine } from "@/data/alumni";
 import type { SchoolBrief } from "@/data/schoolBriefs";
-import { applicationState, hubFaqs, PROTOTYPE, schoolSheets, statusLabel, TODO_LABEL, type HubFaq, type HubStatus, type SheetKey } from "@/data/schoolHub";
+import { applicationState, formsFor, hubFaqs, PROTOTYPE, schoolSheets, statusLabel, TODO_LABEL, type HubFaq, type HubStatus, type SheetKey } from "@/data/schoolHub";
 import "./sheet.css";
 
 /*
@@ -61,12 +62,12 @@ function Frame({ brief, label, children }: { brief: SchoolBrief; label: string; 
   );
 }
 
-function Facts() {
+function Facts({ brief }: { brief: SchoolBrief }) {
   const facts = [
     { k: "When", v: eventWhen.long, s: (eventWhen.tentative ? "tentative" : undefined) as HubStatus | undefined },
     { k: "Where", v: `${venue.name}, ${venue.area.split(",")[0]}`, s: undefined },
     { k: "Hours", v: `${START} to ${END}. One day, not overnight.`, s: undefined },
-    { k: "Who", v: `Students in ${eligibility.forms}`, s: undefined },
+    { k: "Who", v: `Students in ${formsFor(brief)}`, s: undefined },
   ];
   return (
     <dl className="grid grid-cols-2 gap-2">
@@ -105,7 +106,7 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
   return (
     <Frame brief={brief} label="Student flyer">
       <div className="relative">
-        <h1 className="max-w-[9.5ch] text-[4.3rem] leading-[0.92] font-extrabold tracking-[-0.045em]">
+        <h1 className="max-w-[9.5ch] text-[4rem] leading-[0.92] font-extrabold tracking-[-0.045em]">
           Build something <span className="sheet-under text-[var(--sb-primary)]">real</span> in one day.
         </h1>
         <DoctorBird aria-hidden flutter={false} mood="happy" className="absolute top-0 right-0 w-[2.5in]" />
@@ -115,11 +116,11 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
         something that tackles it, and show it to judges who work in technology.
       </p>
 
-      <div className="mt-5">
-        <Facts />
+      <div className="mt-4">
+        <Facts brief={brief} />
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-5">
+      <div className="mt-4 grid grid-cols-2 gap-5">
         <div>
           <H>You do not need to code</H>
           <p className="mt-1.5 text-[0.82rem] leading-snug text-ink-2">
@@ -163,7 +164,7 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
        <div className="rounded-2xl border-2 border-ink bg-sun px-4 py-3">
         <p className="text-[1.25rem] leading-tight font-extrabold">Food is provided. Teams can mix schools. Prizes for the top teams.</p>
         <p className="mt-0.5 text-[0.74rem] font-semibold">
-          {brief.alumni ? `Several of the judges are former ${brief.short} students. ` : ""}Parents and guardians can find full details at the address below.
+          {judgeAlumniLine(people, brief.school, brief.short)}Parents and guardians can find full details at the address below.
         </p>
        </div>
       </div>
@@ -196,7 +197,7 @@ function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => 
         it is not overnight. Hack 876 is organized independently of {brief.school}.
       </p>
       <div className="mt-3.5">
-        <Facts />
+        <Facts brief={brief} />
       </div>
 
       <ul className="mt-3.5 grid grid-cols-2 gap-x-4 gap-y-2">
@@ -228,6 +229,7 @@ function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => 
 
 function FacultySheet({ brief }: { brief: SchoolBrief }) {
   const hub = brief.hub!;
+  const liaison = hub.liaison ?? { name: brief.liaison.name, title: brief.liaison.title, text: brief.liaison.role };
   /* On paper, "this page" means nothing. Name the address instead. */
   const here = (t: string) => t.replace(/this page/g, `${site}/schools/${brief.slug}`);
   return (
@@ -241,7 +243,7 @@ function FacultySheet({ brief }: { brief: SchoolBrief }) {
         asked to pay, host or organize anything.
       </p>
       <div className="mt-3.5">
-        <Facts />
+        <Facts brief={brief} />
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-5">
@@ -262,9 +264,9 @@ function FacultySheet({ brief }: { brief: SchoolBrief }) {
         </div>
         <div>
           <H>Faculty liaison</H>
-          <p className="mt-1.5 text-[0.92rem] leading-tight font-extrabold">{brief.liaison.name}</p>
-          <p className="text-[0.74rem] font-bold text-[var(--sb-primary)]">{brief.liaison.title}</p>
-          <p className="mt-1 text-[0.74rem] leading-snug text-ink-2">{brief.liaison.role}</p>
+          <p className="mt-1.5 text-[0.92rem] leading-tight font-extrabold">{liaison.name}</p>
+          <p className="text-[0.74rem] font-bold text-[var(--sb-primary)]">{liaison.title}</p>
+          <p className="mt-1 text-[0.74rem] leading-snug text-ink-2">{here(liaison.text)}</p>
           <div className="mt-3.5">
             <H>Student ambassadors</H>
             <p className="mt-1.5 text-[0.74rem] leading-snug text-ink-2">{hub.ambassadors.summary}</p>

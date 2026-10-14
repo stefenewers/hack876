@@ -1,4 +1,5 @@
 import { applications, buildTypes, eligibility, event, eventWhen, judging, people, prizes, prizesNote, schedule, venue } from "./event";
+import { organizerAlumniClause } from "./alumni";
 import type { SchoolBrief } from "./schoolBriefs";
 
 /*
@@ -73,13 +74,18 @@ export const PROTOTYPE_EXAMPLES = ["A revision tool for a CSEC subject", "A plan
 export const organizerNames = people.filter((p) => p.role === "organizer" && p.confirmed).map((p) => p.name);
 const ORGANIZERS = organizerNames.join(" and ");
 
+/** The eligible forms, with the school's own year names when it uses different ones. */
+export function formsFor(brief: SchoolBrief) {
+  return brief.localForms ? `${eligibility.forms} (${brief.localForms} at ${brief.short})` : eligibility.forms;
+}
+
 /** Facts shown at the top of every hub. */
-export function hubFacts() {
+export function hubFacts(brief?: SchoolBrief) {
   return [
     { k: "Date", v: eventWhen.long, status: (eventWhen.tentative ? "tentative" : "confirmed") as HubStatus },
     { k: "Venue", v: `${venue.name}, ${venue.area.split(",")[0]}`, status: (venue.confirmed ? "confirmed" : "tentative") as HubStatus },
     { k: "Hours", v: `${DAY_START} to ${DAY_END}. One day, not overnight.` },
-    { k: "Who", v: `Students in ${eligibility.forms}` },
+    { k: "Who", v: `Students in ${brief ? formsFor(brief) : eligibility.forms}` },
     { k: "Size", v: `About ${eligibility.maxHackers} students from several schools` },
     { k: "Teams", v: `${TEAM} students per team` },
   ];
@@ -147,7 +153,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "organizers",
       q: "Who organizes Hack 876?",
-      a: `Hack 876 is run by an organizing team led by ${ORGANIZERS}${brief.alumni ? `, who both attended ${short}` : ""}. It is not run by ${brief.school}.\n\nThe organizing team handles applications, consent forms, the event itself and all communication with students and families.`,
+      a: `Hack 876 is run by an organizing team led by ${ORGANIZERS}${organizerAlumniClause(people, brief.school, short)}. It is not run by ${brief.school}.\n\nThe organizing team handles applications, consent forms, the event itself and all communication with students and families.`,
       category: "The basics",
       audience: ["parents", "teachers", "students"],
       keywords: "who runs behind legitimate organisers organisation company",
@@ -158,7 +164,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "who-can-apply",
       q: "Who can take part?",
-      a: `Students in ${eligibility.forms} at a participating school, including ${short}. About ${eligibility.maxHackers} students from several schools will take part.`,
+      a: `Students in ${formsFor(brief)} at one of the schools in the Hack 876 school network, which includes ${short}. The application asks students to choose their school from that list. About ${eligibility.maxHackers} students from several schools will take part.`,
       category: "Who can take part",
       audience: ["students", "parents", "teachers"],
       keywords: "eligible eligibility allowed grade year age form fifth sixth",
@@ -260,7 +266,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "recommendation",
       q: "Does a teacher have to recommend me before I apply?",
-      a: `The application form does not ask for a recommendation, so a student at ${short} can submit one directly. Participating schools are also asked to recommend students they think would enjoy it.`,
+      a: `The application form does not ask for a recommendation, so a student at ${short} can submit one directly. Schools in the network are also asked to recommend students they think would enjoy it.`,
       todo: "Whether a school recommendation will be required for a place, and how recommendations are weighed. If you are unsure, apply and let your teacher know.",
       category: "Applying",
       audience: ["students", "parents", "teachers"],

@@ -6,11 +6,13 @@ import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
 import { Footer } from "@/components/site/Footer";
 import { buildTypes, eligibility, event, judging, people, schedule, schools, venue } from "@/data/event";
+import { alumniSummary, organizerAlumniClause } from "@/data/alumni";
 import { schoolAlumni, type SchoolBrief } from "@/data/schoolBriefs";
 import {
   applicationAsks,
   applicationState,
   bringList,
+  formsFor,
   hubCategories,
   hubFacts,
   hubFaqs,
@@ -180,7 +182,7 @@ export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
 /* -------------------------------------------------------------------------- */
 
 function Hero({ brief }: { brief: SchoolBrief }) {
-  const facts = hubFacts();
+  const facts = hubFacts(brief);
   return (
     <section aria-labelledby="hub-title" className="border-t border-ink/10 pt-8 pb-10 sm:pt-12 sm:pb-14">
       <div className="hub-wrap">
@@ -193,8 +195,7 @@ function Hero({ brief }: { brief: SchoolBrief }) {
         </h1>
         <p className="hub-lead mt-5">
           Hack 876 is a one-day competition where secondary-school students work in small teams to build a solution to a real problem,
-          then present it to judges who work in technology and business. No coding experience is needed. {brief.short} students in{" "}
-          {eligibility.forms} can apply.
+          then present it to judges who work in technology and business. No coding experience is needed. {brief.short} students in {formsFor(brief)} can apply.
         </p>
 
         <dl className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -299,7 +300,7 @@ function About({ brief }: { brief: SchoolBrief }) {
             <h3 className="hub-h3">Who runs it, and why</h3>
             <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-2">
               Hack 876 is run by an organizing team led by {organizerNames.join(" and ")}
-              {brief.alumni ? `, who both attended ${brief.short}` : ""}. It exists to give Jamaican students a chance to build
+              {organizerAlumniClause(people, brief.school, brief.short)}. It exists to give Jamaican students a chance to build
               something real before university, alongside people who do it for a living.
             </p>
             <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-2">
@@ -366,7 +367,7 @@ function Students({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => H
       <div className="hub-wrap">
         <SectionHead id="hub-students" kicker="For students" title="Is it for you, and what will you do?">
           <p>
-            If you are in {eligibility.forms} at {brief.short} and you like making things, yes. You will join a team of {TEAM}, choose
+            If you are in {formsFor(brief)} and you like making things, yes. You will join a team of {TEAM}, choose
             a problem, and spend the day building a solution together. You do not need to have coded before.
           </p>
         </SectionHead>
@@ -448,7 +449,7 @@ function Students({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => H
 
 function Applying({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => HubFaq }) {
   const steps: { t: string; d: string; todo?: string }[] = [
-    { t: "Check you are eligible", d: `You need to be in ${eligibility.forms} at ${brief.short} or another participating school.` },
+    { t: "Check you are eligible", d: `You need to be in ${formsFor(brief)}, at ${brief.short} or another school in the Hack 876 network.` },
     {
       t: "Complete the application yourself",
       d: "It is an online form on the Hack 876 website. You can apply alone or with friends. Each student fills in their own form.",
@@ -675,15 +676,12 @@ function Community({ brief }: { brief: SchoolBrief }) {
   const alumni = schoolAlumni(brief.school);
   if (alumni.length === 0) return null;
   const tag = { judge: "Judge", organizer: "Organizer" } as const;
-  const judges = alumni.filter((p) => p.role === "judge").length;
-  const orgs = alumni.filter((p) => p.role === "organizer").length;
   return (
     <section id="community" aria-labelledby="hub-community" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
       <div className="hub-wrap">
         <SectionHead id="hub-community" kicker={`${brief.short} alumni at Hack 876`} title={brief.alumni?.headline ?? `${brief.short} alumni at Hack 876.`}>
           <p>
-            {judges} of the judges and {orgs === 2 ? "both" : orgs} organizers of Hack 876 are former {brief.short} students. Each card shows
-            where they studied after {brief.short} and where they work now.
+            {alumniSummary(people, brief.school, brief.short)} Each card shows where they studied and where they work now.
           </p>
         </SectionHead>
         <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -698,8 +696,7 @@ function Community({ brief }: { brief: SchoolBrief }) {
                   </p>
                   <p className="mt-0.5 text-[1.08rem] leading-tight font-extrabold">{p.name}</p>
                   <p className="mt-1 text-sm leading-snug text-ink-soft">
-                    {brief.short}
-                    {after.map((s) => ` → ${s}`).join("")}
+                    {brief.alumni?.paths?.[p.name] ?? [brief.short, ...after].join(" → ")}
                   </p>
                   {p.organization && <p className="mt-0.5 text-sm font-bold">{p.organization}</p>}
                 </div>
@@ -722,7 +719,7 @@ function Community({ brief }: { brief: SchoolBrief }) {
 
 function Teachers({ brief }: { brief: SchoolBrief }) {
   const hub = brief.hub!;
-  const { liaison } = brief;
+  const liaison = hub.liaison ?? { name: brief.liaison.name, title: brief.liaison.title, text: brief.liaison.role, pending: false };
   const split = [
     {
       title: "What Hack 876 handles",
@@ -794,7 +791,8 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
             <p className="hub-kicker">Faculty liaison</p>
             <p className="mt-1.5 text-xl font-extrabold">{liaison.name}</p>
             <p className="font-bold text-[var(--sb-primary)]">{liaison.title}</p>
-            <p className="mt-3 text-[0.98rem] leading-relaxed text-ink-2">{liaison.role}</p>
+            <p className="mt-3 text-[0.98rem] leading-relaxed text-ink-2">{liaison.text}</p>
+            {liaison.pending && <Todo>Who acts as {brief.short}&rsquo;s faculty liaison.</Todo>}
           </div>
           <div className="hub-card p-5">
             <p className="hub-kicker">Student ambassadors</p>
