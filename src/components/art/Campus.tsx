@@ -15,7 +15,7 @@ export function Campus({ className = "" }: { className?: string }) {
 
   return (
     <div className={`relative ${className}`}>
-      <svg viewBox="0 0 600 380" className="block h-full w-full" role="img" aria-label="Illustration of a hillside school campus with white arcaded buildings and a lawn">
+      <svg viewBox="0 0 600 380" className="block h-full w-full" role="img" aria-label="Illustration of white arcaded buildings and a lawn">
         <rect width="600" height="380" fill="#d8f0fc" />
         <circle cx="505" cy="72" r="34" fill="#ffe7a3" />
 
