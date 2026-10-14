@@ -32,7 +32,7 @@ export const event = {
   siteUrl: "https://www.hack876.com",
   /** Public contact email. `null` hides email links until one is set up. */
   contactEmail: "info@hack876.com" as string | null,
-  socials: [{ label: "Instagram · @hack876ja", href: "https://www.instagram.com/hack876ja" }] as { label: string; href: string }[],
+  socials: [{ label: "@hack876ja", href: "https://www.instagram.com/hack876ja", icon: "instagram" }] as { label: string; href: string; icon?: "instagram" }[],
 };
 
 
