@@ -523,7 +523,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "What should I bring?",
-    a: "A laptop and charger if you have one, a water bottle, and your school ID. A full packing list will be shared with accepted hackers before the event.",
+    a: "Your own laptop (or another device you can build on) and its charger, your school ID and a water bottle. Hack 876 won’t be providing laptops or other hardware, so every student needs to bring their own device. A full packing list will be shared with accepted hackers before the event.",
     pending: true,
   },
   {
@@ -585,6 +585,10 @@ export const parents: {
     topic: "Food",
     body: "Food is provided on the day. Meal specifics are still being finalized, and dietary requirements will be collected from accepted students.",
     pending: true,
+  },
+  {
+    topic: "Laptops & devices",
+    body: "Every student needs to bring their own laptop or other device to build on, plus a charger. Hack 876 won’t be providing laptops or other hardware.",
   },
   {
     topic: "Emergency contacts",

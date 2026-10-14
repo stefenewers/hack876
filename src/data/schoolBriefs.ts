@@ -287,8 +287,6 @@ export const schoolBriefs: SchoolBrief[] = [
   },
   {
     slug: "hillel",
-    /* Kept off the public /schools list until Hillel approves being listed. Reachable by direct link. */
-    unlisted: true,
     school: "Hillel Academy",
     short: "Hillel",
     people: "Hillel students",

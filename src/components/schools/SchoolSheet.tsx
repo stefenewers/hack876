@@ -106,7 +106,7 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
   return (
     <Frame brief={brief} label="Student flyer">
       <div className="relative">
-        <h1 className="max-w-[9.5ch] text-[4rem] leading-[0.92] font-extrabold tracking-[-0.045em]">
+        <h1 className="max-w-[9.5ch] text-[3.75rem] leading-[0.92] font-extrabold tracking-[-0.045em]">
           Build something <span className="sheet-under text-[var(--sb-primary)]">real</span> in one day.
         </h1>
         <DoctorBird aria-hidden flutter={false} mood="happy" className="absolute top-0 right-0 w-[2.5in]" />
@@ -136,7 +136,9 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
                 </li>
               ))}
             </ul>
-            <p className="mt-2 text-[0.7rem] text-ink-soft">AI tools are allowed, not required. You will not need to buy any.</p>
+            <p className="mt-2 text-[0.7rem] text-ink-soft">
+              <strong className="text-ink">Bring your own laptop or device.</strong> Hack 876 does not provide them. AI tools are allowed, not required.
+            </p>
           </div>
         </div>
         <div>
@@ -181,6 +183,7 @@ function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => 
     ["Food", "food"],
     ["Getting there and back", "transport"],
     ["Costs", "cost"],
+    ["Laptops and devices", "laptop"],
     ["Contact on the day", "emergency"],
     ["AI tools and age limits", "ai-age"],
   ];
@@ -188,7 +191,7 @@ function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => 
   const here = (t: string) => t.replace(/this page/g, `${site}/schools/${brief.slug}`);
   return (
     <Frame brief={brief} label="Parent and guardian information">
-      <h1 className="max-w-[24ch] text-[2.4rem] leading-[0.98] font-extrabold tracking-[-0.04em]">
+      <h1 className="max-w-[28ch] text-[2.1rem] leading-[0.98] font-extrabold tracking-[-0.04em]">
         What parents and guardians <span className="sheet-under text-[var(--sb-primary)]">need to know.</span>
       </h1>
       <p className="mt-2.5 max-w-[6.6in] text-[0.86rem] leading-snug text-ink-2">
@@ -200,11 +203,11 @@ function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => 
         <Facts brief={brief} />
       </div>
 
-      <ul className="mt-3.5 grid grid-cols-2 gap-x-4 gap-y-2">
+      <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1.5">
         {rows.map(([title, id]) => {
           const f = faq(id);
           return (
-            <li key={id} className={`border-t-2 border-ink/15 pt-1.5 ${id === "ai-age" ? "col-span-2" : ""}`}>
+            <li key={id} className="border-t-2 border-ink/15 pt-1.5">
               <p className="text-[0.8rem] font-extrabold">{title}</p>
               <p className="mt-0.5 text-[0.7rem] leading-snug text-ink-2">{here(f.a.split("\n\n")[0])}</p>
               {f.todo && (
@@ -217,7 +220,7 @@ function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => 
         })}
       </ul>
 
-      <p className="mt-auto rounded-xl border-2 border-ink bg-paper px-3.5 py-2 text-[0.74rem] leading-snug">
+      <p className="mt-auto rounded-xl border-2 border-ink bg-paper px-3.5 py-1.5 text-[0.72rem] leading-snug">
         <strong>How to take part.</strong> Students apply themselves at {site}/apply. It costs nothing to apply, and applying does not
         guarantee a place. Anything marked &ldquo;{TODO_LABEL}&rdquo; will be sent to families before a student is asked to accept a place.
       </p>

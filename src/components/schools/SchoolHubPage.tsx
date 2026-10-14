@@ -536,6 +536,7 @@ function Parents({ byId }: { byId: (id: string) => HubFaq }) {
     { title: "Food", id: "food", icon: "patty" },
     { title: "Getting there and back", id: "transport", icon: "move" },
     { title: "Costs", id: "cost", icon: "business" },
+    { title: "Laptops and devices", id: "laptop", icon: "laptop" },
     { title: "Contact on the day", id: "emergency", icon: "badge" },
     { title: "Access, medical and dietary needs", id: "access", icon: "wellbeing" },
   ];

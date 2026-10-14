@@ -98,13 +98,12 @@ export const applicationState = {
 
 /** What to bring. Only what is truly required is marked `need`. */
 export const bringList: { item: string; kind: "need" | "nice" | "pending" }[] = [
+  { item: "Your own laptop or other device, and its charger. Hack 876 does not provide devices.", kind: "need" },
   { item: "Your school ID", kind: "need" },
   { item: "A signed parent or guardian consent form (sent to accepted students)", kind: "need" },
-  { item: "A laptop and charger, if you have one", kind: "nice" },
   { item: "A water bottle", kind: "nice" },
   { item: "Headphones", kind: "nice" },
   { item: "A notebook and pen for sketching ideas", kind: "nice" },
-  { item: "Whether laptops can be provided for students without one", kind: "pending" },
   { item: "The final packing list, sent to accepted students", kind: "pending" },
 ];
 
@@ -236,8 +235,8 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "bring",
       q: "What should students bring?",
-      a: "Required: your school ID and a signed parent or guardian consent form.\n\nBring if you have them: a laptop and charger, a water bottle, headphones, and a notebook and pen.",
-      todo: "Whether laptops can be provided for students who do not have one. The final packing list will be sent to accepted students.",
+      a: "Required: your own laptop or other device to build on, with its charger, your school ID and a signed parent or guardian consent form. Hack 876 is not providing laptops or other hardware.\n\nBring if you have them: a water bottle, headphones, and a notebook and pen.",
+      todo: "The final packing list, which will be sent to accepted students.",
       category: "Getting ready",
       audience: ["students", "parents"],
       keywords: "pack packing equipment laptop computer charger carry need",
@@ -468,8 +467,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "laptop",
       q: "Does every student need a laptop?",
-      a: "Students who have a laptop should bring it. Owning one is not a condition of applying, so a student without a laptop can still apply.",
-      todo: "Whether laptops can be provided for students who do not have one.",
+      a: "Every student needs to bring their own laptop or other device to build on, plus a charger. Hack 876 is not providing laptops or other hardware.\n\nA student who does not have a device of their own should plan to borrow one for the day before accepting a place.",
       category: "Costs & equipment",
       audience: ["students", "parents"],
       keywords: "computer device tablet phone own borrow equipment",
