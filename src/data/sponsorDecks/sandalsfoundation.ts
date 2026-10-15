@@ -13,8 +13,8 @@ const deck: SponsorDeckData = {
   short: "Sandals Foundation",
   article: "the",
   accent: "#0b6e8a",
-  recipient: { name: "the Sandals Foundation team", title: "", ref: 6 },
-  preparedFor: "A private partnership proposal prepared for the team at the Sandals Foundation.",
+  recipient: { name: "the leadership of the Sandals Foundation", title: "" },
+  preparedFor: "A private partnership proposal prepared for the leadership of the Sandals Foundation.",
   hero: {
     headline: "Every computer lab deserves a builder.",
     highlight: "a builder",
@@ -26,7 +26,7 @@ const deck: SponsorDeckData = {
     request: "A Silver contribution from the Sandals Foundation toward the inaugural event.",
     enables: "Helps support the equipment teams build with and the student programme on the day.",
     outcome: "Silver recognition, including placement on event signage and acknowledgement in the opening and closing, and a written recap of who took part and what they built.",
-    next: "A reply on whether the Foundation would consider a contribution, at Silver or any other level, or whether this would need to come through its grant process.",
+    next: "A yes from the Foundation, at Silver or another level, and the name of the person on your team who will handle it. Hack876 takes care of everything from there.",
   },
   why: {
     headline: "Technology in students' hands, and a group that backs education.",
@@ -80,7 +80,7 @@ const deck: SponsorDeckData = {
     band: "silver",
     uses: ["equipment", "programming", "overall"],
     restriction:
-      "We understand the Foundation's project grants run through a two-stage annual cycle, which has closed for 2027, and that they exclude one-off events. This is a direct request for a single day. If the Foundation can only consider it through its grant process, we will follow that route.",
+      "This is a direct partnership request, not an application to the Foundation's annual grant cycle. If it needs to go through that process instead, we will follow it.",
     why: "Silver helps support the technology and programme at the centre of the day. If a different level suits the Foundation better, any of them is welcome.",
     recognition: "Silver Partner · Inaugural Hack876",
     tracks: ["Learn", "Resilience", "Business"],
@@ -92,7 +92,7 @@ const deck: SponsorDeckData = {
   ],
   pathsNote: { text: "The Sandals Foundation lists foundation@grp.sandals.com and 876-935-0705 for enquiries.", ref: 6 },
   future: ["The Sandals Foundation as a partner at every Hack876, growing with the event.", "A Resilience-track challenge drawn from tourism or energy, if Sandals would like to set one."],
-  closingLine: "We would love to explore the right first step with the Sandals Foundation team.",
+  closingLine: "We would love the Sandals Foundation to be part of the first Hack876.",
   sources: [
     {
       id: 1,

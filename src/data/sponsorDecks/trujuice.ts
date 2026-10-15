@@ -11,8 +11,8 @@ const deck: SponsorDeckData = {
   sponsor: "Tru-Juice (Trade Winds Citrus Limited)",
   short: "Tru-Juice",
   accent: "#e8771a",
-  recipient: { name: "the Tru-Juice marketing team", title: "Trade Winds Citrus Limited" },
-  preparedFor: "A private partnership proposal prepared for the marketing team at Trade Winds Citrus Limited, makers of Tru-Juice.",
+  recipient: { name: "the leadership of Trade Winds Citrus Limited", title: "" },
+  preparedFor: "A private partnership proposal prepared for the leadership of Trade Winds Citrus Limited, makers of Tru-Juice.",
   hero: {
     headline: "Real Jamaican juice for a real day of building.",
     highlight: "real day of building",
@@ -24,7 +24,7 @@ const deck: SponsorDeckData = {
     request: "Tru-Juice for the students and adults at Hack876, served with lunch, in kind.",
     enables: "A cold Jamaican juice with lunch for everyone in the room, in the middle of a long build day.",
     outcome: "Juice Partner recognition and a written recap.",
-    next: "A reply from the Tru-Juice marketing team on whether in-kind juice is possible. We will then confirm the headcount, flavours and a delivery date.",
+    next: "A yes from Trade Winds, and the name of the person on your team who will handle it. Hack876 then confirms the headcount, flavours and delivery date directly with them.",
     logistics: [
       "For about {students} students, plus mentors, judges, teachers and volunteers. We will give a final headcount in writing before anything is ordered.",
       "Served at lunch, {lunch}, at {venue} in Kingston. The venue is confirmed.",
@@ -101,7 +101,7 @@ const deck: SponsorDeckData = {
     "Dietary needs come first. Hack876 collects allergies and dietary requirements in advance.",
   ],
   future: ["Tru-Juice as the juice partner at every Hack876, growing with the event.", "A Business-track challenge drawn from food processing or distribution, if Trade Winds would like to set one."],
-  closingLine: "We would love to explore the right first step with the Tru-Juice team.",
+  closingLine: "We would love Tru-Juice to be part of the first Hack876.",
   sources: [
     { id: 1, org: "Wisynco Group", label: "Tru-Juice brand page", href: "https://wisynco.com/tru-juice/" },
     {
