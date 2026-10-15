@@ -1,9 +1,10 @@
 import type { SponsorDeckData } from "./types";
 
 /*
- * Exploratory brief for the Sandals Foundation. Its 2027 concept window has
- * closed and its guidelines exclude one-off events without sustainable impact,
- * so this asks about fit and makes no funding request.
+ * A direct partnership request to the Sandals Foundation. Its published project
+ * grants run through a two-stage annual cycle and exclude one-off events, so the
+ * deck says so plainly and offers to follow the grant route if that is the only
+ * way the Foundation can consider it.
  */
 const deck: SponsorDeckData = {
   slug: "sandalsfoundation",
@@ -11,111 +12,114 @@ const deck: SponsorDeckData = {
   sponsor: "Sandals Foundation",
   short: "Sandals Foundation",
   article: "the",
-  accent: "#c1e8df",
-  recipient: {
-    name: "the Sandals Foundation team",
-    title: "",
-    ref: 3,
-  },
-  preparedFor: "A private exploratory brief prepared for the team at the Sandals Foundation.",
+  accent: "#0b6e8a",
+  recipient: { name: "the Sandals Foundation team", title: "", ref: 6 },
+  preparedFor: "A private partnership proposal prepared for the team at the Sandals Foundation.",
   hero: {
-    headline: "Let the learning continue after the demo.",
-    highlight: "after the demo",
-    sub: "The Sandals Foundation looks for lasting benefit, not a single day. We would like to introduce Hack876 and ask whether what happens after the event could ever be a fit.",
+    headline: "Every computer lab deserves a builder.",
+    highlight: "a builder",
+    sub: "The Sandals Foundation has helped keep Jamaican school computer labs running. Hack876 gives secondary-school students one day to put that kind of technology to work on a real problem.",
   },
   brief: {
-    fit: "Education is one of the Sandals Foundation's focus areas, including digital literacy, and its guidelines look for lasting benefit.",
-    request: "An introduction, and an honest answer on whether the work that follows Hack876 could ever fit the Foundation's guidelines.",
-    enables: "It tells us whether to design follow-up resources and mentoring with a future cycle in mind.",
-    outcome: "Whether a route exists, what lasting benefit would need to look like, and who to speak with.",
-    next: "A short reply through the Foundation's contact page to say whether a conversation is worthwhile.",
+    fit: "The Sandals Foundation names digital literacy as part of its education work, and has kept Jamaican school computer labs running with solar power.",
+    fitRef: 2,
+    request: "A Silver contribution from the Sandals Foundation toward the inaugural event.",
+    enables: "Helps support the equipment teams build with and the student programme on the day.",
+    outcome: "Silver recognition, including placement on event signage and acknowledgement in the opening and closing, and a written recap of who took part and what they built.",
+    next: "A reply on whether the Foundation would consider a contribution, at Silver or any other level, or whether this would need to come through its grant process.",
   },
   why: {
-    headline: "Digital learning that lasts longer than a day.",
+    headline: "Technology in students' hands, and a group that backs education.",
     points: [
+      { text: "Education is one of the Foundation's strategic focus areas, covering school infrastructure, teacher training, digital literacy and scholarships.", ref: 4 },
       {
-        text: "Education is one of the Foundation's strategic focus areas, covering school infrastructure, teacher training, digital literacy and scholarships.",
-        ref: 1,
-      },
-      {
-        text: "In 2021 the Foundation and Rainforest delivered some fifty digital tablets to students at St Mary Primary School in Above Rocks, St. Catherine.",
+        text: "The Foundation installed solar power at Hague Primary and Infant School and Cove Primary so that their computer labs keep running when the grid does not.",
         ref: 2,
       },
-      { text: "Its Lessons Alive campaign, from August 2020, raised funds for digital tablets for vulnerable primary school students.", ref: 2 },
+      {
+        text: "In 2026 Sandals Resorts International, which funds the Foundation's governance, gave J$6 million to the Jill Stewart MoBay City Run, which has handed over J$45 million toward education since it began.",
+        ref: 1,
+      },
     ],
-    tie: "Hack876 is one day. The question we want to ask is what could stay with students and schools afterwards.",
+    tie: "Hack876 is where secondary-school students put technology to work on a problem they care about, in one day.",
   },
   story: {
-    kicker: "What the Foundation already does",
-    headline: "Devices in students' hands, and a clear process for what comes next.",
+    kicker: "What the Foundation already backs",
+    headline: "Years of investing in Jamaican students.",
     format: "evidence",
     items: [
       {
-        label: "August 2020",
-        title: "Lessons Alive.",
-        text: "A campaign that raised funds to buy and distribute digital tablets to vulnerable primary school students.",
+        label: "MoBay City Run · 2026",
+        title: "J$6 million for a run that funds education.",
+        text: "Announced by Adam Stewart, Executive Chairman, for the run's 10th staging.",
+        ref: 1,
+      },
+      {
+        label: "Computer labs",
+        title: "Solar power for school labs.",
+        text: "Solar systems at Hague Primary and Cove Primary keep their computer labs running. Hague also received 20 computers from the Foundation in 2024.",
         ref: 2,
       },
       {
         label: "December 2021",
         title: "Fifty tablets in Above Rocks.",
-        text: "Delivered with Rainforest to students aged 6 to 12 at St Mary Primary School, based on a needs assessment.",
-        ref: 2,
+        text: "Delivered with Rainforest to students at St Mary Primary School, based on a needs assessment.",
+        ref: 3,
       },
       {
-        label: "2027 projects",
-        title: "A two-stage process.",
-        text: "Concept applications were open from July 6 to 27, 2026. Full proposals are by invitation only.",
-        ref: 1,
-      },
-      {
-        label: "Guidelines",
-        title: "Long-term benefit is required.",
-        text: "Projects must include measurable outcomes and long-term benefit. One-off events without sustainable impact are not funded.",
-        ref: 1,
+        label: "Education focus",
+        title: "Digital literacy, by design.",
+        text: "Education is one of the Foundation's strategic focus areas, covering school infrastructure, teacher training, digital literacy and scholarships.",
+        ref: 4,
       },
     ],
-    takeaway: "We have read the guidelines. A one-day event on its own does not meet them, and we are not asking for an exception.",
-  },
-  pathsNote: {
-    text: "The Foundation takes enquiries through the contact page on its website.",
-    ref: 3,
+    takeaway: "The Foundation has put technology into Jamaican classrooms for years. Hack876 is a day for students to build something with it.",
   },
   ask: {
-    lead: "exploratory",
-    bands: [],
-    uses: ["materials", "equipment", "programming"],
-    restriction: "The 2027 guidelines require legally registered organisations and long-term benefit. They exclude one-off events without sustainable impact, and sponsorships or prizes without broader community benefit. The concept window closed on July 27, 2026. We do not assume Hack876 is eligible, and this is not a late submission.",
-    why: "We would like the Foundation to know Hack876 exists, and to hear honestly whether the part that continues after the day could ever fit its work.",
-    recognition: "No funding request in this brief",
-    tracks: ["Learn", "Resilience"],
-    inkind: [
-      "Is there a future or alternative route that could suit work like this?",
-      "Would reusable school resources be closer to what the Foundation supports?",
-      "Would follow-up mentoring count as lasting benefit?",
-      "Who is the right person to speak with, and when?",
-    ],
+    lead: "band",
+    band: "silver",
+    uses: ["equipment", "programming", "overall"],
+    restriction:
+      "We understand the Foundation's project grants run through a two-stage annual cycle, which has closed for 2027, and that they exclude one-off events. This is a direct request for a single day. If the Foundation can only consider it through its grant process, we will follow that route.",
+    why: "Silver helps support the technology and programme at the centre of the day. If a different level suits the Foundation better, any of them is welcome.",
+    recognition: "Silver Partner · Inaugural Hack876",
+    tracks: ["Learn", "Resilience", "Business"],
   },
   groundRules: [
-    "No marketing to students and no sign-ups on the day.",
-    "No collection of student contact details by partners. Photos and names only with school and parent consent.",
+    "No marketing of resorts, travel or other products to students, and no sign-ups on the day.",
+    "No collection of student contact details by sponsors. Photos and names only with school and parent consent.",
+    "The judging panel decides every award. Sponsorship carries no influence over judging.",
   ],
-  future: ["Resources from the day that schools could reuse in class.", "A concept application in a future cycle, if the work fits and Hack876 is eligible."],
-  closingLine: "We would welcome a conversation with the Sandals Foundation team, whatever the answer turns out to be.",
+  pathsNote: { text: "The Sandals Foundation lists foundation@grp.sandals.com and 876-935-0705 for enquiries.", ref: 6 },
+  future: ["The Sandals Foundation as a partner at every Hack876, growing with the event.", "A Resilience-track challenge drawn from tourism or energy, if Sandals would like to set one."],
+  closingLine: "We would love to explore the right first step with the Sandals Foundation team.",
   sources: [
     {
       id: 1,
-      org: "Sandals Foundation",
-      label: "Sandals Foundation 2027 Project Guidelines & Selection Criteria (July 2026)",
-      href: "https://sandalsfoundation.org/news/sandals-foundation-2027-project-guidelines-and-selection-criteria",
+      org: "Jamaica Observer",
+      label: "Sandals pumps $6 million into 2026 staging of Jill Stewart MoBay City Run (March 11, 2026)",
+      href: "https://www.jamaicaobserver.com/2026/03/11/sandals-pumps-6-million-2026-staging-jill-stewart-mobay-city-run/",
     },
     {
       id: 2,
+      org: "Caribbean360",
+      label: "Sandals Foundation invests JMD $4M to bring solar power to Western Jamaica schools (2026)",
+      href: "https://caribbean360.com/sandals-foundation-invests-jmd-4m-to-bring-solar-power-to-western-jamaica-school",
+    },
+    {
+      id: 3,
       org: "Sandals Foundation",
       label: "Sandals Foundation and Rainforest Open A New World of Learning for Vulnerable Primary School Students (December 2021)",
       href: "https://sandalsfoundation.org/news/sandals-foundation-and-rainforest-open-a-new-world-of-learning-for-vulnerable-primary-school-students",
     },
-    { id: 3, org: "Sandals Foundation", label: "Contact", href: "https://sandalsfoundation.org/contact" },
+    {
+      id: 4,
+      org: "Sandals Foundation",
+      label: "Sandals Foundation 2027 Project Guidelines & Selection Criteria (July 2026)",
+      href: "https://sandalsfoundation.org/news/sandals-foundation-2027-project-guidelines-and-selection-criteria",
+    },
+    { id: 5, org: "Sandals Foundation", label: "Get Involved", href: "https://sandalsfoundation.org/get-involved" },
+    { id: 6, org: "Sandals Foundation", label: "Contact", href: "https://sandalsfoundation.org/contact" },
   ],
 };
 

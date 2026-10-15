@@ -37,9 +37,19 @@ Sources were reopened on 13 October 2026. Each deck cites its own sources; this 
 - The 2026 call's focus is described in the deck as early childhood and special needs institutions. Its wider context is left out under the house rule on deck copy.
 - Open: whether Hack876 could be eligible in any future cycle, and whether a school-linked activity would have to be submitted by the school. The deck asks these and assumes neither.
 
-## Sandals Foundation (`sandalsfoundation`), exploratory
+## Sandals Foundation (`sandalsfoundation`), live proposal (updated 15 October 2026)
 
-- Verified: education focus area including digital literacy; two-stage 2027 process, with concept applications open 6 to 27 July 2026 and full proposals by invitation only; organisations must be legally registered; projects need measurable outcomes and long-term benefit; one-off events without sustainable impact, and sponsorships or prizes without broader community benefit, are not funded; fifty tablets with Rainforest at St Mary Primary School (December 2021); Lessons Alive campaign (August 2020). Sources: sandalsfoundation.org news pages and /contact.
-- The site blocks automated fetchers, so the pages were read with a browser user agent.
-- The deck points to the contact page and does not print an email address.
-- Open: whether follow-up mentoring or reusable school resources would count as lasting benefit, and when the next concept window opens.
+- Changed from an exploratory brief to a direct Silver request, addressed to the Foundation at the user's instruction. The page URL is unchanged; the PDF is now `hack876-sandalsfoundation-partnership-proposal.pdf`.
+- The Foundation's 2027 guidelines still exclude one-off events and require a legally registered organisation, and the concept window closed on 27 July 2026. The deck says this plainly and offers to follow the grant route if that is the only way it can be considered. See `sandals-grant-route` in `decisions.ts`.
+- Verified: education focus including digital literacy (2027 guidelines); solar systems keeping computer labs running at Hague Primary and Infant School and Cove Primary, and 20 computers to Hague in 2024 (Caribbean360, 2026); fifty tablets with Rainforest (December 2021); Sandals Resorts International funds the Foundation's governance (Get Involved page); Sandals Resorts International gave J$6 million to the 10th Jill Stewart MoBay City Run, which has handed over J$45 million toward education (Jamaica Observer, 11 March 2026); enquiries to foundation@grp.sandals.com and 876-935-0705 (Contact page).
+- Not used: the Foundation's 2026 school restoration work, under the house rule on disaster mentions.
+- The accent colour is not from an official brand guide.
+
+## Tru-Juice (`trujuice`), researched 15 October 2026
+
+- Verified: Tru-Juice is the flagship brand of Trade Winds Citrus Limited, made from locally produced fruit and delivered chilled (Wisynco brand page); J$7 million to the Tru-Juice Football Club in Linstead, February 2026 (Gleaner); Tru-Juice 5K, 11th staging, Jamaica's only off-road 5K through the Bog Walk orchards, open to schools, J$8.2 million for Linstead Public Hospital in 2025, with Linstead, Bog Walk and Ewarton named as priority communities (Gleaner, 13 May 2026); 2020 work with the Ministry of Agriculture and RADA to process farmers' surplus into juice for possible use in school feeding (MOA).
+- Wisynco owns a stake in Trade Winds and is its distributor (Jamaica Observer 2013; Gleaner 2018). The WATA proposal also goes to Wisynco. See `wisynco-family` in `decisions.ts`.
+- tru-juice.com is deactivated, so no direct enquiry route is printed in the deck.
+- The marketing manager is named "Lauren Mahfood" in February 2026 and "Lauren Lechler" in May 2026, so the deck is addressed to the marketing team, not a named person.
+- Not used: the October 2026 report of J$9.2 million raised, because the article text could not be read to confirm it.
+- The accent colour is not from an official brand guide.

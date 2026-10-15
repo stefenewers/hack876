@@ -13,7 +13,7 @@ const decks: SponsorDeckData[] = await Promise.all(files.map(async (f) => (await
 const exploratory = decks.filter((d) => isExploratory(d.ask));
 
 test("the two foundation briefs are exploratory", () => {
-  assert.deepEqual(exploratory.map((d) => d.slug).sort(), ["gracekennedyfoundation", "sandalsfoundation"]);
+  assert.deepEqual(exploratory.map((d) => d.slug).sort(), ["gracekennedyfoundation"]);
 });
 
 test("an exploratory brief shows no amount, no ladder and no partner title", () => {

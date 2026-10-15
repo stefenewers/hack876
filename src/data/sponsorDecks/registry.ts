@@ -263,13 +263,13 @@ export const deckRegistry: DeckEntry[] = [
   },
   {
     name: "Sandals Foundation",
-    aka: "Sandals Beaches",
+    aka: "Sandals Resorts Beaches SRI",
     category: "Foundations",
-    readiness: "intro",
-    focus: "Exploratory educational partnership. Asks whether follow-up learning could ever be a fit.",
+    readiness: "ready",
+    focus: "Silver-level contribution toward the equipment and student programme.",
     route: "/sandalsfoundationopportunity",
-    pdf: `${P}sandalsfoundation-partnership-brief.pdf`,
-    filename: "Hack876 x Sandals Foundation - Partnership Brief.pdf",
+    pdf: `${P}sandalsfoundation-partnership-proposal.pdf`,
+    filename: "Hack876 x Sandals Foundation - Partnership Proposal.pdf",
   },
 
   /* ---------------------------------------------------------- Food & Beverage */
@@ -300,6 +300,16 @@ export const deckRegistry: DeckEntry[] = [
     route: "/wisyncoopportunity",
     pdf: `${P}wisynco-partnership-proposal.pdf`,
     filename: "Hack876 x Wisynco Group Limited (WATA) - Partnership Proposal.pdf",
+  },
+  {
+    name: "Tru-Juice",
+    aka: "Trade Winds Citrus TruJuice Tru Juice",
+    category: "Food & Beverage",
+    readiness: "ready",
+    focus: "Juice with lunch in kind, with a monetary contribution as the alternative.",
+    route: "/trujuiceopportunity",
+    pdf: `${P}trujuice-partnership-proposal.pdf`,
+    filename: "Hack876 x Tru-Juice (Trade Winds Citrus Limited) - Partnership Proposal.pdf",
   },
 
   /* ------------------------------------------ Technology & Developer Partners */

@@ -30,6 +30,20 @@ export const decisions: Decision[] = [
     neededBefore: "introduction",
   },
   {
+    id: "sandals-grant-route",
+    question: "The Sandals Foundation's project grants exclude one-off events and require a legally registered organisation. The proposal asks directly and offers to follow the grant route instead.",
+    recommendation: "If the Foundation asks for an application, use the next concept window and the registered recipient from \"registered-recipient\". Until then, treat its reply as the decision.",
+    affects: ["sandalsfoundation"],
+    neededBefore: "commitment",
+  },
+  {
+    id: "wisynco-family",
+    question: "Wisynco owns a stake in Trade Winds Citrus, the maker of Tru-Juice, and distributes it. The WATA proposal also goes to Wisynco, so both beverage requests may reach the same people.",
+    recommendation: "Mention the other request when sending either one, and say Hack876 is happy for Wisynco to decide which product fits best.",
+    affects: ["wisynco", "trujuice"],
+    neededBefore: "commitment",
+  },
+  {
     id: "budget-basis",
     question: "There is no approved event budget in the repository. Missing inputs: the total event cost; a cost for each of venue and production, meals, prizes, equipment and materials, signage and shirts; what is already confirmed in cash and in kind (the venue is hosted); and the remaining gap.",
     recommendation: "Write a one-page budget with those lines and add it as a shared appendix to every Gold and Platinum proposal. Until then those proposals are introduction only and say that a budget will follow.",
@@ -40,7 +54,7 @@ export const decisions: Decision[] = [
     id: "registered-recipient",
     question: "Several funders give only to a registered organisation or a school. Nothing in the repository says which organisation can receive and account for funds for Hack876.",
     recommendation: "Name the registered entity, or get a school's written agreement to act as recipient. Do not assume a school has agreed.",
-    affects: ["americanfriendsofjamaica", "mayberryfoundation", "gracekennedyfoundation", "sandalsfoundation", "digicelfoundation", "ncbfoundation", "jmmb"],
+    affects: ["americanfriendsofjamaica", "mayberryfoundation", "gracekennedyfoundation", "digicelfoundation", "ncbfoundation", "jmmb"],
     neededBefore: "commitment",
   },
   {
@@ -89,7 +103,7 @@ export const decisions: Decision[] = [
     id: "catering-headcount",
     question: "Food and water decks ask for about 80 students plus adults. The number of mentors, judges, teachers and volunteers is not recorded anywhere.",
     recommendation: "Count the adults and give suppliers one total in writing. The decks promise a final headcount before anything is ordered.",
-    affects: ["juicipatties", "islandgrill", "wisynco", "mayberryfoundation"],
+    affects: ["juicipatties", "islandgrill", "wisynco", "trujuice", "mayberryfoundation"],
     neededBefore: "fulfilment",
   },
   {
