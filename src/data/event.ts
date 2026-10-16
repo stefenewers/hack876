@@ -480,6 +480,7 @@ export const sponsors: Sponsor[] = [
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },
   { name: "Norus Technologies", logo: "/sponsors/norus-technologies.png", url: "https://norustech.com/", level: "partner", confirmed: true },
   { name: "Frankies", logo: "/sponsors/frankies.jpg", url: "", level: "partner", confirmed: true },
+  { name: ".xyz", logo: "/sponsors/xyz.png", url: "https://gen.xyz", level: "partner", confirmed: true },
 ];
 
 /* -------------------------------------------------------------------------- */

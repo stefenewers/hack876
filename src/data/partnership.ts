@@ -56,7 +56,7 @@ export const eventFacts: { label: string; value: string }[] = [
 /** The event at a glance, for a recipient outside Jamaica. */
 export const eventFactsAbroad = eventFacts.map((f) => (f.label === "Where" ? { ...f, value: f.value.replace(", Kingston", ", Kingston, Jamaica") } : f));
 
-/** Confirmed sponsors as a phrase, e.g. "P237 Labs, Lev Beauty and Frankies". */
+/** Confirmed sponsors as a phrase, e.g. "P237 Labs, Lev Beauty, Frankies and .xyz". */
 const confirmedSponsors = sponsors.filter((s) => s.confirmed).map((s) => s.name);
 export const sponsorList = confirmedSponsors.length > 1 ? `${confirmedSponsors.slice(0, -1).join(", ")} and ${confirmedSponsors[confirmedSponsors.length - 1]}` : (confirmedSponsors[0] ?? "");
 
