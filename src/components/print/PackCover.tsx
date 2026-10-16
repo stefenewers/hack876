@@ -1,7 +1,5 @@
-import Image from "next/image";
 import type { CSSProperties } from "react";
-import { BirdMark } from "@/components/art/DoctorBird";
-import { Logo } from "@/components/art/Wordmark";
+import { CoverCard, FactChips, InviteHero } from "@/components/print/CoverArt";
 import { coverCopy, packSchool, type PrincipalPack } from "@/data/principalPacks";
 import "./principal-print.css";
 
@@ -13,55 +11,42 @@ export function PackCover({ pack }: { pack: PrincipalPack }) {
   const vars = { "--pp-school": brief.colors.primary } as CSSProperties;
   return (
     <section className="pp-page pp-cover" style={vars} aria-label="Cover">
-      <div className="flex items-center gap-[14pt]">
-        <div className="flex items-center gap-[6pt]">
-          <BirdMark className="h-[30pt] w-[48pt]" />
-          <Logo className="!text-[32pt]" />
-        </div>
-        <span aria-hidden className="text-[20pt] font-bold text-ink-soft">
-          ×
-        </span>
-        <Image src={brief.crest} alt="" width={400} height={400} unoptimized className="h-[1.15in] w-[1.15in] object-contain" />
+      <InviteHero title={c.title} highlight="Hack 876" tagline={c.tagline} crest={brief.crest} kicker={`For ${c.school}`} minHeight="5.15in" />
+
+      <div className="mt-[12pt]">
+        <FactChips facts={c.facts} />
       </div>
 
-      <div className="mt-[0.9in]">
-        <p className="pp-kicker">{c.kicker}</p>
-        <div className="mt-[6pt] text-[15pt] leading-snug">
-          {c.recipient.map((l, i) => (
-            <p key={l} className={i === 0 ? "font-extrabold" : ""}>
-              {l}
-            </p>
-          ))}
-          <p>{c.school}</p>
-        </div>
-      </div>
-
-      <div className="mt-[0.7in]">
-        <h1 className="pp-display pp-h1 max-w-[6in]">{c.title}</h1>
-        <div aria-hidden className="pp-rule" />
-        <p className="mt-[12pt] text-[16pt] leading-tight font-extrabold">{c.tagline}</p>
-        <p className="mt-[14pt] text-[12pt]">{c.when}</p>
-        <p className="text-[12pt]">{c.where}</p>
-      </div>
-
-      <div className="mt-auto">
-        <div className="pp-panel pp-sun">
-          <p className="pp-h3">In this pack</p>
-          <ol className="mt-[5pt] grid gap-[3pt] text-[11pt]">
+      <div className="mt-[12pt] grid flex-1 grid-cols-[1fr_1.25fr] gap-[10pt]">
+        <CoverCard className="border-l-[5pt] !border-l-[var(--pp-school)]">
+          <p className="pp-kicker">{c.kicker}</p>
+          <div className="mt-[6pt] text-[13pt] leading-snug">
+            {c.recipient.map((l, i) => (
+              <p key={l} className={i === 0 ? "font-extrabold" : ""}>
+                {l}
+              </p>
+            ))}
+            <p>{c.school}</p>
+          </div>
+        </CoverCard>
+        <CoverCard>
+          <p className="pp-kicker">In this pack</p>
+          <ol className="mt-[6pt] grid gap-[4pt] text-[11pt]">
             {c.contents.map((x, i) => (
-              <li key={x.k} className="flex justify-between gap-[12pt] border-b-[0.75pt] border-ink/20 pb-[3pt] last:border-0">
+              <li key={x.k} className="flex justify-between gap-[10pt] border-b-[0.75pt] border-ink/15 pb-[4pt] last:border-0">
                 <span>
                   <strong>{i + 1}.</strong> {x.k}
                 </span>
-                <span className="text-ink-soft">{x.v}</span>
+                <span className="shrink-0 text-ink-soft">{x.v}</span>
               </li>
             ))}
           </ol>
-        </div>
-        <div className="pp-small mt-[10pt] flex justify-between text-ink-soft">
-          <span>{c.ref}</span>
-          <span>{c.contact}</span>
-        </div>
+        </CoverCard>
+      </div>
+
+      <div className="pp-small mt-[10pt] flex justify-between text-ink-soft">
+        <span>{c.ref}</span>
+        <span>{c.contact}</span>
       </div>
     </section>
   );

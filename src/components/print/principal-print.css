@@ -111,9 +111,45 @@
   color: var(--color-ink-2);
 }
 
-/* ------------------------------------------------------------- Pack cover */
+/* ----------------------------------------------------------------- Covers */
 .pp-cover {
-  padding: 0.75in 1in;
+  padding: 0.6in;
+}
+/* A light, warm panel: colour without a dark flood. */
+.pp-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 4.35in;
+  padding: 0.32in 0.36in 0.4in;
+  border: 1.25pt solid var(--color-ink);
+  border-radius: 14pt;
+  background-color: var(--color-cream);
+  background-image: radial-gradient(rgb(20 23 22 / 0.09) 0.9pt, transparent 1.1pt);
+  background-size: 12pt 12pt;
+}
+.pp-blob {
+  position: absolute;
+  border-radius: 999pt;
+}
+.pp-sticker {
+  position: absolute;
+  height: auto;
+}
+.pp-hero-bird {
+  position: absolute;
+  right: 0.3in;
+  top: 1.4in;
+  width: 2.3in;
+  height: 2.15in;
+  rotate: -6deg;
+}
+.pp-chip {
+  display: flex;
+  align-items: center;
+  gap: 9pt;
+  padding: 9pt 11pt;
+  border: 1.25pt solid var(--color-ink);
+  border-radius: 10pt;
 }
 
 /* ----------------------------------------------------------------- Booklet */

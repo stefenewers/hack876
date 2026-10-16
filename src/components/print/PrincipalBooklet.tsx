@@ -1,8 +1,7 @@
 import Image from "next/image";
 import QRCode from "qrcode";
 import type { CSSProperties, ReactNode } from "react";
-import { BirdMark } from "@/components/art/DoctorBird";
-import { Logo } from "@/components/art/Wordmark";
+import { FactChips, InviteHero } from "@/components/print/CoverArt";
 import type { Person } from "@/data/event";
 import { bookletCopy, packSchool, type PrincipalPack } from "@/data/principalPacks";
 import { statusLabel } from "@/data/schoolHub";
@@ -62,43 +61,16 @@ function Head({ kicker, title }: { kicker: string; title: string }) {
   );
 }
 
-function Crest({ src, size }: { src: string; size: string }) {
-  return <Image src={src} alt="" width={400} height={400} unoptimized className="object-contain" style={{ width: size, height: size }} />;
-}
-
 /* ------------------------------------------------------------------ 1 Cover */
 function Cover({ copy, crest, qr }: { copy: Copy; crest: string; qr: string }) {
   const c = copy.cover;
   return (
     <Page n={1} copy={copy}>
-      <div className="flex items-center gap-[14pt]">
-        <div className="flex items-center gap-[6pt]">
-          <BirdMark className="h-[30pt] w-[48pt]" />
-          <Logo className="!text-[32pt]" />
-        </div>
-        <span aria-hidden className="text-[20pt] font-bold text-ink-soft">
-          ×
-        </span>
-        <Crest src={crest} size="1.15in" />
+      <InviteHero title={c.title} highlight={copy.name} tagline={c.tagline} crest={crest} kicker="Information booklet for the Principal" minHeight="4.6in" />
+      <div className="mt-[10pt]">
+        <FactChips facts={c.facts} />
       </div>
-
-      <div className="mt-[0.55in]">
-        <p className="pp-kicker">Information booklet for the Principal</p>
-        <h1 className="pp-display pp-h1 mt-[6pt] max-w-[6in]">{c.title}</h1>
-        <div aria-hidden className="pp-rule" />
-        <p className="mt-[12pt] text-[16pt] leading-tight font-extrabold">{c.tagline}</p>
-      </div>
-
-      <dl className="pp-panel pp-sun mt-[0.4in] grid gap-[6pt]">
-        {c.facts.map((f) => (
-          <div key={f.k} className="grid grid-cols-[0.9in_1fr] gap-[8pt] text-[12pt]">
-            <dt className="font-extrabold">{f.k}</dt>
-            <dd>{f.v}</dd>
-          </div>
-        ))}
-      </dl>
-
-      <p className="mt-[0.3in] max-w-[5.6in] text-[12pt] leading-[1.45]">{c.about}</p>
+      <p className="mt-[12pt] text-[11pt] leading-[1.42]">{c.about}</p>
 
       <div className="mt-auto flex items-end justify-between gap-[16pt]">
         <div className="max-w-[4.4in]">

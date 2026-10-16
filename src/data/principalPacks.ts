@@ -310,8 +310,12 @@ export function coverCopy(pack: PrincipalPack) {
     school: name,
     title: "An invitation to take part in Hack 876",
     tagline: event.tagline,
-    when: `${eventDate} · ${DOORS} to ${WRAP}`,
-    where: `${venue.name}, ${venue.area}`,
+    facts: [
+      { k: "Date", v: eventDate },
+      { k: "Hours", v: `${DOORS} to ${WRAP}` },
+      { k: "Venue", v: `${venue.name}, ${venue.area}` },
+      { k: "Cost", v: "Free for schools and students" },
+    ],
     contents: [
       { k: "Letter to the Principal", v: "1 page" },
       { k: `Information booklet for ${name}`, v: `${BOOKLET_PAGES} pages` },
