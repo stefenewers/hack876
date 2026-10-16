@@ -70,6 +70,16 @@ export function Footer() {
                   Partner with us
                 </Link>
               </li>
+              <li>
+                <Link href="/code-of-conduct" className="rounded hover:text-sun">
+                  Code of Conduct
+                </Link>
+              </li>
+              <li>
+                <Link href="/rules" className="rounded hover:text-sun">
+                  Event Rules
+                </Link>
+              </li>
               {event.contactEmail && (
                 <li>
                   <a href={`mailto:${event.contactEmail}`} className="rounded hover:text-sun">
