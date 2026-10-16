@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Icon } from "@/components/art/Icons";
 import { faqs, parents, event } from "@/data/event";
@@ -44,6 +45,17 @@ export function Faq() {
                 .
               </>
             ) : null}
+          </p>
+          <p className="mt-3 max-w-lg text-ink-2">
+            Everyone follows the{" "}
+            <Link className="font-bold underline decoration-emerald decoration-2 underline-offset-4" href="/code-of-conduct">
+              Code of Conduct
+            </Link>{" "}
+            and the{" "}
+            <Link className="font-bold underline decoration-emerald decoration-2 underline-offset-4" href="/rules">
+              Event Rules
+            </Link>
+            .
           </p>
         </div>
 

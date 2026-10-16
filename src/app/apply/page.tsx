@@ -80,6 +80,17 @@ export default function ApplyPage() {
                   </p>
                 </noscript>
                 <ApplyForm />
+                <p className="mt-6 text-center text-sm text-ink-2">
+                  By applying, you agree to the{" "}
+                  <Link href="/code-of-conduct" className="font-bold text-ink underline decoration-emerald decoration-2 underline-offset-4">
+                    Code of Conduct
+                  </Link>{" "}
+                  and the{" "}
+                  <Link href="/rules" className="font-bold text-ink underline decoration-emerald decoration-2 underline-offset-4">
+                    Event Rules
+                  </Link>
+                  .
+                </p>
               </>
             ) : (
               <div className="rounded-[2rem] border-[3px] border-ink bg-paper p-8 text-center shadow-[6px_8px_0_0_var(--color-ink)]">

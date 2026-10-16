@@ -556,8 +556,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Can I start my project before the event?",
-    a: "Brainstorm all you want, but building starts when hacking begins on the day. Full rules on pre-existing work will be posted before the event.",
-    pending: true,
+    a: "Brainstorm and plan all you want, but code is written on the day, once hacking begins. The full rules are on the Event Rules page.",
   },
 ];
 
