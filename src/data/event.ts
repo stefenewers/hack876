@@ -32,6 +32,8 @@ export const event = {
   siteUrl: "https://www.hack876.com",
   /** Public contact email. `null` hides email links until one is set up. */
   contactEmail: "info@hack876.com" as string | null,
+  /** Where schools and partners book a 15-minute call with the organizers (Calendly event "15 Min Hack Meeting"). `null` hides it. */
+  bookingUrl: "https://calendly.com/hack876-info/30min" as string | null,
   socials: [{ label: "@hack876ja", href: "https://www.instagram.com/hack876ja", icon: "instagram" }] as { label: string; href: string; icon?: "instagram" }[],
 };
 

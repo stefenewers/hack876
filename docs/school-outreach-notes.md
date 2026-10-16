@@ -1,6 +1,6 @@
 # School outreach briefs: research notes
 
-Researched 15 October 2026 for cold first approaches. Each brief is unlisted and noindex, at `/schools/<slug>`, with its PDF at `/proposals/hack876-<slug>-participation-brief.pdf`. The ask in every brief is a 20-minute call. Sources are listed in each brief.
+Researched 15 October 2026 for cold first approaches. Each brief is unlisted and noindex, at `/schools/<slug>`, with its PDF at `/proposals/hack876-<slug>-participation-brief.pdf`. The ask in every brief is a 15-minute call, booked at calendly.com/hack876-info/30min. Sources are listed in each brief.
 
 ## Before sending
 

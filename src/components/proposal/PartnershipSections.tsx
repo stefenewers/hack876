@@ -60,6 +60,14 @@ function ContactLine({ dark = false }: { dark?: boolean }) {
           </a>
         </>
       )}
+      {contact.booking && (
+        <>
+          {" · "}
+          <a href={contact.booking} className={link}>
+            Book a call: {contact.booking.replace(/^https?:\/\//, "")}
+          </a>
+        </>
+      )}
     </>
   );
 }

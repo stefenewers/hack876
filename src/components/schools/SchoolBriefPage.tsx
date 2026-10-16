@@ -773,13 +773,27 @@ function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
           <div className="lp-keep mt-6 flex flex-wrap items-center justify-between gap-5 rounded-2xl border-[3px] border-ink bg-sun px-6 py-5 print:mt-5" data-reveal>
             <div>
               <p className="text-xs font-extrabold tracking-[0.16em] uppercase print:text-[1rem]">The one thing we&rsquo;re asking for now</p>
-              <p className="mt-1 text-[clamp(1.4rem,2.6vw,2rem)] leading-tight font-extrabold print:text-[2.3rem]">A 20-minute call with {brief.outreach.callWith}.</p>
+              <p className="mt-1 text-[clamp(1.4rem,2.6vw,2rem)] leading-tight font-extrabold print:text-[2.3rem]">A 15-minute call with {brief.outreach.callWith}.</p>
               <p className="mt-1 text-[1rem] font-semibold print:text-[1.25rem]">
-                Reply to the email this came with{event.contactEmail ? `, or write to ${event.contactEmail}` : ""}, and we&rsquo;ll work around your timetable.
+                {event.bookingUrl ? (
+                  <>
+                    Pick a time at{" "}
+                    <a href={event.bookingUrl} className="underline decoration-2 underline-offset-2">
+                      {event.bookingUrl.replace(/^https?:\/\//, "")}
+                    </a>
+                    {event.contactEmail ? `, or write to ${event.contactEmail}.` : "."}
+                  </>
+                ) : (
+                  <>Reply to the email this came with{event.contactEmail ? `, or write to ${event.contactEmail}` : ""}, and we&rsquo;ll work around your timetable.</>
+                )}
               </p>
             </div>
-            {event.contactEmail && (
-              <a href={`mailto:${event.contactEmail}?subject=${encodeURIComponent(`Hack 876 × ${brief.short}: a 20-minute call`)}`} className="lp-no-print btn btn-primary">
+            {(event.bookingUrl || event.contactEmail) && (
+              <a
+                href={event.bookingUrl ?? `mailto:${event.contactEmail}?subject=${encodeURIComponent(`Hack 876 × ${brief.short}: a call`)}`}
+                {...(event.bookingUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="lp-no-print btn btn-primary"
+              >
                 Book a call <span aria-hidden>→</span>
               </a>
             )}
@@ -850,13 +864,21 @@ function Closing({ brief }: { brief: SchoolBrief }) {
             {event.contactEmail}
           </a>
         )}
-        <div className="lp-no-print mt-9 flex flex-wrap justify-center gap-4">
-          <a
-            href={event.contactEmail ? `mailto:${event.contactEmail}${brief.outreach ? `?subject=${encodeURIComponent(`Hack 876 × ${brief.short}: a 20-minute call`)}` : ""}` : "/partner"}
-            className="btn btn-primary"
-          >
-            {brief.outreach ? "Book a 20-minute call" : "Start the conversation"} <span aria-hidden>→</span>
+        {brief.outreach && event.bookingUrl && (
+          <a href={event.bookingUrl} className="mt-1 font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
+            Book a call: {event.bookingUrl.replace(/^https?:\/\//, "")}
           </a>
+        )}
+        <div className="lp-no-print mt-9 flex flex-wrap justify-center gap-4">
+          {brief.outreach && event.bookingUrl ? (
+            <a href={event.bookingUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+              Book a 15-minute call <span aria-hidden>→</span>
+            </a>
+          ) : (
+            <a href={event.contactEmail ? `mailto:${event.contactEmail}` : "/partner"} className="btn btn-primary">
+              Start the conversation <span aria-hidden>→</span>
+            </a>
+          )}
           <a href={brief.pdf.href} download={brief.pdf.filename} className="btn btn-secondary">
             Download brief
           </a>

@@ -18,6 +18,7 @@ export const confirmedJudges = people.filter((p) => p.role === "judge" && p.conf
 export const contact = {
   names: organisers.map((p) => p.name),
   email: event.contactEmail,
+  booking: event.bookingUrl,
   site: event.siteUrl,
 };
 
