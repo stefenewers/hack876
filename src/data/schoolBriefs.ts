@@ -347,8 +347,8 @@ export const schoolBriefs: SchoolBrief[] = [
       intro:
         "We would like Hack 876 to become something Hillel students can return to each year, not a single Saturday. That work is under way with the school’s leadership and its Technology Education team.",
       tag: "Prepared for",
-      role: "We are coordinating with Mr. Holmes and Hillel’s Technology Education team on what school participation would involve and what approval Hillel requires.",
-      note: "Hillel Academy has not yet confirmed its participation, nobody at Hillel has accepted a role, and student places are not guaranteed.",
+      role: "Hillel has confirmed its participation. We are working with Mr. Holmes and Hillel’s Technology Education team on the arrangements.",
+      note: "Hillel Academy has confirmed its participation. Every student still applies individually, and places are not guaranteed.",
       also: [
         {
           title: "Ms. Delrose Coburn",
@@ -363,15 +363,15 @@ export const schoolBriefs: SchoolBrief[] = [
       ],
     },
     nextSteps: [
-      { k: "Now", v: "Coordination with Mr. Holmes and the Technology Education team on participation arrangements." },
-      { k: "If Hillel agrees", v: "Support in principle, and any approval steps the school requires." },
+      { k: "Done", v: "Hillel has confirmed its participation." },
+      { k: "Now", v: "Arrangements with Mr. Holmes and the Technology Education team, including any approval steps the school requires." },
       { k: "Then", v: "A faculty liaison and one or two student ambassadors." },
       { k: "Before the event", v: "Teachers recommend students, students apply, and families receive consent forms." },
       { k: "Event day", v: "Hack 876." },
     ],
     hub: {
       status:
-        "We are coordinating with Hillel’s leadership and Technology Education team. School participation arrangements and the faculty liaison are still being confirmed. Hack 876 is organized independently of Hillel Academy, and individual student places are not guaranteed.",
+        "Hillel Academy has confirmed that it is taking part in Hack 876. We are working with Hillel’s leadership and Technology Education team, and the faculty liaison is still being confirmed. Hack 876 is organized independently of Hillel Academy, and individual student places are not guaranteed.",
       ambassadors: {
         summary:
           "One or two student ambassadors have been proposed. None has been nominated, and their names will not be published without permission.",

@@ -93,10 +93,10 @@ export const schools = [
 export type School = (typeof schools)[number];
 
 /** Schools that have formally confirmed. */
-export const confirmedSchools: readonly School[] = ["Campion College"];
+export const confirmedSchools: readonly School[] = ["Campion College", "Hillel Academy"];
 
 /** Schools in active talks. Everyone not confirmed or in talks shows "Pending confirmation". */
-export const schoolsInTalks: readonly School[] = ["Hillel Academy", "Ardenne High School"];
+export const schoolsInTalks: readonly School[] = ["Ardenne High School"];
 
 export type SchoolStatus = "confirmed" | "talks" | "pending";
 
@@ -477,6 +477,7 @@ export const sponsors: Sponsor[] = [
   { name: "Lev Beauty", logo: "/sponsors/lev-beauty.jpeg", url: "", level: "partner", confirmed: true },
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },
   { name: "Norus Technologies", logo: "/sponsors/norus-technologies.png", url: "https://norustech.com/", level: "partner", confirmed: true },
+  { name: "Frankies", logo: "/sponsors/frankies.jpg", url: "", level: "partner", confirmed: true },
 ];
 
 /* -------------------------------------------------------------------------- */
