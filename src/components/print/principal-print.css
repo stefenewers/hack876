@@ -1,0 +1,307 @@
+/*
+ * Principal packs: a cover letter and an eight-page booklet, portrait US Letter.
+ * White paper, no bleed: nothing prints within 0.5in of the trim. Sizes are in
+ * pt and in so they print exactly. On screen the pages stack on a grey stage
+ * for review.
+ */
+@page {
+  size: letter portrait;
+  margin: 0;
+}
+
+:root:has(.pp-stage) body {
+  background: #d4d4d0;
+}
+.pp-stage {
+  min-height: 100dvh;
+  padding: 0.4in 0 0.8in;
+  background: #d4d4d0;
+}
+.pp-page {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 8.5in;
+  height: 11in;
+  margin: 0 auto 0.4in;
+  overflow: hidden;
+  background: #fff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 10.5pt;
+  line-height: 1.38;
+  box-shadow: 0 10px 36px -14px rgb(20 23 22 / 0.45);
+}
+/* Scale the fixed-size page down on narrow screens. */
+@media screen and (max-width: 860px) {
+  .pp-stage {
+    overflow-x: hidden;
+  }
+  .pp-page {
+    zoom: calc((100vw - 1rem) / 816px);
+  }
+}
+
+/* ------------------------------------------------------------------ Letter */
+.pp-letter {
+  padding: 0.75in 1in;
+  font-size: 11pt;
+  line-height: 1.4;
+}
+.pp-letterhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 5pt;
+  border-bottom: 1.25pt solid var(--color-ink);
+}
+.pp-letterhead-contact {
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--color-ink-soft);
+}
+.pp-refline {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10pt;
+}
+.pp-byhand {
+  margin-top: 8pt;
+  font-size: 9pt;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+.pp-address {
+  margin-top: 2pt;
+}
+.pp-salutation {
+  margin-top: 10pt;
+}
+.pp-subject {
+  margin-top: 5pt;
+  font-weight: 800;
+}
+.pp-letter-body p {
+  margin-top: 6pt;
+}
+.pp-close {
+  margin-top: 7pt;
+}
+.pp-signatures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4in;
+}
+.pp-sign-space {
+  height: 0.6in;
+  display: flex;
+  align-items: flex-end;
+}
+.pp-sign-space img {
+  max-height: 0.55in;
+  width: auto;
+}
+.pp-sign-name {
+  font-weight: 800;
+}
+.pp-enc {
+  margin-top: 7pt;
+  font-size: 9.5pt;
+  color: var(--color-ink-2);
+}
+
+/* ----------------------------------------------------------------- Booklet */
+/* Right-hand (odd) pages bind on the left; left-hand (even) pages on the right. */
+.pp-odd {
+  padding: 0.6in 0.6in 0.6in 0.75in;
+}
+.pp-even {
+  padding: 0.6in 0.75in 0.6in 0.6in;
+}
+.pp-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.pp-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12pt;
+  margin-top: 10pt;
+  padding-top: 5pt;
+  border-top: 0.75pt solid #c9c9c4;
+  font-size: 8.5pt;
+  color: var(--color-ink-soft);
+}
+.pp-kicker {
+  font-size: 8.5pt;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-emerald-deep);
+}
+.pp-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+}
+.pp-h1 {
+  font-size: 30pt;
+}
+.pp-h2 {
+  margin-top: 4pt;
+  font-size: 22pt;
+}
+.pp-h3 {
+  font-size: 12pt;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.pp-lead {
+  font-size: 12pt;
+  line-height: 1.38;
+  font-weight: 600;
+}
+.pp-small {
+  font-size: 9pt;
+  line-height: 1.35;
+}
+.pp-soft {
+  color: var(--color-ink-soft);
+}
+.pp-rule {
+  height: 3pt;
+  width: 0.6in;
+  margin-top: 6pt;
+  border-radius: 2pt;
+  background: var(--pp-school, var(--color-emerald-deep));
+}
+.pp-panel {
+  border-radius: 7pt;
+  padding: 10pt 12pt;
+  break-inside: avoid;
+}
+.pp-mint {
+  background: var(--color-mint);
+}
+.pp-sun {
+  background: var(--color-sun-light);
+}
+.pp-sky {
+  background: var(--color-sky-light);
+}
+.pp-line {
+  border: 1pt solid #c9c9c4;
+}
+.pp-ink-border {
+  border: 1.25pt solid var(--color-ink);
+}
+.pp-pill {
+  display: inline-block;
+  margin-left: 5pt;
+  padding: 0 5pt;
+  border: 0.75pt solid var(--color-ink);
+  border-radius: 99pt;
+  font-size: 8.5pt;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  vertical-align: 1pt;
+}
+.pp-list {
+  display: grid;
+  gap: 4pt;
+}
+.pp-list li {
+  position: relative;
+  padding-left: 12pt;
+}
+.pp-list li::before {
+  content: "";
+  position: absolute;
+  left: 1pt;
+  top: 0.5em;
+  width: 5pt;
+  height: 5pt;
+  border-radius: 99pt;
+  background: var(--color-emerald-deep);
+}
+.pp-qr {
+  width: 1.2in;
+  height: 1.2in;
+  background: #fff;
+}
+.pp-qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.pp-qr-label {
+  margin-top: 3pt;
+  font-size: 9pt;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
+.pp-person {
+  display: grid;
+  grid-template-columns: 0.82in 1fr;
+  gap: 8pt;
+  align-items: center;
+  padding: 6pt;
+  border: 1pt solid #c9c9c4;
+  border-radius: 7pt;
+  break-inside: avoid;
+}
+.pp-person img {
+  width: 0.82in;
+  height: 0.82in;
+  object-fit: cover;
+  border-radius: 5pt;
+  filter: none;
+}
+.pp-person-ours {
+  border: 2pt solid var(--pp-school);
+}
+.pp-tag {
+  display: inline-block;
+  margin-top: 3pt;
+  padding: 1pt 5pt;
+  border-radius: 99pt;
+  background: var(--pp-school);
+  color: #fff;
+  font-size: 8.5pt;
+  font-weight: 800;
+}
+
+@media print {
+  html,
+  body,
+  :root:has(.pp-stage) body {
+    background: #fff !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .pp-stage {
+    padding: 0;
+    background: none;
+  }
+  .pp-page {
+    margin: 0;
+    box-shadow: none;
+    break-after: page;
+  }
+  .pp-page:last-child {
+    break-after: auto;
+  }
+  .pp-no-print,
+  nextjs-portal {
+    display: none !important;
+  }
+}
