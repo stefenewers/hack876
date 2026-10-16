@@ -6,7 +6,7 @@ import { HackerPass } from "@/components/art/HackerPass";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { applications, buildTypes, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule, schoolStatus, schools, venue } from "@/data/event";
+import { applications, buildTypes, confirmedSchools, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule, schoolLogos, schoolStatus, schools, sponsors, venue } from "@/data/event";
 import type { Person } from "@/data/event";
 import type { SchoolBrief } from "@/data/schoolBriefs";
 import "@/components/proposal/proposal.css";
@@ -60,6 +60,11 @@ export function SchoolBriefPage({ brief }: { brief: SchoolBrief }) {
         <div className="lp-page">
           <Hero brief={brief} />
         </div>
+        {brief.outreach && (
+          <div className="lp-page">
+            <OnBoard n={n()} brief={brief} />
+          </div>
+        )}
         <div className="lp-page">
           <Fit n={n()} brief={brief} />
         </div>
@@ -74,9 +79,11 @@ export function SchoolBriefPage({ brief }: { brief: SchoolBrief }) {
         <div className="lp-page">
           <Gains n={n()} />
         </div>
-        <div className="lp-page">
-          <BeforeUniversity n={n()} />
-        </div>
+        {!brief.outreach && (
+          <div className="lp-page">
+            <BeforeUniversity n={n()} />
+          </div>
+        )}
         <div className="lp-page">
           <Participation n={n()} brief={brief} />
         </div>
@@ -152,6 +159,56 @@ function Hero({ brief }: { brief: SchoolBrief }) {
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Outreach only · Who is already on board                                   */
+/* -------------------------------------------------------------------------- */
+
+function OnBoard({ n, brief }: { n: string; brief: SchoolBrief }) {
+  const confirmed = confirmedSchools.filter((s) => s !== brief.school);
+  const judges = people.filter((p) => p.role === "judge" && p.confirmed);
+  const employers = [...new Set(judges.map((p) => (p.organization ?? "").replace(/ \(.*\)$/, "")).filter(Boolean))];
+  const backers = sponsors.filter((s) => s.confirmed && s.level !== "organizing");
+  return (
+    <section aria-labelledby="sb-onboard" className="lp-section lp-dark lp-grid-bg">
+      <div className="lp-wrap">
+        <Label n={n}>Already on board</Label>
+        <h2 id="sb-onboard" className="sb-h sb-lg mt-6 max-w-[18ch]" data-reveal>
+          {confirmed.length === 2 ? `${confirmed[0]} and ${confirmed[1]} are already in.` : `${confirmed.length} schools are already in.`}
+        </h2>
+        <p className="lp-prose mt-5 max-w-3xl" data-reveal>
+          The inaugural Hack 876 is taking shape. We would like {brief.short} students in the room with them.
+        </p>
+        <div className="mt-9 grid gap-4 lg:grid-cols-[1fr_1.25fr] print:mt-7 print:grid-cols-[1fr_1.25fr]">
+          <ul className="grid gap-3">
+            {confirmed.map((s) => (
+              <li key={s} className="lp-keep flex items-center gap-4 rounded-2xl border border-cream/25 bg-cream/[0.06] p-4" data-reveal>
+                {schoolLogos[s] && <Image src={schoolLogos[s]!} alt="" width={64} height={64} className="h-16 w-16 shrink-0 rounded-xl bg-cream object-contain p-1.5 print:h-[5.5rem] print:w-[5.5rem]" />}
+                <div>
+                  <p className="text-xl font-extrabold text-cream print:text-[1.7rem]">{s}</p>
+                  <span className="sb-tag mt-1 border-2 border-cream/60 bg-mint text-emerald-dark">Confirmed school</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <dl className="grid gap-3 sm:grid-cols-2 print:grid-cols-2">
+            {[
+              { k: `${judges.length} confirmed judges`, v: `Working at ${employers.join(", ")}.` },
+              { k: "Venue confirmed", v: `${venue.name}, ${venue.area.split(",")[0]}.` },
+              { k: "Free for students", v: "No cost to apply. Food is provided on the day." },
+              ...(backers.length ? [{ k: "Supported by", v: `${backers.map((b) => b.name).join(", ")}.` }] : []),
+            ].map((f) => (
+              <div key={f.k} className="lp-keep rounded-2xl border border-cream/25 bg-cream/[0.06] p-4" data-reveal>
+                <dt className="text-sm font-extrabold tracking-[0.12em] text-sun uppercase print:text-[1rem]">{f.k}</dt>
+                <dd className="mt-1.5 text-[1rem] leading-snug text-cream/85 print:text-[1.25rem]">{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );
@@ -712,6 +769,22 @@ function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
     <section aria-labelledby="sb-next" className="lp-section bg-paper">
       <div className="lp-wrap">
         <Label n={n}>What happens next</Label>
+        {brief.outreach && (
+          <div className="lp-keep mt-6 flex flex-wrap items-center justify-between gap-5 rounded-2xl border-[3px] border-ink bg-sun px-6 py-5 print:mt-5" data-reveal>
+            <div>
+              <p className="text-xs font-extrabold tracking-[0.16em] uppercase print:text-[1rem]">The one thing we&rsquo;re asking for now</p>
+              <p className="mt-1 text-[clamp(1.4rem,2.6vw,2rem)] leading-tight font-extrabold print:text-[2.3rem]">A 20-minute call with {brief.outreach.callWith}.</p>
+              <p className="mt-1 text-[1rem] font-semibold print:text-[1.25rem]">
+                Reply to the email this came with{event.contactEmail ? `, or write to ${event.contactEmail}` : ""}, and we&rsquo;ll work around your timetable.
+              </p>
+            </div>
+            {event.contactEmail && (
+              <a href={`mailto:${event.contactEmail}?subject=${encodeURIComponent(`Hack 876 × ${brief.short}: a 20-minute call`)}`} className="lp-no-print btn btn-primary">
+                Book a call <span aria-hidden>→</span>
+              </a>
+            )}
+          </div>
+        )}
         <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
           <h2 id="sb-next" className="sb-h sb-lg max-w-[16ch]" data-reveal>
             We&rsquo;ll fill in the details together.
@@ -778,8 +851,11 @@ function Closing({ brief }: { brief: SchoolBrief }) {
           </a>
         )}
         <div className="lp-no-print mt-9 flex flex-wrap justify-center gap-4">
-          <a href={event.contactEmail ? `mailto:${event.contactEmail}` : "/partner"} className="btn btn-primary">
-            Start the conversation <span aria-hidden>→</span>
+          <a
+            href={event.contactEmail ? `mailto:${event.contactEmail}${brief.outreach ? `?subject=${encodeURIComponent(`Hack 876 × ${brief.short}: a 20-minute call`)}` : ""}` : "/partner"}
+            className="btn btn-primary"
+          >
+            {brief.outreach ? "Book a 20-minute call" : "Start the conversation"} <span aria-hidden>→</span>
           </a>
           <a href={brief.pdf.href} download={brief.pdf.filename} className="btn btn-secondary">
             Download brief

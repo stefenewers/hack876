@@ -1,0 +1,12 @@
+# School outreach briefs: research notes
+
+Researched 15 October 2026 for cold first approaches. Each brief is unlisted and noindex, at `/schools/<slug>`, with its PDF at `/proposals/hack876-<slug>-participation-brief.pdf`. The ask in every brief is a 20-minute call. Sources are listed in each brief.
+
+## Before sending
+
+- **Jamaica College (`jamaica-college`)**: addressed to Principal Wayne Robinson. JC was disqualified from the Walker Cup on 13 October 2026 over an ineligible player, so consider waiting a week or two. JC usually hosts FTC Jamaica in late February (20 to 21 February in 2026), which may clash with Hack 876 on 20 February 2027. Raise it on the call. Colours are from public references, not the school site.
+- **Immaculate (`immaculate`)**: addressed to Principal Stacey Wilson Reynolds, naming Upper School VP Tanya Morgan Francis. Judge Sheneska Williams is an alumna. No direct principal email is published; the school lists ichsfeedback@immaculatehigh.edu.jm.
+- **St Andrew (`st-andrew`)**: addressed to Principal Keeva Ingram (principal@sahs.edu.jm), naming Upper School VP Abigail James. Judge Netania Mundell is an alumna. The Guardian Group Foundation partner deck mentions this school's Robotics Club grant; that is a published fact, not a relationship.
+- **St George's (`st-georges`)**: addressed to Principal Margaret Campbell, naming VP Huntley Anderson. The school's own staff page also lists an Acting Principal (Suzette Mullings-Douglas). Call the switchboard to confirm who signs off before sending. Some stgc.org subpages currently serve spam, so the brief links only to news sources. The robotics and maths items come from an alumni-chapter site reposting the school's Facebook.
+- **AISK (`aisk`)**: addressed to Middle and High School Principal Christie Powell (cpowell@aisk.com). AISK uses US grades; Grades 11 and 12 map to Hack 876's eligible forms. Grade 12 is the IB Diploma exam year, so expect a workload question. Colours are taken from the logo.
+- **Wolmer's (`wolmers`)**: addressed to Wolmer's Boys' School Principal Dwight Pennycooke (wbs.admin@wolmers.org), naming VP Janice Jones. A Fourth Form student died on 28 September 2026; do not mention it, and consider a short, warm note in the covering email or a later send. The brief asks whether Wolmer's Girls' sixth formers should join through the joint sixth form. The Girls' principal was not confirmed for 2026.
