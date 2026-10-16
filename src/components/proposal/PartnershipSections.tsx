@@ -3,7 +3,7 @@ import { DoctorBird } from "@/components/art/DoctorBird";
 import { TailLine } from "@/components/art/Marks";
 import { Check, Kicker } from "@/components/proposal/primitives";
 import { schools, schoolStatus, type School } from "@/data/event";
-import { contact, deliveryFacts, eventFacts, reporting, reportingNote, safeguards, schoolCounts, schoolStatusLabel, whatItIs } from "@/data/partnership";
+import { contact, deliveryFacts, eventFacts, eventFactsAbroad, reporting, reportingNote, safeguards, schoolCounts, schoolStatusLabel, whatItIs, whatItIsAbroad } from "@/data/partnership";
 
 /*
  * Sections every partnership deck shares, whether it is rendered by the
@@ -83,6 +83,7 @@ export function OpeningSummary({
   brief,
   requestDetail,
   outcomeLabel,
+  international = false,
 }: {
   /** "Hack876 × Sponsor" */
   label: string;
@@ -98,6 +99,8 @@ export function OpeningSummary({
   requestDetail?: ReactNode;
   /** Defaults to "What {org} receives". Foundations usually "achieve" something instead. */
   outcomeLabel?: string;
+  /** For a recipient outside Jamaica: students described by age, not by Jamaican Form. */
+  international?: boolean;
 }) {
   const card = "lp-keep rounded-2xl border lp-rule bg-paper p-5 print:p-[1.25rem]";
   const cap = "text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase";
@@ -122,9 +125,9 @@ export function OpeningSummary({
 
             <div className="lp-keep mt-7 rounded-2xl border-2 border-ink bg-cream p-5 print:mt-[1.8rem] print:p-[1.25rem]">
               <p className={cap}>What Hack876 is</p>
-              <p className={body}>{whatItIs}</p>
+              <p className={body}>{international ? whatItIsAbroad : whatItIs}</p>
               <dl className="mt-3 grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-2 print:grid-cols-2">
-                {eventFacts.map((f) => (
+                {(international ? eventFactsAbroad : eventFacts).map((f) => (
                   <div key={f.label} className="text-[0.95rem] leading-snug print:text-[1.32rem]">
                     <dt className="inline font-extrabold">{f.label}: </dt>
                     <dd className="inline text-ink-2">{f.value}</dd>

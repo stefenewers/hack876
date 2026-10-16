@@ -155,6 +155,16 @@ export const deckRegistry: DeckEntry[] = [
     pdf: `${P}intercaribbean-partnership-proposal.pdf`,
     filename: "Hack876 x interCaribbean Airways - Partnership Proposal.pdf",
   },
+  {
+    name: "Wigton Energy",
+    aka: "Wigton Windfarm Wind Farm",
+    category: "Corporate & Professional Services",
+    readiness: "ready",
+    focus: "J$400,000 toward a free day of young Jamaicans building real tech, with the option of naming the Resilience track prize.",
+    route: "/wigtonenergyopportunity",
+    pdf: `${P}wigton-partnership-proposal.pdf`,
+    filename: "Hack876 x Wigton Energy - Partnership Proposal.pdf",
+  },
 
   /* -------------------------------------------------------------- Foundations */
   {
@@ -321,6 +331,16 @@ export const deckRegistry: DeckEntry[] = [
     pdf: `${P}cibccomtrust-partnership-proposal.pdf`,
     filename: "Hack876 x CIBC Caribbean ComTrust Foundation - Partnership Proposal.pdf",
   },
+  {
+    name: "Barita Foundation",
+    aka: "Barita Cornerstone",
+    category: "Foundations",
+    readiness: "ready",
+    focus: "J$300,000 toward a free day of learning by building, with the option of naming the Learn track prize.",
+    route: "/baritafoundationopportunity",
+    pdf: `${P}barita-partnership-proposal.pdf`,
+    filename: "Hack876 x Barita Foundation - Partnership Proposal.pdf",
+  },
 
   /* ---------------------------------------------------------- Food & Beverage */
   {
@@ -437,6 +457,16 @@ export const deckRegistry: DeckEntry[] = [
     route: "/digiviewopportunity",
     pdf: `${P}digiview-partnership-proposal.pdf`,
     filename: "Hack876 x DigiView Security - Partnership Proposal.pdf",
+  },
+  {
+    name: "Espressif Systems",
+    aka: "Espressif ESP32",
+    category: "Technology & Developer Partners",
+    readiness: "ready",
+    focus: "About 30 ESP32 boards or vouchers for teams that build hardware, with optional Best hardware build prize support.",
+    route: "/espressifopportunity",
+    pdf: `${P}espressif-partnership-proposal.pdf`,
+    filename: "Hack876 x Espressif Systems - Partnership Proposal.pdf",
   },
 
   /* --------------------------------------- Community & Institutional Partners */

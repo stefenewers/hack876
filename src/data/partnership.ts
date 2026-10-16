@@ -1,4 +1,4 @@
-import { confirmedSchools, eligibility, event, eventWhen, people, prizes, schedule, schools, schoolsInTalks, stats, venue, type SchoolStatus } from "./event";
+import { confirmedSchools, eligibility, event, eventWhen, people, prizes, schedule, schools, schoolsInTalks, sponsors, stats, venue, type SchoolStatus } from "./event";
 
 /*
  * Facts every partnership deck shares, derived from event.ts so a deck can
@@ -42,6 +42,9 @@ const FORMS = eligibility.formOptions;
 /** One sentence on what Hack876 is, for the opening page of every deck. */
 export const whatItIs = `A one-day build competition in Kingston for about ${eligibility.maxHackers} secondary-school students, ${FORMS[0]} through ${FORMS[FORMS.length - 1]}, working in teams of ${eligibility.teamSize.min} to ${eligibility.teamSize.max}. Teams pick a real problem and finish the day with a working prototype and a pitch to judges.`;
 
+/** The same sentence for a recipient outside Jamaica: ages, not Jamaican Forms. */
+export const whatItIsAbroad = `A free one-day build competition in Kingston, Jamaica, for about ${eligibility.maxHackers} high-school students aged 15 to 19, working in teams of ${eligibility.teamSize.min} to ${eligibility.teamSize.max}. Teams pick a real problem and finish the day with a working prototype and a pitch to judges.`;
+
 /** The event at a glance. Tentative and confirmed are labelled as event.ts has them. */
 export const eventFacts: { label: string; value: string }[] = [
   { label: "When", value: `${eventWhen.long}${eventWhen.note}` },
@@ -49,6 +52,13 @@ export const eventFacts: { label: string; value: string }[] = [
   { label: "Who", value: `About ${eligibility.maxHackers} students${TEAMS ? `, roughly ${TEAMS} teams` : ""}` },
   { label: "Organisers", value: contact.names.join(" and ") },
 ];
+
+/** The event at a glance, for a recipient outside Jamaica. */
+export const eventFactsAbroad = eventFacts.map((f) => (f.label === "Where" ? { ...f, value: f.value.replace(", Kingston", ", Kingston, Jamaica") } : f));
+
+/** Confirmed sponsors as a phrase, e.g. "P237 Labs, Lev Beauty and Frankies". */
+const confirmedSponsors = sponsors.filter((s) => s.confirmed).map((s) => s.name);
+export const sponsorList = confirmedSponsors.length > 1 ? `${confirmedSponsors.slice(0, -1).join(", ")} and ${confirmedSponsors[confirmedSponsors.length - 1]}` : (confirmedSponsors[0] ?? "");
 
 /** Doors to wrap, from the published schedule. */
 export const dayHours = `${schedule[0].time} to ${schedule[schedule.length - 1].time}`;
@@ -106,7 +116,7 @@ export const safeguards = [
 /**
  * Fills shared facts into deck copy, so a deck never hardcodes the student
  * count, venue, date or times. Tokens: {students} {teams} {schools} {confirmed} {venue} {date}
- * {lunch} {doors} {wrap}.
+ * {lunch} {doors} {wrap} {sponsors}.
  */
 const tokens: Record<string, string> = {
   students: String(eligibility.maxHackers),
@@ -118,5 +128,6 @@ const tokens: Record<string, string> = {
   lunch: schedule.find((s) => s.title === "Lunch")?.time ?? "midday",
   doors: schedule[0].time,
   wrap: schedule[schedule.length - 1].time,
+  sponsors: sponsorList,
 };
 export const fill = (text: string) => text.replace(/\{(\w+)\}/g, (m, k: string) => tokens[k] ?? m);

@@ -41,7 +41,7 @@ const showsBands = (deck: SponsorDeckData) => asksShowBands(deck.ask);
 export function deckPdf(deck: SponsorDeckData) {
   const brief = docType(deck) === "brief";
   return {
-    href: `/proposals/hack876-${deck.slug}-partnership-${brief ? "brief" : "proposal"}.pdf`,
+    href: `/proposals/hack876-${deck.pdfName ?? deck.slug}-partnership-${brief ? "brief" : "proposal"}.pdf`,
     filename: `Hack876 x ${deck.sponsor} - Partnership ${brief ? "Brief" : "Proposal"}.pdf`,
   };
 }
@@ -70,8 +70,10 @@ function filled(deck: SponsorDeckData): SponsorDeckData {
   const b = deck.brief;
   return {
     ...deck,
+    hero: { ...deck.hero, sub: fill(deck.hero.sub) },
+    why: { ...deck.why, tie: fill(deck.why.tie) },
     brief: { ...b, fit: fill(b.fit), request: fill(b.request), enables: fill(b.enables), outcome: fill(b.outcome), next: fill(b.next), logistics: b.logistics?.map(fill) },
-    ask: { ...deck.ask, inkind: deck.ask.inkind?.map(fill), budget: deck.ask.budget?.map((b) => ({ ...b, v: fill(b.v) })) },
+    ask: { ...deck.ask, why: fill(deck.ask.why), receives: deck.ask.receives?.map(fill), inkind: deck.ask.inkind?.map(fill), budget: deck.ask.budget?.map((b) => ({ ...b, v: fill(b.v) })) },
     metrics: deck.metrics?.map((m) => ({ k: m.k, v: fill(m.v) })),
   };
 }
@@ -155,6 +157,7 @@ export function SponsorDeck({ deck: raw }: { deck: SponsorDeckData }) {
             }}
             requestDetail={cash ? `${cash.name}: ${cash.range}. Any amount within the level is welcome.` : exploring ? deck.ask.recognition : undefined}
             outcomeLabel={exploring ? "What we hope to learn" : undefined}
+            international={deck.audience === "international"}
           />
         </div>
         {plan.slice(1).map((key, i) => (
@@ -245,6 +248,20 @@ function UsesList({ deck, dark = false }: { deck: SponsorDeckData; dark?: boolea
   );
 }
 
+/** The partner's recognition, line by line, when the deck sets it. */
+function Receives({ items, dark = false }: { items: string[]; dark?: boolean }) {
+  return (
+    <ul className="mt-3 space-y-1.5">
+      {items.map((b) => (
+        <li key={b} className="flex gap-2.5 text-[0.98rem] leading-snug font-semibold print:text-[1.47rem]">
+          <Check className={`mt-0.5 h-4 w-4 shrink-0 ${dark ? "lp-accent text-sun" : "text-emerald-deep"}`} />
+          {b}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function Presents({ deck, dark = false }: { deck: SponsorDeckData; dark?: boolean }) {
   if (!deck.ask.presents) return null;
   return (
@@ -302,7 +319,9 @@ function Request({ n, deck }: { n: string; deck: SponsorDeckData }) {
           </div>
           <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-6 print:p-[1.6rem]">
             <figcaption className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">What {nm(deck)} would receive</figcaption>
-            {cash && !ask.figure ? (
+            {ask.receives?.length ? (
+              <Receives items={ask.receives} dark />
+            ) : cash && !ask.figure ? (
               <ul className="mt-3 space-y-1.5">
                 {cash.benefits.map((b) => (
                   <li key={b} className="flex gap-2.5 text-[0.98rem] leading-snug font-semibold print:text-[1.47rem]">
@@ -418,7 +437,7 @@ function Supply({ n, deck }: { n: string; deck: SponsorDeckData }) {
             <div className="lp-keep rounded-2xl border-2 border-ink bg-mint/60 p-5 print:p-[1.3rem]">
               <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">What {nm(deck)} would receive</p>
               <p className="mt-2 text-[1.05rem] leading-snug font-extrabold print:text-[1.59rem]">{ask.recognition}</p>
-              <p className="mt-1.5 text-[0.92rem] leading-snug text-ink-2 print:text-[1.32rem]">{inKind.recognition}</p>
+              {ask.receives?.length ? <Receives items={ask.receives} /> : <p className="mt-1.5 text-[0.92rem] leading-snug text-ink-2 print:text-[1.32rem]">{inKind.recognition}</p>}
               <Presents deck={deck} />
               {showsBands(deck) && <p className="mt-2 text-[0.92rem] leading-snug text-ink-2 print:text-[1.32rem]">A monetary contribution is welcome instead. The levels are on the last page.</p>}
             </div>

@@ -34,6 +34,13 @@ export type Sourced = { text: string; ref: number };
 export type SponsorDeckData = {
   /** Lowercase, no separators. Route is /<slug>opportunity. */
   slug: string;
+  /** PDF name when it differs from the slug: /proposals/hack876-<pdfName>-partnership-proposal.pdf. */
+  pdfName?: string;
+  /**
+   * "international" for a recipient outside Jamaica: the opening describes students by age,
+   * not by Jamaican Form, and the deck names no schools.
+   */
+  audience?: "international";
   kind: DeckKind;
   /** Full name, used in recognition lines and the deck label. */
   sponsor: string;
@@ -136,6 +143,8 @@ export type SponsorDeckData = {
     restriction?: string;
     /** Why this suggestion, in one or two sentences. */
     why: string;
+    /** What the partner receives, line by line, when it is not a level's benefits. Shown on the request page. */
+    receives?: string[];
     /** Recognition line, e.g. "Gold Partner · Inaugural Hack876". Exploratory: a plain statement such as "No funding request in this brief". */
     recognition: string;
     /** Names the invitation when a band name does not fit, e.g. "Programme Partner". */
