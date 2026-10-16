@@ -8,6 +8,7 @@ import {
   APPLICATION_STEPS,
   DEVICE,
   EXPERIENCE,
+  GENDER,
   HEARD_FROM,
   LONG_ANSWER_MAX,
   ROLES,
@@ -229,6 +230,13 @@ export function ApplyForm() {
               error={errors.form}
             />
             <TextField name="age" type="number" inputMode="numeric" min={13} max={21} label="Age" className="input max-w-[8rem]" error={errors.age} />
+            <ChoiceGroup
+              name="gender"
+              label="Gender (optional)"
+              hint="Used only for overall numbers, such as how many girls applied. Skip it if you prefer."
+              options={GENDER.map((r) => ({ value: r, label: r }))}
+              error={errors.gender}
+            />
             <ChoiceGroup
               name="heardFrom"
               label="How did you hear about Hack 876?"

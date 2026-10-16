@@ -102,3 +102,10 @@ test("rejects answers outside the listed options", () => {
   assert.equal(r.ok, false);
   if (!r.ok) for (const k of ["heardFrom", "device", "experience"] as const) assert.ok(r.errors[k]);
 });
+
+test("gender is optional, but must be a listed option when given", () => {
+  assert.equal(validateApplication({ ...valid, gender: "" }, opts).ok, true);
+  assert.equal(validateApplication({ ...valid, gender: "Female" }, opts).ok, true);
+  const r = validateApplication({ ...valid, gender: "x" }, opts);
+  assert.equal(r.ok, false);
+});

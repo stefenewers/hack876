@@ -20,6 +20,9 @@ export const HEARD_FROM = ["A teacher or my school", "A friend", "Instagram", "W
 /** Building experience, for balancing teams. Not used to decide places. */
 export const EXPERIENCE = ["I haven’t built anything yet", "A little: class projects or tutorials", "I’ve built a few things", "I build things often"] as const;
 
+/** Optional. Used only for totals, such as how many girls applied. */
+export const GENDER = ["Female", "Male", "Another identity", "Prefer not to say"] as const;
+
 /** Whether the applicant can bring a laptop. Hack 876 does not provide devices. */
 export const DEVICE = ["Yes, my own", "I’ll borrow one for the day", "Not sure yet"] as const;
 
@@ -33,6 +36,7 @@ export type ApplicationData = {
   school: string;
   form: string;
   age: number;
+  gender: string;
   enjoy: string;
   built: string;
   why: string;
@@ -56,7 +60,7 @@ export type ValidationResult<T, E> = { ok: true; value: T } | { ok: false; error
 
 /** Which step of the multi-step form each field lives on. */
 export const APPLICATION_STEPS: (keyof ApplicationData)[][] = [
-  ["fullName", "email", "phone", "school", "form", "age", "heardFrom", "heardFromOther"],
+  ["fullName", "email", "phone", "school", "form", "age", "gender", "heardFrom", "heardFromOther"],
   ["enjoy", "built", "why", "jamaica"],
   ["role", "hasTeam", "teammates", "openToMatch", "experience", "device"],
   ["github", "portfolio", "projectLink"],
@@ -156,6 +160,8 @@ export function validateApplication(
   const experience = pick("experience", EXPERIENCE, "Pick the one closest to you. There’s no wrong answer.");
   const device = pick("device", DEVICE, "Let us know if you can bring a laptop.");
   const heardFrom = pick("heardFrom", HEARD_FROM, "Let us know how you heard about Hack 876.");
+  const gender = str(raw, "gender");
+  if (gender && !(GENDER as readonly string[]).includes(gender)) e.gender = "Pick one of the options, or leave it blank.";
   const heardFromOther = str(raw, "heardFromOther");
   if (heardFromOther.length > 200) e.heardFromOther = "Keep it under 200 characters.";
 
@@ -177,6 +183,7 @@ export function validateApplication(
       school,
       form,
       age,
+      gender,
       enjoy,
       built,
       why,

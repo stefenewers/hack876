@@ -109,7 +109,7 @@ export const bringList: { item: string; kind: "need" | "nice" | "pending" }[] = 
 
 /** What the application form asks. Mirrors src/components/forms/ApplyForm.tsx. */
 export const applicationAsks = [
-  "Your name, email, phone number, school, form and age",
+  "Your name, email, phone number, school, form and age, and optionally your gender",
   "Four short written answers, such as what you enjoy creating and why you want to come",
   "The role you see yourself playing on a team. \u201cNot sure yet\u201d is an option.",
   "Whether you already have a team, and whether you are open to teammates from another school",
