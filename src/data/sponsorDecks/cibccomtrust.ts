@@ -55,7 +55,7 @@ const deck: SponsorDeckData = {
   },
   ask: {
     lead: "band",
-    figure: "US$1,000 to US$2,000",
+    figure: "J$150,000 to J$300,000",
     headline: "A donation toward a free youth STEM programme.",
     bands: [],
     uses: ["meals", "materials", "programming"],
