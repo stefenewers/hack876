@@ -113,6 +113,7 @@ export const applicationAsks = [
   "Four short written answers, such as what you enjoy creating and why you want to come",
   "The role you see yourself playing on a team. \u201cNot sure yet\u201d is an option.",
   "Whether you already have a team, and whether you are open to teammates from another school",
+  "How much you have built before, whether you can bring a laptop, and how you heard about Hack 876",
   "Optional links to a GitHub page, portfolio or project",
 ];
 

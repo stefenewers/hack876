@@ -19,6 +19,10 @@ const valid = {
   hasTeam: "no",
   teammates: "",
   openToMatch: "yes",
+  experience: "A little: class projects or tutorials",
+  device: "Yes, my own",
+  heardFrom: "A friend",
+  heardFromOther: "",
   github: "",
   portfolio: "",
   projectLink: "",
@@ -42,7 +46,7 @@ test("requires every core field", () => {
   const r = validateApplication({}, opts);
   assert.equal(r.ok, false);
   if (!r.ok) {
-    for (const k of ["fullName", "email", "phone", "school", "form", "age", "enjoy", "built", "why", "jamaica", "role", "hasTeam", "openToMatch"]) {
+    for (const k of ["fullName", "email", "phone", "school", "form", "age", "enjoy", "built", "why", "jamaica", "role", "hasTeam", "openToMatch", "experience", "device", "heardFrom"]) {
       assert.ok(r.errors[k as keyof typeof r.errors], `expected error for ${k}`);
     }
     assert.equal(r.errors.github, undefined);
@@ -84,4 +88,17 @@ test("partner form validation", () => {
   assert.equal(validatePartner({}).ok, false);
   const r = validatePartner({ name: "Sam", organization: "Acme", email: "sam@acme.com", message: "We'd love to help with food." });
   assert.equal(r.ok, true);
+});
+
+test("keeps where-else text only when the applicant picked somewhere else", () => {
+  const other = validateApplication({ ...valid, heardFrom: "Somewhere else", heardFromOther: "A robotics club" }, opts);
+  assert.equal(other.ok && other.value.heardFromOther, "A robotics club");
+  const friend = validateApplication({ ...valid, heardFrom: "A friend", heardFromOther: "leftover text" }, opts);
+  assert.equal(friend.ok && friend.value.heardFromOther, "");
+});
+
+test("rejects answers outside the listed options", () => {
+  const r = validateApplication({ ...valid, heardFrom: "TV", device: "maybe", experience: "expert" }, opts);
+  assert.equal(r.ok, false);
+  if (!r.ok) for (const k of ["heardFrom", "device", "experience"] as const) assert.ok(r.errors[k]);
 });

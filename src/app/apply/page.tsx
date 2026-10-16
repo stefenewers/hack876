@@ -28,7 +28,7 @@ export default function ApplyPage() {
   return (
     <>
       <Nav />
-      <main id="main" className="grain relative min-h-dvh bg-cream pt-28 pb-24 sm:pt-36">
+      <main id="main" className="grain relative min-h-dvh overflow-x-clip bg-cream pt-28 pb-24 sm:pt-36">
         <div aria-hidden className="pointer-events-none absolute top-24 -right-24 -z-10 h-80 w-80 rounded-full bg-sky-light sm:h-[28rem] sm:w-[28rem]" />
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <header className="relative">

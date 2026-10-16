@@ -6,6 +6,9 @@ import { DoctorBird } from "@/components/art/DoctorBird";
 import { eligibility, schools } from "@/data/event";
 import {
   APPLICATION_STEPS,
+  DEVICE,
+  EXPERIENCE,
+  HEARD_FROM,
   LONG_ANSWER_MAX,
   ROLES,
   validateApplication,
@@ -39,6 +42,7 @@ export function ApplyForm() {
     return result;
   }, initial);
   const [hasTeam, setHasTeam] = useState<string>("");
+  const [heardFrom, setHeardFrom] = useState<string>("");
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -225,6 +229,16 @@ export function ApplyForm() {
               error={errors.form}
             />
             <TextField name="age" type="number" inputMode="numeric" min={13} max={21} label="Age" className="input max-w-[8rem]" error={errors.age} />
+            <ChoiceGroup
+              name="heardFrom"
+              label="How did you hear about Hack 876?"
+              options={HEARD_FROM.map((r) => ({ value: r, label: r }))}
+              onChange={setHeardFrom}
+              error={errors.heardFrom}
+            />
+            <div hidden={heardFrom !== "Somewhere else"}>
+              <TextField name="heardFromOther" label="Where?" optional placeholder="e.g. a club, an event, TikTok" maxLength={200} error={errors.heardFromOther} />
+            </div>
           </div>
 
           {/* Step 2 */}
@@ -280,6 +294,20 @@ export function ApplyForm() {
                 { value: "no", label: "I’d rather not" },
               ]}
               error={errors.openToMatch}
+            />
+            <ChoiceGroup
+              name="experience"
+              label="How much have you built before?"
+              hint="This only helps us balance teams. It doesn’t affect your chances."
+              options={EXPERIENCE.map((r) => ({ value: r, label: r }))}
+              error={errors.experience}
+            />
+            <ChoiceGroup
+              name="device"
+              label="Can you bring a laptop on the day?"
+              hint="Hack 876 doesn’t provide laptops, so every student brings their own device."
+              options={DEVICE.map((r) => ({ value: r, label: r }))}
+              error={errors.device}
             />
           </div>
 

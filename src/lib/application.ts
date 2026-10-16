@@ -14,6 +14,15 @@ export const ROLES = [
   "Not sure yet",
 ] as const;
 
+/** How applicants heard about Hack 876. Tells the organizers which outreach works. */
+export const HEARD_FROM = ["A teacher or my school", "A friend", "Instagram", "WhatsApp", "A parent or family member", "The Hack 876 website", "Somewhere else"] as const;
+
+/** Building experience, for balancing teams. Not used to decide places. */
+export const EXPERIENCE = ["I haven’t built anything yet", "A little: class projects or tutorials", "I’ve built a few things", "I build things often"] as const;
+
+/** Whether the applicant can bring a laptop. Hack 876 does not provide devices. */
+export const DEVICE = ["Yes, my own", "I’ll borrow one for the day", "Not sure yet"] as const;
+
 export const LONG_ANSWER_MAX = 1200;
 export const LONG_ANSWER_MIN = 20;
 
@@ -32,6 +41,10 @@ export type ApplicationData = {
   hasTeam: "yes" | "no";
   teammates: string;
   openToMatch: "yes" | "no";
+  experience: string;
+  device: string;
+  heardFrom: string;
+  heardFromOther: string;
   github: string;
   portfolio: string;
   projectLink: string;
@@ -43,9 +56,9 @@ export type ValidationResult<T, E> = { ok: true; value: T } | { ok: false; error
 
 /** Which step of the multi-step form each field lives on. */
 export const APPLICATION_STEPS: (keyof ApplicationData)[][] = [
-  ["fullName", "email", "phone", "school", "form", "age"],
+  ["fullName", "email", "phone", "school", "form", "age", "heardFrom", "heardFromOther"],
   ["enjoy", "built", "why", "jamaica"],
-  ["role", "hasTeam", "teammates", "openToMatch"],
+  ["role", "hasTeam", "teammates", "openToMatch", "experience", "device"],
   ["github", "portfolio", "projectLink"],
 ];
 
@@ -134,6 +147,18 @@ export function validateApplication(
   const openToMatch = str(raw, "openToMatch");
   if (openToMatch !== "yes" && openToMatch !== "no") e.openToMatch = "Pick yes or no.";
 
+  const pick = (key: "experience" | "device" | "heardFrom", list: readonly string[], msg: string) => {
+    const v = str(raw, key);
+    if (!v) e[key] = msg;
+    else if (!list.includes(v)) e[key] = "Pick one of the options.";
+    return v;
+  };
+  const experience = pick("experience", EXPERIENCE, "Pick the one closest to you. There’s no wrong answer.");
+  const device = pick("device", DEVICE, "Let us know if you can bring a laptop.");
+  const heardFrom = pick("heardFrom", HEARD_FROM, "Let us know how you heard about Hack 876.");
+  const heardFromOther = str(raw, "heardFromOther");
+  if (heardFromOther.length > 200) e.heardFromOther = "Keep it under 200 characters.";
+
   const github = normalizeUrl(str(raw, "github"), { githubUsername: true });
   if (github === null) e.github = "Use a GitHub username or link.";
   const portfolio = normalizeUrl(str(raw, "portfolio"));
@@ -160,6 +185,10 @@ export function validateApplication(
       hasTeam: hasTeam as "yes" | "no",
       teammates: hasTeam === "yes" ? teammates : "",
       openToMatch: openToMatch as "yes" | "no",
+      experience,
+      device,
+      heardFrom,
+      heardFromOther: heardFrom === "Somewhere else" ? heardFromOther : "",
       github: github ?? "",
       portfolio: portfolio ?? "",
       projectLink: projectLink ?? "",
