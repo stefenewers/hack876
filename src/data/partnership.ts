@@ -97,19 +97,21 @@ export const deliveryFacts: { label: string; text: string }[] = [
 
 /** Standard safeguards. Many participants are minors. */
 export const safeguards = [
-  "Sponsors do not receive student contact details, and there are no sign-ups or selling on the day.",
+  "Partners and donors do not receive student contact details, and there are no sign-ups or selling on the day.",
   "Photos and names are used only with school and parent consent.",
   "Mentors and volunteers work in open, supervised spaces.",
-  "The judging panel decides every award. Sponsorship carries no influence over judging and no naming rights.",
+  "The judging panel decides every award. Funding carries no influence over judging and no naming rights.",
 ];
 
 /**
  * Fills shared facts into deck copy, so a deck never hardcodes the student
- * count, venue, date or times. Tokens: {students} {teams} {venue} {date}
+ * count, venue, date or times. Tokens: {students} {teams} {schools} {confirmed} {venue} {date}
  * {lunch} {doors} {wrap}.
  */
 const tokens: Record<string, string> = {
   students: String(eligibility.maxHackers),
+  schools: String(schools.length),
+  confirmed: String(confirmedSchools.length),
   teams: String(TEAMS ?? ""),
   venue: venue.name,
   date: `${eventWhen.long}`,

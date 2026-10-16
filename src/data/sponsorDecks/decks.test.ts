@@ -155,7 +155,8 @@ test("Platinum includes Gold, and no level offers a role in the programme", () =
 });
 
 test("grant and exploratory briefs carry no sponsorship-tier language", () => {
-  const grants = decks.filter((d) => d.ask.figure || isExploratory(d.ask));
+  /* A figure with a partner title is a custom-amount partnership; without one it is a grant or donation. */
+  const grants = decks.filter((d) => (d.ask.figure && !d.ask.title) || isExploratory(d.ask));
   assert.ok(grants.some((d) => d.slug === "americanfriendsofjamaica"));
   for (const d of grants) {
     assert.deepEqual(d.ask.bands, [], `${d.slug} shows the levels`);

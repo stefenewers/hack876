@@ -258,6 +258,22 @@ export function DeliverySection({ n, linked, linkedNote }: { n: string; linked?:
   );
 }
 
+function Metrics({ items }: { items: { k: string; v: string }[] }) {
+  return (
+    <div className="lp-keep mb-5">
+      <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">What we will measure</p>
+      <dl className="mt-2 grid grid-cols-2 gap-2">
+        {items.map((m) => (
+          <div key={m.k} className="rounded-xl border lp-rule bg-paper px-3 py-2 print:px-[0.9rem] print:py-[0.6rem]">
+            <dt className="text-[0.7rem] font-extrabold tracking-[0.12em] text-emerald-deep uppercase print:text-[0.9rem]">{m.k}</dt>
+            <dd className="mt-0.5 text-[0.92rem] leading-snug font-semibold print:text-[1.15rem]">{m.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
 function ReportList() {
   return (
     <div>
@@ -296,8 +312,10 @@ export function NextSection({
   route,
   future,
   closing,
+  metrics,
   children,
 }: {
+  metrics?: { k: string; v: string }[];
   n: string;
   next: ReactNode;
   /** How this organisation takes requests, if it has said. */
@@ -316,6 +334,7 @@ export function NextSection({
         </h2>
         <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
           <div>
+            {metrics && metrics.length > 0 && <Metrics items={metrics} />}
             <ReportList />
             {future && future.length > 0 && (
               <div className="lp-keep mt-6 rounded-2xl border border-dashed border-ink/40 p-5 print:p-[1.3rem]">
@@ -347,8 +366,10 @@ export function DeliveryAndNext({
   next,
   route,
   linkedNote,
+  metrics,
   children,
 }: {
+  metrics?: { k: string; v: string }[];
   n: string;
   next: ReactNode;
   route?: ReactNode;
@@ -365,12 +386,17 @@ export function DeliveryAndNext({
         </h2>
         <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
           <div>
-            <Facts items={deliveryFacts.slice(0, 4)} />
+            <Facts items={deliveryFacts.slice(0, metrics?.length ? 3 : 4)} />
             <p className="lp-note mt-3">
               Schools: {schoolCounts.confirmed} confirmed, {schoolCounts.talks} in talks, {schoolCounts.pending} not yet confirmed, from a network of {schoolCounts.total} in
               Kingston. {safeguards[0]} {safeguards[1]}
             </p>
             {linkedNote && <p className="mt-3 text-[0.95rem] leading-snug text-ink-2 print:text-[1.3rem]">{linkedNote}</p>}
+            {metrics && metrics.length > 0 && (
+              <div className="mt-5">
+                <Metrics items={metrics} />
+              </div>
+            )}
           </div>
           <div>
             <DecisionCard next={next} route={route} />

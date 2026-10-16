@@ -135,6 +135,16 @@ export const deckRegistry: DeckEntry[] = [
     pdf: `${P}tankweld-partnership-proposal.pdf`,
     filename: "Hack876 x Tank-Weld - Partnership Proposal.pdf",
   },
+  {
+    name: "Scotiabank Jamaica (ScotiaRISE)",
+    aka: "Scotiabank ScotiaRISE Scotia Bank",
+    category: "Corporate & Professional Services",
+    readiness: "intro",
+    focus: "US$3,500 as an education and prize partner, with defined metrics for the ScotiaRISE form.",
+    route: "/scotiariseopportunity",
+    pdf: `${P}scotiarise-partnership-proposal.pdf`,
+    filename: "Hack876 x Scotiabank Jamaica (ScotiaRISE) - Partnership Proposal.pdf",
+  },
 
   /* -------------------------------------------------------------- Foundations */
   {
@@ -270,6 +280,36 @@ export const deckRegistry: DeckEntry[] = [
     route: "/sandalsfoundationopportunity",
     pdf: `${P}sandalsfoundation-partnership-proposal.pdf`,
     filename: "Hack876 x Sandals Foundation - Partnership Proposal.pdf",
+  },
+  {
+    name: "C.B. Facey Foundation",
+    aka: "CB Facey Pan Jamaica PanJam Facey",
+    category: "Foundations",
+    readiness: "ready",
+    focus: "J$250,000 to J$500,000 as an education partner, through year-round event sponsorship requests.",
+    route: "/cbfaceyfoundationopportunity",
+    pdf: `${P}cbfaceyfoundation-partnership-proposal.pdf`,
+    filename: "Hack876 x C.B. Facey Foundation - Partnership Proposal.pdf",
+  },
+  {
+    name: "Digicel Foundation: Build Jamaica Grant",
+    aka: "Digicel Build Jamaica grant digital literacy",
+    category: "Foundations",
+    readiness: "intro",
+    focus: "J$1.5M to J$2.5M Build Jamaica grant for a four-month digital literacy programme ending with Hack876.",
+    route: "/digicelbuildjamaicaopportunity",
+    pdf: `${P}digicelbuildjamaica-partnership-proposal.pdf`,
+    filename: "Hack876 x Digicel Foundation Build Jamaica Grants - Partnership Proposal.pdf",
+  },
+  {
+    name: "CIBC Caribbean ComTrust Foundation",
+    aka: "CIBC FirstCaribbean ComTrust Comtrust",
+    category: "Foundations",
+    readiness: "intro",
+    focus: "A US$1,000 to US$2,000 donation toward a free youth STEM programme.",
+    route: "/cibccomtrustopportunity",
+    pdf: `${P}cibccomtrust-partnership-proposal.pdf`,
+    filename: "Hack876 x CIBC Caribbean ComTrust Foundation - Partnership Proposal.pdf",
   },
 
   /* ---------------------------------------------------------- Food & Beverage */

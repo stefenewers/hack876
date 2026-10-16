@@ -71,7 +71,8 @@ function filled(deck: SponsorDeckData): SponsorDeckData {
   return {
     ...deck,
     brief: { ...b, fit: fill(b.fit), request: fill(b.request), enables: fill(b.enables), outcome: fill(b.outcome), next: fill(b.next), logistics: b.logistics?.map(fill) },
-    ask: { ...deck.ask, inkind: deck.ask.inkind?.map(fill) },
+    ask: { ...deck.ask, inkind: deck.ask.inkind?.map(fill), budget: deck.ask.budget?.map((b) => ({ ...b, v: fill(b.v) })) },
+    metrics: deck.metrics?.map((m) => ({ k: m.k, v: fill(m.v) })),
   };
 }
 
@@ -106,14 +107,14 @@ export function SponsorDeck({ deck: raw }: { deck: SponsorDeckData }) {
     explore: (n) => <Explore n={n} deck={deck} sources={sources} />,
     delivery: (n) => <DeliverySection n={n} linked={linked?.school} linkedNote={linkedNote} />,
     next: (n) => (
-      <NextSection n={n} next={deck.brief.next} route={route} future={deck.future} closing={deck.closingLine}>
+      <NextSection n={n} next={deck.brief.next} route={route} future={deck.future} closing={deck.closingLine} metrics={deck.metrics}>
         <div className="mt-6">
           <GroundRules rules={deck.groundRules.slice(0, 3)} />
         </div>
       </NextSection>
     ),
     deliverynext: (n) => (
-      <DeliveryAndNext n={n} next={deck.brief.next} route={route} linkedNote={linkedNote}>
+      <DeliveryAndNext n={n} next={deck.brief.next} route={route} linkedNote={linkedNote} metrics={deck.metrics}>
         {last === "deliverynext" && sources}
       </DeliveryAndNext>
     ),
@@ -263,7 +264,7 @@ function Request({ n, deck }: { n: string; deck: SponsorDeckData }) {
       <div className="lp-wrap relative">
         <Kicker n={n}>Our request</Kicker>
         <h2 id="lp-invite" className="lp-h2 mt-6 max-w-[24ch]">
-          {ask.figure ? `${ask.figure}, through ${nm(deck)}\u2019s own process.` : name ? `Become ${aOrAn(name)} ${name} of the inaugural Hack876.` : deck.brief.request}
+          {ask.headline ?? (name ? `Become ${aOrAn(name)} ${name} of the inaugural Hack876.` : ask.figure ? `${ask.figure}, through ${nm(deck)}\u2019s own process.` : deck.brief.request)}
         </h2>
 
         <div className="lp-keep mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-1 border-y lp-rule py-4 print:py-[1.1rem]">
@@ -274,12 +275,29 @@ function Request({ n, deck }: { n: string; deck: SponsorDeckData }) {
         <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-12 print:grid-cols-2 print:gap-[2.4rem]">
           <div>
             <Lines items={[ask.why]} />
-            <p className="mt-5 text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">What it helps support</p>
-            <UsesList deck={deck} dark />
+            {!ask.budget?.length && (
+              <>
+                <p className="mt-5 text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">What it helps support</p>
+                <UsesList deck={deck} dark />
+              </>
+            )}
             {!ask.figure && <p className="lp-note mt-3">{directionNote} No contribution has to cover a whole cost.</p>}
             {needsBudget(deck) && <p className="mt-3 text-[0.95rem] leading-snug font-semibold text-cream print:text-[1.3rem]">{budgetFollows}</p>}
             {ask.restriction && (
               <p className="mt-3 rounded-xl border border-dashed border-cream/40 px-3.5 py-2.5 text-[0.92rem] leading-snug font-semibold print:text-[1.36rem]">{ask.restriction}</p>
+            )}
+            {ask.budget && ask.budget.length > 0 && (
+              <div className="lp-keep mt-4">
+                <p className="text-xs font-extrabold tracking-[0.16em] text-cream/60 uppercase">Proposed use of the grant</p>
+                <dl className="mt-2 border-t border-cream/20">
+                  {ask.budget.map((b) => (
+                    <div key={b.k} className="grid grid-cols-[9rem_1fr] gap-3 border-b border-cream/20 py-1.5 print:grid-cols-[12rem_1fr]">
+                      <dt className="text-[0.92rem] font-extrabold text-sun print:text-[1.2rem]">{b.k}</dt>
+                      <dd className="text-[0.92rem] leading-snug text-cream/85 print:text-[1.2rem]">{b.v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
             )}
           </div>
           <figure className="lp-keep h-fit rounded-2xl border-2 border-dashed border-cream/40 p-6 print:p-[1.6rem]">
@@ -303,7 +321,7 @@ function Request({ n, deck }: { n: string; deck: SponsorDeckData }) {
             )}
             <Presents deck={deck} dark />
             {showsBands(deck) && <p className="lp-note mt-3">{benefitNotes[0]}</p>}
-            <p className="lp-note mt-1.5">{benefitNotes[benefitNotes.length - 1]}</p>
+            {(ask.title || !ask.figure) && <p className="lp-note mt-1.5">{benefitNotes[benefitNotes.length - 1]}</p>}
           </figure>
         </div>
 

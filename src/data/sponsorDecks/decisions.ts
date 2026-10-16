@@ -44,6 +44,20 @@ export const decisions: Decision[] = [
     neededBefore: "commitment",
   },
   {
+    id: "digicel-programme",
+    question: "The Build Jamaica proposal commits to coding and online-safety workshops in participating schools from November to February, kits that stay with schools, and follow-up. Who runs the workshops, at which schools, and the line amounts are not set. Build Jamaica also excludes organisations that pass funds to third parties.",
+    recommendation: "Name the registered applicant (a school or NGO) that will deliver the programme with Hack876, confirm facilitators and schools, and set the budget lines before applying. Applications open October 22.",
+    affects: ["digicelbuildjamaica"],
+    neededBefore: "commitment",
+  },
+  {
+    id: "scotiarise-timing",
+    question: "Scotiabank allows at least 90 days for a response, so a request sent in mid-October is answered by mid-January at the earliest, about five weeks before the event.",
+    recommendation: "Submit the ScotiaRISE form as soon as a registered non-profit applicant is confirmed, and treat it as support for the day itself or for next year if the answer comes late.",
+    affects: ["scotiarise"],
+    neededBefore: "commitment",
+  },
+  {
     id: "budget-basis",
     question: "There is no approved event budget in the repository. Missing inputs: the total event cost; a cost for each of venue and production, meals, prizes, equipment and materials, signage and shirts; what is already confirmed in cash and in kind (the venue is hosted); and the remaining gap.",
     recommendation: "Write a one-page budget with those lines and add it as a shared appendix to every Gold and Platinum proposal. Until then those proposals are introduction only and say that a budget will follow.",
@@ -54,7 +68,7 @@ export const decisions: Decision[] = [
     id: "registered-recipient",
     question: "Several funders give only to a registered organisation or a school. Nothing in the repository says which organisation can receive and account for funds for Hack876.",
     recommendation: "Name the registered entity, or get a school's written agreement to act as recipient. Do not assume a school has agreed.",
-    affects: ["americanfriendsofjamaica", "mayberryfoundation", "gracekennedyfoundation", "digicelfoundation", "ncbfoundation", "jmmb"],
+    affects: ["americanfriendsofjamaica", "mayberryfoundation", "gracekennedyfoundation", "digicelfoundation", "ncbfoundation", "jmmb", "digicelbuildjamaica", "cibccomtrust", "scotiarise"],
     neededBefore: "commitment",
   },
   {

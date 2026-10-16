@@ -119,8 +119,15 @@ export type SponsorDeckData = {
     lead: "band" | "inkind" | "exploratory";
     /** Suggested contribution level. Required when `lead` is "band", unless `figure` is set. */
     band?: BandKey;
-    /** Replaces the level's range as the headline figure when the funder sets its own terms, e.g. "A programme grant". Never an amount. */
+    /**
+     * Replaces the level's range as the headline figure when the funder sets its own terms,
+     * e.g. "A programme grant", or a specific amount the organizers have agreed to ask for.
+     */
     figure?: string;
+    /** Replaces the request page heading, e.g. for a donation rather than a partnership. */
+    headline?: string;
+    /** How a grant would be used, line by line. No amounts unless the organizers have approved them. */
+    budget?: { k: string; v: string }[];
     /** Levels to show. Omit for all four. An empty list shows no cash ladder at all. */
     bands?: BandKey[];
     /** What a contribution could help support, most relevant first. */
@@ -143,6 +150,9 @@ export type SponsorDeckData = {
     /** What an in-kind contribution could actually be, for this sponsor. Exploratory: the questions we would like to ask. */
     inkind?: string[];
   };
+
+  /** What Hack876 will measure and report, for funders whose forms ask for metrics. Use {students}-style tokens for shared facts. */
+  metrics?: { k: string; v: string }[];
 
   /** tool decks only. */
   tool?: {
