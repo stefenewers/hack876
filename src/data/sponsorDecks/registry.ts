@@ -145,6 +145,16 @@ export const deckRegistry: DeckEntry[] = [
     pdf: `${P}scotiarise-partnership-proposal.pdf`,
     filename: "Hack876 x Scotiabank Jamaica (ScotiaRISE) - Partnership Proposal.pdf",
   },
+  {
+    name: "interCaribbean Airways",
+    aka: "interCaribbean Airways airline",
+    category: "Corporate & Professional Services",
+    readiness: "ready",
+    focus: "Return flights for one or two Caribbean-based mentors or judges, or a travel voucher as the grand prize. In kind. Either is welcome.",
+    route: "/intercaribbeanopportunity",
+    pdf: `${P}intercaribbean-partnership-proposal.pdf`,
+    filename: "Hack876 x interCaribbean Airways - Partnership Proposal.pdf",
+  },
 
   /* -------------------------------------------------------------- Foundations */
   {
