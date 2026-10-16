@@ -213,6 +213,7 @@ const siteLabel = (url: string) => url.replace(/^https?:\/\//, "");
 const DOORS = schedule[0]?.time ?? "";
 const WRAP = schedule[schedule.length - 1]?.time ?? "";
 const TEAM = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
+export const BOOKLET_PAGES = 8;
 
 /** "Saturday 20 February 2027 (tentative)", in en-GB order, with the tentative note while it applies. */
 export const eventDate = (() => {
@@ -296,10 +297,33 @@ export function letterCopy(pack: PrincipalPack, printDate?: string) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Booklet                                                                   */
+/*  Pack cover                                                                */
 /* -------------------------------------------------------------------------- */
 
-export const BOOKLET_PAGES = 8;
+/** Page 1 of the combined pack only. The letter and booklet files have no cover of their own. */
+export function coverCopy(pack: PrincipalPack) {
+  const { name } = packSchool(pack);
+  return {
+    kicker: "By hand · For the attention of",
+    /* An unverified recipient is never named. */
+    recipient: pack.verified ? [pack.address[0], pack.address[1]] : ["The Principal"],
+    school: name,
+    title: "An invitation to take part in Hack 876",
+    tagline: event.tagline,
+    when: `${eventDate} · ${DOORS} to ${WRAP}`,
+    where: `${venue.name}, ${venue.area}`,
+    contents: [
+      { k: "Letter to the Principal", v: "1 page" },
+      { k: `Information booklet for ${name}`, v: `${BOOKLET_PAGES} pages` },
+    ],
+    ref: `Our ref: H876/PRN/${pack.code}/2026-01`,
+    contact: `${siteLabel(SITE).replace(/^www\./, "")} · ${EMAIL}`,
+  };
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Booklet                                                                   */
+/* -------------------------------------------------------------------------- */
 
 const firstPara = (s: string) => s.split("\n\n")[0];
 /* Splits on a full stop followed by a space, so "info@hack876.com" stays whole. */

@@ -7,8 +7,9 @@
  *   PRINT_DATE=2026-10-20 npm run print:principals
  *
  * Builds the site, starts the production server on a free port, prints each
- * pack's letter, booklet and combined pack with headless Chrome, writes the
- * PDFs to public/print/principals/<key>/, then stops the server.
+ * pack's letter (1 page), booklet (8 pages) and combined pack (10 pages: a
+ * cover, the letter, the booklet) with headless Chrome, writes the PDFs to
+ * public/print/principals/<key>/, then stops the server.
  */
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, rmSync, statSync } from "node:fs";

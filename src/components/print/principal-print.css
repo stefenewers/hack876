@@ -111,6 +111,11 @@
   color: var(--color-ink-2);
 }
 
+/* ------------------------------------------------------------- Pack cover */
+.pp-cover {
+  padding: 0.75in 1in;
+}
+
 /* ----------------------------------------------------------------- Booklet */
 /* Right-hand (odd) pages bind on the left; left-hand (even) pages on the right. */
 .pp-odd {

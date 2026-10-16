@@ -4,7 +4,7 @@ import "../../scripts/ts-resolve.mjs";
 
 /* Content rules for the principal print packs. The copy tested here is exactly what prints. */
 
-const { bookletCopy, confirmedLine, letterCopy, principalPacks, signatories } = await import("./principalPacks.ts");
+const { bookletCopy, confirmedLine, coverCopy, letterCopy, principalPacks, signatories } = await import("./principalPacks.ts");
 const { confirmedSchools, event, people } = await import("./event.ts");
 const { schoolBriefs } = await import("./schoolBriefs.ts");
 
@@ -16,7 +16,8 @@ const copyFor = (key: string) => {
   const pack = principalPacks.find((p) => p.key === key)!;
   const letter = letterCopy(pack, DATE);
   const booklet = bookletCopy(pack);
-  return { pack, letter, booklet, text: JSON.stringify(letter) + JSON.stringify(booklet) };
+  const cover = coverCopy(pack);
+  return { pack, letter, booklet, cover, text: JSON.stringify(cover) + JSON.stringify(letter) + JSON.stringify(booklet) };
 };
 
 test("packs exist for exactly the target schools", () => {
@@ -37,7 +38,8 @@ test("no pack goes to a confirmed school", () => {
 
 test("an unverified recipient is never named", () => {
   for (const p of principalPacks.filter((p) => !p.verified)) {
-    const { letter, booklet } = copyFor(p.key);
+    const { letter, booklet, cover } = copyFor(p.key);
+    assert.deepEqual(cover.recipient, ["The Principal"]);
     assert.equal(letter.salutation, "Dear Principal,");
     assert.equal(letter.address[0], "The Principal");
     assert.equal(letter.close, "Yours faithfully,");
