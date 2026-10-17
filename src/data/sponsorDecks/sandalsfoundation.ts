@@ -83,7 +83,7 @@ const deck: SponsorDeckData = {
       "This is a direct partnership request, not an application to the Foundation's annual grant cycle. If it needs to go through that process instead, we will follow it.",
     why: "Silver helps support the technology and programme at the centre of the day. If a different level suits the Foundation better, any of them is welcome.",
     recognition: "Silver Partner · Inaugural Hack876",
-    tracks: ["Learn", "Resilience", "Business"],
+    tracks: ["Learn", "Resilience", "Create & Hustle"],
   },
   groundRules: [
     "No marketing of resorts, travel or other products to students, and no sign-ups on the day.",

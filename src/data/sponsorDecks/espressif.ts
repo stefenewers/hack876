@@ -72,7 +72,7 @@ const deck: SponsorDeckData = {
       "A feature on Instagram, @hack876ja",
       "A post-event recap with photos",
     ],
-    tracks: ["Life", "Move", "Resilience", "Wildcard"],
+    tracks: ["Everyday Jamaica", "Resilience", "Wildcard"],
     inkind: [
       "About 30 ESP32 development boards, such as the ESP32-S3-DevKitC-1, for teams that want to build hardware",
       "Or vouchers for the same boards, if that suits Espressif better",

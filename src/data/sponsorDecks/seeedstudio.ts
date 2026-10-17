@@ -92,7 +92,7 @@ const deck: SponsorDeckData = {
     uses: ["equipment"],
     why: "We are asking for hardware, not cash. Seeed's standard Meshtastic package is a great start, and we would ask Seeed whether an upgrade fits an event of our size.",
     recognition: "Hardware Partner · Inaugural Hack876",
-    tracks: ["Resilience", "Move", "Life", "Wildcard"],
+    tracks: ["Resilience", "Everyday Jamaica", "Wildcard"],
     inkind: [
       "Seeed's standard Meshtastic package: 10 DIY kits, a SenseCAP T1000-E and a Wio Tracker L1",
       "An upgraded quantity, if Seeed thinks our event and content justify it",

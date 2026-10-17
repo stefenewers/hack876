@@ -89,7 +89,7 @@ const deck: SponsorDeckData = {
     uses: ["prizes", "awards", "programming"],
     why: "The Foundation already backs youth competitions, so contributing toward the prizes is a familiar, contained ask.",
     recognition: "Gold Partner · Inaugural Hack876",
-    tracks: ["Resilience", "Learn", "Life", "Wildcard"],
+    tracks: ["Resilience", "Learn", "Everyday Jamaica", "Wildcard"],
   },
   groundRules: [
     "Many participants are minors. There is no marketing or product sampling aimed at students, and no student contact details are shared with sponsors.",

@@ -84,7 +84,7 @@ const deck: SponsorDeckData = {
     uses: ["programming"],
     why: "Replit gives credits, not cash, and that is all we are asking for: credits for the teams that choose to build on Replit, plus anything Replit suggests on how best to use them.",
     recognition: "Build Tools Partner · Inaugural Hack876",
-    tracks: ["Learn", "Life", "Business", "Wildcard"],
+    tracks: ["Learn", "Everyday Jamaica", "Create & Hustle", "Wildcard"],
     inkind: ["Replit event credits for teams that opt in", "Credits held in organiser accounts, not student accounts"],
   },
   tool: {

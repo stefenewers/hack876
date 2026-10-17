@@ -83,7 +83,7 @@ const deck: SponsorDeckData = {
     uses: ["prizes", "meals", "programming"],
     why: "The Foundation already funds educational grants for its top campers, so contributing toward the Hack876 prizes is a familiar, contained next step. If a smaller first step fits better, supporting food and the student experience would still mean a great deal.",
     recognition: "Gold Partner · Inaugural Hack876",
-    tracks: ["Learn", "Business", "Life", "Wildcard"],
+    tracks: ["Learn", "Create & Hustle", "Everyday Jamaica", "Wildcard"],
   },
   groundRules: [
     "No gaming or lottery brands, products, games, odds or promotion anywhere near students, at the venue, in materials or online. Recognition uses the Supreme Ventures Foundation name and logo only.",

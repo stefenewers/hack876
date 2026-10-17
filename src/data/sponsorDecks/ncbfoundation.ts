@@ -93,7 +93,7 @@ const deck: SponsorDeckData = {
     uses: ["overall", "prizes", "meals", "production"],
     why: "Platinum is flexible: it helps support prizes, meals and the day itself in one gift. If a smaller gift fits the Foundation better this year, a contribution at any level is welcome.",
     recognition: "Platinum Partner · Inaugural Hack876",
-    tracks: ["Learn", "Business"],
+    tracks: ["Learn", "Create & Hustle"],
   },
   groundRules: [
     "No banking products, accounts or financial offers are marketed to students. Many participants are minors.",

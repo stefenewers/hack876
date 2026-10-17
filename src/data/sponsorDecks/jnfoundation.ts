@@ -98,7 +98,7 @@ const deck: SponsorDeckData = {
     uses: ["awards", "programming"],
     why: "It turns \"Innovation is a must\" into a day of practice for students, and it is a small, clear commitment that is easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    tracks: ["Culture", "Business", "Learn", "Resilience"],
+    tracks: ["Create & Hustle", "Learn", "Resilience"],
   },
   groundRules: [
     "No marketing of bank accounts, loans, insurance or other financial products to students, and no sign-ups on the day.",

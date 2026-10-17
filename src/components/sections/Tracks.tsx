@@ -17,8 +17,8 @@ const look: Record<string, { bg: string; fg: string; shape: string }> = {
   ink: { bg: "bg-ink", fg: "text-cream", shape: "rounded-[1.25rem]" },
 };
 
-const tilt = [-2.5, 1.5, -1, 2.5, 1.5, -2, 2, -1.5];
-const offset = ["", "lg:translate-y-8", "", "lg:translate-y-4", "lg:-translate-y-2", "lg:translate-y-6", "", "lg:translate-y-3"];
+const tilt = [-2.5, 1.5, -1, 2.5, -1.5];
+const offset = ["", "lg:translate-y-8", "", "lg:translate-y-4", "lg:-translate-y-2"];
 
 export function Tracks() {
   return (
@@ -44,13 +44,14 @@ export function Tracks() {
           </div>
         </div>
 
-        <ul className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-7">
+        {/* Five cards: 2 + 2 + 1 wide on phones, 3 + 2 on tablets, one row on desktop. */}
+        <ul className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-6 sm:gap-6 lg:grid-cols-5 lg:gap-7">
           {tracks.map((t, i) => (
             <li
               key={t.name}
               data-reveal="pop"
-              className={offset[i]}
-              style={{ "--reveal-delay": `${(i % 4) * 70}ms`, "--reveal-rot": `${tilt[i] * 2}deg` } as CSSProperties}
+              className={`${offset[i] ?? ""} sm:col-span-2 lg:col-span-1 ${i === tracks.length - 1 && tracks.length % 2 ? "col-span-2" : ""} ${i === 3 && tracks.length === 5 ? "sm:col-start-2 lg:col-start-auto" : ""}`}
+              style={{ "--reveal-delay": `${i * 70}ms`, "--reveal-rot": `${tilt[i % tilt.length] * 2}deg` } as CSSProperties}
             >
               <TrackCard track={t} index={i} />
             </li>
@@ -70,7 +71,7 @@ function TrackCard({ track, index }: { track: (typeof tracks)[number]; index: nu
     <div
       className="flip relative h-full transition-[rotate,translate] duration-300 ease-[var(--ease-pop)] hover:!rotate-0 hover:-translate-y-1.5"
       data-flipped={flipped}
-      style={{ rotate: `${tilt[index]}deg` }}
+      style={{ rotate: `${tilt[index % tilt.length]}deg` }}
     >
       <div className="flip-inner h-full">
         {/* Front */}

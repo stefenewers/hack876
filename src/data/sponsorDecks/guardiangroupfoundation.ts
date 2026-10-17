@@ -92,7 +92,7 @@ const deck: SponsorDeckData = {
     uses: ["awards", "programming"],
     why: "It is close in size to the Women in STEM Grant Guardian already gives, and it supports something specific and easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    tracks: ["Wellbeing", "Life", "Learn"],
+    tracks: ["Everyday Jamaica", "Learn"],
   },
   groundRules: [
     "No marketing of insurance, pensions or other financial products to students, and no sign-ups on the day.",

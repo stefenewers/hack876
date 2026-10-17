@@ -90,7 +90,7 @@ const deck: SponsorDeckData = {
     uses: ["awards"],
     why: "We are not asking for accounts. We are asking for Figma's advice on how Jamaican students can use it properly.",
     recognition: "Design Tools Partner · Inaugural Hack876",
-    tracks: ["Culture", "Learn", "Life", "Business"],
+    tracks: ["Create & Hustle", "Learn", "Everyday Jamaica"],
     inkind: ["Guidance on access for Jamaican high-school students", "Teaching resources from Figma's high-school curriculum"],
     presents: "Best Design",
   },

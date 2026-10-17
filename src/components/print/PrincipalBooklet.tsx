@@ -176,8 +176,8 @@ function Build({ copy }: { copy: Copy }) {
       <Head kicker="What students build" title="Real problems, working prototypes." />
       <p className="mt-[10pt]">Each team picks a track for inspiration, chooses a real problem within it, and builds a working prototype. The tracks guide ideas. They do not limit them.</p>
       <ul className="mt-[10pt] grid grid-cols-2 gap-[6pt]">
-        {b.tracks.map((t) => (
-          <li key={t.name} className="pp-panel pp-line flex gap-[9pt] !py-[8pt]">
+        {b.tracks.map((t, i) => (
+          <li key={t.name} className={`pp-panel pp-line flex gap-[9pt] !py-[8pt] ${i === b.tracks.length - 1 && b.tracks.length % 2 ? "col-span-2" : ""}`}>
             <span aria-hidden className="mt-[2pt] h-[24pt] w-[5pt] shrink-0 rounded-[3pt]" style={{ background: `var(--color-${t.color})` }} />
             <span>
               <span className="pp-h3 block">{t.name}</span>

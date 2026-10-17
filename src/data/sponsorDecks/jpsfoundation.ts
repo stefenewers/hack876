@@ -112,7 +112,7 @@ const deck: SponsorDeckData = {
     uses: ["prizes", "awards", "equipment"],
     why: "The Foundation already funds student prizes through EcoSpark, so contributing toward the Hack876 prizes is a familiar, contained ask. If a smaller first step fits better, a Bronze contribution toward a special award or JPS people on the day would still mean a great deal.",
     recognition: "Gold Partner · Inaugural Hack876",
-    tracks: ["Resilience", "Move", "Learn", "Wildcard"],
+    tracks: ["Resilience", "Everyday Jamaica", "Learn", "Wildcard"],
   },
   groundRules: [
     "Many participants are minors. There is no marketing aimed at students, and no student contact details or data are shared with sponsors.",

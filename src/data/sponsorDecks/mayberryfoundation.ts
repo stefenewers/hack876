@@ -111,7 +111,7 @@ const deck: SponsorDeckData = {
     restriction: "Mayberry's CSR policy excludes contributions to individuals, so a contribution would support the student experience and not prizes.",
     why: "It is the same kind of support Mayberry gave Christel House Jamaica: a full day of meals and transport, so students can focus on learning. As a cash gift, it is concrete and easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    tracks: ["Business", "Learn", "Life"],
+    tracks: ["Create & Hustle", "Learn", "Everyday Jamaica"],
   },
   groundRules: [
     "No marketing of investment products, accounts, trading apps or other financial services to students, and no sign-ups on the day.",

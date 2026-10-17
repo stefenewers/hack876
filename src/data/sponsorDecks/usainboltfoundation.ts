@@ -88,7 +88,7 @@ const deck: SponsorDeckData = {
     uses: ["awards", "programming"],
     why: "A contribution toward the Boldest Idea award is a small, clear commitment that matches the Foundation's 'Dare to Dream' value. The amount is the Foundation's choice.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    tracks: ["Culture", "Learn", "Wellbeing"],
+    tracks: ["Create & Hustle", "Learn", "Everyday Jamaica"],
     presents: "Boldest Idea",
   },
   groundRules: [

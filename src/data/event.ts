@@ -159,15 +159,7 @@ export const buildTypes = [
   { label: "Interactive experiences", icon: "hand" },
 ] as const;
 
-export type TrackIcon =
-  | "life"
-  | "learn"
-  | "culture"
-  | "business"
-  | "move"
-  | "wellbeing"
-  | "resilience"
-  | "wildcard";
+export type TrackIcon = "learn" | "life" | "business" | "resilience" | "wildcard";
 
 export const tracks: {
   name: string;
@@ -177,17 +169,6 @@ export const tracks: {
   /** Loose sparks to get teams thinking — not requirements. */
   sparks: string[];
 }[] = [
-  {
-    name: "Life",
-    line: "Make everyday life better.",
-    icon: "life",
-    color: "bill",
-    sparks: [
-      "Figure out when the bus is actually coming",
-      "Stop the group chat from losing the plan",
-      "Make the queue less painful",
-    ],
-  },
   {
     name: "Learn",
     line: "Rethink how people learn.",
@@ -200,47 +181,25 @@ export const tracks: {
     ],
   },
   {
-    name: "Culture",
-    line: "Build around Jamaican stories, creativity, language, or culture.",
-    icon: "culture",
+    name: "Everyday Jamaica",
+    line: "Make daily life, getting around and staying well easier.",
+    icon: "life",
+    color: "bill",
+    sparks: [
+      "Figure out when the bus is actually coming",
+      "Safer walks home",
+      "Find help without the awkwardness",
+    ],
+  },
+  {
+    name: "Create & Hustle",
+    line: "Build for small businesses, creators and Jamaican culture.",
+    icon: "business",
     color: "sun",
     sparks: [
-      "Patois, preserved and playful",
-      "Put local artists on the map",
-      "A sound system for the internet",
-    ],
-  },
-  {
-    name: "Business",
-    line: "Build for entrepreneurs and small businesses.",
-    icon: "business",
-    color: "emerald",
-    sparks: [
       "Help the corner shop take orders",
-      "Inventory that fits in a phone",
-      "Get the cook shop online in five minutes",
-    ],
-  },
-  {
-    name: "Move",
-    line: "Rethink transportation, mobility, and getting around.",
-    icon: "move",
-    color: "aqua",
-    sparks: [
-      "Route taxi, but predictable",
-      "Safer walks home",
-      "Map what the maps miss",
-    ],
-  },
-  {
-    name: "Wellbeing",
-    line: "Create something that supports healthier lives.",
-    icon: "wellbeing",
-    color: "peach",
-    sparks: [
-      "Check in on a friend",
-      "Sleep, exam season edition",
-      "Find help without the awkwardness",
+      "Put local artists and stories on the map",
+      "Money in, money out, for any hustle",
     ],
   },
   {

@@ -97,7 +97,7 @@ const deck: SponsorDeckData = {
       "Hack876 is volunteer-run and is not a registered charity. This is a sponsorship request for travel in kind. It does not ask for a financial contribution.",
     why: "Connecting Caribbean talent across islands is the natural fit. A flight brings someone to Kingston, or a voucher lets the winning team travel. Either is welcome.",
     recognition: "In-kind Travel Partner · Inaugural Hack876",
-    tracks: ["Learn", "Culture", "Move"],
+    tracks: ["Learn", "Create & Hustle", "Everyday Jamaica"],
     inkind: [
       "Either option is welcome. We are asking for one of them, not both.",
       "Return flights within the interCaribbean network for one or two Caribbean-based mentors or judges.",

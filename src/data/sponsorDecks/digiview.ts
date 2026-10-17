@@ -76,7 +76,7 @@ const deck: SponsorDeckData = {
     uses: ["equipment", "programming", "materials"],
     why: "A Bronze contribution helps support the equipment and materials teams build with. Cables, connectors or other suitable components in kind are just as welcome.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    tracks: ["Resilience", "Business", "Wildcard"],
+    tracks: ["Resilience", "Create & Hustle", "Wildcard"],
     inkind: ["A supervised demonstration of how a camera system is wired and networked", "Cables, connectors or other suitable components"],
   },
   groundRules: [

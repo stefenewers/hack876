@@ -67,7 +67,7 @@ const deck: SponsorDeckData = {
     restriction: "AFJ does not fund grants to individuals, so a grant would support programme costs and not student prizes.",
     why: "AFJ's grants typically range from US$1,000 to US$20,000. We are asking about a grant toward programme costs, in an amount AFJ considers appropriate. An application would follow AFJ's cycle, through a recipient AFJ can fund.",
     recognition: "Acknowledgement as AFJ prefers",
-    tracks: ["Learn", "Business", "Resilience"],
+    tracks: ["Learn", "Create & Hustle", "Resilience"],
     figure: "A programme grant",
   },
   groundRules: [

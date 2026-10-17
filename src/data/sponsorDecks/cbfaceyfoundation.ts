@@ -62,7 +62,7 @@ const deck: SponsorDeckData = {
     uses: ["programming", "materials", "meals", "overall"],
     why: "A contribution in this range helps support a free day of hands-on learning for Kingston students. This is an event sponsorship request within the Foundation's Education mandate, not a grant application.",
     recognition: "Education Partner · Inaugural Hack876",
-    tracks: ["Learn", "Culture"],
+    tracks: ["Learn", "Create & Hustle"],
   },
   groundRules: [
     "No marketing to students, and no sign-ups on the day.",

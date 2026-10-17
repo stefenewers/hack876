@@ -97,7 +97,7 @@ const deck: SponsorDeckData = {
     uses: ["awards", "programming"],
     why: "It supports secondary-school students at the stage before the Chairman's Innovation Award, and it is a small, clear commitment that is easy to report on.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    tracks: ["Learn", "Wellbeing", "Culture"],
+    tracks: ["Learn", "Everyday Jamaica", "Create & Hustle"],
   },
   groundRules: [
     "No marketing of insurance, pensions, investments or other financial products to students, and no sign-ups on the day.",

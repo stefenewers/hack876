@@ -88,7 +88,7 @@ const deck: SponsorDeckData = {
     title: "Juice Partner",
     why: "Juice with lunch is something Tru-Juice already makes better than anyone, and it is something every student in the room will enjoy. Any part of it helps.",
     recognition: "Juice Partner · Inaugural Hack876",
-    tracks: ["Wellbeing", "Life", "Business"],
+    tracks: ["Everyday Jamaica", "Create & Hustle"],
     inkind: [
       "Tru-Juice for the students and adults at the event, served with lunch",
       "A mix of flavours, chilled and delivered to {venue} ahead of lunch",
@@ -100,7 +100,7 @@ const deck: SponsorDeckData = {
     "No collection of student contact details by sponsors. Photos and names only with school and parent consent.",
     "Dietary needs come first. Hack876 collects allergies and dietary requirements in advance.",
   ],
-  future: ["Tru-Juice as the juice partner at every Hack876, growing with the event.", "A Business-track challenge drawn from food processing or distribution, if Trade Winds would like to set one."],
+  future: ["Tru-Juice as the juice partner at every Hack876, growing with the event.", "A Create & Hustle track challenge drawn from food processing or distribution, if Trade Winds would like to set one."],
   closingLine: "We would love Tru-Juice to be part of the first Hack876.",
   sources: [
     { id: 1, org: "Wisynco Group", label: "Tru-Juice brand page", href: "https://wisynco.com/tru-juice/" },

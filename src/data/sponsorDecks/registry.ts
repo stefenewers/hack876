@@ -336,7 +336,7 @@ export const deckRegistry: DeckEntry[] = [
     aka: "Barita Cornerstone",
     category: "Foundations",
     readiness: "ready",
-    focus: "J$300,000 toward a free day of learning by building, with the option of naming the Learn track prize.",
+    focus: "J$300,000 toward a free day of learning by building, with the option of naming the Create & Hustle track prize.",
     route: "/baritafoundationopportunity",
     pdf: `${P}barita-partnership-proposal.pdf`,
     filename: "Hack876 x Barita Foundation - Partnership Proposal.pdf",

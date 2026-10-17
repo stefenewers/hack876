@@ -101,7 +101,7 @@ const deck: SponsorDeckData = {
     uses: ["meals"],
     why: "Lunch is the one moment every student shares. A one-day, in-kind Island Grill lunch is simple, concrete and close to how Island Grill already serves communities.",
     recognition: "Food Partner · Inaugural Hack876",
-    tracks: ["Business", "Culture", "Wellbeing"],
+    tracks: ["Create & Hustle", "Everyday Jamaica"],
     inkind: ["One lunch for the students and adults at the event, delivered to {venue}", "Grilled chicken, fried fish and vegetarian meals with rice and peas or festival"],
   },
   groundRules: [
@@ -112,7 +112,7 @@ const deck: SponsorDeckData = {
   future: [
     "A recurring Island Grill lunch at every Hack876.",
     "A Supaah Food lunch built around local produce.",
-    "A Business track challenge built on a real Island Grill problem, if the team wants one.",
+    "A Create & Hustle track challenge built on a real Island Grill problem, if the team wants one.",
     "A Hack876 pathway toward the Lyn Family/Island Grill Scholarship in Technology, only if the family wishes.",
   ],
   closingLine: "We would love to explore the right first step with Thalia and the Island Grill team.",

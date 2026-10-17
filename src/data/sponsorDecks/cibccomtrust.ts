@@ -61,7 +61,7 @@ const deck: SponsorDeckData = {
     uses: ["meals", "materials", "programming"],
     why: "A donation in this range helps support meals, materials and mentoring for the day. This is a request for a donation, not a sponsorship.",
     recognition: "Acknowledgement as the Foundation prefers",
-    tracks: ["Learn", "Business"],
+    tracks: ["Learn", "Create & Hustle"],
   },
   groundRules: [
     "Hack876 is free for every student who takes part.",

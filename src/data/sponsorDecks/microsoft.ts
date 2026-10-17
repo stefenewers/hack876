@@ -98,7 +98,7 @@ const deck: SponsorDeckData = {
     uses: ["prizes", "awards", "programming"],
     why: "Microsoft already funds student hackathon prizes in Jamaica. Contributing toward the Hack876 prizes extends that to students a few years younger.",
     recognition: "Gold Partner · Inaugural Hack876",
-    tracks: ["Resilience", "Learn", "Business", "Life"],
+    tracks: ["Resilience", "Learn", "Create & Hustle", "Everyday Jamaica"],
     inkind: ["Cloud credits held by organisers to host team demos, with no student accounts required"],
   },
   groundRules: [

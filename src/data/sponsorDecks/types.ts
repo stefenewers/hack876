@@ -154,7 +154,7 @@ export type SponsorDeckData = {
      * Decks may not invent awards. Record every use in awards.ts.
      */
     presents?: string;
-    /** Hack876 tracks they map to: Life, Learn, Culture, Business, Move, Wellbeing, Resilience, Wildcard. */
+    /** Hack876 tracks they map to: Learn, Everyday Jamaica, Create & Hustle, Resilience, Wildcard. */
     tracks: string[];
     /** What an in-kind contribution could actually be, for this sponsor. Exploratory: the questions we would like to ask. */
     inkind?: string[];

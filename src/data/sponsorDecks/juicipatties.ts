@@ -102,7 +102,7 @@ const deck: SponsorDeckData = {
     uses: ["meals"],
     why: "Lunch is the one moment every student shares, and it is something Juici already does better than anyone. In kind is the simplest way to make it happen.",
     recognition: "Food Partner · Inaugural Hack876",
-    tracks: ["Culture", "Business", "Life"],
+    tracks: ["Create & Hustle", "Everyday Jamaica"],
     inkind: ["Beef and Chicken Patties for lunch", "Vegetable Patty and Plant Based Patty options for vegetarian and vegan students", "Coco bread"],
   },
   groundRules: [

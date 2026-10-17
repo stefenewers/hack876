@@ -89,7 +89,7 @@ const deck: SponsorDeckData = {
     uses: ["awards", "programming"],
     why: "It is small and concrete, close in spirit to the scholarships the AJA already gives, and it lets members see exactly what their support did.",
     recognition: "Bronze Partner · Inaugural Hack876",
-    tracks: ["Culture", "Learn", "Life"],
+    tracks: ["Create & Hustle", "Learn", "Everyday Jamaica"],
   },
   groundRules: [
     "No marketing, membership drives or fundraising aimed at students, and no sign-ups on the day.",

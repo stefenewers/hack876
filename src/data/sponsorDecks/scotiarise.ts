@@ -66,7 +66,7 @@ const deck: SponsorDeckData = {
     restriction: "Scotiabank's form needs a registered charity or non-profit applicant, so we will apply through a registered non-profit partner, not a school.",
     why: "J$550,000 helps support the prizes for the top teams and the programme for the day, with clear measures of what it achieved.",
     recognition: "Education Partner · Inaugural Hack876",
-    tracks: ["Business", "Learn"],
+    tracks: ["Create & Hustle", "Learn"],
   },
   metrics: [
     { k: "Students reached", v: "About {students}, 5th Form to Upper 6th" },

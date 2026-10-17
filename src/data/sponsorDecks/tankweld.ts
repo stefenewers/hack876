@@ -82,7 +82,7 @@ const deck: SponsorDeckData = {
     uses: ["equipment", "materials", "programming", "logistics"],
     why: "Silver helps support the equipment and materials that let teams build something physical, not only something on a screen. If a different level suits Tank-Weld better, any of them is welcome.",
     recognition: "Silver Partner · Inaugural Hack876",
-    tracks: ["Move", "Resilience", "Business"],
+    tracks: ["Everyday Jamaica", "Resilience", "Create & Hustle"],
     inkind: ["Safe prototyping materials", "A careers talk", "Help with moving equipment"],
   },
   groundRules: [

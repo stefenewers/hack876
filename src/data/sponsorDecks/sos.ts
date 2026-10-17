@@ -87,7 +87,7 @@ const deck: SponsorDeckData = {
     why: "Ideas, teamwork and a pitch all need something to write on. Materials in kind would go straight into students' hands, and any part of the list helps.",
     recognition: "Student Materials Partner · Inaugural Hack876",
     title: "Student Materials Partner",
-    tracks: ["Learn", "Business"],
+    tracks: ["Learn", "Create & Hustle"],
     inkind: [
       "A notebook and pen for each student",
       "Sticky notes, markers and chart paper for each team table",

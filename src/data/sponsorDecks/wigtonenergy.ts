@@ -74,7 +74,7 @@ const deck: SponsorDeckData = {
       "Optional: Wigton's name on the Resilience track prize",
     ],
     recognition: "Youth and STEM support · Inaugural Hack876",
-    tracks: ["Resilience", "Move"],
+    tracks: ["Resilience", "Everyday Jamaica"],
   },
   groundRules: [
     "No marketing to students, and no sign-ups on the day.",

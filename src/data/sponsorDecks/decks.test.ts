@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
-import { eligibility, prizes } from "../event.ts";
+import { eligibility, prizes, tracks } from "../event.ts";
 import { band, bands, benefitNotes } from "../sponsorship.ts";
 import { awardOffers } from "./awards.ts";
 import { decisions } from "./decisions.ts";
@@ -81,6 +81,14 @@ test("decks do not contradict or duplicate shared facts", () => {
   for (const p of pages) {
     assert.doesNotMatch(p.src.replace(/\s+/g, " "), /partner schools|host school/i, `${p.slug} calls the school network partner schools`);
     assert.doesNotMatch(p.src, /\btitle sponsor\b/i);
+  }
+});
+
+test("decks only map to tracks that exist", () => {
+  const names = tracks.map((t) => t.name);
+  for (const d of decks) {
+    for (const t of d.ask.tracks) assert.ok(names.includes(t), `${d.slug} maps to "${t}", which is not a track in event.ts`);
+    assert.equal(new Set(d.ask.tracks).size, d.ask.tracks.length, `${d.slug} lists a track twice`);
   }
 });
 

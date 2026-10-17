@@ -6,7 +6,7 @@ import type { SponsorDeckData } from "./types";
  * partnership enquiries at foundation@barita.com. scholarships@barita.com is
  * for scholarship applications only.
  *
- * The Learn track prize carrying the Foundation's name is an option the
+ * The Create & Hustle track prize carrying the Foundation's name is an option the
  * organisers chose to offer. It is not yet an award in event.ts.
  */
 const deck: SponsorDeckData = {
@@ -27,10 +27,10 @@ const deck: SponsorDeckData = {
   brief: {
     fit: "Education and youth development is one of the Barita Foundation's three pillars, and its scholarships support Jamaican students at CSEC and CAPE level.",
     fitRef: 1,
-    request: "Support for Hack876 toward the student programme on the day, with the option of the Foundation's name on the Learn track prize.",
+    request: "Support for Hack876 toward the student programme on the day, with the option of the Foundation's name on the Create & Hustle track prize.",
     enables: "A free day of hands-on learning for about {students} students from 5th Form to Upper 6th, many at their first hackathon: mentoring, materials, meals and the running of the day.",
     outcome: "The Foundation's logo on hack876.com and on stage, a thank-you in the programme, a feature on Instagram @hack876ja, and a recap with photos.",
-    next: "A reply on whether the Foundation would support Hack876, and whether it would like its name on the Learn track prize.",
+    next: "A reply on whether the Foundation would support Hack876, and whether it would like its name on the Create & Hustle track prize.",
   },
   why: {
     headline: "Education, opportunity and access.",
@@ -65,23 +65,23 @@ const deck: SponsorDeckData = {
     headline: "J$300,000 toward a free day of learning by building.",
     bands: [],
     uses: ["programming", "materials", "meals", "overall"],
-    why: "J$300,000 helps support a free day of hands-on learning for students from 5th Form to Upper 6th, alongside {sponsors}. As an option, the Learn track prize could carry the Barita Foundation's name. The Learn track asks teams to rethink how people learn, from CSEC revision that doesn't feel like revision to tools for teachers. The judging panel still decides the winner.",
+    why: "J$300,000 helps support a free day of hands-on learning for students from 5th Form to Upper 6th, alongside {sponsors}. As an option, the Create & Hustle track prize could carry the Barita Foundation's name. The Create & Hustle track asks teams to build for entrepreneurs, small businesses and creators, from helping a corner shop keep track of its money to tools that help young people budget and save. The judging panel still decides the winner.",
     receives: [
       "Logo on hack876.com and on stage",
       "A thank-you in the event programme",
       "A feature on Instagram, @hack876ja",
       "A post-event recap with photos",
-      "Optional: the Foundation's name on the Learn track prize",
+      "Optional: the Foundation's name on the Create & Hustle track prize",
     ],
     recognition: "Education support · Inaugural Hack876",
-    tracks: ["Learn", "Business"],
+    tracks: ["Learn", "Create & Hustle"],
   },
   groundRules: [
     "No marketing to students, and no sign-ups on the day.",
     "No collection of student contact details by partners. Photos and names only with school and parent consent.",
     "The judging panel decides every prize, including a named one. Support carries no influence over judging.",
   ],
-  future: ["The Foundation as an education partner at every Hack876.", "A financial literacy challenge on the Business track, if the Foundation would like one."],
+  future: ["The Foundation as an education partner at every Hack876.", "A financial literacy challenge on the Create & Hustle track, if the Foundation would like one."],
   closingLine: "We would love the Barita Foundation to be part of the first Hack876.",
   sources: [
     { id: 1, org: "Barita", label: "Barita Foundation", href: "https://www.barita.com/foundation" },

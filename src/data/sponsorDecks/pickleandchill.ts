@@ -78,7 +78,7 @@ const deck: SponsorDeckData = {
     restriction: "An experience could add to an existing award if we agree it together. It would not replace a published prize or create a new award. Hack876 takes place at its own venue, and would not arrange transport or an off-site trip.",
     why: "A voucher a team can use together is a simple thing to give and a good memory to take home. Any part of this helps.",
     recognition: "In-kind Partner · Inaugural Hack876",
-    tracks: ["Wellbeing", "Move"],
+    tracks: ["Everyday Jamaica"],
     inkind: ["Court-time vouchers for a team of up to four", "An introductory lesson for a team", "Or a monetary contribution at any level"],
   },
   groundRules: [
