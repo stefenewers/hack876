@@ -352,6 +352,7 @@ export const people: Person[] = [
   { name: "Jordan Howell", organization: "Microsoft", schools: ["Campion College", "Kettering"], role: "judge", photo: "/people/jordan-howell.jpg", url: "https://www.linkedin.com/in/jordan-howell-995a03129/", confirmed: true },
   { name: "Joshua Ardito", organization: "Meta", schools: ["Campion College", "Carnegie Mellon"], role: "judge", photo: "/people/joshua-ardito.jpg", url: "https://www.linkedin.com/in/jardito/", confirmed: true },
   { name: "Tahj Atkinson", organization: "Google", schools: ["Campion College", "Illinois Tech"], role: "judge", photo: "/people/tahj-atkinson.jpg", url: "https://www.linkedin.com/in/tahjatkinson/", confirmed: true },
+  { name: "Pierre Gordon", organization: "1Password", schools: ["Campion College", "UTech"], role: "judge", photo: "/people/pierre-gordon.jpg", url: "https://www.linkedin.com/in/pierre-gordon", confirmed: true },
   { name: "Nadani Dixon", organization: "Redfin", schools: ["Campion College", "Middlebury", "Georgia Tech"], role: "organizer", photo: "/people/nadani-dixon.jpg", url: "https://www.linkedin.com/in/nadani-dixon/", confirmed: true },
   { name: "Stefen Ewers", organization: "Georgia Tech", schools: ["Campion College", "Hillel Academy", "Georgia Tech"], role: "organizer", photo: "/people/stefen-ewers.jpg", url: "https://www.linkedin.com/in/stefen-ewers/", confirmed: true },
   { name: "Kendall Todd", organization: "Accenture", schools: ["Hillel Academy", "UF"], role: "judge", photo: "/people/kendall-todd.jpg", url: "https://www.linkedin.com/in/kendallmtodd/", confirmed: true },
@@ -440,6 +441,7 @@ export const sponsors: Sponsor[] = [
   { name: "Norus Technologies", logo: "/sponsors/norus-technologies.png", url: "https://norustech.com/", level: "partner", confirmed: true },
   { name: "Frankies", logo: "/sponsors/frankies.jpg", url: "", level: "partner", confirmed: true },
   { name: ".xyz", logo: "/sponsors/xyz.png", url: "https://gen.xyz", level: "partner", confirmed: true },
+  { name: "Big Media Ja", logo: "/sponsors/big-media.jpg", url: "https://www.instagram.com/bigmediaja/", level: "partner", confirmed: true },
 ];
 
 /* -------------------------------------------------------------------------- */
