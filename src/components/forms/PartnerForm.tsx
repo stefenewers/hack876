@@ -42,7 +42,16 @@ export function PartnerForm() {
         <h2 ref={doneRef} tabIndex={-1} className="display mt-4 text-4xl outline-none">
           Thank you!
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-lg text-ink-2">We got your message and we&rsquo;ll be in touch soon.</p>
+        <p className="mx-auto mt-2 max-w-md text-lg text-ink-2">
+          {state.email ? (
+            <>
+              We got your message and just sent a confirmation to <strong className="font-bold text-ink">{state.email}</strong>. Stefen or Nadani will be in
+              touch within 2 business days.
+            </>
+          ) : (
+            <>We got your message and we&rsquo;ll be in touch soon.</>
+          )}
+        </p>
       </div>
     );
   }

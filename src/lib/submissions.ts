@@ -43,8 +43,13 @@ const formPath: Record<SubmissionKind, string> = { applications: "apply", partne
 
 const label = (k: string) => k.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, (c) => c.toUpperCase());
 
-function asText(record: Record<string, unknown>) {
-  return Object.entries(record)
+/** Fields shown first in the notification, so a message can be triaged at a glance. */
+const leadFields: Partial<Record<SubmissionKind, string[]>> = { partners: ["email", "phone", "organization"] };
+
+function asText(record: Record<string, unknown>, lead: string[] = []) {
+  const first = lead.filter((k) => k in record);
+  return [...first, ...Object.keys(record).filter((k) => !first.includes(k))]
+    .map((k) => [k, record[k]] as const)
     .filter(([, v]) => v !== undefined && v !== null && v !== "")
     .map(([k, v]) => `${label(k)}: ${Array.isArray(v) ? v.join(", ") : String(v)}`)
     .join("\n");
@@ -76,7 +81,7 @@ async function sendEmail(kind: SubmissionKind, record: Record<string, unknown>) 
     to,
     replyTo,
     subject: subjects[kind](record),
-    text: `${asText(record)}\n\nSent from the form at ${event.siteUrl}/${formPath[kind]}.`,
+    text: `${asText(record, leadFields[kind])}\n\nSent from the form at ${event.siteUrl}/${formPath[kind]}.`,
   });
   return true;
 }

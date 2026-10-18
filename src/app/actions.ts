@@ -1,7 +1,7 @@
 "use server";
 
 import { after } from "next/server";
-import { applications, eligibility, event, eventWhen, schools } from "@/data/event";
+import { applications, eligibility, event, schools } from "@/data/event";
 import {
   validateApplication,
   validatePartner,
@@ -10,6 +10,7 @@ import {
 } from "@/lib/application";
 import { capacityFor, validateCrew, type CrewErrors } from "@/lib/crew";
 import { crewCodeMatches, crewOpen } from "@/lib/crewCode";
+import { crewConfirmation, partnerConfirmation } from "@/lib/confirmations";
 import { saveSubmission, sendConfirmation } from "@/lib/submissions";
 
 export type ApplyState =
@@ -55,19 +56,31 @@ export async function submitApplication(_prev: ApplyState, formData: FormData): 
 export type PartnerState =
   | { status: "idle" }
   | { status: "error"; errors: PartnerErrors; message?: string }
-  | { status: "success" };
+  | { status: "success"; firstName: string; email: string };
 
 export async function submitPartner(_prev: PartnerState, formData: FormData): Promise<PartnerState> {
-  if (String(formData.get("company_website") ?? "").trim()) return { status: "success" };
+  // Honeypot: a plain success, no email, nothing saved.
+  if (String(formData.get("company_website") ?? "").trim()) return { status: "success", firstName: "", email: "" };
   const result = validatePartner(Object.fromEntries(formData));
   if (!result.ok) return { status: "error", errors: result.errors, message: "A few fields need another look." };
+  const partner = result.value;
   try {
-    await saveSubmission("partners", result.value);
+    await saveSubmission("partners", partner);
   } catch (err) {
     console.error("Failed to save partner enquiry", err);
     return { status: "error", errors: {}, message: `Something went wrong on our side and your message wasn’t sent. Please email us at ${event.contactEmail} instead.` };
   }
-  return { status: "success" };
+
+  // The confirmation goes out after the response. The enquiry is already saved and info@ notified, so a failure here is only logged.
+  after(async () => {
+    try {
+      await sendConfirmation({ to: partner.email, ...partnerConfirmation(partner) });
+    } catch (err) {
+      console.error("[partner] confirmation email failed", err);
+    }
+  });
+
+  return { status: "success", firstName: partner.name.split(/\s+/)[0], email: partner.email };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -125,40 +138,4 @@ export async function submitCrew(_prev: CrewState, formData: FormData): Promise<
   });
 
   return { status: "success", firstName, capacityLabel: capacity.label, organization: crew.organization };
-}
-
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
-
-/** The confirmation email. Short, and it never repeats the free-text answer. */
-function crewConfirmation(first: string, organization: string, capacityLabel: string, hours: string) {
-  const when = `${eventWhen.long}${eventWhen.note}`;
-  const intro = `thanks for raising your hand for Hack 876, the free one-day hackathon for ${eligibility.maxHackers} secondary-school students in Kingston on ${when}.`;
-  const next = "Stefen or Nadani will message you on WhatsApp within a week to find the right fit.";
-  const change = "Want to change anything? Just reply to this email.";
-  const text = [
-    `Hi ${first},`,
-    "",
-    intro[0].toUpperCase() + intro.slice(1),
-    "",
-    "Here’s what we have:",
-    `Company: ${organization}`,
-    `Capacity: ${capacityLabel} (${hours})`,
-    "",
-    `What happens next: ${next}`,
-    "",
-    change,
-    "",
-    "Thank you,",
-    `The Hack 876 team · ${event.siteUrl}`,
-  ].join("\n");
-  const p = "margin:0 0 14px;font-size:16px;line-height:1.5;color:#141716";
-  const html = `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px">
-<p style="${p}">Hi ${esc(first)},</p>
-<p style="${p}">Thanks for raising your hand for Hack 876, the free one-day hackathon for ${eligibility.maxHackers} secondary-school students in Kingston on ${esc(when)}.</p>
-<p style="${p}"><strong>Here’s what we have</strong><br>Company: ${esc(organization)}<br>Capacity: ${esc(capacityLabel)} (${esc(hours)})</p>
-<p style="${p}"><strong>What happens next:</strong> ${next}</p>
-<p style="${p}">${change}</p>
-<p style="${p}">Thank you,<br>The Hack 876 team · <a href="${event.siteUrl}" style="color:#0a7a3e">${event.siteUrl.replace(/^https?:\/\//, "")}</a></p>
-</div>`;
-  return { subject: "You’re on the Hack 876 crew list", text, html };
 }
