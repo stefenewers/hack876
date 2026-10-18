@@ -1,31 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef } from "react";
 import { DoctorBird } from "@/components/art/DoctorBird";
 import { Icon } from "@/components/art/Icons";
 import { Mark, TailLine } from "@/components/art/Marks";
+import { Confetti } from "@/components/motion/Confetti";
 import { useReducedMotion } from "@/components/motion/hooks";
 import { applications, event, eventWhen } from "@/data/event";
-
-const CONFETTI_COLORS = ["#12a150", "#ffc93c", "#ef3b2d", "#2ec4c9", "#ffb3c7", "#8fd3f4", "#141716"];
 
 export function ApplySuccess({ firstName, email }: { firstName: string; email: string }) {
   const reduced = useReducedMotion();
   const headingRef = useRef<HTMLHeadingElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
-  const [pieces] = useState(() =>
-    Array.from({ length: 70 }, (_, i) => ({
-      left: Math.random() * 100,
-      dx: (Math.random() - 0.5) * 240,
-      spin: 360 + Math.random() * 720,
-      delay: Math.random() * 0.6,
-      dur: 2.2 + Math.random() * 1.6,
-      color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-      shape: i % 3,
-      size: 8 + Math.random() * 10,
-    })),
-  );
 
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true });
@@ -34,29 +21,7 @@ export function ApplySuccess({ firstName, email }: { firstName: string; email: s
 
   return (
     <div ref={rootRef} className="relative scroll-mt-24">
-      {!reduced && (
-        <div aria-hidden className="pointer-events-none fixed inset-0 z-[60] overflow-hidden">
-          {pieces.map((p, i) => (
-            <span
-              key={i}
-              className="confetti absolute top-0 block border-2 border-ink"
-              style={
-                {
-                  left: `${p.left}%`,
-                  width: p.size,
-                  height: p.shape === 2 ? p.size * 0.5 : p.size,
-                  borderRadius: p.shape === 0 ? "999px" : "3px",
-                  background: p.color,
-                  "--dx": `${p.dx}px`,
-                  "--spin": `${p.spin}deg`,
-                  "--delay": `${p.delay}s`,
-                  "--dur": `${p.dur}s`,
-                } as CSSProperties
-              }
-            />
-          ))}
-        </div>
-      )}
+      {!reduced && <Confetti />}
 
       <div className="text-center">
         <div className="mx-auto w-48 sm:w-56">

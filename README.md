@@ -35,10 +35,19 @@ Almost everything lives in **`src/data/event.ts`**:
 
 ## Form submissions
 
-Applications (`/apply`) and partner enquiries (`/partner`) are validated in the browser and again on the server (`src/lib/application.ts`), then delivered by `src/lib/submissions.ts`:
+Applications (`/apply`), partner enquiries (`/partner`) and crew sign-ups (`/crew`) are validated in the browser and again on the server (`src/lib/application.ts`, `src/lib/crew.ts`), then delivered by `src/lib/submissions.ts`:
 
-- **Email (production).** Set `SMTP_USER` (the Google Workspace address, `info@hack876.com`) and `SMTP_PASS` (a Google app password for that account). Each submission is emailed to `info@hack876.com`, with Reply-To set to the person who wrote in. Optional: `SUBMISSIONS_EMAIL_TO`, `SMTP_HOST`, `SMTP_PORT`.
-- **Webhook (optional, in addition).** `SUBMISSIONS_WEBHOOK_URL`, with an optional `SUBMISSIONS_WEBHOOK_SECRET` sent as a Bearer token.
-- **Local file.** With neither set and outside Vercel, submissions are appended to `.data/applications.jsonl` / `.data/partners.jsonl` (git-ignored).
+- **Email (production).** Set `SMTP_USER` (the Google Workspace address, `info@hack876.com`) and `SMTP_PASS` (a Google app password for that account). Each submission is emailed to `info@hack876.com`, with Reply-To set to the person who wrote in. Optional: `SUBMISSIONS_EMAIL_TO`, `SMTP_HOST`, `SMTP_PORT`. Crew sign-ups also send the person a short confirmation from the same account.
+- **Webhook (optional, in addition).** `SUBMISSIONS_WEBHOOK_URL`, with an optional `SUBMISSIONS_WEBHOOK_SECRET` sent as a Bearer token and as `secret` in the JSON body. [`docs/ops/sheets-webhook.md`](docs/ops/sheets-webhook.md) sets this up as a private Google Sheet roster, one tab per form. It copies `/apply` submissions (students' details) too, so keep the Sheet private.
+- **Local file.** With neither set and outside Vercel, submissions are appended to `.data/applications.jsonl`, `.data/partners.jsonl` or `.data/crew.jsonl` (git-ignored).
+- **Crew invite code.** `CREW_INVITE_CODE` gates `/crew` (see below). While it is unset, the crew form is closed.
 
-If nothing can be delivered, the form tells the person to email `info@hack876.com`, and the submission is written to the server log so it can be recovered from Vercel's logs.
+If nothing can be delivered, the form tells the person to email `info@hack876.com`, and the submission is written to the server log. Treat that as best-effort only: Vercel Hobby keeps runtime logs for about an hour.
+
+## Crew sign-up (`/crew`)
+
+An unlisted, invite-only form for the volunteers in the Hack 876 Crew WhatsApp community. It is not in the nav, footer or sitemap, and it is noindex.
+
+- **Share the link** in the WhatsApp group as `https://www.hack876.com/crew?k=<code>`, where `<code>` is the value of `CREW_INVITE_CODE`. Without the code (or with a wrong one), the page asks for it.
+- **Rotate the code** by changing `CREW_INVITE_CODE` in Vercel and redeploying. Old links stop working; post the new one.
+- **Submissions** go to `info@hack876.com` (subject `Crew: Name (Company) · Capacity`), and to the Google Sheet's `crew` tab if the webhook is set up. Each person gets a confirmation email asking them to reply with any changes.
