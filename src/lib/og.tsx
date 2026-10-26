@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import type { ReactNode } from "react";
-import { eligibility, event, eventWhen } from "@/data/event";
+import { eligibility, event, eventWhen, mlh } from "@/data/event";
 
 /*
  * Link-preview cards (Open Graph / Twitter), rendered at build time.
@@ -100,6 +100,7 @@ export async function siteOgImage() {
             A one-day hackathon for Jamaican secondary-school students. ~{eligibility.maxHackers} builders, one day, real prototypes.
           </div>
         </div>
+        <div style={{ position: "absolute", left: 72, bottom: 50, display: "flex", fontSize: 26, fontWeight: 800, color: C.emerald }}>{mlh.hackDayBadge}</div>
         <div style={{ position: "absolute", right: 72, bottom: 50, display: "flex", fontSize: 28, fontWeight: 800 }}>hack876.com</div>
       </Frame>
     ),

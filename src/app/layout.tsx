@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Caveat_Brush, Permanent_Marker } from "next/font/google";
 import { RevealObserver } from "@/components/motion/RevealObserver";
-import { event } from "@/data/event";
+import { event, eventWhen, mlh } from "@/data/event";
 import "./globals.css";
 
 const marker = Permanent_Marker({
@@ -25,6 +25,8 @@ const caveat = Caveat_Brush({
 });
 
 const SHARE_TITLE = `${event.name} · ${event.tagline}`;
+/** "Saturday 20 February 2027, Kingston, Jamaica. An official MLH Hack Day. Free for students." then the short description. */
+const DESCRIPTION = `${eventWhen.long}, ${event.city}. ${mlh.hackDayBadge}. Free for students. ${event.shortDescription}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(event.siteUrl),
@@ -32,11 +34,11 @@ export const metadata: Metadata = {
     default: SHARE_TITLE,
     template: `%s · ${event.name}`,
   },
-  description: event.shortDescription,
+  description: DESCRIPTION,
   alternates: { canonical: "/" },
   openGraph: {
     title: SHARE_TITLE,
-    description: event.shortDescription,
+    description: DESCRIPTION,
     url: "/",
     siteName: event.name,
     locale: "en_JM",
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: SHARE_TITLE,
-    description: event.shortDescription,
+    description: DESCRIPTION,
   },
 };
 
