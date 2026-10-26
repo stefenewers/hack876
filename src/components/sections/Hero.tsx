@@ -146,14 +146,16 @@ export function Hero() {
       <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:gap-0 lg:px-8">
         {/* Copy */}
         <div className="order-2 pb-40 sm:pb-52 lg:order-1 lg:pt-10 lg:pb-52">
-          <div className="rise relative z-10 mb-3" style={{ "--d": "0.15s" } as CSSProperties}>
-            <MlhBadge className="border-2 border-ink/10 shadow-[2px_3px_0_0_rgba(20,23,22,0.12)]" />
+          <div className="relative z-10 mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <p className="eyebrow rise -ml-3 inline-flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-2xl bg-cream px-3 py-1.5 text-ink-soft sm:rounded-full" style={{ "--d": "0.2s" } as CSSProperties}>
+              <span className="inline-block h-2.5 w-2.5 rounded-full bg-bill" />
+              <span>{event.city} ·</span>
+              <span className="whitespace-nowrap">{eventWhen.short}</span>
+            </p>
+            <div className="rise" style={{ "--d": "0.3s" } as CSSProperties}>
+              <MlhBadge className="border-2 border-ink/10 shadow-[2px_3px_0_0_rgba(20,23,22,0.12)]" />
+            </div>
           </div>
-          <p className="eyebrow rise relative z-10 mb-3 -ml-3 inline-flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-2xl bg-cream px-3 py-1.5 text-ink-soft sm:rounded-full" style={{ "--d": "0.2s" } as CSSProperties}>
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-bill" />
-            <span>{event.city} ·</span>
-            <span className="whitespace-nowrap">{eventWhen.short}</span>
-          </p>
 
           <div ref={markRef} className="relative inline-block">
             <Wordmark as="h1" id="hero-title" animate className="text-[clamp(4.2rem,17vw,11.5rem)]" />
