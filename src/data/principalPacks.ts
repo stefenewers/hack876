@@ -433,7 +433,7 @@ export function bookletCopy(pack: PrincipalPack) {
       ],
       notProvided: [
         { k: "Transport", v: faq.transport.a },
-        { k: "Devices", v: firstPara(faq.laptop.a) },
+        { k: "Devices", v: firstPara(faq.laptop.a).replace(/^Yes\. /, "") },
       ],
       cost: COST_STATEMENT,
       /* Everything the repo still marks pending or to-do. Never filled in here. */
