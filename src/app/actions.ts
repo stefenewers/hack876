@@ -1,57 +1,12 @@
 "use server";
 
 import { after } from "next/server";
-import { applications, eligibility, event, schools } from "@/data/event";
-import {
-  validateApplication,
-  validatePartner,
-  type FieldErrors,
-  type PartnerErrors,
-} from "@/lib/application";
+import { event } from "@/data/event";
+import { validatePartner, type PartnerErrors } from "@/lib/partner";
 import { capacityFor, validateCrew, type CrewErrors } from "@/lib/crew";
 import { crewCodeMatches, crewOpen } from "@/lib/crewCode";
 import { crewConfirmation, partnerConfirmation } from "@/lib/confirmations";
 import { saveSubmission, sendConfirmation } from "@/lib/submissions";
-
-export type ApplyState =
-  | { status: "idle" }
-  | { status: "error"; errors: FieldErrors; message?: string }
-  | { status: "success"; firstName: string; email: string };
-
-export async function submitApplication(_prev: ApplyState, formData: FormData): Promise<ApplyState> {
-  if (applications.status !== "open") {
-    return { status: "error", errors: {}, message: "Applications aren’t open right now." };
-  }
-  // Honeypot: real people never see or fill this field.
-  if (String(formData.get("company") ?? "").trim()) {
-    return { status: "success", firstName: "", email: "" };
-  }
-
-  const result = validateApplication(Object.fromEntries(formData), {
-    schools,
-    forms: eligibility.formOptions,
-  });
-  if (!result.ok) {
-    return { status: "error", errors: result.errors, message: "A few answers need another look." };
-  }
-
-  try {
-    await saveSubmission("applications", result.value);
-  } catch (err) {
-    console.error("Failed to save application", err);
-    return {
-      status: "error",
-      errors: {},
-      message: `Something went wrong on our side and your application wasn’t saved. Please try again in a minute, or email us at ${event.contactEmail}.`,
-    };
-  }
-
-  return {
-    status: "success",
-    firstName: result.value.fullName.split(/\s+/)[0],
-    email: result.value.email,
-  };
-}
 
 export type PartnerState =
   | { status: "idle" }

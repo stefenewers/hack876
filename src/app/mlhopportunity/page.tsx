@@ -268,7 +268,6 @@ function Closing() {
           )}
           <p className="mh-label mt-3">
             Jamaica · {eventWhen.short}
-            {eventWhen.note}
           </p>
         </div>
 

@@ -13,7 +13,7 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 const P = "margin:0 0 14px;font-size:16px;line-height:1.5;color:#141716";
 const LINK = "color:#0a7a3e";
 const siteLink = () => `<a href="${event.siteUrl}" style="${LINK}">${event.siteUrl.replace(/^https?:\/\//, "")}</a>`;
-const when = () => `${eventWhen.long}${eventWhen.note}`;
+const when = () => eventWhen.long;
 const theEvent = () => `Hack 876, the free one-day hackathon for ${eligibility.maxHackers} secondary-school students in Kingston on ${when()}`;
 const firstWord = (name: string) => name.trim().split(/\s+/)[0] ?? "";
 

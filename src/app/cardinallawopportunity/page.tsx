@@ -267,8 +267,7 @@ function Closing() {
         <p className="lp-prose mx-auto mt-6 max-w-2xl text-center">
           Hack876 gives young Jamaicans a place to begin. We would love {SPONSOR} to help make that first room possible.
         </p>
-        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
-          {eventWhen.note}</p>
+        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}</p>
         <p className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
           <a href={event.siteUrl} className="underline decoration-2 underline-offset-4">
             {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}

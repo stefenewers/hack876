@@ -1,9 +1,100 @@
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import Link from "next/link";
+import type { CSSProperties, ReactNode } from "react";
 import { Campus } from "@/components/art/Campus";
 import { Icon } from "@/components/art/Icons";
 import { TailLine } from "@/components/art/Marks";
-import { eligibility, schoolLogos, schoolStatus, schools, venue } from "@/data/event";
+import { RegisterLink } from "@/components/site/RegisterLink";
+import { eligibility, event, eventWhen, foodNote, mlh, registration, schedule, schoolLogos, schoolStatus, schools, venue, venueArrivalPending } from "@/data/event";
+
+const DOORS = schedule[0]?.time ?? "";
+const WRAP = schedule[schedule.length - 1]?.time ?? "";
+const linkClass = "font-bold text-ink underline decoration-emerald decoration-2 underline-offset-4";
+
+/** Everything MLH asks an event page to state, in one place. Every fact comes from event.ts. */
+function EventDetails() {
+  const pendingTag = (
+    <span className="ml-1 inline-block rounded-full border-2 border-dashed border-ink/40 px-2 py-0.5 align-middle text-[0.65rem] font-extrabold tracking-wide text-ink-soft uppercase">
+      To be confirmed
+    </span>
+  );
+  const rows: { k: string; v: ReactNode }[] = [
+    { k: "Date and time", v: `${eventWhen.long}, ${DOORS} to ${WRAP}. ${event.timeZone}.` },
+    { k: "Venue", v: `${venue.name}, ${venue.address}` },
+    {
+      k: "Room and arrival",
+      v: venue.room && venue.arrival ? `${venue.room}. ${venue.arrival}` : (
+        <>
+          {venueArrivalPending} {pendingTag}
+        </>
+      ),
+    },
+    { k: "Format", v: "Hack 876 is entirely in person. There is no remote participation. Check-in is at the doors, in person only." },
+    { k: "Cost", v: "Free for students." },
+    {
+      k: "Who it’s for",
+      v: (
+        <>
+          Secondary-school students in {eligibility.forms}. Most participants are under 18, so a parent or guardian must give consent.{" "}
+          <Link href="/#parents" className={linkClass}>
+            For parents
+          </Link>
+        </>
+      ),
+    },
+    { k: "Food and drink", v: foodNote },
+    { k: "What to bring", v: "Your own laptop and charger, your school ID, a water bottle and your signed parent or guardian consent form. Hack 876 does not provide laptops; please bring your own." },
+    {
+      k: "Registering",
+      v: (
+        <>
+          You need a free MyMLH account to register and to submit your project.{" "}
+          <RegisterLink className={linkClass}>{registration.labelLong}</RegisterLink>
+        </>
+      ),
+    },
+    {
+      k: "Code of Conduct",
+      v: (
+        <>
+          Hack 876 follows the{" "}
+          <a href={mlh.codeOfConductUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
+            MLH Code of Conduct
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>{" "}
+          and{" "}
+          <Link href="/code-of-conduct" className={linkClass}>
+            ours
+          </Link>
+          .
+        </>
+      ),
+    },
+    { k: "Accessibility", v: `Tell us about any accessibility needs when you register, or email ${event.contactEmail}.` },
+    {
+      k: "Questions",
+      v: event.contactEmail ? (
+        <a href={`mailto:${event.contactEmail}`} className={linkClass}>
+          {event.contactEmail}
+        </a>
+      ) : null,
+    },
+  ];
+  return (
+    <div id="event-details" data-reveal className="mt-16 scroll-mt-24 rounded-[2rem] border-[3px] border-ink bg-paper p-6 shadow-[6px_8px_0_0_var(--color-ink)] sm:p-9">
+      <p className="eyebrow text-emerald-deep">{mlh.hackDayBadge}</p>
+      <h3 className="display mt-2 text-3xl sm:text-4xl">Event details</h3>
+      <dl className="mt-6 grid gap-x-10 gap-y-4 md:grid-cols-2">
+        {rows.map((row) => (
+          <div key={row.k} className="border-b-2 border-dashed border-ink/15 pb-3">
+            <dt className="text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">{row.k}</dt>
+            <dd className="mt-1 leading-snug font-semibold text-ink-2">{row.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
 
 function initials(name: string) {
   return name
@@ -33,7 +124,7 @@ export function Attend() {
               Upper 6th Form.
             </h2>
             <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink-2">
-              Hack 876 is open to students at participating schools. {eligibility.howToGetIn} You&rsquo;re welcome
+              {eligibility.howToGetIn} You&rsquo;re welcome
               whether you code, design, research, or just really want to build something.
             </p>
 
@@ -64,7 +155,7 @@ export function Attend() {
                       {venue.confirmed ? "Venue" : "Location"}
                     </p>
                     <p className="display text-3xl">{venue.name}</p>
-                    <p className="font-semibold text-ink-2">{venue.area}</p>
+                    <p className="font-semibold text-ink-2">{venue.address}</p>
                   </div>
                 </div>
                 {venue.mapsUrl && (
@@ -82,6 +173,8 @@ export function Attend() {
             )}
           </div>
         </div>
+
+        <EventDetails />
 
         {/* Schools */}
         <div className="mt-20">

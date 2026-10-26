@@ -1,4 +1,4 @@
-import { applications, buildTypes, eligibility, event, eventWhen, judging, people, prizes, prizesNote, schedule, venue } from "./event";
+import { buildTypes, cloudflareChallenge, eligibility, event, eventWhen, foodNote, judging, people, prizes, prizesNote, registration, schedule, venue, venueArrivalPending } from "./event";
 import { organizerAlumniClause } from "./alumni";
 import type { SchoolBrief } from "./schoolBriefs";
 
@@ -11,16 +11,16 @@ import type { SchoolBrief } from "./schoolBriefs";
  * - Written for someone who has never heard of Hack 876 or a hackathon, and
  *   who knows nothing about how the school got involved.
  * - Every answer stands on its own. No "as above".
- * - Dates, venue, sizes, prizes and application state come from event.ts.
+ * - Dates, venue, sizes, prizes and registration links come from event.ts.
  * - `a` holds what is known. `todo` holds what is still to be confirmed.
  *   Never fold an open question into `a` as if it were decided.
  * - No promises of internships, jobs, scholarships, places or approvals.
  */
 
 /** Only for facts that are firmly one or the other. Open details go in `todo`. */
-export type HubStatus = "confirmed" | "tentative";
+export type HubStatus = "confirmed" | "pending";
 
-export const statusLabel: Record<HubStatus, string> = { confirmed: "Confirmed", tentative: "Tentative" };
+export const statusLabel: Record<HubStatus, string> = { confirmed: "Confirmed", pending: "To be confirmed" };
 
 /** The one label used for anything not yet decided. */
 export const TODO_LABEL = "Still to be confirmed";
@@ -31,7 +31,7 @@ export const hubCategories = [
   "The basics",
   "Who can take part",
   "Getting ready",
-  "Applying",
+  "Registering",
   "AI tools & consent",
   "The day",
   "Safety & logistics",
@@ -62,7 +62,6 @@ export type HubFaq = {
 const TEAM = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
 const DAY_START = schedule[0]?.time ?? "";
 const DAY_END = schedule[schedule.length - 1]?.time ?? "";
-const appsOpen = applications.status === "open";
 
 /** A prototype, explained once and reused. */
 export const PROTOTYPE =
@@ -82,39 +81,31 @@ export function formsFor(brief: SchoolBrief) {
 /** Facts shown at the top of every hub. */
 export function hubFacts(brief?: SchoolBrief) {
   return [
-    { k: "Date", v: eventWhen.long, status: (eventWhen.tentative ? "tentative" : "confirmed") as HubStatus },
-    { k: "Venue", v: `${venue.name}, ${venue.area.split(",")[0]}`, status: (venue.confirmed ? "confirmed" : "tentative") as HubStatus },
-    { k: "Hours", v: `${DAY_START} to ${DAY_END}. One day, not overnight.` },
+    { k: "Date", v: eventWhen.long, status: "confirmed" as HubStatus },
+    { k: "Venue", v: `${venue.name}, ${venue.address}`, status: (venue.confirmed ? "confirmed" : "pending") as HubStatus },
+    { k: "Hours", v: `${DAY_START} to ${DAY_END}, ${event.timeZone}. One day, not overnight.` },
     { k: "Who", v: `Students in ${brief ? formsFor(brief) : eligibility.forms}` },
     { k: "Size", v: `About ${eligibility.maxHackers} students from several schools` },
     { k: "Teams", v: `${TEAM} students per team` },
   ];
 }
 
-export const applicationState = {
-  open: appsOpen,
-  label: appsOpen ? "Applications are open" : applications.status === "closed" ? "Applications are closed" : "Applications open soon",
+/** Registration runs on MLH. There is no deadline on the site unless `registration.closes` is set. */
+export const registrationState = {
+  open: true,
+  label: "Registration is open on MLH",
+  url: registration.url,
 };
 
 /** What to bring. Only what is truly required is marked `need`. */
 export const bringList: { item: string; kind: "need" | "nice" | "pending" }[] = [
   { item: "Your own laptop or other device, and its charger. Hack 876 does not provide devices.", kind: "need" },
   { item: "Your school ID", kind: "need" },
-  { item: "A signed parent or guardian consent form (sent to accepted students)", kind: "need" },
+  { item: "A signed parent or guardian consent form (you receive it after you register)", kind: "need" },
   { item: "A water bottle", kind: "nice" },
   { item: "Headphones", kind: "nice" },
   { item: "A notebook and pen for sketching ideas", kind: "nice" },
-  { item: "The final packing list, sent to accepted students", kind: "pending" },
-];
-
-/** What the application form asks. Mirrors src/components/forms/ApplyForm.tsx. */
-export const applicationAsks = [
-  "Your name, email, phone number, school, form and age, and optionally your gender",
-  "Four short written answers, such as what you enjoy creating and why you want to come",
-  "The role you see yourself playing on a team. \u201cNot sure yet\u201d is an option.",
-  "Whether you already have a team, and whether you are open to teammates from another school",
-  "How much you have built before, whether you can bring a laptop, and how you heard about Hack 876",
-  "Optional links to a GitHub page, portfolio or project",
+  { item: "The final packing list, sent to registered students", kind: "pending" },
 ];
 
 export function hubFaqs(brief: SchoolBrief): HubFaq[] {
@@ -153,7 +144,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "organizers",
       q: "Who organizes Hack 876?",
-      a: `Hack 876 is run by an organizing team led by ${ORGANIZERS}${organizerAlumniClause(people, brief.school, short)}. It is not run by ${brief.school}.\n\nThe organizing team handles applications, consent forms, the event itself and all communication with students and families.`,
+      a: `Hack 876 is run by an organizing team led by ${ORGANIZERS}${organizerAlumniClause(people, brief.school, short)}. It is not run by ${brief.school}.\n\nThe organizing team handles consent forms, the event itself and all communication with students and families. Registration and project submission run on MLH, which Hack 876 is an official Hack Day of.`,
       category: "The basics",
       audience: ["parents", "teachers", "students"],
       keywords: "who runs behind legitimate organisers organisation company",
@@ -162,18 +153,18 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
 
     /* ---------------------------------------------------------- Who can take part */
     {
-      id: "who-can-apply",
+      id: "who-can-register",
       q: "Who can take part?",
-      a: `Students in ${formsFor(brief)} at one of the schools in the Hack 876 school network, which includes ${short}. The application asks students to choose their school from that list. About ${eligibility.maxHackers} students from several schools will take part.`,
+      a: `Students in ${formsFor(brief)} at one of the schools in the Hack 876 school network, which includes ${short}. Each student registers themselves on MLH with a free MyMLH account. About ${eligibility.maxHackers} students from several schools will take part.`,
       category: "Who can take part",
       audience: ["students", "parents", "teachers"],
       keywords: "eligible eligibility allowed grade year age form fifth sixth",
-      link: { href: "#apply", label: "How to apply" },
+      link: { href: "#register", label: "How to register" },
     },
     {
       id: "under-18",
       q: "Can students under 18 take part?",
-      a: "Yes. Any student in the eligible forms can apply, whatever their age. A parent or guardian must sign a consent form before the event.\n\nSome AI tools made by other companies have their own minimum ages. That affects which tools a student may use on the day. It does not affect whether they can take part.",
+      a: "Yes. Any student in the eligible forms can register, whatever their age. A parent or guardian must sign a consent form before the event.\n\nSome AI tools made by other companies have their own minimum ages. That affects which tools a student may use on the day. It does not affect whether they can take part.",
       category: "Who can take part",
       audience: ["students", "parents"],
       keywords: "age minor 16 17 young old enough",
@@ -182,10 +173,11 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "guaranteed-place",
       q: `Is a place guaranteed for ${short} students?`,
-      a: `No. Every student applies individually, and places are limited. A teacher\u2019s recommendation does not guarantee a place.\n\nFor planning, the organizers have roughly ${range} ${short} students in mind. That figure is an estimate. It is not a quota and not a promise.`,
+      a: `No school has reserved places. Places are limited to about ${eligibility.maxHackers} students, and every student registers individually on MLH.\n\nFor planning, the organizers have roughly ${range} ${short} students in mind. That figure is an estimate. It is not a quota and not a promise.`,
+      todo: `What happens if more than ${eligibility.maxHackers} students register.`,
       category: "Who can take part",
       audience: ["students", "parents", "teachers"],
-      keywords: "how many spots spaces quota chance accepted",
+      keywords: "how many spots spaces quota chance full capacity",
     },
     {
       id: "school-approval",
@@ -218,7 +210,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "training",
       q: "Is there training before the event?",
-      a: "No training sessions have been arranged. Students do not need to prepare anything in order to apply.",
+      a: "No training sessions have been arranged. Students do not need to prepare anything in order to register.",
       todo: "Whether optional workshops or preparation materials will be offered. Any that are arranged will be announced on this page.",
       category: "Getting ready",
       audience: ["students", "teachers"],
@@ -226,8 +218,8 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     },
     {
       id: "team",
-      q: "Do I need a team before I apply?",
-      a: `No. You can apply on your own, or with friends. If you apply with friends, each of you fills in your own application and lists the others.\n\nTeams are ${TEAM} students. Students without a team are placed in one, and the application asks whether you are happy to be matched with students from another school. Hack 876 is not ${short} against other schools: teams can be mixed.`,
+      q: "Do I need a team before I register?",
+      a: `No. You can register on your own, or with friends. Each of you registers yourself on MLH.\n\nTeams are ${TEAM} students. Students without a team are placed in one, which may include students from another school. Hack 876 is not ${short} against other schools: teams can be mixed.`,
       todo: "The final rules for how teams are formed.",
       category: "Getting ready",
       audience: ["students", "teachers"],
@@ -237,7 +229,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
       id: "bring",
       q: "What should students bring?",
       a: "Required: your own laptop or other device to build on, with its charger, your school ID and a signed parent or guardian consent form. Hack 876 is not providing laptops or other hardware.\n\nBring if you have them: a water bottle, headphones, and a notebook and pen.",
-      todo: "The final packing list, which will be sent to accepted students.",
+      todo: "The final packing list, which will be sent to registered students.",
       category: "Getting ready",
       audience: ["students", "parents"],
       keywords: "pack packing equipment laptop computer charger carry need",
@@ -253,72 +245,43 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
       keywords: "early advance head start existing project rules cheating",
     },
 
-    /* ------------------------------------------------------------------- Applying */
+    /* ---------------------------------------------------------------- Registering */
     {
-      id: "how-apply",
-      q: "How does a student apply?",
-      a: `Each student completes the application on the Hack 876 website. ${applicationState.label}.\n\nThe student fills it in themselves. A parent or teacher does not need to do anything at this stage.`,
-      category: "Applying",
+      id: "how-register",
+      q: "How does a student register?",
+      a: `On MLH, at ${registration.url}. Each student registers themselves with a free MyMLH account, which they also use to submit their team’s project on the day.\n\nA parent or teacher does not need to do anything at this stage, and there is no school nomination step.`,
+      category: "Registering",
       audience: ["students", "parents", "teachers"],
-      keywords: "sign up register registration join enter form submit",
-      link: { href: "/apply", label: "Go to the application" },
+      keywords: "sign up register registration join enter form submit mlh mymlh account",
+      link: { href: registration.url, label: registration.labelLong },
     },
     {
       id: "recommendation",
-      q: "Does a teacher have to recommend me before I apply?",
-      a: `The application form does not ask for a recommendation, so a student at ${short} can submit one directly. Schools in the network are also asked to recommend students they think would enjoy it.`,
-      todo: "Whether a school recommendation will be required for a place, and how recommendations are weighed. If you are unsure, apply and let your teacher know.",
-      category: "Applying",
+      q: "Does a teacher have to recommend me?",
+      a: `No. Students register directly on MLH. Teachers at ${short} can recommend Hack 876 to students and support them, for example with parent or guardian consent forms and travel, but there is no nomination step.`,
+      category: "Registering",
       audience: ["students", "parents", "teachers"],
       keywords: "recommended nominate nomination teacher permission referral required first",
     },
     {
-      id: "application-asks",
-      q: "What does the application ask for?",
-      a: `${applicationAsks.map((a) => a.replace(/\.$/, "")).join(". ")}.\n\nThere is no test. The written answers are there to show what a student is curious about.`,
-      category: "Applying",
+      id: "after-registering",
+      q: "What happens after a student registers?",
+      a: "Registered students receive the parent or guardian consent form and the details for the day. The signed form is collected at the door at check-in, where the student’s school ID is also checked.",
+      todo: "Who sends the consent form, and when.",
+      category: "Registering",
       audience: ["students", "parents"],
-      keywords: "questions essay information details personal data",
-    },
-    {
-      id: "selection",
-      q: "How are students chosen?",
-      a: "The Hack 876 organizing team reads each application. The written answers matter more than grades or past achievements: the team is looking for curiosity and a willingness to build with other people.",
-      todo: "The detailed selection criteria.",
-      category: "Applying",
-      audience: ["students", "parents", "teachers"],
-      keywords: "selected selection criteria picked accepted chosen grades marks",
-    },
-    {
-      id: "deadline",
-      q: "When do applications close, and when will students hear back?",
-      a: applications.deadline
-        ? `Applications close on ${applications.deadline}.${applications.decisionsBy ? ` Decisions go out by ${applications.decisionsBy}.` : ""}`
-        : `${applicationState.label}.`,
-      todo: applications.deadline && applications.decisionsBy ? undefined : "The closing date and the date decisions are sent. Both will be posted on this page.",
-      category: "Applying",
-      audience: ["students", "parents", "teachers"],
-      keywords: "deadline due date last day results decision reply response",
-    },
-    {
-      id: "after-applying",
-      q: "What happens after a student applies?",
-      a: "The student gets a confirmation on screen. The organizing team then reviews applications and contacts each student with a decision. Accepted students receive a consent form for a parent or guardian to sign, plus the details for the day.",
-      todo: "When decisions will be sent.",
-      category: "Applying",
-      audience: ["students", "parents"],
-      keywords: "next steps then afterwards accepted confirmation email",
+      keywords: "next steps then afterwards confirmation email consent",
     },
 
     /* -------------------------------------------------------- AI tools & consent */
     {
       id: "ai-allowed",
       q: "Can students use AI tools?",
-      a: "Yes. Using AI is allowed but not required, and a team can do well without it. Whatever a team uses, its members must be able to explain what they built.\n\nStudents will only use tools the organizers have approved for the event.",
+      a: "Yes. Using AI is allowed but not required, and a team can do well without it. Teams must say in their submission which AI tools they used and how, and its members must be able to explain and demo what they built.\n\nStudents will only use tools the organizers have approved for the event.",
       todo: "The list of approved tools.",
       category: "AI tools & consent",
       audience: ["students", "parents", "teachers"],
-      keywords: "artificial intelligence chatgpt claude gemini copilot chatbot allowed",
+      keywords: "artificial intelligence ai assistant chatbot allowed disclose",
       link: { href: "#ai-tools", label: "AI tools and age limits" },
     },
     {
@@ -341,7 +304,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "paid-tools",
       q: "Do students need to pay for AI tools or software?",
-      a: "No. The organizers\u2019 aim is that no student has to buy software or an AI subscription to take part. Students do not need to own or pay for any tool in order to apply.",
+      a: "No. The organizers\u2019 aim is that no student has to buy software or an AI subscription to take part. Students do not need to own or pay for any tool in order to register.",
       todo: "How approved tools will be provided on the day.",
       category: "AI tools & consent",
       audience: ["students", "parents"],
@@ -359,7 +322,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "consent",
       q: "What consent is needed from a parent or guardian?",
-      a: "Every participant needs a consent form signed by a parent or guardian. The form is sent to accepted students, so there is nothing to sign at the application stage.",
+      a: "Every participant needs a consent form signed by a parent or guardian. Students receive the form after they register, and it is collected at the door at check-in.",
       todo: "The exact wording of the form and how it is returned.",
       category: "AI tools & consent",
       audience: ["parents", "students"],
@@ -370,19 +333,20 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "when",
       q: "When is Hack 876?",
-      a: eventWhen.tentative ? `${eventWhen.long}. This date is tentative. Please do not make firm plans around it until it is confirmed on this page.` : `${eventWhen.long}.`,
+      a: `${eventWhen.long}, from ${DAY_START} to ${DAY_END} (${event.timeZone}). The date is confirmed.`,
       category: "The day",
       audience: ["students", "parents", "teachers"],
-      status: eventWhen.tentative ? "tentative" : "confirmed",
+      status: "confirmed",
       keywords: "date day what time month february saturday",
     },
     {
       id: "where",
       q: "Where is it held?",
-      a: `At the ${venue.name} in ${venue.area}.`,
+      a: `At the ${venue.name}, ${venue.address}. ${venue.room && venue.arrival ? `${venue.room}. ${venue.arrival}` : venueArrivalPending}`,
+      todo: venue.room && venue.arrival ? undefined : "Room and arrival instructions.",
       category: "The day",
       audience: ["students", "parents", "teachers"],
-      status: venue.confirmed ? "confirmed" : "tentative",
+      status: venue.confirmed ? "confirmed" : "pending",
       keywords: "location venue address place hotel directions map",
       link: venue.mapsUrl ? { href: venue.mapsUrl, label: "View on Maps" } : undefined,
     },
@@ -390,7 +354,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
       id: "overnight",
       q: "Is it overnight? What are the hours?",
       a: `It is not overnight. Hack 876 runs for a single day, from ${DAY_START} to ${DAY_END}, and every student goes home that evening.`,
-      todo: "Times may shift slightly. The final schedule is sent to accepted students.",
+      todo: "Times may shift slightly. The final schedule is sent to registered students.",
       category: "The day",
       audience: ["parents", "students", "teachers"],
       keywords: "sleep stay night hours start end finish time long late",
@@ -401,7 +365,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
       q: "What happens during the day?",
       a: `Students arrive, form into teams and are given the challenge. They spend most of the day building, with a break for lunch. In the late afternoon each team shows its work to the judges, the best teams present on stage, and prizes are awarded.\n\nKey times: ${schedule
         .filter((s) => s.highlight)
-        .map((s) => `${s.title.toLowerCase()} at ${s.time}`)
+        .map((s) => `${s.title.replace(/\.\s+/g, ", ").replace(/\.$/, "").toLowerCase()} at ${s.time}`)
         .join(", ")}.`,
       category: "The day",
       audience: ["students", "parents", "teachers"],
@@ -409,11 +373,20 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
       link: { href: "/#schedule", label: "See the full schedule" },
     },
 
+    {
+      id: "in-person",
+      q: "Is Hack 876 online?",
+      a: "No. Hack 876 is entirely in person, at the venue. There is no remote participation, and check-in happens at the doors on the day, in person only.",
+      category: "The day",
+      audience: ["students", "parents", "teachers"],
+      keywords: "online remote virtual zoom in person attend check in",
+    },
+
     /* --------------------------------------------------------- Safety & logistics */
     {
       id: "food",
       q: "Is food provided?",
-      a: "Yes. Food is provided on the day, and the schedule includes a lunch break. Accepted students will be asked about allergies and dietary needs in advance.",
+      a: foodNote,
       todo: "The menu.",
       category: "Safety & logistics",
       audience: ["parents", "students"],
@@ -449,7 +422,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "access",
       q: "What if a student has access, medical or dietary needs?",
-      a: `Tell the organizers as early as possible${event.contactEmail ? `, at ${event.contactEmail}` : ""}, so arrangements can be made with the venue. Accepted students will also be asked directly.`,
+      a: `Tell the organizers as early as possible${event.contactEmail ? `, at ${event.contactEmail}` : ""}, so arrangements can be made with the venue. You can also tell us when you register.`,
       category: "Safety & logistics",
       audience: ["parents", "students"],
       keywords: "disability wheelchair accessible medication condition special needs support",
@@ -459,8 +432,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "cost",
       q: "Does it cost anything to take part?",
-      a: "It costs nothing to apply. The organizers\u2019 aim is that no student has to buy software or tools to build a project, and food is provided on the day.",
-      todo: "Whether there is any participation fee. If there is one, it will be published on this page before any student is asked to accept a place.",
+      a: "No. Hack 876 is free for students. Food is provided on the day.",
       category: "Costs & equipment",
       audience: ["parents", "students", "teachers"],
       keywords: "fee fees price pay payment money free charge expensive how much",
@@ -468,10 +440,10 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "laptop",
       q: "Does every student need a laptop?",
-      a: "Every student needs to bring their own laptop or other device to build on, plus a charger. Hack 876 is not providing laptops or other hardware.\n\nA student who does not have a device of their own should plan to borrow one for the day before accepting a place.",
+      a: "Yes. Every student needs to bring their own laptop and its charger. Hack 876 does not provide laptops; please bring your own.",
       category: "Costs & equipment",
       audience: ["students", "parents"],
-      keywords: "computer device tablet phone own borrow equipment",
+      keywords: "computer device tablet own equipment charger",
     },
 
     /* ----------------------------------------------------------- Judging & prizes */
@@ -497,11 +469,30 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
       link: { href: "/#prizes", label: "See the prizes" },
     },
 
+    {
+      id: "submit",
+      q: "How do teams submit their project?",
+      a: `Only on the MLH Challenges page: ${registration.challengesUrl}. Each team makes one submission and selects every challenge it is eligible for. One team member signs in with their MyMLH account to submit, after checking in at the venue. Submissions close before demos start.`,
+      category: "Judging & prizes",
+      audience: ["students", "teachers"],
+      keywords: "submit submission hand in upload project mlh challenges deadline",
+      link: { href: "/rules#submitting", label: "Event Rules: submitting" },
+    },
+    {
+      id: "cloudflare",
+      q: `What is “${cloudflareChallenge.name}”?`,
+      a: `An optional partner challenge any team can enter, on top of its track. ${cloudflareChallenge.summary}`,
+      category: "Judging & prizes",
+      audience: ["students", "teachers"],
+      keywords: "cloudflare workers ai challenge partner bonus",
+      link: { href: "/rules#cloudflare", label: "Event Rules: Best Use of Cloudflare" },
+    },
+
     /* ------------------------------------------------------------ After the event */
     {
       id: "internships",
       q: "Does taking part lead to internships, jobs or scholarships?",
-      a: "No. Hack 876 does not offer or promise internships, jobs, scholarships, interviews or placements.\n\nWhat students do get is a day working next to engineers, mentors and other professionals, a chance to present to judges who work in technology and business, and a project they can describe on a university or job application.",
+      a: "No. Hack 876 does not offer or promise internships, jobs, scholarships, interviews or placements.\n\nWhat students do get is a day working next to engineers, mentors and other professionals, a chance to present to judges who work in technology and business, and a project they can describe to universities and employers.",
       todo: "The organizers hope to develop longer-term links with companies, universities and mentors. None are in place.",
       category: "After the event",
       audience: ["students", "parents", "teachers"],
@@ -520,7 +511,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     /* --------------------------------------------------------------- For teachers */
     {
       id: "recommend",
-      q: "How do teachers recommend students?",
+      q: "How do teachers share Hack 876 with students?",
       a: brief.hub ? brief.hub.faculty.process.join(" ") : "",
       category: "For teachers",
       audience: ["teachers"],
@@ -538,7 +529,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     {
       id: "school-effort",
       q: `What is ${short} asked to do or pay?`,
-      a: `${short} is not asked to pay anything, host anything or run anything. Teachers are asked to share this page with eligible students and, if they wish, recommend students.\n\nPermission for students to take part in an outside activity remains a matter for ${short} and for families.`,
+      a: `${short} is not asked to pay anything, host anything or run anything. Teachers are asked to share this page with eligible students and, if they wish, recommend Hack 876 to them and help with consent forms and travel.\n\nPermission for students to take part in an outside activity remains a matter for ${short} and for families.`,
       category: "For teachers",
       audience: ["teachers", "parents"],
       keywords: "school responsibility cost budget obligation commitment workload",
@@ -581,7 +572,7 @@ export function schoolSheets(brief: SchoolBrief) {
     {
       key: "students" as const,
       title: "Student flyer",
-      blurb: "What Hack 876 is, who can apply and how. For noticeboards and class groups.",
+      blurb: "What Hack 876 is, who can register and how. For noticeboards and class groups.",
       href: file("student-flyer"),
       filename: `Hack 876 x ${brief.school} - Student Flyer.pdf`,
     },

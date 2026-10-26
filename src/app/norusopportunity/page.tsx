@@ -309,8 +309,7 @@ function Closing() {
           of Jamaica&rsquo;s working builders in the room with them.
         </p>
         <p className="mt-4 font-extrabold">That is the invitation.</p>
-        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
-          {eventWhen.note}</p>
+        <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}</p>
         <p className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
           <a href={event.siteUrl} className="underline decoration-2 underline-offset-4">
             {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}

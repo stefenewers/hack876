@@ -1,8 +1,10 @@
 # Submissions roster in Google Sheets
 
-Every form on the site (`/apply`, `/partner`, `/crew`) can copy its submissions into a private Google Sheet, one tab per form, through the existing webhook in `src/lib/submissions.ts`. Email to info@hack876.com keeps working alongside it.
+The partner and crew forms (`/partner`, `/crew`) can copy its submissions into a private Google Sheet, one tab per form, through the existing webhook in `src/lib/submissions.ts`. Email to info@hack876.com keeps working alongside it.
 
-> **Keep the Sheet private.** Once the webhook is on, it receives `/apply` submissions too, and those include students' names, ages, schools and contact details, most of them minors. Share the Sheet only with Stefen and Nadani.
+> **Keep the Sheet private.** It holds partners' and crew members' names and contact details. Share it only with Stefen and Nadani.
+>
+> Student registration is on MLH (OrganizerHQ), not this site, so no student data reaches the Sheet. Never export registration data into it.
 
 ## Setup
 
@@ -26,7 +28,7 @@ Every form on the site (`/apply`, `/partner`, `/crew`) can copy its submissions 
 
 ## How it behaves
 
-- Tabs are named after the form: `crew`, `applications`, `partners`. A tab is created the first time its form is used.
+- Tabs are named after the form: `crew` and `partners`. A tab is created the first time its form is used.
 - The header row comes from the submission's fields. New fields add new columns on the right; old rows simply leave them blank.
 - The secret is removed before the row is written.
 - The site treats the Sheet as an extra copy. If the webhook fails but the email goes out, the person still sees success.

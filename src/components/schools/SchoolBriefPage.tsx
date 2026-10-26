@@ -6,7 +6,7 @@ import { HackerPass } from "@/components/art/HackerPass";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
-import { applications, buildTypes, confirmedSchools, eligibility, event, eventWhen, parents, people, prizes, prizesNote, schedule, schoolLogos, schoolStatus, schools, sponsors, venue } from "@/data/event";
+import { buildTypes, confirmedSchools, eligibility, event, eventWhen, localSponsors, mlh, parents, people, prizes, prizesNote, registration, schedule, schoolLogos, schoolStatus, schools, venue } from "@/data/event";
 import type { Person } from "@/data/event";
 import type { SchoolBrief } from "@/data/schoolBriefs";
 import "@/components/proposal/proposal.css";
@@ -22,8 +22,7 @@ import "./school.css";
 const TEAM_SIZE = `${eligibility.teamSize.min}–${eligibility.teamSize.max}`;
 const DAY_START = schedule[0]?.time;
 const DAY_END = schedule[schedule.length - 1]?.time;
-/* The site copy ends "apply here", which points nowhere inside a brief. */
-const HOW_TO_GET_IN = eligibility.howToGetIn.replace(/ here\.$/, ".");
+const HOW_TO_GET_IN = eligibility.howToGetIn;
 
 function Label({ n, children }: { n?: string; children: ReactNode }) {
   return (
@@ -109,7 +108,7 @@ export function SchoolBriefPage({ brief }: { brief: SchoolBrief }) {
 /* -------------------------------------------------------------------------- */
 
 function Hero({ brief }: { brief: SchoolBrief }) {
-  const meta = [event.city.split(",")[0], `${eventWhen.short}${eventWhen.note}`, `~${eligibility.maxHackers} builders`, `Teams of ${TEAM_SIZE}`];
+  const meta = [event.city.split(",")[0], eventWhen.short, `~${eligibility.maxHackers} builders`, `Teams of ${TEAM_SIZE}`];
   return (
     <section aria-labelledby="sb-hero" className="lp-hero relative flex min-h-[calc(100svh-5rem)] flex-col justify-between overflow-hidden border-y lp-rule">
       <div className="lp-wrap w-full pt-12 sm:pt-16">
@@ -172,7 +171,8 @@ function OnBoard({ n, brief }: { n: string; brief: SchoolBrief }) {
   const confirmed = confirmedSchools.filter((s) => s !== brief.school);
   const judges = people.filter((p) => p.role === "judge" && p.confirmed);
   const employers = [...new Set(judges.map((p) => (p.organization ?? "").replace(/ \(.*\)$/, "")).filter(Boolean))];
-  const backers = sponsors.filter((s) => s.confirmed && s.level !== "organizing");
+  /* Local sponsors only: event partners (MLH, Cloudflare) are not funders. */
+  const backers = localSponsors.filter((s) => s.confirmed && s.level !== "organizing");
   return (
     <section aria-labelledby="sb-onboard" className="lp-section lp-dark lp-grid-bg">
       <div className="lp-wrap">
@@ -199,7 +199,7 @@ function OnBoard({ n, brief }: { n: string; brief: SchoolBrief }) {
             {[
               { k: `${judges.length} confirmed judges`, v: `Working at ${employers.join(", ")}.` },
               { k: "Venue confirmed", v: `${venue.name}, ${venue.area.split(",")[0]}.` },
-              { k: "Free for students", v: "No cost to apply. Food is provided on the day." },
+              { k: "Free for students", v: "Free to register and to take part. Food is provided on the day." },
               ...(backers.length ? [{ k: "Supported by", v: `${backers.map((b) => b.name).join(", ")}.` }] : []),
             ].map((f) => (
               <div key={f.k} className="lp-keep rounded-2xl border border-cream/25 bg-cream/[0.06] p-4" data-reveal>
@@ -531,9 +531,9 @@ function BeforeUniversity({ n }: { n: string }) {
 function Participation({ n, brief }: { n: string; brief: SchoolBrief }) {
   const asks = brief.asks ?? [
     "Share the opportunity with relevant students.",
-    `Encourage interested ${eligibility.forms} students to apply.`,
+    `Encourage interested ${eligibility.forms} students to register on MLH.`,
     "Point us to students from Computer Science, IT, Maths, the Sciences, Robotics, Design, Business or anywhere else they shine.",
-    "Recommend especially promising students, if you’d like to.",
+    "Help students with parent or guardian consent forms and travel, if you’d like to.",
     "Name a school-side contact for coordination.",
     "Help students and parents understand the opportunity as the event approaches.",
   ];
@@ -547,8 +547,7 @@ function Participation({ n, brief }: { n: string; brief: SchoolBrief }) {
           </h2>
           <div className="lp-prose mt-6" data-reveal>
             <p>
-              Hack 876 is for students in {eligibility.forms}. {HOW_TO_GET_IN} No place is assumed until applications and
-              selection happen.
+              Hack 876 is for students in {eligibility.forms}. {HOW_TO_GET_IN} {registration.accountNote}
             </p>
           </div>
           <div className="sb-card mt-6 flex flex-wrap items-center gap-5 p-5" data-reveal>
@@ -561,11 +560,11 @@ function Participation({ n, brief }: { n: string; brief: SchoolBrief }) {
             <p className="min-w-[14rem] flex-1 text-[0.98rem] leading-snug text-ink-2 print:text-[1.2rem]">
               For early planning, a cohort of roughly {brief.planningRange.min}–{brief.planningRange.max} {brief.short} students
               fits the scale we&rsquo;re considering. With about {eligibility.maxHackers} places across participating schools, final
-              representation depends on applications and overall capacity.
+              representation depends on how many students register and on overall capacity.
             </p>
           </div>
           <p className="mt-4 text-[0.98rem] leading-snug text-ink-2 print:text-[1.2rem]">
-            Teams of {TEAM_SIZE}. Students can apply solo or with friends, and teams may mix schools. Final team-formation rules are
+            Teams of {TEAM_SIZE}. Students can register solo or with friends, and teams may mix schools. Final team-formation rules are
             still being finalized.
           </p>
         </div>
@@ -583,8 +582,8 @@ function Participation({ n, brief }: { n: string; brief: SchoolBrief }) {
           <p className="mt-5 rounded-xl bg-[color-mix(in_srgb,var(--sb-secondary)_28%,transparent)] px-4 py-3 text-[0.98rem] font-semibold print:text-[1.2rem]">
             {brief.asksNote ?? (
               <>
-                We&rsquo;re not asking {brief.short} for financial support, and the school doesn&rsquo;t need to run its own
-                selection competition unless it wants to.
+                We&rsquo;re not asking {brief.short} for financial support, or to organize anything. Students register themselves on
+                MLH.
               </>
             )}
           </p>
@@ -701,8 +700,8 @@ function Bridge({ n, brief }: { n: string; brief: SchoolBrief }) {
               )}
             </div>
             <p className="text-[1rem] leading-snug text-ink-2 print:text-[1.2rem]">
-              <strong className="text-ink">The Hack 876 organizing team</strong> runs event operations, applications and all
-              official communication with students and parents.
+              <strong className="text-ink">The Hack 876 organizing team</strong> runs event operations and all official communication
+              with students and parents. Registration and project submission run on MLH.
             </p>
           </div>
           <p className="text-sm text-ink-soft print:text-[1rem]">{liaison.note}</p>
@@ -720,7 +719,7 @@ function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
   const steps = brief.nextSteps ?? [
     { k: "Now", v: `Build the relationship with ${brief.short}.` },
     { k: "Next", v: "Confirm a school contact and a student outreach path." },
-    { k: "Then", v: venue.confirmed ? "Confirm the date, then applications and logistics." : "Confirm the date and venue, then applications and logistics." },
+    { k: "Then", v: venue.confirmed ? "Students register on MLH, then logistics." : "Confirm the venue, then registration and logistics." },
     { k: "Before the event", v: "Student and parent briefing, preparation and requirements." },
     { k: "Event day", v: "Hack 876." },
   ];
@@ -734,15 +733,15 @@ function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
         ...(venue.confirmed ? [`Venue: ${venue.name}, ${venue.area.split(",")[0]}`] : []),
         eligibility.forms,
         `About ${eligibility.maxHackers} places`,
-        "Schools recommend, students apply",
-        ...(applications.status === "open" ? ["Applications are open"] : []),
+        `Date: ${eventWhen.long}`,
+        "Students register themselves on MLH",
+        mlh.hackDayBadge,
       ],
     },
     {
       k: "Planned",
       c: "bg-sun-light",
       items: [
-        ...(eventWhen.tentative ? [`Tentative date: ${eventWhen.long}`] : []),
         DAY_START && DAY_END ? `A ${DAY_START} to ${DAY_END} day` : "A full-day schedule",
         "Lunch on the day",
         "Overall and special prize categories",
@@ -753,13 +752,9 @@ function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
       k: "Being finalized",
       c: "bg-cream",
       items: [
-        ...(venue.confirmed
-          ? eventWhen.tentative
-            ? ["Confirming the date"]
-            : []
-          : [eventWhen.tentative ? "Confirming the date, and the venue" : "Venue"]),
+        ...(venue.confirmed ? [] : ["Venue"]),
         "School-level allocations and team rules",
-        "Cost and transport",
+        "Transport",
         "Prize items",
         ...(pendingTopics.length ? [`Family details: ${pendingTopics.slice(0, 3).join(", ")}`] : []),
       ],
@@ -832,7 +827,7 @@ function Next({ n, brief }: { n: string; brief: SchoolBrief }) {
           ))}
         </div>
         <p className="mt-5 text-sm text-ink-soft print:text-[1.05rem]">
-          Participating schools and applicants will receive detailed information as each part of the event is finalized.
+          Participating schools and registered students will receive detailed information as each part of the event is finalized.
         </p>
       </div>
     </section>
@@ -857,7 +852,6 @@ function Closing({ brief }: { brief: SchoolBrief }) {
         </h2>
         <p className="mt-7 font-extrabold tracking-[0.14em] text-ink-soft uppercase">
           Hack 876 · {event.city} · {eventWhen.short}
-          {eventWhen.note}
         </p>
         {event.contactEmail && (
           <a href={`mailto:${event.contactEmail}`} className="mt-2 font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">

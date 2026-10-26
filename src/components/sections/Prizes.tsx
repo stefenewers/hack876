@@ -1,7 +1,8 @@
+import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Icon } from "@/components/art/Icons";
 import { Mark } from "@/components/art/Marks";
-import { prizes, prizesNote, type Prize } from "@/data/event";
+import { cloudflareChallenge, prizes, prizesNote, type Prize } from "@/data/event";
 
 const bg: Record<string, string> = {
   sun: "bg-sun",
@@ -92,8 +93,18 @@ export function Prizes() {
             </li>
           ))}
         </ul>
+        <div data-reveal className="mx-auto mt-12 max-w-2xl rounded-[1.5rem] border-[3px] border-ink bg-paper p-6 shadow-[4px_5px_0_0_var(--color-ink)]">
+          <p className="eyebrow text-emerald-deep">Partner challenge · optional</p>
+          <h3 className="display mt-2 text-2xl sm:text-3xl">{cloudflareChallenge.name}</h3>
+          <p className="mt-2 text-ink-2">
+            Any team can enter, in addition to its track. {cloudflareChallenge.summary}
+          </p>
+          <Link href="/rules#cloudflare" className="mt-3 inline-block font-bold underline decoration-emerald decoration-2 underline-offset-4">
+            What a project needs to qualify
+          </Link>
+        </div>
         {anyReward && prizesNote && (
-          <p className="mt-10 text-center text-sm font-semibold text-ink-soft">
+          <p className="mx-auto mt-8 max-w-2xl rounded-2xl border-2 border-dashed border-ink/40 px-5 py-3 text-center font-semibold text-ink-2">
             <span aria-hidden>* </span>
             {prizesNote}
           </p>

@@ -16,7 +16,7 @@ import { event } from "@/data/event";
  *   there as JSON. SUBMISSIONS_WEBHOOK_SECRET, if set, is sent as a Bearer token
  *   and as `secret` in the body. docs/ops/sheets-webhook.gs is a Google Apps
  *   Script receiver that appends each submission to a private Sheet, one tab per
- *   kind (applications, partners, crew).
+ *   kind (partners, crew).
  * - Local file: with neither configured, outside Vercel, submissions are
  *   appended to `.data/<kind>.jsonl`. Vercel's filesystem is read-only, so
  *   there this route is never used.
@@ -26,20 +26,19 @@ import { event } from "@/data/event";
  * address to use instead. Recovering from the log is best-effort only: Vercel
  * Hobby keeps runtime logs for about an hour.
  *
- * Kinds: applications (/apply), partners (/partner) and crew (/crew, the
+ * Kinds: partners (/partner) and crew (/crew, the
  * invite-only volunteer sign-up). sendConfirmation() emails the person who
  * wrote in, using the same SMTP account.
  */
-export type SubmissionKind = "applications" | "partners" | "crew";
+export type SubmissionKind = "partners" | "crew";
 
 const subjects: Record<SubmissionKind, (d: Record<string, unknown>) => string> = {
   partners: (d) => `Partner enquiry: ${d.name ?? "Unknown"}${d.organization ? ` (${d.organization})` : ""}`,
-  applications: (d) => `Application: ${d.fullName ?? "Unknown"}${d.school ? ` (${d.school})` : ""}`,
   crew: (d) => `Crew: ${d.fullName ?? "Unknown"}${d.organization ? ` (${d.organization})` : ""}${d.capacityLabel ? ` · ${d.capacityLabel}` : ""}`,
 };
 
 /** The page each form lives on, for the footer of the notification email. Never includes the crew invite code. */
-const formPath: Record<SubmissionKind, string> = { applications: "apply", partners: "partner", crew: "crew" };
+const formPath: Record<SubmissionKind, string> = { partners: "partner", crew: "crew" };
 
 const label = (k: string) => k.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, (c) => c.toUpperCase());
 
