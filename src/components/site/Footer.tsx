@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { BirdMark } from "@/components/art/DoctorBird";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
-import { event, eventWhen, mlh, nav, registration } from "@/data/event";
+import { event, eventWhen, nav, registration } from "@/data/event";
+import { MlhBadge } from "./MlhBadge";
 import { RegisterLink } from "./RegisterLink";
 
 /** Instagram's glyph, drawn in the current text colour. */
@@ -33,17 +33,7 @@ export function Footer() {
             <p className="mt-2 text-cream/60">
               {event.city} · {eventWhen.short}
             </p>
-            <a
-              href={mlh.siteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-3 rounded-2xl bg-white py-2 pr-4 pl-3 text-ink"
-            >
-              {/* The official MLH logo, unaltered, on a white backing as MLH's brand rules require on dark backgrounds. */}
-              <Image src={mlh.logo} alt="Major League Hacking (MLH)" width={311} height={131} unoptimized className="h-8 w-auto" />
-              <span className="text-sm font-bold">{mlh.hackDayBadge}</span>
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
+            <MlhBadge className="mt-5" />
           </div>
 
           <nav aria-label="Footer">
