@@ -36,6 +36,16 @@ export const schoolCounts = {
   pending: schools.length - confirmedSchools.length - schoolsInTalks.length,
 };
 
+/** "2 confirmed and 7 in talks": only the counts that are not zero. */
+export const schoolCountsText = (() => {
+  const parts = [
+    schoolCounts.confirmed && `${schoolCounts.confirmed} confirmed`,
+    schoolCounts.talks && `${schoolCounts.talks} in talks`,
+    schoolCounts.pending && `${schoolCounts.pending} not yet confirmed`,
+  ].filter(Boolean) as string[];
+  return parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}` : (parts[0] ?? "");
+})();
+
 const TEAMS = stats.find((s) => s.label === "teams")?.value;
 const FORMS = eligibility.formOptions;
 

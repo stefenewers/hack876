@@ -3,7 +3,7 @@ import { DoctorBird } from "@/components/art/DoctorBird";
 import { TailLine } from "@/components/art/Marks";
 import { Check, Kicker } from "@/components/proposal/primitives";
 import { schools, schoolStatus, type School } from "@/data/event";
-import { contact, deliveryFacts, eventFacts, eventFactsAbroad, reporting, reportingNote, safeguards, schoolCounts, schoolStatusLabel, whatItIs, whatItIsAbroad } from "@/data/partnership";
+import { contact, deliveryFacts, eventFacts, eventFactsAbroad, reporting, reportingNote, safeguards, schoolCounts, schoolCountsText, schoolStatusLabel, whatItIs, whatItIsAbroad } from "@/data/partnership";
 
 /*
  * Sections every partnership deck shares, whether it is rendered by the
@@ -199,7 +199,7 @@ export function SchoolStatusList({ linked, compact = false }: { linked?: School;
         })}
       </ul>
       <p className="lp-note mt-3">
-        {schoolCounts.confirmed} confirmed, {schoolCounts.talks} in talks, {schoolCounts.pending} not yet confirmed. This is the network where the Hack876 team has
+        {schoolCountsText}. This is the network where the Hack876 team has
         relationships. It is not a list of confirmed participants, and it is not an exclusive eligibility list.
       </p>
     </div>
@@ -391,7 +391,7 @@ export function DeliveryAndNext({
           <div>
             <Facts items={deliveryFacts.slice(0, metrics?.length ? 3 : 4)} />
             <p className="lp-note mt-3">
-              Schools: {schoolCounts.confirmed} confirmed, {schoolCounts.talks} in talks, {schoolCounts.pending} not yet confirmed, from a network of {schoolCounts.total} in
+              Schools: {schoolCountsText}, from a network of {schoolCounts.total} in
               Kingston. {safeguards[0]} {safeguards[1]}
             </p>
             {linkedNote && <p className="mt-3 text-[0.95rem] leading-snug text-ink-2 print:text-[1.3rem]">{linkedNote}</p>}
