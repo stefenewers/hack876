@@ -28,12 +28,15 @@ test("MLH and Cloudflare are confirmed event partners with the exact wording", (
   assert.equal(MLH.logo, mlh.logo);
 });
 
-test("partner logos are the official files, or a documented text wordmark", () => {
+test("partner logos are the official, unaltered files", () => {
   const mlhFile = join("public", MLH!.logo);
   assert.ok(existsSync(mlhFile) && statSync(mlhFile).size > 0, "MLH logo missing");
   assert.ok(readFileSync(mlhFile, "utf8").startsWith("<svg"), "MLH logo is not the SVG");
-  // Cloudflare's trademark guidelines require written permission for its logo, so it shows as text until granted.
-  if (CF!.logo) assert.ok(existsSync(join("public", CF!.logo)) && statSync(join("public", CF!.logo)).size > 0, "Cloudflare logo missing");
+  // Cloudflare's press-kit logo, used with its written permission.
+  assert.equal(CF!.logo, "/sponsors/cloudflare-logo.png");
+  const cfFile = join("public", CF!.logo);
+  assert.ok(existsSync(cfFile) && statSync(cfFile).size > 0, "Cloudflare logo missing");
+  assert.deepEqual([...readFileSync(cfFile).subarray(1, 4)], [0x50, 0x4e, 0x47], "Cloudflare logo is not a PNG");
 });
 
 test("display order: organizing, then program, then challenge, then local sponsors", () => {

@@ -521,8 +521,8 @@ export const sponsors: Sponsor[] = [
   { name: "P237 Labs", logo: "/sponsors/p237-labs.png", url: "", level: "organizing", confirmed: true },
   // Event partners: shown in their own group, never in a list of funders.
   { name: "Major League Hacking (MLH)", logo: "/sponsors/mlh-logo-color.svg", url: "https://mlh.com", level: "program", role: "Official MLH Hack Day", alt: "Major League Hacking (MLH) logo", confirmed: true },
-  // Text wordmark only: Cloudflare's trademark guidelines require written permission to use its logo. Set `logo` to the press-kit file once granted.
-  { name: "Cloudflare", logo: "", url: "https://www.cloudflare.com", level: "challenge", role: "Challenge partner: Best Use of Cloudflare", alt: "Cloudflare logo", confirmed: true },
+  // Official press-kit logo, unaltered. Used with Cloudflare's written permission (its trademark guidelines require it).
+  { name: "Cloudflare", logo: "/sponsors/cloudflare-logo.png", url: "https://www.cloudflare.com", level: "challenge", role: "Challenge partner: Best Use of Cloudflare", alt: "Cloudflare logo", confirmed: true },
   { name: "GraceKennedy General Insurance", logo: "/sponsors/gk-general-insurance.jpeg", url: "", level: "partner", confirmed: false },
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },
   { name: "Norus Technologies", logo: "/sponsors/norus-technologies.png", url: "https://norustech.com/", level: "partner", confirmed: true },
