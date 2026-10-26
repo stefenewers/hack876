@@ -100,7 +100,7 @@ export async function siteOgImage() {
             A one-day hackathon for Jamaican secondary-school students. ~{eligibility.maxHackers} builders, one day, real prototypes.
           </div>
         </div>
-        <div style={{ position: "absolute", left: 72, bottom: 50, display: "flex", fontSize: 26, fontWeight: 800, color: C.emerald }}>{mlh.hackDayBadge}</div>
+        <div style={{ position: "absolute", right: 72, bottom: 96, display: "flex", fontSize: 26, fontWeight: 800, color: C.emerald }}>{mlh.hackDayBadge}</div>
         <div style={{ position: "absolute", right: 72, bottom: 50, display: "flex", fontSize: 28, fontWeight: 800 }}>hack876.com</div>
       </Frame>
     ),
