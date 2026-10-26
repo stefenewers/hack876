@@ -5,14 +5,14 @@ import { BirdMark } from "@/components/art/DoctorBird";
 import { Icon } from "@/components/art/Icons";
 import { Logo } from "@/components/art/Wordmark";
 import { Footer } from "@/components/site/Footer";
-import { buildTypes, eligibility, event, judging, people, schedule, schools, venue } from "@/data/event";
+import { RegisterLink } from "@/components/site/RegisterLink";
+import { buildTypes, eligibility, event, judging, mlh, people, registration, schedule, schools, venue } from "@/data/event";
 import { alumniSummary, organizerAlumniClause } from "@/data/alumni";
 import { schoolAlumni, type SchoolBrief } from "@/data/schoolBriefs";
 import {
-  applicationAsks,
-  applicationState,
   bringList,
   formsFor,
+  registrationState,
   hubCategories,
   hubFacts,
   hubFaqs,
@@ -42,7 +42,7 @@ const DAY_END = schedule[schedule.length - 1]?.time ?? "";
 
 const statusClass: Record<HubStatus, string> = {
   confirmed: "border-ink bg-mint text-emerald-dark",
-  tentative: "border-ink bg-sun-light text-ink",
+  pending: "border-ink bg-sun-light text-ink",
 };
 
 /** What is not yet decided, shown next to the facts it relates to. */
@@ -83,7 +83,7 @@ function SectionHead({ id, kicker, title, children }: { id: string; kicker: stri
 const NAV = [
   { href: "#about", label: "What it is" },
   { href: "#students", label: "Students" },
-  { href: "#apply", label: "How to apply" },
+  { href: "#register", label: "How to register" },
   { href: "#parents", label: "Parents" },
   { href: "#ai-tools", label: "AI tools" },
   { href: "#teachers", label: "Teachers" },
@@ -107,11 +107,7 @@ export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
           <Link href="/" className="hidden text-sm font-bold text-ink-soft underline-offset-4 hover:underline sm:inline">
             Main Hack 876 website
           </Link>
-          {applicationState.open && (
-            <Link href="/apply" className="btn btn-primary btn-sm">
-              Apply <span aria-hidden>→</span>
-            </Link>
-          )}
+          <RegisterLink className="btn btn-primary btn-sm" />
         </div>
       </header>
 
@@ -137,7 +133,7 @@ export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
         <About brief={brief} />
         <Paths short={brief.short} />
         <Students brief={brief} byId={byId} />
-        <Applying brief={brief} byId={byId} />
+        <Registering brief={brief} byId={byId} />
         <Parents byId={byId} />
         <AiTools />
         <Beyond byId={byId} />
@@ -149,7 +145,7 @@ export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
           <div className="hub-wrap">
             <SectionHead id="hub-questions" kicker="Questions and answers" title="Find an answer.">
               <p>
-                Answers about eligibility, applying, preparation, safety, costs and what happens on the day. Type a question in your
+                Answers about eligibility, registering, preparation, safety, costs and what happens on the day. Type a question in your
                 own words, or choose a topic.
               </p>
             </SectionHead>
@@ -195,7 +191,7 @@ function Hero({ brief }: { brief: SchoolBrief }) {
         </h1>
         <p className="hub-lead mt-5">
           Hack 876 is a one-day competition where secondary-school students work in small teams to build a solution to a real problem,
-          then present it to judges who work in technology and business. No coding experience is needed. {brief.short} students in {formsFor(brief)} can apply.
+          then present it to judges who work in technology and business. No coding experience is needed. {brief.short} students in {formsFor(brief)} can register.
         </p>
 
         <dl className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -211,19 +207,13 @@ function Hero({ brief }: { brief: SchoolBrief }) {
         </dl>
 
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-          {applicationState.open ? (
-            <Link href="/apply" className="btn btn-primary">
-              Apply now <span aria-hidden>→</span>
-            </Link>
-          ) : (
-            <span className="rounded-full border-2 border-dashed border-ink/40 px-4 py-2 font-bold text-ink-soft">{applicationState.label}</span>
-          )}
+          <RegisterLink long className="btn btn-primary" />
           <a href="#about" className="font-bold underline decoration-2 underline-offset-4">
             New to this? Start with what Hack 876 is
           </a>
         </div>
         <p className="mt-4 text-sm text-ink-soft">
-          Hack 876 is organized independently of {brief.school}. It costs nothing to apply, and applying does not guarantee a place.
+          Hack 876 is organized independently of {brief.school}. It is free for students. {registration.accountNote}
         </p>
       </div>
     </section>
@@ -322,7 +312,7 @@ function About({ brief }: { brief: SchoolBrief }) {
 
 function Paths({ short }: { short: string }) {
   const paths = [
-    { href: "#students", icon: "rocket", title: "I am a student", text: "Whether it is for you, what you will do, what to bring and how to apply." },
+    { href: "#students", icon: "rocket", title: "I am a student", text: "Whether it is for you, what you will do, what to bring and how to register." },
     { href: "#parents", icon: "heart", title: "I am a parent or guardian", text: "Date, venue, hours, food, supervision, consent, transport and costs." },
     { href: "#teachers", icon: "learn", title: "I am a teacher", text: "How to share it, which students suit it, and what the school is asked to do." },
     { href: "#questions", icon: "sticky", title: "I have a question", text: "Search the answers, or browse them by topic." },
@@ -429,14 +419,12 @@ function Students({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => H
 
         <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-ink-2">
           <span className="font-bold text-ink">Next step:</span>
-          <a href="#apply" className="font-bold text-ink underline decoration-2 underline-offset-4">
-            See how to apply
+          <a href="#register" className="font-bold text-ink underline decoration-2 underline-offset-4">
+            See how to register
           </a>
-          {applicationState.open && (
-            <Link href="/apply" className="font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
-              or start your application now
-            </Link>
-          )}
+          <RegisterLink className="font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
+            or register on MLH now
+          </RegisterLink>
         </p>
       </div>
     </section>
@@ -444,36 +432,27 @@ function Students({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => H
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Applications and selection                                                */
+/*  Registration                                                               */
 /* -------------------------------------------------------------------------- */
 
-function Applying({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => HubFaq }) {
+function Registering({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => HubFaq }) {
   const steps: { t: string; d: string; todo?: string }[] = [
     { t: "Check you are eligible", d: `You need to be in ${formsFor(brief)}, at ${brief.short} or another school in the Hack 876 network.` },
     {
-      t: "Complete the application yourself",
-      d: "It is an online form on the Hack 876 website. You can apply alone or with friends. Each student fills in their own form.",
+      t: "Register yourself on MLH",
+      d: `Create a free MyMLH account and register at ${registration.url.replace(/^https?:\/\//, "")}. You can register alone or with friends. Each student registers themselves. There is no school nomination step.`,
     },
-    {
-      t: "Tell a teacher, if you like",
-      d: byId("recommendation").a,
-      todo: byId("recommendation").todo,
-    },
-    { t: "The organizing team reviews applications", d: byId("selection").a, todo: byId("selection").todo },
-    {
-      t: "You receive a decision",
-      d: "Accepted students are sent a consent form for a parent or guardian to sign, and the details for the day.",
-      todo: byId("deadline").todo,
-    },
-    { t: "Teams are confirmed", d: `Teams are ${TEAM} students. Students without a team are placed in one, which may include students from other schools.`, todo: byId("team").todo },
+    { t: "Tell a teacher, if you like", d: byId("recommendation").a },
+    { t: "Get your consent form", d: byId("after-registering").a, todo: byId("after-registering").todo },
+    { t: "Teams are formed", d: `Teams are ${TEAM} students. Students without a team are placed in one, which may include students from other schools.`, todo: byId("team").todo },
+    { t: "Check in at the door", d: "Check-in is in person only, at the venue on the day. Bring your school ID and the signed consent form." },
   ];
   return (
-    <section id="apply" aria-labelledby="hub-apply" className="border-t border-ink/10 py-14 sm:py-20">
+    <section id="register" aria-labelledby="hub-register" className="border-t border-ink/10 py-14 sm:py-20">
       <div className="hub-wrap">
-        <SectionHead id="hub-apply" kicker="How to apply" title="How to apply, and what happens next.">
+        <SectionHead id="hub-register" kicker="How to register" title="How to register, and what happens next.">
           <p>
-            {applicationState.label}. Places are limited to about {eligibility.maxHackers} students across all schools, so applying
-            does not guarantee a place.
+            {registrationState.label}. Places are limited to about {eligibility.maxHackers} students across all schools. Hack 876 is free for students.
           </p>
         </SectionHead>
 
@@ -493,23 +472,12 @@ function Applying({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => H
 
           <div className="grid h-fit gap-3">
             <div className="hub-card p-5">
-              <h3 className="hub-h3">What the application asks for</h3>
-              <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
-                {applicationAsks.map((a) => (
-                  <li key={a} className="flex gap-2.5">
-                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sb-primary)]" />
-                    {a}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 text-sm text-ink-soft">There is no test. The written answers show what a student is curious about.</p>
-              {applicationState.open ? (
-                <Link href="/apply" className="btn btn-primary mt-5 w-full">
-                  Start the application <span aria-hidden>→</span>
-                </Link>
-              ) : (
-                <p className="mt-5 rounded-xl border-2 border-dashed border-ink/40 px-4 py-3 text-center font-bold text-ink-soft">{applicationState.label}</p>
-              )}
+              <h3 className="hub-h3">Register on MLH</h3>
+              <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-2">
+                Hack 876 is {mlh.hackDayBadge.replace(/^An /, "an ")}, so registration and project submission both happen on MLH. {registration.accountNote}
+              </p>
+              <p className="mt-2 text-sm text-ink-soft">There is no test and no school nomination step.</p>
+              <RegisterLink long className="btn btn-primary mt-5 w-full" />
             </div>
             <div className="hub-card-soft p-5">
               <h3 className="hub-h3">How many {brief.short} students?</h3>
@@ -546,7 +514,7 @@ function Parents({ byId }: { byId: (id: string) => HubFaq }) {
         <SectionHead id="hub-parents" kicker="For parents and guardians" title="What parents and guardians need to know.">
           <p>
             Hack 876 is a supervised, single-day event at a hotel in Kingston. Each card below gives what is known. Where a detail is
-            marked &ldquo;{TODO_LABEL}&rdquo;, families will be told before a student is asked to accept a place.
+            marked &ldquo;{TODO_LABEL}&rdquo;, families will be told before the event.
           </p>
         </SectionHead>
         <ul className="mt-8 grid gap-3 md:grid-cols-2">
@@ -577,11 +545,11 @@ function Parents({ byId }: { byId: (id: string) => HubFaq }) {
           })}
         </ul>
         <p className="mt-6 text-ink-2">
-          <span className="font-bold text-ink">Next step:</span> if your child would like to take part, they complete{" "}
-          <a href="#apply" className="font-bold text-ink underline decoration-2 underline-offset-4">
-            the application
+          <span className="font-bold text-ink">Next step:</span> if your child would like to take part, they{" "}
+          <a href="#register" className="font-bold text-ink underline decoration-2 underline-offset-4">
+            register on MLH
           </a>{" "}
-          themselves. Nothing needs to be signed or paid at that stage.
+          themselves. Nothing needs to be signed or paid at that stage, and Hack 876 is free.
         </p>
       </div>
     </section>
@@ -595,7 +563,7 @@ function Parents({ byId }: { byId: (id: string) => HubFaq }) {
 function AiTools() {
   const points = [
     { t: "Students may use AI, but do not have to.", d: "AI tools are programs that can write text, code or images from instructions. A team can do well without them." },
-    { t: "Students under 18 can take part.", d: "Age limits apply to particular tools, not to the event." },
+    { t: "Students under 18 can take part.", d: "Age limits are set for particular tools, not for the event." },
     { t: "Some AI tools are for adults only.", d: "The companies that make them set a minimum age. Students under 18 will not use an adults-only tool at Hack 876." },
     { t: "A parent cannot give permission for an 18+ tool.", d: "A parent\u2019s consent does not change a company\u2019s minimum age." },
     { t: "Students use approved tools only.", d: "The organizers are choosing tools suitable for the ages taking part, so that every team has tools its members may use." },
@@ -621,7 +589,7 @@ function AiTools() {
           ))}
         </ol>
         <Todo dark>
-          The list of approved tools, the age limit for each, and the consent form. All three will be sent to accepted students and
+          The list of approved tools, the age limit for each, and the consent form. All three will be sent to registered students and
           their families before the event.
         </Todo>
       </div>
@@ -646,7 +614,7 @@ function Beyond({ byId }: { byId: (id: string) => HubFaq }) {
                 "A day working next to engineers, mentors and other professionals.",
                 "Practice presenting to judges who work in technology and business.",
                 "New contacts among students from other schools.",
-                "A project to describe on a university or job application.",
+                "A project to describe to universities and employers.",
               ].map((t) => (
                 <li key={t} className="flex gap-2.5">
                   <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald" />
@@ -715,7 +683,7 @@ function Community({ brief }: { brief: SchoolBrief }) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Teachers: recommendations, liaison, ambassadors                           */
+/*  Teachers: sharing, liaison, ambassadors                                    */
 /* -------------------------------------------------------------------------- */
 
 function Teachers({ brief }: { brief: SchoolBrief }) {
@@ -724,11 +692,11 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
   const split = [
     {
       title: "What Hack 876 handles",
-      items: ["Applications and selecting participants", "Consent forms for parents and guardians", "The venue, schedule, food, mentors and judges", "All communication with students and families"],
+      items: ["The event itself (registration and submission run on MLH)", "Consent forms for parents and guardians", "The venue, schedule, food, mentors and judges", "All communication with students and families"],
     },
     {
       title: `What stays with ${brief.short}`,
-      items: ["Sharing the opportunity with eligible students", "Recommending students, if teachers wish to", `Any school permission ${brief.short} requires for outside activities`],
+      items: ["Sharing the opportunity with eligible students", "Recommending Hack 876 to students, if teachers wish to", `Any school permission ${brief.short} requires for outside activities`],
     },
   ];
   return (
@@ -737,7 +705,7 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
         <SectionHead id="hub-teachers" kicker="For teachers" title={`How ${brief.short} teachers can support students.`}>
           <p>
             {brief.short} is not asked to pay, host or organize anything. Teachers can help by telling eligible students about Hack 876 and,
-            if they wish, recommending students who would enjoy it.
+            if they wish, helping with parent or guardian consent forms and travel. Students register themselves.
           </p>
         </SectionHead>
 
@@ -748,7 +716,7 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
 
         <div className="mt-3 grid gap-3 lg:grid-cols-2">
           <div className="hub-card p-5">
-            <h3 className="hub-h3">How to share it and recommend students</h3>
+            <h3 className="hub-h3">How to share it with students</h3>
             <ol className="mt-3 space-y-2.5 text-[0.98rem] leading-snug text-ink-2">
               {hub.faculty.process.map((t, i) => (
                 <li key={t} className="flex gap-3">
@@ -873,7 +841,7 @@ function Contact({ brief }: { brief: SchoolBrief }) {
           <div className="hub-card p-5">
             <h3 className="hub-h3">Questions about Hack 876</h3>
             <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">
-              For anything about the event, applications, consent, safety or costs, email the organizing team.
+              For anything about the event, registration, consent, safety or costs, email the organizing team.
             </p>
             {event.contactEmail && (
               <a href={`mailto:${event.contactEmail}`} className="mt-3 inline-block text-lg font-extrabold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
@@ -891,7 +859,7 @@ function Contact({ brief }: { brief: SchoolBrief }) {
             <h3 className="hub-h3">Questions about {brief.short}&rsquo;s arrangements</h3>
             <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{brief.hub!.schoolChannel}</p>
             <p className="mt-4 border-t border-ink/10 pt-3 text-sm leading-snug text-ink-soft">
-              This page is updated as details are confirmed. Accepted students and their families are also told directly.
+              This page is updated as details are confirmed. Registered students and their families are also told directly.
             </p>
           </div>
         </div>

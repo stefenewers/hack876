@@ -3,7 +3,7 @@
 import { startTransition, useActionState, useEffect, useRef, useState, type FormEvent } from "react";
 import { submitPartner, type PartnerState } from "@/app/actions";
 import { DoctorBird } from "@/components/art/DoctorBird";
-import { validatePartner, type PartnerErrors } from "@/lib/application";
+import { validatePartner, type PartnerErrors } from "@/lib/partner";
 import { TextAreaField, TextField } from "./Fields";
 
 const initial: PartnerState = { status: "idle" };

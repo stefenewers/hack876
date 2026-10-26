@@ -89,7 +89,6 @@ export async function siteOgImage() {
         <div style={{ display: "flex", flexDirection: "column", padding: "64px 72px", width: 760 }}>
           <div style={{ display: "flex", fontSize: 24, fontWeight: 800, letterSpacing: 4, color: C.soft, textTransform: "uppercase" }}>
             Jamaica · {eventWhen.short}
-            {eventWhen.note}
           </div>
           <div style={{ display: "flex", marginTop: 26 }}>
             <Wordmark size={150} />

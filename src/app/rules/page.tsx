@@ -23,8 +23,7 @@ export default function RulesPage() {
       intro={
         <p>
           The short version: build something new on the day, be honest about what you used, and submit on time. Hacking runs from {START} to{" "}
-          {END} on {eventWhen.long}
-          {eventWhen.note}.
+          {END} on {eventWhen.long}.
         </p>
       }
       related={{ href: "/code-of-conduct", label: "Code of Conduct" }}

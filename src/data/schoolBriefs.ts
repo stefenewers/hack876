@@ -213,7 +213,7 @@ export const schoolBriefs: SchoolBrief[] = [
     asks: [
       "Mrs. Morrison’s continued guidance in introducing Hack 876 within Campion.",
       "Two student ambassadors, ideally one Lower Sixth and one Fifth Form student.",
-      "Help recommending students from 5th Form through Upper 6th Form.",
+      "Help sharing Hack 876 with students from 5th Form through Upper 6th Form.",
       "Help sharing the opportunity with relevant faculty, students and school leadership.",
       "Guidance on any administrative requirements for formal school participation.",
     ],
@@ -229,8 +229,8 @@ export const schoolBriefs: SchoolBrief[] = [
       intro:
         "We want to build something lasting with Campion’s Technology Department, beyond one event. That work has started with Mrs. Morrison.",
       tag: "Faculty liaison",
-      role: "Mrs. Morrison is the point of contact at Campion for Hack 876. Teachers can pass recommendations and questions to her, and she coordinates with the Hack 876 organizing team.",
-      note: "Campion College has confirmed its participation. Every student still applies individually, and places are not guaranteed.",
+      role: "Mrs. Morrison is the point of contact at Campion for Hack 876. Teachers can pass questions to her, and she coordinates with the Hack 876 organizing team.",
+      note: "Campion College has confirmed its participation. Every student still registers individually on MLH, and places are limited.",
       also: [
         {
           title: "Student ambassadors",
@@ -247,7 +247,7 @@ export const schoolBriefs: SchoolBrief[] = [
           "Campion is expected to have two ambassadors, ideally one in Lower Sixth and one in Fifth Form. They have not been chosen yet, and their names will not be published without permission.",
         duties: [
           "Share the Hack 876 flyer and this page with classmates.",
-          "Encourage eligible students to apply.",
+          "Encourage eligible students to register on MLH.",
           "Point classmates to this page when they have questions.",
           "Pass on questions they cannot answer to the faculty liaison.",
         ],
@@ -255,9 +255,9 @@ export const schoolBriefs: SchoolBrief[] = [
       faculty: {
         process: [
           "Share this page or the student flyer with students in 5th Form through Upper 6th Form.",
-          "If you would like to recommend particular students, give their names to the faculty liaison. No form is needed.",
-          "Each student completes the application on the Hack 876 website. Teachers do not apply on their behalf.",
-          "The Hack 876 organizing team selects participants and contacts students and families directly.",
+          "Point interested students to the registration link on MLH. They register themselves: no nomination or school form is needed.",
+          "Each student registers on MLH with a free MyMLH account. Teachers do not register on their behalf.",
+          "The Hack 876 organizing team contacts registered students and families directly, including about the consent form.",
         ],
         profiles: [
           "Curious students who like making things, in any subject.",
@@ -341,11 +341,11 @@ export const schoolBriefs: SchoolBrief[] = [
       "Guidance from Hillel’s leadership on any administrative requirements.",
       "A faculty liaison of the school’s choosing, possibly within Technology Education.",
       "Guidance in identifying one or two student ambassadors.",
-      "Help reaching curious, motivated students, and recommending those who are interested.",
+      "Help reaching curious, motivated students, and encouraging those who are interested to register.",
       "Guidance on permissions, communication with parents and any school-specific expectations.",
     ],
     asksNote:
-      "We’re not asking Hillel for financial support, or to organize anything. Hack 876 runs the event, the applications, the judging and the participant materials. What form of support is appropriate is for the school to decide.",
+      "We’re not asking Hillel for financial support, or to organize anything. Hack 876 runs the event, the judging and the participant materials. Students register themselves on MLH. What form of support is appropriate is for the school to decide.",
     liaison: {
       name: "Mr. Lloyd Holmes",
       title: "High School Principal · Hillel Academy",
@@ -357,7 +357,7 @@ export const schoolBriefs: SchoolBrief[] = [
         "We would like Hack 876 to become something Hillel students can return to each year, not a single Saturday. That work is under way with the school’s leadership and its Technology Education team.",
       tag: "Prepared for",
       role: "Hillel has confirmed its participation. We are working with Mr. Holmes and Hillel’s Technology Education team on the arrangements.",
-      note: "Hillel Academy has confirmed its participation. Every student still applies individually, and places are not guaranteed.",
+      note: "Hillel Academy has confirmed its participation. Every student still registers individually on MLH, and places are limited.",
       also: [
         {
           title: "Ms. Delrose Coburn",
@@ -375,7 +375,7 @@ export const schoolBriefs: SchoolBrief[] = [
       { k: "Done", v: "Hillel has confirmed its participation." },
       { k: "Now", v: "Arrangements with Mr. Holmes and the Technology Education team, including any approval steps the school requires." },
       { k: "Then", v: "A faculty liaison and one or two student ambassadors." },
-      { k: "Before the event", v: "Teachers recommend students, students apply, and families receive consent forms." },
+      { k: "Before the event", v: "Teachers share the opportunity, students register on MLH, and families receive consent forms." },
       { k: "Event day", v: "Hack 876." },
     ],
     hub: {
@@ -386,7 +386,7 @@ export const schoolBriefs: SchoolBrief[] = [
           "One or two student ambassadors have been proposed. None has been nominated, and their names will not be published without permission.",
         duties: [
           "Share the Hack 876 flyer and this page with classmates.",
-          "Encourage eligible students to apply.",
+          "Encourage eligible students to register on MLH.",
           "Point classmates to this page when they have questions.",
           "Pass on questions they cannot answer to the Hack 876 organizing team.",
         ],
@@ -394,9 +394,9 @@ export const schoolBriefs: SchoolBrief[] = [
       faculty: {
         process: [
           "Share this page or the student flyer with students in Grades 11 to 13.",
-          "If you would like to recommend particular students, email their names to the Hack 876 organizing team at info@hack876.com. No form is needed.",
-          "Each student completes the application on the Hack 876 website. Teachers do not apply on their behalf.",
-          "The Hack 876 organizing team selects participants and contacts students and families directly.",
+          "Point interested students to the registration link on MLH. They register themselves: no nomination or school form is needed.",
+          "Each student registers on MLH with a free MyMLH account. Teachers do not register on their behalf.",
+          "The Hack 876 organizing team contacts registered students and families directly, including about the consent form.",
         ],
         profiles: [
           "Curious students who like making things, in any subject.",
@@ -410,7 +410,7 @@ export const schoolBriefs: SchoolBrief[] = [
       liaison: {
         name: "To be confirmed",
         title: "Coordinating with Hillel’s leadership and Technology Education",
-        text: "We are working with Mr. Lloyd Holmes, High School Principal, and Ms. Delrose Coburn, Head of Technology Education. Who acts as Hillel’s faculty liaison is for the school to decide. Until then, teachers can send questions and recommendations to the organizing team.",
+        text: "We are working with Mr. Lloyd Holmes, High School Principal, and Ms. Delrose Coburn, Head of Technology Education. Who acts as Hillel’s faculty liaison is for the school to decide. Until then, teachers can send questions to the organizing team.",
         pending: true,
       },
     },
@@ -479,7 +479,7 @@ export const schoolBriefs: SchoolBrief[] = [
       "Guidance on permissions and communication with parents.",
     ],
     asksNote:
-      "We’re not asking JC for financial support, or to organize anything. Hack 876 runs the event, the applications, the judging and the participant materials.",
+      "We’re not asking JC for financial support, or to organize anything. Hack 876 runs the event, the judging and the participant materials. Students register themselves on MLH.",
     liaison: {
       name: "Mr. Wayne Robinson",
       title: "Principal · Jamaica College",
@@ -495,8 +495,8 @@ export const schoolBriefs: SchoolBrief[] = [
     nextSteps: [
       { k: "First", v: "A 15-minute call with Mr. Robinson or a faculty leader he nominates." },
       { k: "If JC agrees", v: "Support in principle, and a school-side contact." },
-      { k: "Then", v: "Teachers share the opportunity, and boys apply." },
-      { k: "Before the event", v: "Accepted students and their families receive consent forms." },
+      { k: "Then", v: "Teachers share the opportunity, and boys register on MLH." },
+      { k: "Before the event", v: "Registered students and their families receive consent forms." },
       { k: "Event day", v: "Hack 876." },
     ],
     outreach: { callWith: "Mr. Robinson, or a faculty leader he nominates" },
@@ -570,7 +570,7 @@ export const schoolBriefs: SchoolBrief[] = [
       "Guidance on permissions and communication with parents.",
     ],
     asksNote:
-      "We’re not asking Immaculate for financial support, or to organize anything. Hack 876 runs the event, the applications, the judging and the participant materials.",
+      "We’re not asking Immaculate for financial support, or to organize anything. Hack 876 runs the event, the judging and the participant materials. Students register themselves on MLH.",
     liaison: {
       name: "Mrs. Stacey Wilson Reynolds",
       title: "Principal · Immaculate Conception High School",
@@ -586,8 +586,8 @@ export const schoolBriefs: SchoolBrief[] = [
     nextSteps: [
       { k: "First", v: "A 15-minute call with Mrs. Wilson Reynolds or a faculty leader she nominates." },
       { k: "If Immaculate agrees", v: "Support in principle, and a school-side contact." },
-      { k: "Then", v: "Teachers share the opportunity, and girls apply." },
-      { k: "Before the event", v: "Accepted students and their families receive consent forms." },
+      { k: "Then", v: "Teachers share the opportunity, and girls register on MLH." },
+      { k: "Before the event", v: "Registered students and their families receive consent forms." },
       { k: "Event day", v: "Hack 876." },
     ],
     outreach: { callWith: "Mrs. Wilson Reynolds, or a faculty leader she nominates" },
@@ -657,7 +657,7 @@ export const schoolBriefs: SchoolBrief[] = [
       "Guidance on permissions and communication with parents.",
     ],
     asksNote:
-      "We’re not asking St Andrew for financial support, or to organize anything. Hack 876 runs the event, the applications, the judging and the participant materials.",
+      "We’re not asking St Andrew for financial support, or to organize anything. Hack 876 runs the event, the judging and the participant materials. Students register themselves on MLH.",
     liaison: {
       name: "Mrs. Keeva Ingram",
       title: "Principal · St Andrew High School for Girls",
@@ -673,8 +673,8 @@ export const schoolBriefs: SchoolBrief[] = [
     nextSteps: [
       { k: "First", v: "A 15-minute call with Mrs. Ingram or a faculty leader she nominates." },
       { k: "If St Andrew agrees", v: "Support in principle, and a school-side contact." },
-      { k: "Then", v: "Teachers share the opportunity, and girls apply." },
-      { k: "Before the event", v: "Accepted students and their families receive consent forms." },
+      { k: "Then", v: "Teachers share the opportunity, and girls register on MLH." },
+      { k: "Before the event", v: "Registered students and their families receive consent forms." },
       { k: "Event day", v: "Hack 876." },
     ],
     outreach: { callWith: "Mrs. Ingram, or a faculty leader she nominates" },
@@ -739,7 +739,7 @@ export const schoolBriefs: SchoolBrief[] = [
       "Guidance on permissions and communication with parents.",
     ],
     asksNote:
-      "We’re not asking St George’s for financial support, or to organize anything. Hack 876 runs the event, the applications, the judging and the participant materials.",
+      "We’re not asking St George’s for financial support, or to organize anything. Hack 876 runs the event, the judging and the participant materials. Students register themselves on MLH.",
     liaison: {
       name: "Mrs. Margaret Campbell",
       title: "Principal · St George’s College",
@@ -755,8 +755,8 @@ export const schoolBriefs: SchoolBrief[] = [
     nextSteps: [
       { k: "First", v: "A 15-minute call with Mrs. Campbell or a faculty leader she nominates." },
       { k: "If St George’s agrees", v: "Support in principle, and a school-side contact." },
-      { k: "Then", v: "Teachers share the opportunity, and students apply." },
-      { k: "Before the event", v: "Accepted students and their families receive consent forms." },
+      { k: "Then", v: "Teachers share the opportunity, and students register on MLH." },
+      { k: "Before the event", v: "Registered students and their families receive consent forms." },
       { k: "Event day", v: "Hack 876." },
     ],
     outreach: { callWith: "Mrs. Campbell, or a faculty leader she nominates" },
@@ -817,7 +817,7 @@ export const schoolBriefs: SchoolBrief[] = [
       "Guidance on timing around IB commitments, permissions and communication with parents.",
     ],
     asksNote:
-      "We’re not asking AISK for financial support, or to organize anything. Hack 876 runs the event, the applications, the judging and the participant materials.",
+      "We’re not asking AISK for financial support, or to organize anything. Hack 876 runs the event, the judging and the participant materials. Students register themselves on MLH.",
     liaison: {
       name: "Dr. Christie Powell",
       title: "Middle and High School Principal · AISK",
@@ -833,8 +833,8 @@ export const schoolBriefs: SchoolBrief[] = [
     nextSteps: [
       { k: "First", v: "A 15-minute call with Dr. Powell or a colleague she nominates." },
       { k: "If AISK agrees", v: "Support in principle, and a school-side contact." },
-      { k: "Then", v: "Teachers share the opportunity, and Grade 11 and 12 students apply." },
-      { k: "Before the event", v: "Accepted students and their families receive consent forms." },
+      { k: "Then", v: "Teachers share the opportunity, and Grade 11 and 12 students register on MLH." },
+      { k: "Before the event", v: "Registered students and their families receive consent forms." },
       { k: "Event day", v: "Hack 876." },
     ],
     outreach: { callWith: "Dr. Powell, or a colleague she nominates" },
@@ -895,7 +895,7 @@ export const schoolBriefs: SchoolBrief[] = [
       "A view on whether Wolmer’s Girls’ sixth formers should be included through the joint sixth form.",
     ],
     asksNote:
-      "We’re not asking Wolmer’s for financial support, or to organize anything. Hack 876 runs the event, the applications, the judging and the participant materials.",
+      "We’re not asking Wolmer’s for financial support, or to organize anything. Hack 876 runs the event, the judging and the participant materials. Students register themselves on MLH.",
     liaison: {
       name: "Mr. Dwight Pennycooke",
       title: "Principal · Wolmer’s Boys’ School",
@@ -911,8 +911,8 @@ export const schoolBriefs: SchoolBrief[] = [
     nextSteps: [
       { k: "First", v: "A 15-minute call with Mr. Pennycooke or a faculty leader he nominates." },
       { k: "If Wolmer’s agrees", v: "Support in principle, and a school-side contact." },
-      { k: "Then", v: "Teachers share the opportunity, and students apply." },
-      { k: "Before the event", v: "Accepted students and their families receive consent forms." },
+      { k: "Then", v: "Teachers share the opportunity, and students register on MLH." },
+      { k: "Before the event", v: "Registered students and their families receive consent forms." },
       { k: "Event day", v: "Hack 876." },
     ],
     outreach: { callWith: "Mr. Pennycooke, or a faculty leader he nominates" },

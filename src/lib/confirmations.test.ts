@@ -26,7 +26,7 @@ test("partner confirmation: event details come from event.ts", () => {
   const c = partnerConfirmation(partner);
   for (const body of [c.text, c.html]) {
     assert.ok(body.includes(`for ${eligibility.maxHackers} secondary-school students`), "student count");
-    assert.ok(body.includes(`${eventWhen.long}${eventWhen.note}`), "event date");
+    assert.ok(body.includes(eventWhen.long), "event date");
     assert.ok(body.includes("Island Ventures Ltd"), "organisation");
   }
   assert.ok(c.text.includes(`The Hack 876 team · ${event.siteUrl}`));
@@ -58,5 +58,5 @@ test("crew confirmation still carries the event facts", () => {
   const c = crewConfirmation("Andre", "Freelance", "Steady", "~3–5 hrs/month");
   assert.equal(c.subject, "You’re on the Hack 876 crew list");
   assert.ok(c.text.startsWith("Hi Andre,\n\nThanks for raising your hand for Hack 876,"));
-  assert.ok(c.text.includes(`${eventWhen.long}${eventWhen.note}`));
+  assert.ok(c.text.includes(eventWhen.long));
 });

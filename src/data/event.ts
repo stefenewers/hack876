@@ -22,10 +22,8 @@ export const event = {
   tagline: "Build something that should exist.",
   shortDescription:
     "A one-day hackathon for secondary-school students from across Jamaica. Build, experiment, team up, and turn ideas into working prototypes.",
-  /** ISO date (YYYY-MM-DD). `null` shows `dateLabel` instead. */
+  /** ISO date (YYYY-MM-DD). Final. `null` shows `dateLabel` instead. */
   date: "2027-02-20" as string | null,
-  /** `true` while the date is planned but not locked in. Every date on the site then reads "(tentative)". */
-  dateTentative: true,
   /** Human-readable fallback when there is no date at all. */
   dateLabel: "2027 · Date TBA",
   /** Canonical public website. */
@@ -34,25 +32,75 @@ export const event = {
   contactEmail: "info@hack876.com" as string | null,
   /** Where schools and partners book a 15-minute call with the organizers (Calendly event "15 Min Hack Meeting"). `null` hides it. */
   bookingUrl: "https://calendly.com/hack876-info/30min" as string | null,
+  /** Every time on the site is local Jamaica time. */
+  timeZone: "Jamaica time (UTC-5)",
   socials: [{ label: "@hack876ja", href: "https://www.instagram.com/hack876ja", icon: "instagram" }] as { label: string; href: string; icon?: "instagram" }[],
 };
 
 
-/** The event date, formatted once for every page. Each string carries "(tentative)" while it applies. */
+/** The event date, formatted once for every page, in Jamaican (day month year) order. */
 export const eventWhen = (() => {
   const d = event.date ? new Date(`${event.date}T12:00:00Z`) : null;
-  const fmt = (o: Intl.DateTimeFormatOptions) => (d ? d.toLocaleDateString("en-US", { ...o, timeZone: "UTC" }) : event.dateLabel);
-  const note = d && event.dateTentative ? " (tentative)" : "";
+  const fmt = (o: Intl.DateTimeFormatOptions) => (d ? d.toLocaleDateString("en-GB", { ...o, timeZone: "UTC" }) : event.dateLabel);
   return {
-    /** "Saturday, February 20, 2027" */
-    long: fmt({ weekday: "long", month: "long", day: "numeric", year: "numeric" }),
-    /** "Feb 20, 2027" */
-    short: fmt({ month: "short", day: "numeric", year: "numeric" }),
-    /** " (tentative)" or "" */
-    note,
-    tentative: !!d && event.dateTentative,
+    /** "Saturday 20 February 2027" */
+    long: d ? `${fmt({ weekday: "long" })} ${fmt({ day: "numeric", month: "long", year: "numeric" })}` : event.dateLabel,
+    /** "20 Feb 2027" */
+    short: fmt({ day: "numeric", month: "short", year: "numeric" }),
   };
 })();
+
+/* -------------------------------------------------------------------------- */
+/*  Registration and MLH                                                      */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Hack 876 is an official MLH Hack Day. Students register on MLH (a free
+ * MyMLH account) and submit projects there. MLH's OrganizerHQ holds all
+ * registration, check-in and submission data; this site never collects it.
+ * `/apply` redirects to `registration.url` (next.config.ts).
+ */
+export const registration = {
+  /** Where students register. Replaces the old /apply flow. */
+  url: "https://mlh.link/hack-876",
+  /** MLH's public event page for Hack 876. */
+  eventPageUrl: "https://events.mlh.com/events/15649-hack-876",
+  /** Where teams submit projects. */
+  challengesUrl: "https://www.mlh.com/events/hack-876/challenges",
+  label: "Register",
+  labelLong: "Register on MLH",
+  requiresMyMLH: true,
+  /** Shown near every register button. */
+  accountNote: "You will need a MyMLH account to register. It is free.",
+  // TODO(owner): registration close date, if any. Nothing on the site states a deadline until this is set.
+  closes: null as string | null,
+} as const;
+
+export const mlh = {
+  name: "Major League Hacking (MLH)",
+  siteUrl: "https://mlh.com",
+  codeOfConductUrl: "https://mlh.io/code-of-conduct",
+  incidentEmail: "incidents@mlh.io",
+  standardRulesUrl: "https://github.com/MLH/mlh-policies/blob/main/standard-hackathon-rules.md",
+  /** The only wording used for the event's MLH status. Never "member event", "sanctioned" or "powered by". */
+  hackDayBadge: "An official MLH Hack Day",
+  /** The official, unaltered MLH logo. Never recolor, crop or place it on a dark or busy background. */
+  logo: "/sponsors/mlh-logo-color.svg",
+} as const;
+
+/** The "Best Use of Cloudflare" partner challenge. Details and anything on offer live on the MLH Challenges page. */
+export const cloudflareChallenge = {
+  name: "Best Use of Cloudflare",
+  summary: "Build and deploy on Cloudflare Workers and use Workers AI in a meaningful way. Details are on the MLH Challenges page.",
+  docs: [
+    { label: "Cloudflare Workers", href: "https://developers.cloudflare.com/workers/" },
+    { label: "Workers: get started", href: "https://developers.cloudflare.com/workers/get-started/guide/" },
+    { label: "Workers AI", href: "https://developers.cloudflare.com/workers-ai/" },
+    { label: "Workers AI: get started", href: "https://developers.cloudflare.com/workers-ai/get-started/" },
+    { label: "Workers AI models", href: "https://developers.cloudflare.com/workers-ai/models/" },
+  ],
+  // TODO(owner): confirm in writing with MLH that minors are eligible for the Cloudflare challenge and what, if anything, it offers. State neither until confirmed.
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /*  Venue                                                                     */
@@ -61,10 +109,34 @@ export const eventWhen = (() => {
 export const venue = {
   name: "Spanish Court Hotel",
   area: "Kingston, Jamaica",
+  address: "1 St Lucia Avenue, Kingston 5, Jamaica",
+  // TODO(owner): room and arrival instructions. While null, the site says they will be shared before the event.
+  room: null as string | null,
+  arrival: null as string | null,
   /** Flip to `true` once the venue is locked in. */
   confirmed: true,
   /** `null` hides the Maps button. */
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Spanish+Court+Hotel+Kingston+Jamaica" as string | null,
+};
+
+/** Shown wherever `venue.room` or `venue.arrival` is not set yet. */
+export const venueArrivalPending = "Room and arrival instructions will be shared with registered students and posted here before the event.";
+
+/**
+ * The on-site incident lead. MLH requires a named lead before the event.
+ * One edit here fills it in everywhere.
+ */
+// TODO(owner): name and contact (phone/WhatsApp) of the on-site incident lead.
+export const incidentLead = null as null | { name: string; contact: string };
+
+/** Venue safety details for the Code of Conduct page. `null` shows a neutral "to be shared" line. */
+// TODO(owner): exits, assembly point, first-aid location and first aider, accessibility arrangements (step-free entry, accessible toilets), nearest hospital.
+export const venueSafety = {
+  exits: null as string | null,
+  assemblyPoint: null as string | null,
+  firstAid: null as string | null,
+  accessibility: null as string | null,
+  nearestHospital: null as string | null,
 };
 
 /* -------------------------------------------------------------------------- */
@@ -76,8 +148,10 @@ export const eligibility = {
   formOptions: ["5th Form", "Lower 6th Form", "Upper 6th Form"],
   teamSize: { min: 3, max: 4 },
   maxHackers: 80,
+  // TODO(owner): confirm whether registration is open to all Jamaican secondary students or only to the listed participating schools. Until then, keep the participating-schools wording.
+  // TODO(owner): what happens past 80 registrations (waitlist, close registration). Do not state a rule until decided.
   howToGetIn:
-    "Participating schools recommend students, and recommended students apply here.",
+    "Students at participating schools register directly on MLH with a free MyMLH account. Schools can recommend Hack 876 and support their students. There is no school nomination step.",
 };
 
 export const schools = [
@@ -268,14 +342,15 @@ export const schedule: {
   phase: SchedulePhase;
   highlight?: boolean;
 }[] = [
-  { time: "8:00 AM", title: "Doors open", note: "Check in, grab your lanyard, find your table.", phase: "arrive" },
-  { time: "9:00 AM", title: "Opening", note: "Welcome to Hack 876. Let’s go.", phase: "arrive" },
+  // TODO(owner): reconcile these times with the schedule in MLH OrganizerHQ, including the submission window.
+  { time: "8:00 AM", title: "Doors open + check-in", note: "Doors open and in-person check-in at the entrance. Check-in is only possible at the venue, in person.", phase: "arrive" },
+  { time: "9:00 AM", title: "Opening", note: "Welcome, the Code of Conduct, MLH, the Best Use of Cloudflare challenge, and how to submit.", phase: "arrive" },
   { time: "9:20 AM", title: "Keynote", note: "A little inspiration before the chaos.", phase: "arrive" },
   { time: "9:35 AM", title: "Challenge reveal", note: "The prompt drops. Start scheming.", phase: "arrive", highlight: true },
   { time: "9:45 AM", title: "Hacking begins", note: "Clock’s running. Build.", phase: "build", highlight: true },
   { time: "12:00 PM", title: "Lunch", note: "Refuel. Talk to other teams. Steal nothing.", phase: "build" },
-  { time: "3:00 PM", title: "Submissions open", note: "Start wrapping up and write your submission.", phase: "build" },
-  { time: "4:00 PM", title: "Hacking ends", note: "Hands off keyboards.", phase: "build", highlight: true },
+  { time: "3:00 PM", title: "Submissions open", note: "Submit on the MLH Challenges page. Start wrapping up.", phase: "build" },
+  { time: "4:00 PM", title: "Hacking ends. Submissions close.", note: "Hands off keyboards. Every presenting team has submitted.", phase: "build", highlight: true },
   { time: "4:15 PM", title: "Judging", note: "Demo to the judges. Show what works.", phase: "show" },
   { time: "5:30 PM", title: "Finalists announced", note: "Hearts racing.", phase: "show" },
   { time: "5:45 PM", title: "Finals", note: "Top teams demo on the main stage.", phase: "show", highlight: true },
@@ -394,8 +469,9 @@ export type Prize = {
   valueUsd?: number;
 };
 
-/** Shown under the prizes while rewards aren't locked in. `null` hides it. */
-export const prizesNote: string | null = "Prizes are tentative and subject to change.";
+/** Shown under the prizes. `null` hides it. */
+export const prizesNote: string | null =
+  "Prizes listed here are provided by Hack 876 organizers and local sponsors. They are tentative and may change. Any additional challenge prizes will be announced once confirmed.";
 
 export const prizes: Prize[] = [
   { name: "Hack 876 Winner", line: "The whole thing. Best overall build.", icon: "trophy", color: "sun", reward: "iPad per student (up\u00a0to\u00a04)", place: 1 },
@@ -412,15 +488,23 @@ export const prizes: Prize[] = [
 
 export type Sponsor = {
   name: string;
-  /** Path under /public, e.g. "/sponsors/company.svg". */
+  /** Path under /public, e.g. "/sponsors/company.svg". Empty shows the name as a text wordmark. */
   logo: string;
   url: string;
-  /** "organizing" is shown on its own above the others. Otherwise free-form, e.g. "partner". */
-  level: string;
+  /**
+   * "organizing": shown on its own above the others.
+   * "program": the MLH Hack Day program. "challenge": a partner challenge.
+   * Both are event partners, never paying sponsors. "partner": a local sponsor.
+   */
+  level: "organizing" | "program" | "challenge" | "partner";
   /** Only confirmed sponsors render. */
   confirmed: boolean;
   /** Shown, but not final: faded logo + "Pending confirmation" tag. */
   pending?: boolean;
+  /** Caption shown with the logo. */
+  role?: string;
+  /** Accessible name for the logo image. Defaults to `name`. */
+  alt?: string;
 };
 
 /**
@@ -435,6 +519,10 @@ export const previewUnconfirmedSponsors = process.env.NODE_ENV === "development"
 
 export const sponsors: Sponsor[] = [
   { name: "P237 Labs", logo: "/sponsors/p237-labs.png", url: "", level: "organizing", confirmed: true },
+  // Event partners: shown in their own group, never in a list of funders.
+  { name: "Major League Hacking (MLH)", logo: "/sponsors/mlh-logo-color.svg", url: "https://mlh.com", level: "program", role: "Official MLH Hack Day", alt: "Major League Hacking (MLH) logo", confirmed: true },
+  // Text wordmark only: Cloudflare's trademark guidelines require written permission to use its logo. Set `logo` to the press-kit file once granted.
+  { name: "Cloudflare", logo: "", url: "https://www.cloudflare.com", level: "challenge", role: "Challenge partner: Best Use of Cloudflare", alt: "Cloudflare logo", confirmed: true },
   { name: "GraceKennedy General Insurance", logo: "/sponsors/gk-general-insurance.jpeg", url: "", level: "partner", confirmed: false },
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },
   { name: "Norus Technologies", logo: "/sponsors/norus-technologies.png", url: "https://norustech.com/", level: "partner", confirmed: true },
@@ -444,6 +532,15 @@ export const sponsors: Sponsor[] = [
   // In-kind: stationery for every student.
   { name: "SOS Ltd", logo: "/sponsors/sos-ltd.png", url: "https://www.sosjm.com", level: "partner", confirmed: true },
 ];
+
+/** Event partners (MLH, Cloudflare), in display order. Never listed as funders. */
+export const eventPartners = sponsors.filter((s) => s.level === "program" || s.level === "challenge");
+
+/**
+ * The organizing sponsor and local sponsors: the people funding or supplying
+ * the event. Use this, never `sponsors`, for any list that reads as "sponsors".
+ */
+export const localSponsors = sponsors.filter((s) => s.level === "partner" || s.level === "organizing");
 
 /* -------------------------------------------------------------------------- */
 /*  FAQ                                                                       */
@@ -457,26 +554,54 @@ export type Faq = {
   pending?: boolean;
 };
 
+const DOORS = schedule[0]?.time ?? "";
+const WRAP = schedule[schedule.length - 1]?.time ?? "";
+const LUNCH = schedule.find((s) => s.title === "Lunch")?.time ?? "midday";
+
+/** One wording for photo consent, used in the FAQ, the Parents section and the Code of Conduct. */
+export const photoConsent =
+  "We only publish photos of students when their school and a parent or guardian have consented. We never publish a student’s name with their photo without permission. If a student should not be photographed, tell us at registration or check-in.";
+
+/** Food on the day. */
+// TODO(owner): confirm the menu and snacks, and that the MLH registration form asks about dietary needs and accessibility.
+export const foodNote = `Food is provided on the day, including lunch at ${LUNCH}, with snacks and water. No alcohol. Tell us about allergies and dietary needs when you register, or email ${event.contactEmail}.`;
+
 export const faqs: Faq[] = [
   {
     q: "What is a hackathon?",
     a: "An event where you team up and build something from scratch in a short amount of time. At Hack 876 that's one day.\n\nYou don't have to hack into anything. It's about making things: apps, games, tools, gadgets, whatever you can pull off before the clock runs out.",
   },
   {
-    q: "Who can attend?",
-    a: "Students in 5th Form through Upper 6th Form at participating schools. Schools recommend students, and recommended students then apply. There are 80 spots.",
+    q: "How do I register?",
+    a: `On MLH, at ${registration.url}. You need a free MyMLH account to register and to submit your project. You register yourself: there is no school nomination step.`,
+  },
+  {
+    q: "Who can take part?",
+    a: `Students in ${eligibility.forms} at participating schools. Most participants are under 18, so a parent or guardian must give consent. There are ${eligibility.maxHackers} spots.`,
+  },
+  {
+    q: "Can my school sign me up?",
+    a: "You register yourself on MLH. Schools can recommend Hack 876 to students and support them, for example by helping with parent or guardian consent and transport.",
+  },
+  {
+    q: "Is Hack 876 free?",
+    a: "Yes. Hack 876 is free for students.",
+  },
+  {
+    q: "Is it online?",
+    a: "No. Hack 876 is entirely in person. There is no remote participation, and check-in happens at the doors on the day.",
   },
   {
     q: "Do I need to know how to code?",
     a: "No. Great teams need designers, researchers, storytellers and people who can pitch. If you've never built anything before, that's fine. Come curious.",
   },
   {
-    q: "Do I need a team before applying?",
-    a: "No. Apply solo or with friends. If you don't have a team, we'll help you find one, possibly with students from other schools.",
+    q: "Do I need a team before registering?",
+    a: "No. Register solo or with friends. If you don't have a team, we'll help you find one, possibly with students from other schools.",
   },
   {
     q: "How big can my team be?",
-    a: "3 to 4 students.",
+    a: `${eligibility.teamSize.min} to ${eligibility.teamSize.max} students.`,
   },
   {
     q: "What can I build?",
@@ -484,42 +609,52 @@ export const faqs: Faq[] = [
   },
   {
     q: "Can I use AI tools?",
-    a: "Yes, within the tools organizers approve for the event. Some AI tools have minimum ages, and a few are 18 and over, so we'll publish which tools participants may use beforehand.\n\nWhatever you use, be ready to explain what you built and how it works. Judges will ask.",
+    a: "Yes. Say in your submission which AI tools you used and how, and be ready to explain and demo what you built. Judges will ask.\n\nSome AI tools have minimum ages, and a few are 18 and over, so we'll publish which tools participants may use before the event.",
     pending: true,
+  },
+  {
+    q: "Do I need a laptop?",
+    a: "Yes. Bring your own laptop and its charger. Hack 876 does not provide laptops.",
   },
   {
     q: "What should I bring?",
-    a: "Your own laptop (or another device you can build on) and its charger, your school ID and a water bottle. Hack 876 won’t be providing laptops or other hardware, so every student needs to bring their own device. A full packing list will be shared with accepted hackers before the event.",
-    pending: true,
-  },
-  {
-    q: "Is Hack 876 free?",
-    a: "Our goal is that students won't need to buy any technology tools to build their projects. Any participation cost will be confirmed here.",
-    pending: true,
+    a: "Your own laptop and charger, your school ID, a water bottle and your signed parent or guardian consent form. Hack 876 does not provide laptops; please bring your own.",
   },
   {
     q: "Will food be provided?",
-    a: "Yes, food is provided on the day. Meal specifics and dietary arrangements will be shared with accepted hackers.",
-    pending: true,
+    a: foodNote,
   },
   {
     q: "When is Hack 876?",
-    a: eventWhen.tentative
-      ? `${eventWhen.long}. The date is tentative, and we'll confirm it here.`
-      : `${eventWhen.long}.`,
-    pending: eventWhen.tentative,
+    a: `${eventWhen.long}, from ${DOORS} to ${WRAP} (${event.timeZone}). The date is confirmed.`,
   },
   {
     q: "Where is Hack 876?",
-    a: `At the ${venue.name} in ${venue.area}.`,
+    a: `At the ${venue.name}, ${venue.address}.`,
+  },
+  {
+    q: "How do we submit our project?",
+    a: `Only on the MLH Challenges page: ${registration.challengesUrl}. Each team makes one submission and selects every challenge it is eligible for. One team member signs in with their MyMLH account to submit, after checking in at the venue.`,
+  },
+  {
+    q: `What is “${cloudflareChallenge.name}”?`,
+    a: `An optional partner challenge any team can enter, on top of its track. ${cloudflareChallenge.summary} The requirements are on the Event Rules page.`,
+  },
+  {
+    q: "Who are the judges?",
+    a: "Jamaican tech professionals. They see every demo and ask how your project works.",
   },
   {
     q: "How does judging work?",
     a: "Teams demo to judges, who look at the problem you picked, your solution, how well it works, originality, impact, and your pitch. Finalists then demo on the main stage.\n\nComplexity alone does not win Hack 876.",
   },
   {
+    q: "Will there be photos?",
+    a: photoConsent,
+  },
+  {
     q: "Can I start my project before the event?",
-    a: "Brainstorm and plan all you want, but code is written on the day, once hacking begins. The full rules are on the Event Rules page.",
+    a: "Brainstorm and plan all you want, but building starts on the day, once hacking begins. The full rules are on the Event Rules page.",
   },
 ];
 
@@ -540,20 +675,20 @@ export const parents: {
   },
   {
     topic: "Schedule",
-    body: `Hack 876 is planned for ${eventWhen.long}${eventWhen.note}. It is a one-day event, not overnight. Doors open at 8:00 AM and the event wraps at 7:30 PM. Pick-up details will be shared ahead of time.`,
+    body: `Hack 876 is on ${eventWhen.long}, from ${DOORS} to ${WRAP} (${event.timeZone}). It is a one-day event, not overnight. Students stay at the venue for the whole event unless they are collected or signed out in line with their school’s rules.`,
   },
   {
     topic: "Venue",
-    body: `Hack 876 takes place at the ${venue.name} in ${venue.area}.`,
+    body: `Hack 876 takes place at the ${venue.name}, ${venue.address}.${venue.room && venue.arrival ? ` ${venue.room}. ${venue.arrival}` : ` ${venueArrivalPending}`}`,
+    pending: !(venue.room && venue.arrival),
   },
   {
     topic: "Food",
-    body: "Food is provided on the day. Meal specifics are still being finalized, and dietary requirements will be collected from accepted students.",
-    pending: true,
+    body: foodNote,
   },
   {
     topic: "Laptops & devices",
-    body: "Every student needs to bring their own laptop or other device to build on, plus a charger. Hack 876 won’t be providing laptops or other hardware.",
+    body: "Every student needs to bring their own laptop and charger. Hack 876 does not provide laptops.",
   },
   {
     topic: "Emergency contacts",
@@ -561,9 +696,14 @@ export const parents: {
     pending: true,
   },
   {
+    // TODO(owner): define who sends the consent form and when; it is collected at the door at check-in. It should cover guardian permission for the student's MyMLH account and data sharing, and photo consent.
     topic: "Permission & consent",
-    body: "A signed parent or guardian consent form will be required for every participant. Forms will be sent to accepted students.",
+    body: "Students need a parent or guardian’s consent to attend. After you register, you will receive the parent/guardian consent form. Bring it signed on the day: it is collected at the door at check-in, where the student’s school ID is also checked.",
     pending: true,
+  },
+  {
+    topic: "Photos",
+    body: photoConsent,
   },
 ];
 

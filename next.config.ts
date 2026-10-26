@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
+import { registration } from "./src/data/event";
 
 const nextConfig: NextConfig = {
+  // Students register on MLH. The old application page sends them there. `statusCode: 301` (not `permanent`, which is 308).
+  redirects() {
+    return [
+      { source: "/apply", destination: registration.url, statusCode: 301 },
+      { source: "/apply/:path*", destination: registration.url, statusCode: 301 },
+    ];
+  },
   // Private proposal pages must never be indexed, even if a link leaks.
   headers() {
     return [

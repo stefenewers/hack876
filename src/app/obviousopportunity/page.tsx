@@ -262,7 +262,6 @@ function Closing() {
             )}
             <p className="ob-label mt-3">
             Hack 876 · Jamaica · {eventWhen.short}
-            {eventWhen.note}
           </p>
           </div>
           <p className="lp-note mt-10 max-w-xl">

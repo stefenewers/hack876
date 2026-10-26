@@ -157,7 +157,7 @@ function SignUp({ code }: { code: string }) {
 
 const FILL = ["bg-sky", "bg-emerald", "bg-sun", "bg-bill"];
 
-/** A native range input (keyboard, touch and screen readers for free) laid over the progress-bar look from the apply form. */
+/** A native range input (keyboard, touch and screen readers for free) laid over a progress-bar track. */
 function CapacitySlider({ error }: { error?: string }) {
   const reduced = useReducedMotion();
   const [i, setI] = useState(1);

@@ -314,8 +314,7 @@ function Closing() {
           </div>
           <Logo className="mt-4 text-[2.6rem]" />
           <p className="lp-marker mt-2 text-2xl">Build something that should exist.</p>
-          <p className="mt-4 font-bold">Kingston, Jamaica · {eventWhen.short}
-          {eventWhen.note}</p>
+          <p className="mt-4 font-bold">Kingston, Jamaica · {eventWhen.short}</p>
           <a href={event.siteUrl} className="mt-1 font-semibold text-emerald-deep underline decoration-2 underline-offset-4">
             {event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}
           </a>

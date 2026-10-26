@@ -11,7 +11,7 @@ import {
   prizes,
   prizesNote,
   schedule,
-  sponsors,
+  localSponsors,
   tracks,
   venue,
   type Person,
@@ -215,15 +215,8 @@ const WRAP = schedule[schedule.length - 1]?.time ?? "";
 const TEAM = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
 export const BOOKLET_PAGES = 8;
 
-/** "Saturday 20 February 2027 (tentative)", in en-GB order, with the tentative note while it applies. */
-export const eventDate = (() => {
-  if (!event.date) return event.dateLabel;
-  const d = new Date(`${event.date}T12:00:00Z`);
-  const o = { timeZone: "UTC" } as const;
-  const weekday = d.toLocaleDateString("en-GB", { ...o, weekday: "long" });
-  const rest = d.toLocaleDateString("en-GB", { ...o, day: "numeric", month: "long", year: "numeric" });
-  return `${weekday} ${rest}${eventWhen.note}`;
-})();
+/** "Saturday 20 February 2027", in en-GB order. */
+export const eventDate = eventWhen.long;
 
 /** The letter date: PRINT_DATE (YYYY-MM-DD, or text used as is) if set, otherwise today in Kingston. */
 export function letterDate(printDate = process.env.PRINT_DATE) {
@@ -416,7 +409,8 @@ export function bookletCopy(pack: PrincipalPack) {
       pastTag: `${short} past student`,
       note: "Organisations are each person’s employer, listed for context. They are not event sponsors unless stated.",
       confirmedSchools: `Confirmed schools: ${confirmedSchools.join(", ")}`,
-      sponsors: sponsors.filter((s) => s.confirmed && !s.pending),
+      /* Local sponsors only: event partners (MLH, Cloudflare) are not funders. */
+      sponsors: localSponsors.filter((s) => s.confirmed && !s.pending),
     },
     judging: {
       lenses: judging,

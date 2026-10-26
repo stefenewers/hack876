@@ -1,4 +1,4 @@
-import { confirmedSchools, eligibility, event, eventWhen, people, prizes, schedule, schools, schoolsInTalks, sponsors, stats, venue, type SchoolStatus } from "./event";
+import { confirmedSchools, eligibility, event, eventWhen, localSponsors, people, prizes, schedule, schools, schoolsInTalks, stats, venue, type SchoolStatus } from "./event";
 
 /*
  * Facts every partnership deck shares, derived from event.ts so a deck can
@@ -47,7 +47,7 @@ export const whatItIsAbroad = `A free one-day build competition in Kingston, Jam
 
 /** The event at a glance. Tentative and confirmed are labelled as event.ts has them. */
 export const eventFacts: { label: string; value: string }[] = [
-  { label: "When", value: `${eventWhen.long}${eventWhen.note}` },
+  { label: "When", value: eventWhen.long },
   { label: "Where", value: `${venue.name}, Kingston${venue.confirmed ? " (confirmed)" : " (to be confirmed)"}` },
   { label: "Who", value: `About ${eligibility.maxHackers} students${TEAMS ? `, roughly ${TEAMS} teams` : ""}` },
   { label: "Organisers", value: contact.names.join(" and ") },
@@ -56,8 +56,8 @@ export const eventFacts: { label: string; value: string }[] = [
 /** The event at a glance, for a recipient outside Jamaica. */
 export const eventFactsAbroad = eventFacts.map((f) => (f.label === "Where" ? { ...f, value: f.value.replace(", Kingston", ", Kingston, Jamaica") } : f));
 
-/** Confirmed sponsors as a phrase, e.g. "P237 Labs, Vault Motors, Frankies and .xyz". */
-const confirmedSponsors = sponsors.filter((s) => s.confirmed).map((s) => s.name);
+/** Confirmed local sponsors as a phrase, e.g. "P237 Labs, Vault Motors, Frankies and .xyz". Event partners (MLH, Cloudflare) are not funders. */
+const confirmedSponsors = localSponsors.filter((s) => s.confirmed).map((s) => s.name);
 export const sponsorList = confirmedSponsors.length > 1 ? `${confirmedSponsors.slice(0, -1).join(", ")} and ${confirmedSponsors[confirmedSponsors.length - 1]}` : (confirmedSponsors[0] ?? "");
 
 /** Doors to wrap, from the published schedule. */
@@ -93,7 +93,7 @@ export const deliveryFacts: { label: string; text: string }[] = [
   },
   {
     label: "Date",
-    text: eventWhen.tentative ? `${eventWhen.long} is the working date. It is tentative until confirmed with schools.` : `${eventWhen.long}.`,
+    text: `${eventWhen.long}.`,
   },
   {
     label: "Judges",

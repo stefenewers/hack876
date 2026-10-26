@@ -3,8 +3,7 @@
  *
  * A Google Apps Script web app that receives the JSON the site POSTs to
  * SUBMISSIONS_WEBHOOK_URL (see src/lib/submissions.ts) and appends one row per
- * submission. Each kind of form gets its own tab: "crew", "applications",
- * "partners". Setup: docs/ops/sheets-webhook.md.
+ * submission. Each kind of form gets its own tab: "crew" and "partners". Setup: docs/ops/sheets-webhook.md.
  *
  * Apps Script cannot read request headers, so the site also sends the shared
  * secret as `secret` in the body. Set the same value as the script property

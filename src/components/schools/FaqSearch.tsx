@@ -17,10 +17,10 @@ const AUDIENCES: { key: HubAudience | "all"; label: string }[] = [
   { key: "teachers", label: "Teachers" },
 ];
 
-const statusText: Record<HubStatus, string> = { confirmed: "Confirmed", tentative: "Tentative" };
+const statusText: Record<HubStatus, string> = { confirmed: "Confirmed", pending: "To be confirmed" };
 const statusClass: Record<HubStatus, string> = {
   confirmed: "border-ink bg-mint text-emerald-dark",
-  tentative: "border-ink bg-sun-light text-ink",
+  pending: "border-ink bg-sun-light text-ink",
 };
 
 /* Words that carry no meaning in a question. */

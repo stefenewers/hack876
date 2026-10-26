@@ -2,10 +2,10 @@ import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { BirdMark, DoctorBird } from "@/components/art/DoctorBird";
 import { Logo } from "@/components/art/Wordmark";
-import { buildTypes, eligibility, event, eventWhen, people, schedule, venue } from "@/data/event";
+import { buildTypes, eligibility, event, eventWhen, people, registration, schedule, venue } from "@/data/event";
 import { judgeAlumniLine } from "@/data/alumni";
 import type { SchoolBrief } from "@/data/schoolBriefs";
-import { applicationState, formsFor, hubFaqs, PROTOTYPE, schoolSheets, statusLabel, TODO_LABEL, type HubFaq, type HubStatus, type SheetKey } from "@/data/schoolHub";
+import { formsFor, registrationState, hubFaqs, PROTOTYPE, schoolSheets, statusLabel, TODO_LABEL, type HubFaq, type HubStatus, type SheetKey } from "@/data/schoolHub";
 import "./sheet.css";
 
 /*
@@ -18,8 +18,9 @@ const TEAM = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
 const START = schedule[0]?.time ?? "";
 const END = schedule[schedule.length - 1]?.time ?? "";
 const site = event.siteUrl.replace(/^https?:\/\/(www\.)?/, "");
+const registerAt = registration.url.replace(/^https?:\/\//, "");
 
-const pillClass: Record<HubStatus, string> = { confirmed: "bg-mint", tentative: "bg-sun-light" };
+const pillClass: Record<HubStatus, string> = { confirmed: "bg-mint", pending: "bg-sun-light" };
 
 function Pill({ s }: { s?: HubStatus }) {
   return s ? <span className={`sheet-pill ${pillClass[s]}`}>{statusLabel[s]}</span> : null;
@@ -52,7 +53,7 @@ function Frame({ brief, label, children }: { brief: SchoolBrief; label: string; 
             <div className="text-right text-[0.72rem] leading-snug">
               {event.contactEmail && <p className="font-extrabold">{event.contactEmail}</p>}
               <p className="text-cream/70">
-                {applicationState.label} · {site}/apply
+                {registrationState.label} · {registerAt}
               </p>
             </div>
           </footer>
@@ -64,9 +65,9 @@ function Frame({ brief, label, children }: { brief: SchoolBrief; label: string; 
 
 function Facts({ brief }: { brief: SchoolBrief }) {
   const facts = [
-    { k: "When", v: eventWhen.long, s: (eventWhen.tentative ? "tentative" : undefined) as HubStatus | undefined },
-    { k: "Where", v: `${venue.name}, ${venue.area.split(",")[0]}`, s: undefined },
-    { k: "Hours", v: `${START} to ${END}. One day, not overnight.`, s: undefined },
+    { k: "When", v: eventWhen.long, s: undefined as HubStatus | undefined },
+    { k: "Where", v: `${venue.name}, ${venue.address}`, s: undefined },
+    { k: "Hours", v: `${START} to ${END}, ${event.timeZone}. One day, not overnight.`, s: undefined },
     { k: "Who", v: `Students in ${formsFor(brief)}`, s: undefined },
   ];
   return (
@@ -142,12 +143,12 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
           </div>
         </div>
         <div>
-          <H>How to apply</H>
+          <H>How to register</H>
           <ol className="mt-2 space-y-2">
             {[
               `Read the details at ${site}/schools/${brief.slug}.`,
-              `Fill in the form at ${site}/apply. Apply alone or with friends.`,
-              "The organizers review applications and send you a decision.",
+              `Register on MLH at ${registerAt} with a free MyMLH account. Register alone or with friends.`,
+              "After you register, you receive the parent or guardian consent form. Bring it signed on the day.",
             ].map((t, i) => (
               <li key={t} className="flex gap-2.5 text-[0.82rem] leading-snug">
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[var(--sb-primary)] text-[0.72rem] font-extrabold text-white">{i + 1}</span>
@@ -156,8 +157,8 @@ function StudentFlyer({ brief }: { brief: SchoolBrief }) {
             ))}
           </ol>
           <p className="mt-3 rounded-xl border-2 border-dashed border-ink/40 px-3 py-2 text-[0.72rem] leading-snug text-ink-soft">
-            Places are limited to about {eligibility.maxHackers} students across several schools, so applying does not guarantee a place.
-            It costs nothing to apply.
+            Places are limited to about {eligibility.maxHackers} students across several schools. Hack 876 is free for students. There is no
+            school nomination step: you register yourself.
           </p>
         </div>
       </div>
@@ -221,8 +222,8 @@ function ParentSheet({ brief, faq }: { brief: SchoolBrief; faq: (id: string) => 
       </ul>
 
       <p className="mt-auto rounded-xl border-2 border-ink bg-paper px-3.5 py-1.5 text-[0.72rem] leading-snug">
-        <strong>How to take part.</strong> Students apply themselves at {site}/apply. It costs nothing to apply, and applying does not
-        guarantee a place. Anything marked &ldquo;{TODO_LABEL}&rdquo; will be sent to families before a student is asked to accept a place.
+        <strong>How to take part.</strong> Students register themselves on MLH at {registerAt}, with a free MyMLH account. Hack 876 is free for
+        students. Anything marked &ldquo;{TODO_LABEL}&rdquo; will be sent to families before the event.
       </p>
     </Frame>
   );
@@ -251,7 +252,7 @@ function FacultySheet({ brief }: { brief: SchoolBrief }) {
 
       <div className="mt-4 grid grid-cols-2 gap-5">
         <div>
-          <H>How to share it and recommend students</H>
+          <H>How to share it with students</H>
           <ol className="mt-1.5 space-y-1.5">
             {hub.faculty.process.map(here).map((t, i) => (
               <li key={t} className="flex gap-2 text-[0.78rem] leading-snug">
@@ -281,7 +282,7 @@ function FacultySheet({ brief }: { brief: SchoolBrief }) {
       <div className="mt-auto grid grid-cols-[1.25fr_1fr] gap-3">
         <p className="rounded-xl border-2 border-ink bg-paper px-3.5 py-2.5 text-[0.74rem] leading-snug">
           <strong>Roughly {brief.planningRange.min} to {brief.planningRange.max} {brief.short} students.</strong> This is the organizers&rsquo; planning
-          estimate, not a quota. Every student applies individually, and a recommendation does not guarantee a place.
+          estimate, not a quota. Every student registers individually on MLH; there is no nomination step.
         </p>
         <p className="rounded-xl border-2 border-dashed border-ink/40 px-3.5 py-2.5 text-[0.72rem] leading-snug text-ink-soft">{brief.liaison.note}</p>
       </div>

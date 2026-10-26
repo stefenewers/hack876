@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { applications, nav } from "@/data/event";
+import { nav } from "@/data/event";
+import { AccountNote, RegisterLink } from "./RegisterLink";
 import { Logo } from "@/components/art/Wordmark";
 import { BirdMark } from "@/components/art/DoctorBird";
 
@@ -69,7 +70,6 @@ export function Nav() {
     };
   }, [open]);
 
-  const applyLabel = applications.status === "open" ? "Apply" : "Apply";
 
   return (
     <>
@@ -109,10 +109,7 @@ export function Nav() {
         </ul>
 
         <div className="relative z-10 flex items-center gap-2">
-          <Link href="/apply" className="btn btn-primary btn-sm">
-            {applyLabel}
-            <span aria-hidden>→</span>
-          </Link>
+          <RegisterLink className="btn btn-primary btn-sm" />
           <button
             ref={menuButton}
             type="button"
@@ -160,9 +157,8 @@ export function Nav() {
           ))}
         </ul>
         <div className="mt-8 flex flex-col gap-3">
-          <Link href="/apply" onClick={() => setOpen(false)} className="btn btn-primary w-full text-lg">
-            Apply to Hack 876 <span aria-hidden>→</span>
-          </Link>
+          <RegisterLink long onClick={() => setOpen(false)} className="btn btn-primary w-full text-lg" />
+          <AccountNote className="text-center text-ink-soft" />
           <Link href="/partner" onClick={() => setOpen(false)} className="btn btn-secondary w-full">
             Partner with us
           </Link>

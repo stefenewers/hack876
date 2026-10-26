@@ -263,8 +263,7 @@ function Closing() {
           <div className="mt-16 w-full max-w-3xl border-t-2 border-ink pt-10 print:mt-10">
             <p className="text-sm font-extrabold tracking-[0.18em] text-ink-soft uppercase">Hack876 × Loring Consulting Engineers</p>
             <p className="lp-statement mt-4">Let&rsquo;s build the first one together.</p>
-            <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}
-          {eventWhen.note}</p>
+            <p className="mt-6 text-lg font-bold">Kingston, Jamaica · {eventWhen.short}</p>
             {(SITE_URL || event.contactEmail) && (
               <p className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-1 font-semibold text-emerald-deep">
                 {SITE_URL && (
