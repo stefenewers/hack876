@@ -529,7 +529,7 @@ export const sponsors: Sponsor[] = [
   { name: "P237 Labs", logo: "/sponsors/p237-labs.png", url: "", level: "organizing", confirmed: true },
   // Event partners: shown in their own group, never in a list of funders.
   { name: "Major League Hacking (MLH)", logo: "/sponsors/mlh-logo-color.svg", url: "https://mlh.com", level: "program", role: "Official MLH Hack Day", alt: "Major League Hacking (MLH) logo", confirmed: true },
-  // Official "GitHub Copilot" lockup from GitHub's brand assets (brand.github.com), unaltered.
+  // Official "GitHub Copilot" lockup from GitHub's brand assets (brand.github.com), unaltered. Used with GitHub's and MLH's permission (GitHub's brand guidelines require it).
   { name: "GitHub", logo: "/sponsors/github-copilot-logo.svg", url: "https://github.com/features/copilot", level: "challenge", role: "Challenge partner: Best Hack Built with GitHub Copilot", alt: "GitHub Copilot logo", confirmed: true },
   { name: "GraceKennedy General Insurance", logo: "/sponsors/gk-general-insurance.jpeg", url: "", level: "partner", confirmed: false },
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },

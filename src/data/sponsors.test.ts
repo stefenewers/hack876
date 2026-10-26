@@ -32,7 +32,7 @@ test("partner logos are the official, unaltered files", () => {
   const mlhFile = join("public", MLH!.logo);
   assert.ok(existsSync(mlhFile) && statSync(mlhFile).size > 0, "MLH logo missing");
   assert.ok(readFileSync(mlhFile, "utf8").startsWith("<svg"), "MLH logo is not the SVG");
-  // GitHub's official "GitHub Copilot" lockup from its brand assets.
+  // GitHub's official "GitHub Copilot" lockup from its brand assets, used with GitHub's and MLH's permission.
   assert.equal(GH!.logo, "/sponsors/github-copilot-logo.svg");
   const ghFile = join("public", GH!.logo);
   assert.ok(existsSync(ghFile) && statSync(ghFile).size > 0, "GitHub Copilot logo missing");

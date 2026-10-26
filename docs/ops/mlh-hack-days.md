@@ -26,7 +26,7 @@ Hack 876 is an official MLH Hack Day: Saturday 20 February 2027, Spanish Court H
 - **Format:** entirely in person, free for students. Check-in is at the doors only: no remote or advance check-in.
 - **Devices:** students bring their own laptop and charger. Hack 876 provides no laptops and has no borrowing scheme.
 - **Branding:** "An official MLH Hack Day", with the official, unaltered MLH logo. No MLH Trust Badge (that is for MLH Member Events).
-- **GitHub:** event partner for the "Best Hack Built with GitHub Copilot" challenge (replacing Cloudflare), not a paying sponsor. The official, unaltered "GitHub Copilot" lockup from GitHub's brand assets is used.
+- **GitHub:** event partner for the "Best Hack Built with GitHub Copilot" challenge (replacing Cloudflare), not a paying sponsor. The official, unaltered "GitHub Copilot" lockup from GitHub's brand assets is used, with GitHub's and MLH's permission.
 - **Prizes:** only prizes provided by the organizers and local sponsors, labelled tentative. Nothing from MLH or GitHub is promised until confirmed in writing.
 - **Submissions:** only on the MLH Challenges page. One submission per presenting team, selecting every challenge it is eligible for, made by one team member signed in with MyMLH after check-in.
 - **Contact:** info@hack876.com.
@@ -42,7 +42,7 @@ Hack 876 is an official MLH Hack Day: Saturday 20 February 2027, Spanish Court H
 - [ ] Set the Submissions window in OrganizerHQ to open and close at the schedule's times (open 3:00 PM, close 4:00 PM, before demos at 4:15 PM), with late submissions off and reminders 60 and 30 minutes before close.
 - [ ] Confirm in writing with MLH: the GitHub Copilot challenge prize, prize format and receipt deadlines (not received yet).
 - [ ] Confirm in writing with MLH that minors are eligible for the Best Hack Built with GitHub Copilot challenge, and that the MLH Challenges page lists it instead of Cloudflare.
-- [ ] Get GitHub's written permission for the GitHub Copilot logo (GitHub's brand guidelines require it), or confirm MLH's partner agreement covers it. The lockup is `public/sponsors/github-copilot-logo.svg`.
+- [x] Get permission to use the GitHub Copilot logo. Permission received from GitHub and MLH; the lockup is `public/sponsors/github-copilot-logo.svg`.
 - [ ] Decide what happens past 80 registrations (waitlist or close registration), whether registration is open beyond the participating schools, and any registration close date (`registration.closes`).
 - [ ] Approve the tie rule on the Event Rules page (a proposal: Execution scores, then a majority vote).
 - [ ] Owner task, separate from the site: an Instagram welcome post for MLH and GitHub as event partners.
