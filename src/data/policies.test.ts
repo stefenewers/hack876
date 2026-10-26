@@ -9,7 +9,7 @@ import "../../scripts/ts-resolve.mjs";
  * exact value. Both halves are checked here.
  */
 
-const { cloudflareChallenge, event, mlh, registration } = await import("./event.ts");
+const { copilotChallenge, event, mlh, registration } = await import("./event.ts");
 const rules = readFileSync("src/app/rules/page.tsx", "utf8");
 const conduct = readFileSync("src/app/code-of-conduct/page.tsx", "utf8");
 
@@ -22,23 +22,22 @@ test("the MLH constants hold the exact program URLs and emails", () => {
   assert.equal(mlh.standardRulesUrl, "https://github.com/MLH/mlh-policies/blob/main/standard-hackathon-rules.md");
   assert.equal(event.contactEmail, "info@hack876.com");
   assert.deepEqual(
-    cloudflareChallenge.docs.map((d) => d.href),
+    copilotChallenge.docs.map((d) => d.href),
     [
-      "https://developers.cloudflare.com/workers/",
-      "https://developers.cloudflare.com/workers/get-started/guide/",
-      "https://developers.cloudflare.com/workers-ai/",
-      "https://developers.cloudflare.com/workers-ai/get-started/",
-      "https://developers.cloudflare.com/workers-ai/models/",
+      "https://docs.github.com/en/copilot",
+      "https://docs.github.com/en/copilot/get-started/quickstart-for-using-github-copilot-on-github-com",
+      "https://education.github.com/pack",
+      "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository",
     ],
   );
 });
 
-test("the Rules page links the Challenges page, MLH rules, MLH Code of Conduct and Cloudflare docs", () => {
-  for (const ref of ["registration.challengesUrl", "mlh.standardRulesUrl", "mlh.codeOfConductUrl", "cloudflareChallenge.docs"]) {
+test("the Rules page links the Challenges page, MLH rules, MLH Code of Conduct and GitHub Copilot docs", () => {
+  for (const ref of ["registration.challengesUrl", "mlh.standardRulesUrl", "mlh.codeOfConductUrl", "copilotChallenge.docs"]) {
     assert.ok(rules.includes(ref), `rules page does not use ${ref}`);
   }
   assert.match(rules, /id: "submitting"/);
-  assert.match(rules, /id: "cloudflare"/);
+  assert.match(rules, /id: "copilot"/);
   assert.doesNotMatch(rules, /devpost/i);
 });
 

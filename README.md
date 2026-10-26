@@ -29,13 +29,13 @@ Almost everything lives in **`src/data/event.ts`**:
 | Schools + crests | `schools`, `schoolLogos` | crests live in `public/schools/` (St. Andrew is missing one) |
 | Registration and submission links | `registration` | MLH registration, event page and Challenges page; `/apply` redirects to `registration.url` |
 | MLH | `mlh` | Code of Conduct, incident email, Standard Rules, the “An official MLH Hack Day” wording and the logo |
-| Best Use of Cloudflare | `cloudflareChallenge` | summary and docs links; nothing on offer is stated |
+| Best Hack Built with GitHub Copilot | `copilotChallenge` | summary and docs links; nothing on offer is stated |
 | Safety placeholders | `incidentLead`, `venueSafety` | shown as “to be confirmed” while `null` |
 | Schedule | `schedule` | `highlight: true` makes a row pop |
 | Tracks, principles, judging | `tracks`, `principles`, `judging` | |
 | Judges / speakers / mentors | `people` | **only `confirmed: true` renders** |
 | Prizes | `prizes` | `reward: null` shows “Prize announced soon” |
-| Sponsors and event partners | `sponsors` | **only `confirmed: true` renders**. `level: "program" \| "challenge"` are event partners (MLH, Cloudflare), never listed as funders; use `localSponsors` for funder lists |
+| Sponsors and event partners | `sponsors` | **only `confirmed: true` renders**. `level: "program" \| "challenge"` are event partners (MLH, GitHub), never listed as funders; use `localSponsors` for funder lists |
 | FAQ, parents info | `faqs`, `parents` | `pending: true` adds a “details coming” tag |
 
 ## Form submissions

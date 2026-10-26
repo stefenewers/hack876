@@ -409,7 +409,7 @@ export function bookletCopy(pack: PrincipalPack) {
       pastTag: `${short} past student`,
       note: "Organisations are each person’s employer, listed for context. They are not event sponsors unless stated.",
       confirmedSchools: `Confirmed schools: ${confirmedSchools.join(", ")}`,
-      /* Local sponsors only: event partners (MLH, Cloudflare) are not funders. */
+      /* Local sponsors only: event partners (MLH, GitHub) are not funders. */
       sponsors: localSponsors.filter((s) => s.confirmed && !s.pending),
     },
     judging: {

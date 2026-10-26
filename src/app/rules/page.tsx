@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PolicyPage, Points } from "@/components/site/PolicyPage";
-import { cloudflareChallenge, eligibility, eventWhen, judging, mlh, registration, schedule } from "@/data/event";
+import { copilotChallenge, eligibility, eventWhen, judging, mlh, registration, schedule } from "@/data/event";
 
 export const metadata: Metadata = {
   title: "Event Rules",
-  description: "Teams, building, submitting, the Best Use of Cloudflare challenge and judging at Hack 876, an official MLH Hack Day.",
+  description: "Teams, building, submitting, the GitHub Copilot challenge and judging at Hack 876, an official MLH Hack Day.",
   alternates: { canonical: "/rules" },
 };
 
@@ -87,7 +87,7 @@ export default function RulesPage() {
               <Points
                 items={[
                   `Submissions open at ${SUBMIT_OPEN} and close at ${END}, before demos start at ${DEMOS}.`,
-                  "Every presenting team must submit, and must select every challenge it is eligible for, including Best Use of Cloudflare if it applies. Teams that do not submit do not demo and are not judged.",
+                  "Every presenting team must submit, and must select every challenge it is eligible for, including Best Hack Built with GitHub Copilot if it applies. Teams that do not submit do not demo and are not judged.",
                   "One team member signs in with their MyMLH account to submit, after checking in at the venue.",
                   "Your code must be public, for example in a public GitHub repository, and must stay public after the event for the project to be eligible for prizes.",
                   "The submission includes a short description, the link to your code, a demo video or link if the Challenges page asks for one, and which AI tools you used and how.",
@@ -97,8 +97,8 @@ export default function RulesPage() {
           ),
         },
         {
-          id: "cloudflare",
-          title: cloudflareChallenge.name,
+          id: "copilot",
+          title: copilotChallenge.name,
           body: (
             <>
               <p>
@@ -108,23 +108,21 @@ export default function RulesPage() {
               <Points
                 items={[
                   <>
-                    <strong className="text-ink">Deployed on Cloudflare Workers.</strong> A live Worker URL linked in the submission.
+                    <strong className="text-ink">A working AI project.</strong> It runs in the demo, and AI is part of what it does.
                   </>,
                   <>
-                    <strong className="text-ink">Meaningful use of Workers AI.</strong> The project’s core feature uses a Workers AI model, not a
-                    token call.
+                    <strong className="text-ink">Open source on GitHub.</strong> A public GitHub repository with an open-source license, linked in
+                    the submission.
                   </>,
                   <>
-                    <strong className="text-ink">A README</strong> that names the Worker and the model or models used.
-                  </>,
-                  <>
-                    <strong className="text-ink">Shown in the demo.</strong> The demo shows the Worker and Workers AI doing real work.
+                    <strong className="text-ink">Built with GitHub Copilot.</strong> The README or the demo gives specific examples of where Copilot
+                    helped: learning, solving problems, testing or documenting.
                   </>,
                 ]}
               />
               <p>
-                Cloudflare docs:{" "}
-                {cloudflareChallenge.docs.map((d, i) => (
+                GitHub docs:{" "}
+                {copilotChallenge.docs.map((d, i) => (
                   <span key={d.href}>
                     {i > 0 && " · "}
                     <Ext href={d.href}>{d.label}</Ext>
@@ -155,7 +153,7 @@ export default function RulesPage() {
                 score that team. The head judge reassigns scoring where needed.
               </p>
               <p>
-                The judges’ decisions are final. The Best Use of Cloudflare winner is chosen by the judges from entries that meet the
+                The judges’ decisions are final. The Best Hack Built with GitHub Copilot winner is chosen by the judges from entries that meet the
                 requirements above.
               </p>
             </>

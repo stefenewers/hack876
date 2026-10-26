@@ -4,26 +4,26 @@ import { join } from "node:path";
 import { test } from "node:test";
 import "../../scripts/ts-resolve.mjs";
 
-/* Event partners (MLH, Cloudflare): exact wording, official logos, and never listed as funders. */
+/* Event partners (MLH, GitHub): exact wording, official logos, and never listed as funders. */
 
 const { eventPartners, localSponsors, mlh, sponsors } = await import("./event.ts");
 const { sponsorList } = await import("./partnership.ts");
 const { bookletCopy, principalPacks } = await import("./principalPacks.ts");
 
 const MLH = sponsors.find((s) => s.name === "Major League Hacking (MLH)");
-const CF = sponsors.find((s) => s.name === "Cloudflare");
+const GH = sponsors.find((s) => s.name === "GitHub");
 
-test("MLH and Cloudflare are confirmed event partners with the exact wording", () => {
-  assert.ok(MLH && CF);
+test("MLH and GitHub are confirmed event partners with the exact wording", () => {
+  assert.ok(MLH && GH);
   assert.deepEqual(
     { url: MLH.url, level: MLH.level, role: MLH.role, confirmed: MLH.confirmed },
     { url: "https://mlh.com", level: "program", role: "Official MLH Hack Day", confirmed: true },
   );
   assert.deepEqual(
-    { url: CF.url, level: CF.level, role: CF.role, confirmed: CF.confirmed },
-    { url: "https://www.cloudflare.com", level: "challenge", role: "Challenge partner: Best Use of Cloudflare", confirmed: true },
+    { url: GH.url, level: GH.level, role: GH.role, confirmed: GH.confirmed },
+    { url: "https://github.com/features/copilot", level: "challenge", role: "Challenge partner: Best Hack Built with GitHub Copilot", confirmed: true },
   );
-  assert.ok(MLH.alt && CF.alt);
+  assert.ok(MLH.alt && GH.alt);
   assert.equal(mlh.hackDayBadge, "An official MLH Hack Day");
   assert.equal(MLH.logo, mlh.logo);
 });
@@ -32,11 +32,11 @@ test("partner logos are the official, unaltered files", () => {
   const mlhFile = join("public", MLH!.logo);
   assert.ok(existsSync(mlhFile) && statSync(mlhFile).size > 0, "MLH logo missing");
   assert.ok(readFileSync(mlhFile, "utf8").startsWith("<svg"), "MLH logo is not the SVG");
-  // Cloudflare's press-kit logo, used with its written permission.
-  assert.equal(CF!.logo, "/sponsors/cloudflare-logo.png");
-  const cfFile = join("public", CF!.logo);
-  assert.ok(existsSync(cfFile) && statSync(cfFile).size > 0, "Cloudflare logo missing");
-  assert.deepEqual([...readFileSync(cfFile).subarray(1, 4)], [0x50, 0x4e, 0x47], "Cloudflare logo is not a PNG");
+  // GitHub's official "GitHub Copilot" lockup from its brand assets.
+  assert.equal(GH!.logo, "/sponsors/github-copilot-logo.svg");
+  const ghFile = join("public", GH!.logo);
+  assert.ok(existsSync(ghFile) && statSync(ghFile).size > 0, "GitHub Copilot logo missing");
+  assert.ok(readFileSync(ghFile, "utf8").startsWith("<svg"), "GitHub Copilot logo is not the SVG");
 });
 
 test("display order: organizing, then program, then challenge, then local sponsors", () => {
@@ -45,7 +45,7 @@ test("display order: organizing, then program, then challenge, then local sponso
   assert.deepEqual(ranks, [...ranks].sort((a, b) => a - b));
   assert.deepEqual(
     eventPartners.map((s) => s.name),
-    ["Major League Hacking (MLH)", "Cloudflare"],
+    ["Major League Hacking (MLH)", "GitHub"],
   );
 });
 
@@ -58,7 +58,7 @@ test("event partners never appear in a list of funders", () => {
       assert.ok(!bookletCopy(pack).room.sponsors.some((s) => s.name === name), `${name} is in the ${pack.key} booklet's sponsors`);
     }
   }
-  assert.ok(!/MLH|Cloudflare/.test(sponsorList));
+  assert.ok(!/MLH|GitHub/.test(sponsorList));
 });
 
 test("no MLH Trust Badge anywhere", () => {

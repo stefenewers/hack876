@@ -1,6 +1,6 @@
 # Hack 876 as an MLH Hack Day: organizer runbook
 
-Hack 876 is an official MLH Hack Day: Saturday 20 February 2027, Spanish Court Hotel, 1 St Lucia Avenue, Kingston 5, Jamaica, all times Jamaica time (UTC-5). This runbook covers what the organizers do before, on and after the day. Site copy lives in `src/data/event.ts` (`registration`, `mlh`, `cloudflareChallenge`, `venue`, `incidentLead`, `venueSafety`).
+Hack 876 is an official MLH Hack Day: Saturday 20 February 2027, Spanish Court Hotel, 1 St Lucia Avenue, Kingston 5, Jamaica, all times Jamaica time (UTC-5). This runbook covers what the organizers do before, on and after the day. Site copy lives in `src/data/event.ts` (`registration`, `mlh`, `copilotChallenge`, `venue`, `incidentLead`, `venueSafety`).
 
 > **Participant data.** All registration, check-in, attendance and submission data stays in MLH OrganizerHQ. Never export it into this repo, its tests, its docs or any generated PDF. Most participants are minors.
 
@@ -15,7 +15,7 @@ Hack 876 is an official MLH Hack Day: Saturday 20 February 2027, Spanish Court H
 | MLH Code of Conduct | https://mlh.io/code-of-conduct (also at https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md) |
 | MLH incident email | incidents@mlh.io |
 | MLH Standard Hackathon Rules | https://github.com/MLH/mlh-policies/blob/main/standard-hackathon-rules.md |
-| Cloudflare partner page | https://www.mlh.com/partners/cloudflare |
+| GitHub Copilot challenge module | https://hacktoberfest-handbook.mlh.com/hack-days-partner-modules/partner-challenge-github-copilot |
 | MLH Hack Day guide | https://hackdays-guide.mlh.com |
 | Hack 876 questions | info@hack876.com |
 
@@ -26,8 +26,8 @@ Hack 876 is an official MLH Hack Day: Saturday 20 February 2027, Spanish Court H
 - **Format:** entirely in person, free for students. Check-in is at the doors only: no remote or advance check-in.
 - **Devices:** students bring their own laptop and charger. Hack 876 provides no laptops and has no borrowing scheme.
 - **Branding:** "An official MLH Hack Day", with the official, unaltered MLH logo. No MLH Trust Badge (that is for MLH Member Events).
-- **Cloudflare:** event partner for the "Best Use of Cloudflare" challenge, not a paying sponsor. Its official press-kit logo is used, unaltered, with Cloudflare's written permission.
-- **Prizes:** only prizes provided by the organizers and local sponsors, labelled tentative. Nothing from MLH or Cloudflare is promised until confirmed in writing.
+- **GitHub:** event partner for the "Best Hack Built with GitHub Copilot" challenge (replacing Cloudflare), not a paying sponsor. The official, unaltered "GitHub Copilot" lockup from GitHub's brand assets is used.
+- **Prizes:** only prizes provided by the organizers and local sponsors, labelled tentative. Nothing from MLH or GitHub is promised until confirmed in writing.
 - **Submissions:** only on the MLH Challenges page. One submission per presenting team, selecting every challenge it is eligible for, made by one team member signed in with MyMLH after check-in.
 - **Contact:** info@hack876.com.
 
@@ -40,19 +40,19 @@ Hack 876 is an official MLH Hack Day: Saturday 20 February 2027, Spanish Court H
 - [ ] Venue safety: exits, assembly point, first-aid location and first aider, accessibility arrangements (step-free entry, accessible toilets) and the nearest hospital. Set `venueSafety` in `src/data/event.ts`.
 - [ ] Confirm the schedule in OrganizerHQ matches the site's `schedule` in `src/data/event.ts`.
 - [ ] Set the Submissions window in OrganizerHQ to open and close at the schedule's times (open 3:00 PM, close 4:00 PM, before demos at 4:15 PM), with late submissions off and reminders 60 and 30 minutes before close.
-- [ ] Confirm in writing with MLH: Cloudflare credits, prize format and receipt deadlines (not received yet).
-- [ ] Confirm in writing with MLH that minors are eligible for the Best Use of Cloudflare challenge.
-- [x] Get permission to use the Cloudflare logo. Written permission received; the press-kit PNG is `public/sponsors/cloudflare-logo.png`.
+- [ ] Confirm in writing with MLH: the GitHub Copilot challenge prize, prize format and receipt deadlines (not received yet).
+- [ ] Confirm in writing with MLH that minors are eligible for the Best Hack Built with GitHub Copilot challenge, and that the MLH Challenges page lists it instead of Cloudflare.
+- [ ] Get GitHub's written permission for the GitHub Copilot logo (GitHub's brand guidelines require it), or confirm MLH's partner agreement covers it. The lockup is `public/sponsors/github-copilot-logo.svg`.
 - [ ] Decide what happens past 80 registrations (waitlist or close registration), whether registration is open beyond the participating schools, and any registration close date (`registration.closes`).
 - [ ] Approve the tie rule on the Event Rules page (a proposal: Execution scores, then a majority vote).
-- [ ] Owner task, separate from the site: an Instagram welcome post for MLH and Cloudflare as event partners.
+- [ ] Owner task, separate from the site: an Instagram welcome post for MLH and GitHub as event partners.
 - [ ] Prepare the photo-consent list for the photographer (students who must not be photographed).
 - [ ] Brief the judges: the six criteria, conflict-of-interest recusal and the tie rule.
 
 ## On the day
 
 - [ ] Check-in at the doors, in person only: OrganizerHQ check-in, school ID, signed consent form.
-- [ ] Opening: welcome, the Code of Conduct and both incident contacts (organizers and incidents@mlh.io), MLH, the Best Use of Cloudflare challenge, and how to submit.
+- [ ] Opening: welcome, the Code of Conduct and both incident contacts (organizers and incidents@mlh.io), MLH, the GitHub Copilot challenge, and how to submit.
 - [ ] Lunch at 12:00 PM, with snacks and water through the day. No alcohol.
 - [ ] Submission reminders 60 and 30 minutes before close. Submissions close at the end of hacking, before demos.
 - [ ] Demos and judging, with conflict-of-interest recusals.

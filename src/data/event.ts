@@ -88,18 +88,18 @@ export const mlh = {
   logo: "/sponsors/mlh-logo-color.svg",
 } as const;
 
-/** The "Best Use of Cloudflare" partner challenge. Details and anything on offer live on the MLH Challenges page. */
-export const cloudflareChallenge = {
-  name: "Best Use of Cloudflare",
-  summary: "Build and deploy on Cloudflare Workers and use Workers AI in a meaningful way. Details are on the MLH Challenges page.",
+/** The "Best Hack Built with GitHub Copilot" partner challenge. Details and anything on offer live on the MLH Challenges page. */
+export const copilotChallenge = {
+  name: "Best Hack Built with GitHub Copilot",
+  summary:
+    "Build a working, open-source AI project with GitHub Copilot and show where Copilot helped. Students can get Copilot through the GitHub Student Developer Pack. Details are on the MLH Challenges page.",
   docs: [
-    { label: "Cloudflare Workers", href: "https://developers.cloudflare.com/workers/" },
-    { label: "Workers: get started", href: "https://developers.cloudflare.com/workers/get-started/guide/" },
-    { label: "Workers AI", href: "https://developers.cloudflare.com/workers-ai/" },
-    { label: "Workers AI: get started", href: "https://developers.cloudflare.com/workers-ai/get-started/" },
-    { label: "Workers AI models", href: "https://developers.cloudflare.com/workers-ai/models/" },
+    { label: "GitHub Copilot docs", href: "https://docs.github.com/en/copilot" },
+    { label: "Copilot quickstart", href: "https://docs.github.com/en/copilot/get-started/quickstart-for-using-github-copilot-on-github-com" },
+    { label: "GitHub Student Developer Pack", href: "https://education.github.com/pack" },
+    { label: "Licensing a repository", href: "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository" },
   ],
-  // TODO(owner): confirm in writing with MLH that minors are eligible for the Cloudflare challenge and what, if anything, it offers. State neither until confirmed.
+  // TODO(owner): confirm in writing with MLH that minors are eligible for the GitHub Copilot challenge and what, if anything, it offers. State neither until confirmed.
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -352,7 +352,7 @@ export const schedule: {
 }[] = [
   // TODO(owner): reconcile these times with the schedule in MLH OrganizerHQ, including the submission window.
   { time: "8:00 AM", title: "Doors open + check-in", note: "Doors open and in-person check-in at the entrance. Check-in is only possible at the venue, in person.", phase: "arrive" },
-  { time: "9:00 AM", title: "Opening", note: "Welcome, the Code of Conduct, MLH, the Best Use of Cloudflare challenge, and how to submit.", phase: "arrive" },
+  { time: "9:00 AM", title: "Opening", note: "Welcome, the Code of Conduct, MLH, the GitHub Copilot challenge, and how to submit.", phase: "arrive" },
   { time: "9:20 AM", title: "Keynote", note: "A little inspiration before the chaos.", phase: "arrive" },
   { time: "9:35 AM", title: "Challenge reveal", note: "The prompt drops. Start scheming.", phase: "arrive", highlight: true },
   { time: "9:45 AM", title: "Hacking begins", note: "Clock’s running. Build.", phase: "build", highlight: true },
@@ -529,8 +529,8 @@ export const sponsors: Sponsor[] = [
   { name: "P237 Labs", logo: "/sponsors/p237-labs.png", url: "", level: "organizing", confirmed: true },
   // Event partners: shown in their own group, never in a list of funders.
   { name: "Major League Hacking (MLH)", logo: "/sponsors/mlh-logo-color.svg", url: "https://mlh.com", level: "program", role: "Official MLH Hack Day", alt: "Major League Hacking (MLH) logo", confirmed: true },
-  // Official press-kit logo, unaltered. Used with Cloudflare's written permission (its trademark guidelines require it).
-  { name: "Cloudflare", logo: "/sponsors/cloudflare-logo.png", url: "https://www.cloudflare.com", level: "challenge", role: "Challenge partner: Best Use of Cloudflare", alt: "Cloudflare logo", confirmed: true },
+  // Official "GitHub Copilot" lockup from GitHub's brand assets (brand.github.com), unaltered.
+  { name: "GitHub", logo: "/sponsors/github-copilot-logo.svg", url: "https://github.com/features/copilot", level: "challenge", role: "Challenge partner: Best Hack Built with GitHub Copilot", alt: "GitHub Copilot logo", confirmed: true },
   { name: "GraceKennedy General Insurance", logo: "/sponsors/gk-general-insurance.jpeg", url: "", level: "partner", confirmed: false },
   { name: "Vault Motors", logo: "/sponsors/vault-motors.jpeg", url: "", level: "partner", confirmed: true },
   { name: "Norus Technologies", logo: "/sponsors/norus-technologies.png", url: "https://norustech.com/", level: "partner", confirmed: true },
@@ -541,7 +541,7 @@ export const sponsors: Sponsor[] = [
   { name: "SOS Ltd", logo: "/sponsors/sos-ltd.png", url: "https://www.sosjm.com", level: "partner", confirmed: true },
 ];
 
-/** Event partners (MLH, Cloudflare), in display order. Never listed as funders. */
+/** Event partners (MLH, GitHub), in display order. Never listed as funders. */
 export const eventPartners = sponsors.filter((s) => s.level === "program" || s.level === "challenge");
 
 /**
@@ -645,8 +645,8 @@ export const faqs: Faq[] = [
     a: `Only on the MLH Challenges page: ${registration.challengesUrl}. Each team makes one submission and selects every challenge it is eligible for. One team member signs in with their MyMLH account to submit, after checking in at the venue.`,
   },
   {
-    q: `What is “${cloudflareChallenge.name}”?`,
-    a: `An optional partner challenge any team can enter, on top of its track. ${cloudflareChallenge.summary} The requirements are on the Event Rules page.`,
+    q: `What is “${copilotChallenge.name}”?`,
+    a: `An optional partner challenge any team can enter, on top of its track. ${copilotChallenge.summary} The requirements are on the Event Rules page.`,
   },
   {
     q: "Who are the judges?",

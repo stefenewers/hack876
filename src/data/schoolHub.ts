@@ -1,4 +1,4 @@
-import { buildTypes, cloudflareChallenge, eligibility, event, eventWhen, foodNote, judging, people, prizes, prizesNote, registration, schedule, venue, venueArrivalPending } from "./event";
+import { buildTypes, copilotChallenge, eligibility, event, eventWhen, foodNote, judging, people, prizes, prizesNote, registration, schedule, venue, venueArrivalPending } from "./event";
 import { organizerAlumniClause } from "./alumni";
 import type { SchoolBrief } from "./schoolBriefs";
 
@@ -479,13 +479,13 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
       link: { href: "/rules#submitting", label: "Event Rules: submitting" },
     },
     {
-      id: "cloudflare",
-      q: `What is “${cloudflareChallenge.name}”?`,
-      a: `An optional partner challenge any team can enter, on top of its track. ${cloudflareChallenge.summary}`,
+      id: "copilot",
+      q: `What is “${copilotChallenge.name}”?`,
+      a: `An optional partner challenge any team can enter, on top of its track. ${copilotChallenge.summary}`,
       category: "Judging & prizes",
       audience: ["students", "teachers"],
-      keywords: "cloudflare workers ai challenge partner bonus",
-      link: { href: "/rules#cloudflare", label: "Event Rules: Best Use of Cloudflare" },
+      keywords: "github copilot ai open source challenge partner bonus",
+      link: { href: "/rules#copilot", label: "Event Rules: Best Hack Built with GitHub Copilot" },
     },
 
     /* ------------------------------------------------------------ After the event */

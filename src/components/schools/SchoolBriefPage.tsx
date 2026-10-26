@@ -171,7 +171,7 @@ function OnBoard({ n, brief }: { n: string; brief: SchoolBrief }) {
   const confirmed = confirmedSchools.filter((s) => s !== brief.school);
   const judges = people.filter((p) => p.role === "judge" && p.confirmed);
   const employers = [...new Set(judges.map((p) => (p.organization ?? "").replace(/ \(.*\)$/, "")).filter(Boolean))];
-  /* Local sponsors only: event partners (MLH, Cloudflare) are not funders. */
+  /* Local sponsors only: event partners (MLH, GitHub) are not funders. */
   const backers = localSponsors.filter((s) => s.confirmed && s.level !== "organizing");
   return (
     <section aria-labelledby="sb-onboard" className="lp-section lp-dark lp-grid-bg">
