@@ -279,7 +279,7 @@ export function letterCopy(pack: PrincipalPack, printDate?: string) {
     paragraphs: [
       `We write to invite students of ${name} to take part in Hack 876, a free, one-day hackathon on ${eventDate} at the ${venue.name}, ${venue.area}. Students in ${formsFor(brief)} from schools across Kingston will work in teams of ${TEAM} to build a working prototype of an idea, then present it to judges from industry.`,
       [pack.why, ...connectionLines(pack), pack.extraLine ?? ""].filter(Boolean).join(" "),
-      `Taking part asks very little of ${short}. There is no cost to the school or to students, nothing for the school to host, organize or transport, and no class time, because the event is on a Saturday. We ask only for a member of staff to act as our contact, and for teachers to share the opportunity with eligible students and recommend those who would enjoy it. The organizers handle consent forms and the event itself, and families receive safety details before the day. Whether students take part remains a decision for the school and for families.`,
+      `Taking part asks very little of ${short}. There is no cost to the school or to students, nothing for the school to host, organize or transport, and no class time, because the event is on a Saturday. We ask only for a member of staff to act as our contact, and for teachers to share the opportunity with eligible students, who register themselves on MLH. The organizers handle consent forms and the event itself, and families receive safety details before the day. Whether students take part remains a decision for the school and for families.`,
       `${pack.emailNote} ${callToAction(short)} ${confirmedLine(short)}`,
     ],
     close: pack.verified ? "Yours sincerely," : "Yours faithfully,",
@@ -351,7 +351,7 @@ export function bookletCopy(pack: PrincipalPack) {
 
   const steps = brief.nextSteps?.slice(1) ?? [
     { k: "Then", v: "Teachers share the opportunity, and students apply." },
-    { k: "Before the event", v: "Accepted students and their families receive consent forms." },
+    { k: "Before the event", v: "Registered students and their families receive consent forms." },
     { k: "Event day", v: "Hack 876." },
   ];
 
@@ -450,7 +450,7 @@ export function bookletCopy(pack: PrincipalPack) {
       asks: [
         `Confirm ${possessive(short)} participation by email to ${EMAIL}.`,
         "Name a member of staff as our contact.",
-        `Share the opportunity with eligible students in ${forms}, and recommend those who would enjoy it.`,
+        `Share the opportunity with eligible students in ${forms}, who register themselves on MLH.`,
         "Advise us on school permissions and on communication with parents.",
       ],
       notAsked: `${short} is not asked to pay, host, organize, transport or supervise anything.`,

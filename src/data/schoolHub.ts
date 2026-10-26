@@ -511,7 +511,7 @@ export function hubFaqs(brief: SchoolBrief): HubFaq[] {
     /* --------------------------------------------------------------- For teachers */
     {
       id: "recommend",
-      q: "How do teachers recommend students?",
+      q: "How do teachers share Hack 876 with students?",
       a: brief.hub ? brief.hub.faculty.process.join(" ") : "",
       category: "For teachers",
       audience: ["teachers"],

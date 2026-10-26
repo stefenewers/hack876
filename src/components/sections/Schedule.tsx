@@ -4,7 +4,7 @@ import { useEffect, useRef, type CSSProperties } from "react";
 import { DoctorBird } from "@/components/art/DoctorBird";
 import { BrushEdge, Mark } from "@/components/art/Marks";
 import { useReducedMotion } from "@/components/motion/hooks";
-import { eventWhen, phaseLabels, schedule, type SchedulePhase } from "@/data/event";
+import { event, eventWhen, phaseLabels, schedule, type SchedulePhase } from "@/data/event";
 
 const phaseDot: Record<SchedulePhase, string> = {
   arrive: "bg-sky",
@@ -64,6 +64,7 @@ export function Schedule() {
             <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-sun" />
             {eventWhen.long}
           </p>
+          <p className="mt-3 text-sm font-semibold text-cream/70">All times are {event.timeZone}.</p>
           <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-cream/80" aria-label="Phases">
             {(Object.keys(phaseLabels) as SchedulePhase[]).map((ph) => (
               <li key={ph} className="flex items-center gap-2">
@@ -72,7 +73,7 @@ export function Schedule() {
               </li>
             ))}
           </ul>
-          <p className="mt-8 text-sm text-cream/60">Times may shift a little. Final run-of-show goes to accepted hackers.</p>
+          <p className="mt-8 text-sm text-cream/60">Times may shift a little. The final run-of-show goes to registered students.</p>
         </div>
 
         <ol ref={listRef} className="relative" style={{ "--p": 0 } as CSSProperties}>

@@ -45,7 +45,7 @@ export const whatItIs = `A one-day build competition in Kingston for about ${eli
 /** The same sentence for a recipient outside Jamaica: ages, not Jamaican Forms. */
 export const whatItIsAbroad = `A free one-day build competition in Kingston, Jamaica, for about ${eligibility.maxHackers} high-school students aged 15 to 19, working in teams of ${eligibility.teamSize.min} to ${eligibility.teamSize.max}. Teams pick a real problem and finish the day with a working prototype and a pitch to judges.`;
 
-/** The event at a glance. Tentative and confirmed are labelled as event.ts has them. */
+/** The event at a glance, as event.ts has it. */
 export const eventFacts: { label: string; value: string }[] = [
   { label: "When", value: eventWhen.long },
   { label: "Where", value: `${venue.name}, Kingston${venue.confirmed ? " (confirmed)" : " (to be confirmed)"}` },
