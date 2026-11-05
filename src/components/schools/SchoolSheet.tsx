@@ -293,6 +293,7 @@ function FacultySheet({ brief }: { brief: SchoolBrief }) {
           <p className="mt-1.5 text-[0.92rem] leading-tight font-extrabold">{liaison.name}</p>
           <p className="text-[0.74rem] font-bold text-[var(--sb-primary)]">{liaison.title}</p>
           <p className="mt-1 text-[0.74rem] leading-snug text-ink-2">{here(liaison.text)}</p>
+          {"email" in liaison && liaison.email && <p className="mt-0.5 text-[0.74rem] font-extrabold">{liaison.email}</p>}
           <div className="mt-3.5">
             <H>Student ambassadors</H>
             <p className="mt-1.5 text-[0.74rem] leading-snug text-ink-2">{hub.ambassadors.summary}</p>

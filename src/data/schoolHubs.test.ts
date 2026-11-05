@@ -121,7 +121,8 @@ test("confirmed hubs carry no outreach language", () => {
 
 test("pending details stay visibly pending", () => {
   const girls = quickStatus(hub("wolmers-girls"));
-  assert.equal(girls.find((f) => f.k === "Faculty liaison")?.v, "To be confirmed");
+  assert.equal(girls.find((f) => f.k === "Faculty liaison")?.v, "Donette Wint");
+  assert.equal(girls.find((f) => f.k === "Student ambassadors")?.v, "To be nominated");
   assert.equal(girls.find((f) => f.k.endsWith("planning estimate"))?.v, "Not set");
   for (const b of schoolHubs) assert.equal(quickStatus(b)[0].v, "Confirmed participating school");
 });

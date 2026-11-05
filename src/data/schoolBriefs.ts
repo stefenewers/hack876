@@ -113,7 +113,7 @@ export type SchoolBrief = {
      * The faculty liaison as shown on the hub and teacher sheet. Defaults to `liaison`.
      * Set it when the brief's addressee is not the liaison, or the liaison is not yet appointed.
      */
-    liaison?: { name: string; title: string; text: string; pending?: boolean };
+    liaison?: { name: string; title: string; text: string; email?: string; pending?: boolean };
     /** Arrangements only the school can settle, shown as "Awaiting school guidance". */
     schoolGuidance?: { k: string; v: string }[];
   };
@@ -489,17 +489,17 @@ export const schoolBriefs: SchoolBrief[] = [
     eventIntro:
       "A hackathon is an event where small teams build something from scratch in a single day, then present it to judges. No programming experience is needed: teams also need students who design, research, write and present. Mentors who work in industry help throughout the day.",
     liaison: {
-      name: "To be confirmed",
+      name: "Donette Wint",
       title: "Faculty liaison · Wolmer’s Girls’ School",
       credentials: "",
       photo: null,
-      role: "Wolmer’s Girls’ School has not yet named a faculty liaison for Hack 876.",
+      role: "Donette Wint is the point of contact at Wolmer’s Girls’ for Hack 876. Teachers can pass questions to her, and she coordinates with the Hack 876 organizing team.",
       note: "Wolmer’s Girls’ School has confirmed its participation. Every student still registers individually on MLH, and places are limited.",
     },
     hub: {
       status:
-        "Wolmer’s Girls’ School has confirmed that it is taking part in Hack 876. The school’s faculty liaison and student ambassadors are still to be confirmed. Hack 876 is organized independently of Wolmer’s Girls’ School, and individual student places are not guaranteed.",
-      cardLine: "Faculty liaison and student ambassadors to be confirmed.",
+        "Wolmer’s Girls’ School has confirmed that it is taking part in Hack 876. Donette Wint is the faculty liaison. Hack 876 is organized independently of Wolmer’s Girls’ School, and individual student places are not guaranteed.",
+      cardLine: "Faculty liaison: Donette Wint. Student ambassadors to be nominated.",
       ambassadors: {
         status: "To be nominated",
         summary: "Student ambassadors have not been nominated yet. Their names will not be published without permission.",
@@ -519,12 +519,12 @@ export const schoolBriefs: SchoolBrief[] = [
         ],
       },
       schoolChannel:
-        "For questions about Wolmer’s Girls’ own arrangements, such as school permission to attend, contact the school office: wgs@wolmers.org or (876) 922-4084.",
+        "For questions about Wolmer’s Girls’ own arrangements, such as school permission to attend, contact Donette Wint, the faculty liaison, at Donette.Wint@wolmers.org, or the school office at wgs@wolmers.org or (876) 922-4084.",
       liaison: {
-        name: "To be confirmed",
-        title: "Faculty liaison",
-        text: "Wolmer’s Girls’ School has not yet named a faculty liaison for Hack 876. Until it does, teachers can send questions to the organizing team.",
-        pending: true,
+        name: "Donette Wint",
+        title: "Faculty liaison · Wolmer’s Girls’ School",
+        text: "Donette Wint is the point of contact at Wolmer’s Girls’ for Hack 876. Teachers can pass questions to her, and she coordinates with the Hack 876 organizing team.",
+        email: "Donette.Wint@wolmers.org",
       },
       schoolGuidance: [
         {

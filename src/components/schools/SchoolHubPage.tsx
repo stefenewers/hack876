@@ -852,6 +852,11 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
             <p className="mt-1.5 text-xl font-extrabold">{liaison.name}</p>
             <p className="font-bold text-[var(--sb-primary)]">{liaison.title}</p>
             <p className="mt-3 text-[0.98rem] leading-relaxed text-ink-2">{liaison.text}</p>
+            {"email" in liaison && liaison.email && (
+              <a href={`mailto:${liaison.email}`} className={`mt-2 inline-block break-all ${linkClass}`}>
+                {liaison.email}
+              </a>
+            )}
             {liaison.pending && <Todo>Who acts as {possessive(short)} faculty liaison.</Todo>}
           </div>
           <div className="hub-card p-5">
