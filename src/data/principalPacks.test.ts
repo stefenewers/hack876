@@ -8,7 +8,7 @@ const { bookletCopy, confirmedLine, coverCopy, letterCopy, principalPacks, signa
 const { confirmedSchools, event, people } = await import("./event.ts");
 const { schoolBriefs } = await import("./schoolBriefs.ts");
 
-const KEYS = ["ardenne", "jamaica-college", "immaculate", "st-andrew", "st-georges", "aisk", "wolmers", "wolmers-girls"];
+const KEYS = ["ardenne", "jamaica-college", "immaculate", "st-andrew", "st-georges", "aisk", "wolmers"];
 const brief = (slug: string) => schoolBriefs.find((b) => b.slug === slug);
 const DATE = "2026-10-16";
 
@@ -83,7 +83,3 @@ test("the St George's applicant line is off, and never names a student", () => {
   assert.doesNotMatch(JSON.stringify(letterCopy(p, DATE)), /applied/);
 });
 
-test("Wolmer's Girls' does not reuse the Boys' School examples", () => {
-  const { text } = copyFor("wolmers-girls");
-  assert.doesNotMatch(text, /Boys|Robotics Olympics|FTC Jamaica/);
-});

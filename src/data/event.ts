@@ -159,7 +159,8 @@ export const schools = [
   "Campion College",
   "Jamaica College",
   "Immaculate Conception High School",
-  "Wolmer's",
+  "Wolmer's Boys' School",
+  "Wolmer's Girls' School",
   "Ardenne High School",
   "American International School of Kingston",
   "St. Andrew High School for Girls",
@@ -169,13 +170,13 @@ export const schools = [
 export type School = (typeof schools)[number];
 
 /** Schools that have formally confirmed. */
-export const confirmedSchools: readonly School[] = ["Campion College", "Hillel Academy"];
+export const confirmedSchools: readonly School[] = ["Campion College", "Hillel Academy", "Wolmer's Girls' School"];
 
 /** Schools in active talks. Everyone not confirmed or in talks shows "Pending confirmation". */
 export const schoolsInTalks: readonly School[] = [
   "Jamaica College",
   "Immaculate Conception High School",
-  "Wolmer's",
+  "Wolmer's Boys' School",
   "Ardenne High School",
   "American International School of Kingston",
   "St. Andrew High School for Girls",
@@ -204,7 +205,9 @@ export const schoolLogos: Partial<Record<School, string>> = {
   "Campion College": "/schools/campion-college.png",
   "Jamaica College": "/schools/jamaica-college.png",
   "Immaculate Conception High School": "/schools/immaculate-conception.png",
-  "Wolmer's": "/schools/wolmers.png",
+  // Both Wolmer's schools use the Wolmer's crest.
+  "Wolmer's Boys' School": "/schools/wolmers.png",
+  "Wolmer's Girls' School": "/schools/wolmers.png",
   "Ardenne High School": "/schools/ardenne-high.png",
   "American International School of Kingston": "/schools/aisk.png",
   "St. Andrew High School for Girls": "/schools/st-andrew-high.png",

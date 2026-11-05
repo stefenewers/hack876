@@ -855,7 +855,7 @@ export const schoolBriefs: SchoolBrief[] = [
   {
     slug: "wolmers",
     unlisted: true,
-    school: "Wolmer's",
+    school: "Wolmer's Boys' School",
     short: "Wolmer’s",
     people: "Wolmerians",
     crest: "/schools/wolmers.png",

@@ -155,39 +155,6 @@ export const principalPacks: PrincipalPack[] = [
     code: "WBS",
     why: "In October 2026 a Wolmer’s Boys’ student was on Team Jamaica at the FIRST Global Robotics Olympics in Incheon, and Wolmer’s 300 is adding expanded ICT labs and a multimedia STEAM centre.",
   },
-  {
-    key: "wolmers-girls",
-    briefSlug: "wolmers",
-    displayName: "Wolmer’s High School for Girls",
-    short: "Wolmer’s Girls’",
-    address: ["The Principal", "Wolmer's High School for Girls", "2A Marescaux Road", "Kingston 5"],
-    salutation: "Dear Principal,",
-    verified: false,
-    confirmBeforePrint: true,
-    confirmNote: "The principal's name is not verified, so the letter is addressed to The Principal.",
-    emailNote: "We wrote to Wolmer’s by email on 16 October 2026 and would be glad to hear from you.",
-    code: "WGS",
-    why: "The Wolmer’s Trust is positioning its schools for the next 300 years: Wolmer’s 300 is adding expanded ICT labs, a professional studio and a multimedia STEAM centre.",
-    /* The brief's examples are from the Boys' School. Only Wolmer's 300, the solar system and the motto apply here. */
-    fit: {
-      headline: "Wolmer’s is building for its next 300 years.",
-      lead: "The Wolmer’s Trust is positioning its schools for the next 300 years, with new space for technology, media and STEAM.",
-      points: [
-        { k: "Wolmer’s 300", v: "Expanded ICT labs, a professional studio and a multimedia STEAM centre, being built now." },
-        { k: "Solar powered", v: "954 solar panels, installed in 2024, power all three Wolmer’s campuses." },
-        { k: "Age Quod Agis", v: "Whatever you do, do it to the best of your ability." },
-      ],
-      quote: {
-        text: "Given the local trends in skills development driven by rapid technology changes, the rise of artificial intelligence as a daily necessity, an investment in our economy, Wolmer’s must now position itself for the next 300 years.",
-        by: "Wolmer’s Trust, Wolmer’s 300",
-        source: 3,
-        cite: "wolmers.org",
-      },
-      bridge:
-        "Hack 876 adds students from other schools, a fixed deadline, industry mentors and judges who ask teams to explain their decisions. It is a single Saturday that asks nothing of the school timetable, and students bring their own devices.",
-    },
-    connections: false,
-  },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -235,7 +202,7 @@ export function packSchool(pack: PrincipalPack) {
   return { brief, name: pack.displayName ?? brief.school, short: pack.short ?? brief.short };
 }
 
-/** "JC’s", but "St George’s" and "Wolmer’s Girls’" stay as they are. */
+/** "JC’s", but "St George’s" stays as it is. */
 const possessive = (s: string) => (/’s?$|'s?$/.test(s) ? s : `${s}’s`);
 const article = (s: string) => (/^[AEIOU]/i.test(s) ? "an" : "a");
 /** Employer as listed, without product names in brackets. */
@@ -259,7 +226,7 @@ export function connectionLines(pack: PrincipalPack) {
 
 /** The sentence about the confirmed schools. The only place "confirmed" may describe a school. */
 export const confirmedLine = (short: string) =>
-  `${confirmedSchools.join(" and ")} have confirmed their participation, and we would be honoured to welcome ${short} students alongside them.`;
+  `${confirmedSchools.slice(0, -1).join(", ")} and ${confirmedSchools[confirmedSchools.length - 1]} have confirmed their participation, and we would be honoured to welcome ${short} students alongside them.`;
 
 /** The call to action used everywhere. */
 export const callToAction = (short: string) => `To confirm ${possessive(short)} participation, please email ${EMAIL}, or ask a member of staff to do so.`;
