@@ -8,42 +8,50 @@ import { Footer } from "@/components/site/Footer";
 import { RegisterLink } from "@/components/site/RegisterLink";
 import { buildTypes, eligibility, event, judging, mlh, people, registration, schedule, schools, venue } from "@/data/event";
 import { alumniSummary, organizerAlumniClause } from "@/data/alumni";
-import { schoolAlumni, type SchoolBrief } from "@/data/schoolBriefs";
+import { isPitch, schoolAlumni, type SchoolBrief } from "@/data/schoolBriefs";
 import {
+  ambassadorRole,
   bringList,
   formsFor,
+  hubLiaison,
+  hubUrl,
+  hubUrlShort,
+  mediaHref,
+  mediaVariants,
+  possessive,
+  quickStatus,
   registrationState,
   hubCategories,
-  hubFacts,
   hubFaqs,
   organizerNames,
   PROTOTYPE,
   PROTOTYPE_EXAMPLES,
+  schoolResources,
   schoolSheets,
+  shareMessages,
   statusLabel,
   TODO_LABEL,
   type HubFaq,
   type HubStatus,
 } from "@/data/schoolHub";
+import { CopyButton } from "./CopyButton";
 import { FaqSearch } from "./FaqSearch";
+import { statusClass } from "./status";
 import "./hub.css";
 
 /*
- * A school's participation hub: everything a student, parent or teacher needs
- * to take part, in one place. Written for a reader who has never heard of
- * Hack 876 and knows nothing about how the school became involved. Rendered at /schools/<slug> for any school whose
- * brief has `hub` set. Event facts come from event.ts via schoolHub.ts; only
- * the relationship and community details come from the school's entry.
+ * A confirmed school's participation hub: everything a student, parent,
+ * teacher or student ambassador needs, in one place. Written for a reader who
+ * has never heard of Hack 876 and knows nothing about how the school became
+ * involved. Rendered at /schools/<slug> for every school in `confirmedSchools`
+ * (see `isHub`). Event facts come from event.ts via schoolHub.ts; only the
+ * relationship and community details come from the school's entry. Server
+ * rendered; only the FAQ search and copy buttons run in the browser.
  */
 
 const TEAM = `${eligibility.teamSize.min} to ${eligibility.teamSize.max}`;
 
 const DAY_END = schedule[schedule.length - 1]?.time ?? "";
-
-const statusClass: Record<HubStatus, string> = {
-  confirmed: "border-ink bg-mint text-emerald-dark",
-  pending: "border-ink bg-sun-light text-ink",
-};
 
 /** What is not yet decided, shown next to the facts it relates to. */
 function Todo({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
@@ -87,9 +95,31 @@ const NAV = [
   { href: "#parents", label: "Parents" },
   { href: "#ai-tools", label: "AI tools" },
   { href: "#teachers", label: "Teachers" },
-  { href: "#resources", label: "Downloads" },
+  { href: "#ambassadors", label: "Ambassadors" },
+  { href: "#resources", label: "Resources" },
   { href: "#contact", label: "Contact" },
 ];
+
+const linkClass = "font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4";
+
+function Bullets({ items, dot = "bg-[var(--sb-primary)]" }: { items: ReactNode[]; dot?: string }) {
+  return (
+    <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
+      {items.map((t, i) => (
+        <li key={i} className="flex gap-2.5">
+          <span aria-hidden className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${dot}`} />
+          <span className="min-w-0">{t}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+const DownloadIcon = () => (
+  <svg viewBox="0 0 20 20" aria-hidden className="h-4 w-4">
+    <path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 14.5V16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
 export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
   const faqs = hubFaqs(brief);
@@ -130,15 +160,16 @@ export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
           </div>
         </nav>
 
-        <About brief={brief} />
         <Paths short={brief.short} />
+        <About brief={brief} />
         <Students brief={brief} byId={byId} />
         <Registering brief={brief} byId={byId} />
-        <Parents byId={byId} />
+        <Parents brief={brief} byId={byId} />
         <AiTools />
         <Beyond byId={byId} />
         <Community brief={brief} />
         <Teachers brief={brief} />
+        <Ambassadors brief={brief} />
         <Resources brief={brief} />
 
         <section id="questions" aria-labelledby="hub-questions" className="border-t border-ink/10 bg-cream-2 py-14 sm:py-20">
@@ -178,43 +209,64 @@ export function SchoolHubPage({ brief }: { brief: SchoolBrief }) {
 /* -------------------------------------------------------------------------- */
 
 function Hero({ brief }: { brief: SchoolBrief }) {
-  const facts = hubFacts(brief);
+  const status = quickStatus(brief);
+  const guidance = brief.hub?.schoolGuidance ?? [];
   return (
     <section aria-labelledby="hub-title" className="border-t border-ink/10 pt-8 pb-10 sm:pt-12 sm:pb-14">
       <div className="hub-wrap">
-        <div className="flex items-center gap-3">
-          <Image src={brief.crest} alt="" width={44} height={44} className="h-11 w-11 object-contain" />
-          <p className="hub-kicker">Information for {brief.school} students, parents and teachers</p>
+        <div className="flex items-center gap-3.5">
+          <Image src={brief.crest} alt={`${brief.school} crest`} width={56} height={56} className="h-14 w-14 shrink-0 object-contain" />
+          <div className="min-w-0">
+            <p className="text-[1.05rem] leading-tight font-extrabold">{brief.school}</p>
+            <span className={`hub-status mt-1 ${statusClass.confirmed}`} style={{ whiteSpace: "normal" }}>
+              Confirmed participating school
+            </span>
+          </div>
         </div>
-        <h1 id="hub-title" className="mt-5 max-w-[20ch] text-[clamp(2.3rem,6.2vw,4.4rem)] leading-[1] font-extrabold tracking-[-0.04em] text-balance">
-          {brief.short} × Hack 876. <span className="hub-under text-[var(--sb-primary)]">Everything you need to know.</span>
+        <h1 id="hub-title" className="mt-6 max-w-[20ch] text-[clamp(2.2rem,6.2vw,4.4rem)] leading-[1] font-extrabold tracking-[-0.04em] text-balance">
+          {brief.short} × Hack 876. <span className="hub-under text-[var(--sb-primary)]">Everything you need, in one place.</span>
         </h1>
         <p className="hub-lead mt-5">
-          Hack 876 is a one-day competition where secondary-school students work in small teams to build a solution to a real problem,
-          then present it to judges who work in technology and business. No coding experience is needed. {brief.short} students in {formsFor(brief)} can register.
+          {brief.school} is taking part in Hack 876, {mlh.hackDayBadge.replace(/^An /, "an ")}: a one-day competition where secondary-school
+          students build a solution to a real problem in small teams, then present it to judges. It is free, and no coding experience is
+          needed. {brief.short} students in {formsFor(brief)} can register.
         </p>
-
-        <dl className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {facts.map((f) => (
-            <div key={f.k} className="hub-card px-4 py-3.5">
-              <dt className="flex items-center justify-between gap-2 text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">
-                {f.k}
-                <Status s={f.status} />
-              </dt>
-              <dd className="mt-1 text-[1.08rem] leading-snug font-extrabold">{f.v}</dd>
-            </div>
-          ))}
-        </dl>
 
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
           <RegisterLink long className="btn btn-primary" />
-          <a href="#about" className="font-bold underline decoration-2 underline-offset-4">
-            New to this? Start with what Hack 876 is
+          <a href="#paths" className="font-bold underline decoration-2 underline-offset-4">
+            Student, parent, teacher or ambassador? Start here
           </a>
         </div>
-        <p className="mt-4 text-sm text-ink-soft">
-          Hack 876 is organized independently of {brief.school}. It is free for students. {registration.accountNote}
+        <p className="mt-3 text-sm text-ink-soft">
+          {registration.accountNote} Hack 876 is organized independently of {brief.school}.
         </p>
+
+        <h2 className="hub-kicker mt-10">At a glance</h2>
+        <dl className="mt-3 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3">
+          {status.map((f, idx) => (
+            <div
+              key={f.k}
+              className={`hub-card px-3 py-3 sm:px-4 sm:py-3.5 ${f.wide ? "col-span-2 sm:col-span-1" : ""}`}
+              style={idx === 0 ? { borderColor: "var(--sb-primary)", background: "color-mix(in srgb, var(--sb-secondary) 22%, var(--color-paper))" } : undefined}
+            >
+              <dt className="flex flex-wrap items-center justify-between gap-2 text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">
+                <span className="min-w-0 break-words">{f.k}</span>
+                <Status s={f.status} />
+              </dt>
+              <dd className="mt-1 text-[0.98rem] leading-snug font-extrabold sm:text-[1.08rem]">{f.v}</dd>
+              {f.note && <dd className="mt-0.5 text-sm leading-snug text-ink-soft">{f.note}</dd>}
+            </div>
+          ))}
+        </dl>
+        {guidance.map((g) => (
+          <div key={g.k} className="hub-card-soft mt-3 p-4">
+            <p className="flex flex-wrap items-center gap-2 font-extrabold">
+              {g.k} <Status s="school" />
+            </p>
+            <p className="mt-1 text-[0.98rem] leading-relaxed text-ink-2">{g.v}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -313,18 +365,18 @@ function About({ brief }: { brief: SchoolBrief }) {
 function Paths({ short }: { short: string }) {
   const paths = [
     { href: "#students", icon: "rocket", title: "I am a student", text: "Whether it is for you, what you will do, what to bring and how to register." },
-    { href: "#parents", icon: "heart", title: "I am a parent or guardian", text: "Date, venue, hours, food, supervision, consent, transport and costs." },
-    { href: "#teachers", icon: "learn", title: "I am a teacher", text: "How to share it, which students suit it, and what the school is asked to do." },
-    { href: "#questions", icon: "sticky", title: "I have a question", text: "Search the answers, or browse them by topic." },
+    { href: "#parents", icon: "heart", title: "I am a parent or guardian", text: "Date, venue, hours, supervision, consent, food, transport and costs." },
+    { href: "#teachers", icon: "learn", title: "I am a teacher or staff member", text: "What Hack 876 handles, what the school may handle, and how to share it." },
+    { href: "#ambassadors", icon: "badge", title: "I am a student ambassador", text: "Your role, ready-made messages, graphics, a poster and a QR code." },
   ];
   return (
-    <section aria-label={`Where to start, for the ${short} community`} className="border-t border-ink/10 py-10 sm:py-14">
+    <section id="paths" aria-label={`Where to start, for the ${short} community`} className="border-t border-ink/10 py-10 sm:py-14">
       <div className="hub-wrap">
         <p className="hub-kicker">Go straight to what you need</p>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {paths.map((p) => (
             <li key={p.href}>
-              <a href={p.href} className="hub-card group flex h-full flex-col p-5 transition-transform hover:-translate-y-0.5 hover:shadow-[3px_4px_0_0_var(--color-ink)]">
+              <a href={p.href} className="hub-card group flex h-full flex-col p-5 transition-transform hover:-translate-y-0.5 hover:shadow-[3px_4px_0_0_var(--color-ink)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
                 <Icon name={p.icon} className="h-11 w-11" />
                 <span className="hub-h3 mt-3">{p.title}</span>
                 <span className="mt-1.5 flex-1 text-[0.97rem] leading-snug text-ink-2">{p.text}</span>
@@ -335,6 +387,13 @@ function Paths({ short }: { short: string }) {
             </li>
           ))}
         </ul>
+        <p className="mt-4 text-ink-2">
+          Have a specific question?{" "}
+          <a href="#questions" className={linkClass}>
+            Search the answers
+          </a>
+          .
+        </p>
       </div>
     </section>
   );
@@ -494,27 +553,36 @@ function Registering({ brief, byId }: { brief: SchoolBrief; byId: (id: string) =
 /*  Parents and guardians                                                     */
 /* -------------------------------------------------------------------------- */
 
-function Parents({ byId }: { byId: (id: string) => HubFaq }) {
+function Parents({ brief, byId }: { brief: SchoolBrief; byId: (id: string) => HubFaq }) {
   const topics: { title: string; id: string; icon: string }[] = [
+    { title: "Who runs Hack 876", id: "organizers", icon: "people" },
+    { title: "Hack 876 and MLH", id: "mlh", icon: "badge" },
     { title: "Date", id: "when", icon: "clock" },
     { title: "Venue", id: "where", icon: "pin" },
     { title: "Hours", id: "overnight", icon: "clock" },
+    { title: "Arrival and check-in", id: "arrival", icon: "pin" },
     { title: "Supervision and safety", id: "supervision", icon: "people" },
+    { title: "Code of Conduct", id: "conduct", icon: "notebook" },
+    { title: "Judges and mentors", id: "mentors", icon: "learn" },
     { title: "Consent", id: "consent", icon: "notebook" },
+    { title: "Photos", id: "photos", icon: "sticky" },
     { title: "Food", id: "food", icon: "patty" },
     { title: "Getting there and back", id: "transport", icon: "move" },
+    { title: "Can parents stay?", id: "parents-stay", icon: "heart" },
     { title: "Costs", id: "cost", icon: "business" },
     { title: "Laptops and devices", id: "laptop", icon: "laptop" },
+    { title: "AI tools and age limits", id: "ai-age", icon: "spark" },
     { title: "Contact on the day", id: "emergency", icon: "badge" },
     { title: "Access, medical and dietary needs", id: "access", icon: "wellbeing" },
+    { title: `${possessive(brief.short)} permission`, id: "school-permission", icon: "learn" },
   ];
   return (
     <section id="parents" aria-labelledby="hub-parents" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
       <div className="hub-wrap">
         <SectionHead id="hub-parents" kicker="For parents and guardians" title="What parents and guardians need to know.">
           <p>
-            Hack 876 is a supervised, single-day event at a hotel in Kingston. Each card below gives what is known. Where a detail is
-            marked &ldquo;{TODO_LABEL}&rdquo;, families will be told before the event.
+            Hack 876 is a supervised, single-day event at a hotel in Kingston, run by the Hack 876 organizing team. Each card below gives
+            what is known. Where a detail is marked &ldquo;{TODO_LABEL}&rdquo;, families will be told before the event.
           </p>
         </SectionHead>
         <ul className="mt-8 grid gap-3 md:grid-cols-2">
@@ -688,30 +756,68 @@ function Community({ brief }: { brief: SchoolBrief }) {
 
 function Teachers({ brief }: { brief: SchoolBrief }) {
   const hub = brief.hub!;
-  const liaison = hub.liaison ?? { name: brief.liaison.name, title: brief.liaison.title, text: brief.liaison.role, pending: false };
-  const split = [
+  const liaison = hubLiaison(brief);
+  const short = brief.short;
+  const columns: { title: string; items: string[]; dot: string }[] = [
     {
       title: "What Hack 876 handles",
-      items: ["The event itself (registration and submission run on MLH)", "Consent forms for parents and guardians", "The venue, schedule, food, mentors and judges", "All communication with students and families"],
+      dot: "bg-emerald",
+      items: [
+        "Organizing and running the event",
+        "Registration and project submission, on MLH",
+        "The venue, schedule, food, mentors and judges",
+        "Consent forms for parents and guardians",
+        "Event Rules, the Code of Conduct and supervision on the day",
+        "All communication with registered students and families",
+      ],
     },
     {
-      title: `What stays with ${brief.short}`,
-      items: ["Sharing the opportunity with eligible students", "Recommending Hack 876 to students, if teachers wish to", `Any school permission ${brief.short} requires for outside activities`],
+      title: `What ${short} may want to handle`,
+      dot: "bg-[var(--sb-primary)]",
+      items: [
+        "Sharing the opportunity with eligible students",
+        `Any permission ${short} requires for outside activities`,
+        "Any message to parents the school wants to send",
+        "Any school travel arrangements, if the school wishes",
+        "Naming a faculty liaison and student ambassadors",
+      ],
+    },
+    {
+      title: `What ${short} is not asked to do`,
+      dot: "bg-bill",
+      items: [
+        "Pay or sponsor anything",
+        "Host or organize anything",
+        "Teach coding or prepare students",
+        "Register students on MLH",
+        "Form teams, unless the school would like to help",
+        "Attend the event, unless school policy requires it",
+      ],
     },
   ];
   return (
     <section id="teachers" aria-labelledby="hub-teachers" className="border-t border-ink/10 py-14 sm:py-20">
       <div className="hub-wrap">
-        <SectionHead id="hub-teachers" kicker="For teachers" title={`How ${brief.short} teachers can support students.`}>
+        <SectionHead id="hub-teachers" kicker="For teachers and school staff" title={`How ${short} teachers can support students.`}>
           <p>
-            {brief.short} is not asked to pay, host or organize anything. Teachers can help by telling eligible students about Hack 876 and,
-            if they wish, helping with parent or guardian consent forms and travel. Students register themselves.
+            {short} is not asked to pay, host or organize anything. Teachers can help by telling eligible students about Hack 876 and, if
+            they wish, helping with parent or guardian consent forms and travel. Students register themselves: participation is open, not
+            nomination-only.
           </p>
         </SectionHead>
 
         <div className="hub-card-soft mt-8 p-5">
-          <h3 className="hub-h3">{brief.short}&rsquo;s involvement</h3>
+          <h3 className="hub-h3">{possessive(short)} involvement</h3>
           <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{hub.status}</p>
+        </div>
+
+        <div className="mt-3 grid gap-3 lg:grid-cols-3">
+          {columns.map((c) => (
+            <div key={c.title} className="hub-card p-5">
+              <h3 className="hub-h3">{c.title}</h3>
+              <Bullets items={c.items} dot={c.dot} />
+            </div>
+          ))}
         </div>
 
         <div className="mt-3 grid gap-3 lg:grid-cols-2">
@@ -725,59 +831,159 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
                 </li>
               ))}
             </ol>
-            <a href="#resources" className="mt-3 inline-block font-bold text-[var(--sb-primary)] underline decoration-2 underline-offset-4">
-              Download the flyer and information sheets
+            <p className="mt-3 text-sm leading-snug text-ink-soft">
+              Recommending a student is welcome, but it is never required: any eligible student can register without a teacher&rsquo;s say-so.
+            </p>
+            <a href="#resources" className={`mt-3 inline-block ${linkClass}`}>
+              Download the flyer, poster and information sheets
             </a>
           </div>
           <div className="hub-card p-5">
-            <h3 className="hub-h3">Students who are a good fit</h3>
-            <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
-              {hub.faculty.profiles.map((t) => (
-                <li key={t} className="flex gap-2.5">
-                  <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sb-primary)]" />
-                  {t}
-                </li>
-              ))}
-            </ul>
+            <h3 className="hub-h3">Students who tend to do well</h3>
+            <Bullets items={hub.faculty.profiles} />
             <p className="mt-3 text-sm text-ink-soft">Programming experience is not required.</p>
           </div>
 
-          {split.map((b) => (
-            <div key={b.title} className="hub-card p-5">
-              <h3 className="hub-h3">{b.title}</h3>
-              <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
-                {b.items.map((t) => (
-                  <li key={t} className="flex gap-2.5">
-                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sb-primary)]" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
           <div className="hub-card p-5">
-            <p className="hub-kicker">Faculty liaison</p>
+            <p className="flex flex-wrap items-center justify-between gap-2">
+              <span className="hub-kicker">Faculty liaison</span>
+              <Status s={liaison.pending ? "school" : "confirmed"} />
+            </p>
             <p className="mt-1.5 text-xl font-extrabold">{liaison.name}</p>
             <p className="font-bold text-[var(--sb-primary)]">{liaison.title}</p>
             <p className="mt-3 text-[0.98rem] leading-relaxed text-ink-2">{liaison.text}</p>
-            {liaison.pending && <Todo>Who acts as {brief.short}&rsquo;s faculty liaison.</Todo>}
+            {liaison.pending && <Todo>Who acts as {possessive(short)} faculty liaison.</Todo>}
           </div>
           <div className="hub-card p-5">
-            <p className="hub-kicker">Student ambassadors</p>
-            <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">
-              A student ambassador is a {brief.short} student who helps classmates find out about Hack 876. {hub.ambassadors.summary}
+            <p className="flex flex-wrap items-center justify-between gap-2">
+              <span className="hub-kicker">Student ambassadors</span>
+              <span className={`hub-status ${statusClass.school}`}>{hub.ambassadors.status}</span>
             </p>
-            <ul className="mt-3 space-y-2 text-[0.98rem] leading-snug text-ink-2">
-              {hub.ambassadors.duties.map((t) => (
-                <li key={t} className="flex gap-2.5">
-                  <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sb-primary)]" />
-                  {t}
-                </li>
-              ))}
-            </ul>
+            <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-2">
+              A student ambassador is a {short} student who helps classmates find out about Hack 876. {hub.ambassadors.summary}
+            </p>
+            <a href="#ambassadors" className={`mt-3 inline-block ${linkClass}`}>
+              The ambassador role and toolkit
+            </a>
           </div>
         </div>
+
+        <div className="hub-card-soft mt-3 flex flex-wrap items-center justify-between gap-3 p-5">
+          <div className="min-w-0">
+            <h3 className="hub-h3">For school leadership</h3>
+            <p className="mt-1 text-[0.97rem] leading-snug text-ink-2">
+              {isPitch(brief)
+                ? `The participation brief first prepared for ${possessive(short)} leadership is kept for reference. This page replaces it as the place for current information.`
+                : `Questions about how ${short} works with Hack 876 can go to the organizing team${event.contactEmail ? ` at ${event.contactEmail}` : ""}.`}
+            </p>
+          </div>
+          {isPitch(brief) && (
+            <div className="flex flex-wrap gap-2">
+              <Link href={`/schools/${brief.slug}/brief`} className="btn btn-secondary btn-sm">
+                Original participation brief
+              </Link>
+              <a href={brief.pdf.href} download={brief.pdf.filename} className="btn btn-secondary btn-sm">
+                <DownloadIcon /> PDF
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Student ambassadors                                                       */
+/* -------------------------------------------------------------------------- */
+
+function Ambassadors({ brief }: { brief: SchoolBrief }) {
+  const hub = brief.hub!;
+  const role = ambassadorRole(brief);
+  const messages = shareMessages(brief);
+  const url = hubUrl(brief);
+  const graphics = mediaVariants.filter((v) => v.key !== "og" && v.key !== "qr");
+  const sheets = schoolSheets(brief).filter((x) => x.key === "poster" || x.key === "students");
+  return (
+    <section id="ambassadors" aria-labelledby="hub-ambassadors" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
+      <div className="hub-wrap">
+        <SectionHead id="hub-ambassadors" kicker="Student ambassador centre" title="Spread the word. Keep it simple.">
+          <p>
+            Ambassadors help eligible {brief.short} classmates hear about Hack 876 and find this page. The role is small and voluntary.{" "}
+            {hub.ambassadors.summary}
+          </p>
+        </SectionHead>
+
+        <div className="mt-8 grid gap-3 md:grid-cols-2">
+          <div className="hub-card p-5">
+            <h3 className="hub-h3">Your job</h3>
+            <Bullets items={role.duties} dot="bg-emerald" />
+          </div>
+          <div className="hub-card p-5">
+            <h3 className="hub-h3">What the role is not</h3>
+            <Bullets items={role.not} dot="bg-bill" />
+          </div>
+        </div>
+
+        <h3 className="hub-h3 mt-10">1. Share the link</h3>
+        <div className="hub-card mt-3 flex flex-col gap-4 p-5 sm:flex-row sm:items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={mediaHref(brief, "qr")} alt={`QR code that opens ${hubUrlShort(brief)}`} width={128} height={128} className="h-32 w-32 shrink-0 rounded-lg border-2 border-ink bg-white" loading="lazy" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[0.97rem] text-ink-2">Always share this page, not a screenshot. It is kept up to date, and it links to registration.</p>
+            <p className="mt-2 rounded-xl border-2 border-ink bg-cream px-4 py-2 font-mono text-sm font-bold break-all select-all">{url}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <CopyButton text={url} label="Copy link" />
+              <a href={mediaHref(brief, "qr")} download={`Hack 876 x ${brief.school} - QR code.png`} className="btn btn-secondary btn-sm">
+                <DownloadIcon /> QR code
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <h3 className="hub-h3 mt-10">2. Post a graphic</h3>
+        <ul className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {graphics.map((g) => (
+            <li key={g.key} className="hub-card flex flex-col p-3">
+              <div className="grid aspect-square place-items-center overflow-hidden rounded-lg bg-cream-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={mediaHref(brief, g.key)} alt={`${g.title} graphic for ${brief.school}`} width={g.width} height={g.height} loading="lazy" className="max-h-full max-w-full object-contain" />
+              </div>
+              <p className="mt-2 font-extrabold leading-tight">{g.title}</p>
+              <p className="text-xs font-bold text-ink-soft">PNG · {g.size}</p>
+              <a href={mediaHref(brief, g.key)} download={`Hack 876 x ${brief.school} - ${g.title.replace(/\s*\/\s*/g, " and ")}.png`} className="btn btn-secondary btn-sm mt-2 self-start">
+                <DownloadIcon /> Download
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <h3 className="hub-h3 mt-10">3. Send a message</h3>
+        <p className="mt-1 text-[0.97rem] text-ink-2">Copy, paste and send. Each message links back to this page.</p>
+        <div className="mt-3 grid gap-3 lg:grid-cols-3">
+          {messages.map((m) => (
+            <div key={m.key} className="hub-card flex min-w-0 flex-col p-5">
+              <p className="hub-kicker">{m.title}</p>
+              <p className="mt-2 flex-1 text-[0.95rem] leading-relaxed whitespace-pre-line text-ink-2">{m.text}</p>
+              <CopyButton text={m.text} label="Copy message" context={`(${m.title})`} className="mt-4 self-start" />
+            </div>
+          ))}
+        </div>
+
+        <h3 className="hub-h3 mt-10">4. Print something</h3>
+        <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+          {sheets.map((x) => (
+            <li key={x.key} className="hub-card-soft flex flex-wrap items-center justify-between gap-3 p-4">
+              <div className="min-w-0">
+                <p className="font-extrabold">{x.title}</p>
+                <p className="text-sm text-ink-soft">{x.blurb}</p>
+              </div>
+              <a href={x.href} download={x.filename} className="btn btn-secondary btn-sm">
+                <DownloadIcon /> PDF
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
@@ -788,39 +994,45 @@ function Teachers({ brief }: { brief: SchoolBrief }) {
 /* -------------------------------------------------------------------------- */
 
 function Resources({ brief }: { brief: SchoolBrief }) {
-  const sheets = schoolSheets(brief);
-  const link = `${event.siteUrl.replace(/^https?:\/\/(www\.)?/, "")}/schools/${brief.slug}`;
-  const items = [
-    ...sheets.map((s) => ({ title: s.title, blurb: s.blurb, href: s.href, filename: s.filename, kind: "PDF · 1 page" })),
-    { title: `Presentation for ${brief.short} staff`, blurb: `A slide presentation introducing Hack 876 to ${brief.short} staff and leadership.`, href: brief.pdf.href, filename: brief.pdf.filename, kind: "PDF · slides" },
-  ];
+  const groups = schoolResources(brief);
   return (
-    <section id="resources" aria-labelledby="hub-resources" className="border-t border-ink/10 bg-paper py-14 sm:py-20">
+    <section id="resources" aria-labelledby="hub-resources" className="border-t border-ink/10 py-14 sm:py-20">
       <div className="hub-wrap">
-        <SectionHead id="hub-resources" kicker="Downloads" title="Flyers and information sheets to share.">
-          <p>One-page PDFs to print, pin to a noticeboard or send in a class or parent group.</p>
+        <SectionHead id="hub-resources" kicker="Resource library" title="Everything to download or share.">
+          <p>Every file names {brief.school} and Hack 876, and is generated from the same information as this page.</p>
         </SectionHead>
-        <ul className="mt-8 grid gap-3 md:grid-cols-2">
-          {items.map((it) => (
-            <li key={it.href} className="hub-card flex flex-col p-5">
-              <p className="text-xs font-extrabold tracking-[0.14em] text-ink-soft uppercase">{it.kind}</p>
-              <h3 className="hub-h3 mt-1">{it.title}</h3>
-              <p className="mt-1.5 flex-1 text-[0.97rem] leading-snug text-ink-2">{it.blurb}</p>
-              <a href={it.href} download={it.filename} className="btn btn-secondary btn-sm mt-4 self-start">
-                <svg viewBox="0 0 20 20" aria-hidden className="h-4 w-4">
-                  <path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 14.5V16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                Download PDF
-              </a>
-            </li>
+        <div className="mt-8 grid gap-3 lg:grid-cols-2">
+          {groups.map((g) => (
+            <div key={g.key} className="hub-card p-5">
+              <h3 className="hub-h3">{g.title}</h3>
+              <ul className="mt-3 divide-y divide-ink/10">
+                {g.items.map((it) => (
+                  <li key={it.href} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-3">
+                    <div className="min-w-0 flex-1 basis-56">
+                      <p className="font-extrabold leading-tight">{it.title}</p>
+                      <p className="mt-0.5 text-sm leading-snug text-ink-soft">
+                        <span className="font-bold">{it.kind}</span> · {it.blurb}
+                      </p>
+                    </div>
+                    {it.filename ? (
+                      <a href={it.href} download={it.filename} className="btn btn-secondary btn-sm" aria-label={`Download ${it.title}`}>
+                        <DownloadIcon /> Download
+                      </a>
+                    ) : (
+                      <a
+                        href={it.href}
+                        {...(it.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="btn btn-secondary btn-sm"
+                        aria-label={`Open ${it.title}${it.external ? " (opens in a new tab)" : ""}`}
+                      >
+                        Open <span aria-hidden>→</span>
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
-        <div className="hub-card-soft mt-3 flex flex-wrap items-center justify-between gap-3 p-5">
-          <div>
-            <h3 className="hub-h3">Link to this page</h3>
-            <p className="mt-1 text-[0.97rem] text-ink-2">Copy and send this address to students, parents or colleagues.</p>
-          </div>
-          <p className="rounded-xl border-2 border-ink bg-cream px-4 py-2 font-mono text-sm font-bold break-all select-all">{link}</p>
         </div>
       </div>
     </section>
@@ -856,7 +1068,7 @@ function Contact({ brief }: { brief: SchoolBrief }) {
             </div>
           </div>
           <div className="hub-card p-5">
-            <h3 className="hub-h3">Questions about {brief.short}&rsquo;s arrangements</h3>
+            <h3 className="hub-h3">Questions about {possessive(brief.short)} arrangements</h3>
             <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink-2">{brief.hub!.schoolChannel}</p>
             <p className="mt-4 border-t border-ink/10 pt-3 text-sm leading-snug text-ink-soft">
               This page is updated as details are confirmed. Registered students and their families are also told directly.

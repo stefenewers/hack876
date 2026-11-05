@@ -17,7 +17,7 @@ import {
   type Person,
   type SchedulePhase,
 } from "./event";
-import { getSchoolBrief, type SchoolBrief } from "./schoolBriefs";
+import { getSchoolBrief, isPitch, type SchoolBrief } from "./schoolBriefs";
 import { formsFor, hubFacts, hubFaqs } from "./schoolHub";
 
 /*
@@ -198,7 +198,7 @@ export const getPrincipalPack = (key: string) => principalPacks.find((p) => p.ke
 /** The brief, name and short name a pack prints with. */
 export function packSchool(pack: PrincipalPack) {
   const brief = getSchoolBrief(pack.briefSlug);
-  if (!brief) throw new Error(`No school brief "${pack.briefSlug}" for pack "${pack.key}"`);
+  if (!brief || !isPitch(brief)) throw new Error(`No participation brief "${pack.briefSlug}" for pack "${pack.key}"`);
   return { brief, name: pack.displayName ?? brief.school, short: pack.short ?? brief.short };
 }
 

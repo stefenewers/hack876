@@ -9,7 +9,8 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "node --test \"src/**/*.test.ts\"",
-    "print:principals": "node scripts/print-principal-packs.mjs"
+    "print:principals": "node scripts/print-principal-packs.mjs",
+    "print:schools": "node scripts/print-school-resources.mjs"
   },
   "dependencies": {
     "next": "16.3.7",

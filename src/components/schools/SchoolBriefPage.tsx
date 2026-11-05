@@ -8,7 +8,7 @@ import { Logo } from "@/components/art/Wordmark";
 import { DownloadDeck } from "@/components/proposal/DownloadDeck";
 import { buildTypes, confirmedSchools, eligibility, event, eventWhen, localSponsors, mlh, parents, people, prizes, prizesNote, registration, schedule, schoolLogos, schoolStatus, schools, venue } from "@/data/event";
 import type { Person } from "@/data/event";
-import type { SchoolBrief } from "@/data/schoolBriefs";
+import type { PitchBrief as SchoolBrief } from "@/data/schoolBriefs";
 import "@/components/proposal/proposal.css";
 import "./school.css";
 
@@ -47,12 +47,12 @@ export function SchoolBriefPage({ brief }: { brief: SchoolBrief }) {
 
   return (
     <div className="lp sb" style={vars}>
-      <header className="lp-wrap flex items-center justify-between gap-4 py-5">
+      <header className="lp-wrap flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-5">
         <Link href="/schools" className="flex items-center gap-2 rounded-lg" aria-label="Hack 876 school resources">
           <BirdMark className="h-6 w-10" />
           <Logo className="text-[1.4rem]" />
         </Link>
-        <DownloadDeck href={brief.pdf.href} filename={brief.pdf.filename} label="Download brief (PDF)" />
+        <DownloadDeck href={brief.pdf.href} filename={brief.pdf.filename} label="Download PDF" />
       </header>
 
       <main id="main">
@@ -628,7 +628,7 @@ function Prizes({ n }: { n: string }) {
                       <p className="font-extrabold print:text-[1.35rem]">{p.name}</p>
                       <p className="text-sm text-ink-soft print:text-[1.1rem]">{p.line}</p>
                     </div>
-                    {p.reward && <span className="shrink-0 text-right text-sm font-bold print:text-[1.1rem]">{p.reward}</span>}
+                    {p.reward && <span className="max-w-[55%] shrink-0 text-right text-sm font-bold print:max-w-none print:text-[1.1rem]">{p.reward}</span>}
                   </li>
                 ))}
               </ul>

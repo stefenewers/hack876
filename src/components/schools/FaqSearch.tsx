@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { TODO_LABEL, type HubAudience, type HubFaq, type HubStatus } from "@/data/schoolHub";
+import { statusLabel, TODO_LABEL, type HubAudience, type HubFaq } from "@/data/schoolHub";
+import { statusClass } from "./status";
 
 /*
  * Deterministic search over the hub's authored answers. Works on whole
@@ -17,11 +18,7 @@ const AUDIENCES: { key: HubAudience | "all"; label: string }[] = [
   { key: "teachers", label: "Teachers" },
 ];
 
-const statusText: Record<HubStatus, string> = { confirmed: "Confirmed", pending: "To be confirmed" };
-const statusClass: Record<HubStatus, string> = {
-  confirmed: "border-ink bg-mint text-emerald-dark",
-  pending: "border-ink bg-sun-light text-ink",
-};
+const statusText = statusLabel;
 
 /* Words that carry no meaning in a question. */
 const STOP = new Set(

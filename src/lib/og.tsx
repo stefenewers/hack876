@@ -12,7 +12,7 @@ import { eligibility, event, eventWhen, mlh } from "@/data/event";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 
-const C = {
+export const C = {
   cream: "#fbf4e6",
   ink: "#141716",
   soft: "#4a514d",
@@ -24,7 +24,7 @@ const C = {
 
 const asset = (name: string) => readFile(join(process.cwd(), "src/assets/og", name));
 
-async function load() {
+export async function load() {
   const [marker, extraBold, medium, bird] = await Promise.all([
     asset("PermanentMarker-Regular.ttf"),
     asset("Bricolage-ExtraBold.ttf"),
@@ -41,7 +41,7 @@ async function load() {
   };
 }
 
-function Wordmark({ size }: { size: number }) {
+export function Wordmark({ size }: { size: number }) {
   return (
     <div style={{ display: "flex", alignItems: "baseline", fontFamily: "Marker", fontSize: size, lineHeight: 1, color: C.ink }}>
       <span>HACK</span>

@@ -13,6 +13,12 @@
   /* Anchors land below the sticky bars. */
   scroll-padding-top: 8rem;
 }
+/* Long links in answers and messages wrap instead of widening the page on phones. */
+.hub p,
+.hub li,
+.hub dd {
+  overflow-wrap: anywhere;
+}
 .hub section[id],
 .hub [data-anchor] {
   scroll-margin-top: 7.5rem;

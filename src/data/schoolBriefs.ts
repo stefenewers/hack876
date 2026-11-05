@@ -1,16 +1,29 @@
-import { people, type School } from "./event";
+import { confirmedSchools, people, schoolStatus, type School } from "./event";
 
 /**
- * Private participation briefs for schools, one entry per school.
+ * One entry per school Hack 876 works with, at any stage.
+ *
+ * Lifecycle (`schoolRelationship`): `event.ts` is the only source of truth.
+ * - "confirmed": the school is in `confirmedSchools`. Its entry must set `hub`,
+ *   and `/schools/<slug>` is its participation hub: listed on `/schools`, with
+ *   generated sheets, graphics and a QR code. A pitch it was sent, if any,
+ *   moves to `/schools/<slug>/brief`.
+ * - "in-talks" / "outreach": a participation brief (a pitch) at
+ *   `/schools/<slug>`, reachable by direct link only. Never shown as confirmed,
+ *   even if `hub` is set.
+ *
+ * To add a confirmed school: add it to `confirmedSchools` in event.ts, give its
+ * entry a `hub`, add its crest, then run `npm run print:schools`.
  *
  * Everything event-wide (numbers, prizes, schedule, eligibility) comes from
- * `event.ts`. Only what is specific to a school lives here. Add a school by
- * adding an entry: `/schools/[slug]` and the `/schools` hub pick it up.
+ * `event.ts`. Only what is specific to a school lives here.
  *
  * Rules:
- * - Never state that a school is participating or has endorsed Hack 876.
+ * - Only `confirmedSchools` may be described as taking part.
  * - Liaisons are community bridges or proposed contacts. Never present one as
  *   having accepted a role unless they have.
+ * - Never put one school's people, programmes or achievements on another's
+ *   entry (for example, Wolmer's Boys' and Wolmer's Girls' are two schools).
  * - Institutional claims must link to a primary source in `sources`.
  */
 
@@ -54,8 +67,8 @@ export type SchoolBrief = {
   nextSteps?: { k: string; v: string }[];
   /** The school's own names for the eligible years, e.g. "Grades 11 to 13". Shown beside the event's forms; never a separate rule. */
   localForms?: string;
-  /** Early-planning cohort range. Always shown as provisional. */
-  planningRange: { min: number; max: number };
+  /** Early-planning cohort range. Always shown as provisional. Omit when the organizers have not set one; the hub then says so. */
+  planningRange?: { min: number; max: number };
   /** Replaces the default list of asks. */
   asks?: string[];
   /** Replaces the default "not asking for money" note under the asks. */
@@ -88,7 +101,10 @@ export type SchoolBrief = {
   hub?: {
     /** Honest one-line relationship status, e.g. faculty support vs formal approval. */
     status: string;
-    ambassadors: { summary: string; duties: string[] };
+    /** One short line for the school's card on /schools, e.g. who the liaison is. */
+    cardLine: string;
+    /** `status` is the short tag shown on the hub, e.g. "To be nominated". Duties are generic (schoolHub.ts). */
+    ambassadors: { status: string; summary: string };
     /** What we ask of teachers, and who tends to do well. */
     faculty: { process: string[]; profiles: string[] };
     /** Where school-specific questions should go. */
@@ -98,6 +114,8 @@ export type SchoolBrief = {
      * Set it when the brief's addressee is not the liaison, or the liaison is not yet appointed.
      */
     liaison?: { name: string; title: string; text: string; pending?: boolean };
+    /** Arrangements only the school can settle, shown as "Awaiting school guidance". */
+    schoolGuidance?: { k: string; v: string }[];
   };
   /**
    * Set for a cold first approach to a school. The brief then opens with who is
@@ -108,9 +126,15 @@ export type SchoolBrief = {
     /** Who the call is with, e.g. "Mrs. Jane Doe, or a faculty leader she nominates". */
     callWith: string;
   };
-  pdf: { href: string; filename: string };
+  /** The pitch PDF. Omit for a school that joined without one; it then has no /brief page. */
+  pdf?: { href: string; filename: string };
   sources: { label: string; href: string }[];
 };
+
+/** A brief that can be rendered as a pitch: it has a PDF and a planning range. */
+export type PitchBrief = SchoolBrief & Required<Pick<SchoolBrief, "pdf" | "planningRange">>;
+
+export const isPitch = (b: SchoolBrief): b is PitchBrief => Boolean(b.pdf && b.planningRange);
 
 export const schoolBriefs: SchoolBrief[] = [
   {
@@ -242,15 +266,11 @@ export const schoolBriefs: SchoolBrief[] = [
     hub: {
       status:
         "Campion College has confirmed that it is taking part in Hack 876. Mrs. Keisha Morrison, Head of the Technology Department, is the faculty liaison. Hack 876 is organized independently of Campion, and individual student places are not guaranteed.",
+      cardLine: "Faculty liaison: Mrs. Keisha Morrison, Head of the Technology Department.",
       ambassadors: {
+        status: "To be nominated",
         summary:
           "Campion is expected to have two ambassadors, ideally one in Lower Sixth and one in Fifth Form. They have not been chosen yet, and their names will not be published without permission.",
-        duties: [
-          "Share the Hack 876 flyer and this page with classmates.",
-          "Encourage eligible students to register on MLH.",
-          "Point classmates to this page when they have questions.",
-          "Pass on questions they cannot answer to the faculty liaison.",
-        ],
       },
       faculty: {
         process: [
@@ -381,15 +401,11 @@ export const schoolBriefs: SchoolBrief[] = [
     hub: {
       status:
         "Hillel Academy has confirmed that it is taking part in Hack 876. We are working with Hillel’s leadership and Technology Education team, and the faculty liaison is still being confirmed. Hack 876 is organized independently of Hillel Academy, and individual student places are not guaranteed.",
+      cardLine: "Working with Hillel’s leadership and Technology Education. Faculty liaison to be confirmed.",
       ambassadors: {
+        status: "Proposed",
         summary:
           "One or two student ambassadors have been proposed. None has been nominated, and their names will not be published without permission.",
-        duties: [
-          "Share the Hack 876 flyer and this page with classmates.",
-          "Encourage eligible students to register on MLH.",
-          "Point classmates to this page when they have questions.",
-          "Pass on questions they cannot answer to the Hack 876 organizing team.",
-        ],
       },
       faculty: {
         process: [
@@ -430,6 +446,108 @@ export const schoolBriefs: SchoolBrief[] = [
       {
         label: "Jamaica Observer: 2024-25 FIRST Tech Challenge Jamaica Robotics Championship (April 16, 2025)",
         href: "https://www.jamaicaobserver.com/2025/04/16/campion-college-clinches-2025-high-school-robotics-championship-title/",
+      },
+    ],
+  },
+  {
+    slug: "wolmers-girls",
+    school: "Wolmer's Girls' School",
+    short: "Wolmer’s Girls’",
+    people: "Wolmer’s Girls’ students",
+    /* All three Wolmer's schools use the Wolmer's crest. */
+    crest: "/schools/wolmers.png",
+    /* Maroon and gold, the colours of all three Wolmer's schools (Wolmer's Trust philosophy page). */
+    colors: { primary: "#7b1e2b", secondary: "#e2b23c", ink: "#4a1018" },
+    motto: { original: "Age Quod Agis", translation: "Whatever you do, do it to the best of your ability." },
+    /*
+     * Wolmer's Girls' joined without a pitch, so there is no /brief page or
+     * PDF. Only Trust-wide facts and Girls'-specific sources are used here:
+     * nothing from the Wolmer's Boys' brief below.
+     */
+    hero: {
+      lead: "Wolmer’s is building for its next 300 years.",
+      line: "Hack 876 gives Wolmer’s Girls’ students one day to build now.",
+    },
+    fit: {
+      headline: "Wolmer’s is building for its next 300 years.",
+      lead: "The Wolmer’s Trust is positioning its schools for the next 300 years, with new space for technology, media and STEAM.",
+      points: [
+        { k: "Wolmer’s 300", v: "Expanded ICT labs, a professional studio and a multimedia STEAM centre, being built now for the Wolmer’s schools." },
+        { k: "Computer lab", v: "In May 2024, CIBC Caribbean gave Wolmer’s Girls’ School 40 ergonomic chairs for its computer lab." },
+        { k: "Solar powered", v: "954 solar panels, installed in 2024, power all three Wolmer’s campuses." },
+        { k: "Age Quod Agis", v: "Whatever you do, do it to the best of your ability." },
+      ],
+      quote: {
+        text: "Given the local trends in skills development driven by rapid technology changes, the rise of artificial intelligence as a daily necessity, an investment in our economy, Wolmer’s must now position itself for the next 300 years.",
+        by: "Wolmer’s Trust, Wolmer’s 300",
+        source: 3,
+        cite: "wolmers.org",
+      },
+      bridge:
+        "Hack 876 adds students from other schools, a fixed deadline, industry mentors and judges who ask teams to explain their decisions. It is a single Saturday that asks nothing of the school timetable.",
+    },
+    eventIntro:
+      "A hackathon is an event where small teams build something from scratch in a single day, then present it to judges. No programming experience is needed: teams also need students who design, research, write and present. Mentors who work in industry help throughout the day.",
+    liaison: {
+      name: "To be confirmed",
+      title: "Faculty liaison · Wolmer’s Girls’ School",
+      credentials: "",
+      photo: null,
+      role: "Wolmer’s Girls’ School has not yet named a faculty liaison for Hack 876.",
+      note: "Wolmer’s Girls’ School has confirmed its participation. Every student still registers individually on MLH, and places are limited.",
+    },
+    hub: {
+      status:
+        "Wolmer’s Girls’ School has confirmed that it is taking part in Hack 876. The school’s faculty liaison and student ambassadors are still to be confirmed. Hack 876 is organized independently of Wolmer’s Girls’ School, and individual student places are not guaranteed.",
+      cardLine: "Faculty liaison and student ambassadors to be confirmed.",
+      ambassadors: {
+        status: "To be nominated",
+        summary: "Student ambassadors have not been nominated yet. Their names will not be published without permission.",
+      },
+      faculty: {
+        process: [
+          "Share this page or the student flyer with students in 5th Form through Upper 6th Form.",
+          "Point interested students to the registration link on MLH. They register themselves: no nomination or school form is needed.",
+          "Each student registers on MLH with a free MyMLH account. Teachers do not register on their behalf.",
+          "The Hack 876 organizing team contacts registered students and families directly, including about the consent form.",
+        ],
+        profiles: [
+          "Curious students who like making things, in any subject.",
+          "Students taking Computer Science, Information Technology, Maths, the Sciences, Art, Design or Business.",
+          "Strong writers, presenters, organizers and researchers, as well as programmers.",
+          "Students who work well with people they have just met.",
+        ],
+      },
+      schoolChannel:
+        "For questions about Wolmer’s Girls’ own arrangements, such as school permission to attend, contact the school office: wgs@wolmers.org or (876) 922-4084.",
+      liaison: {
+        name: "To be confirmed",
+        title: "Faculty liaison",
+        text: "Wolmer’s Girls’ School has not yet named a faculty liaison for Hack 876. Until it does, teachers can send questions to the organizing team.",
+        pending: true,
+      },
+      schoolGuidance: [
+        {
+          k: "Sixth Form",
+          v: "The Wolmer’s Sixth Form block serves both Wolmer’s high schools. This page is for Wolmer’s Girls’ students; how the school would like its sixth formers to register is awaiting its guidance.",
+        },
+      ],
+    },
+    closing: {
+      lead: "Age quod agis: whatever you do, do it well.",
+      line: "One day to build something real.",
+    },
+    sources: [
+      { label: "Wolmer’s Trust High School for Girls (name, address and contact)", href: "https://www.wolmers.org/wgs" },
+      { label: "Wolmer’s Trust: Philosophy (motto and colours of the Boys’, Girls’ and Preparatory Schools)", href: "https://www.wolmers.org/wp/philosophy/" },
+      { label: "Wolmer’s Trust: Wolmer’s 300", href: "https://www.wolmers.org/trust/300-in-3/" },
+      {
+        label: "Wolmer’s Trust: Wolmer’s schools get US$445,000 solar electricity generation system",
+        href: "https://www.wolmers.org/trust/trust-news/wolmers-schools-get-us445000-solar-electricity-generation-system/",
+      },
+      {
+        label: "CIBC Caribbean: Wolmer’s Girls receive 40 chairs for computer lab (May 27, 2024)",
+        href: "https://www.cibccaribbean.com/binaries/content/assets/news-releases/news-releases-2024/press-release-wolmers-girls-receive-40-chairs-for-computer-lab.pdf",
       },
     ],
   },
@@ -853,6 +971,7 @@ export const schoolBriefs: SchoolBrief[] = [
     ],
   },
   {
+    /* Wolmer's Boys' School (in talks). Wolmer's Girls' is a separate school, with its own hub at /schools/wolmers-girls. */
     slug: "wolmers",
     unlisted: true,
     school: "Wolmer's Boys' School",
@@ -943,3 +1062,19 @@ export function schoolAlumni(school: School) {
 export function getSchoolBrief(slug: string) {
   return schoolBriefs.find((b) => b.slug === slug);
 }
+
+export type SchoolRelationship = "confirmed" | "in-talks" | "outreach";
+
+/** Where a school stands, read from event.ts. Never from the entry itself. */
+export function schoolRelationship(b: SchoolBrief): SchoolRelationship {
+  const s = schoolStatus(b.school);
+  return s === "confirmed" ? "confirmed" : s === "talks" ? "in-talks" : "outreach";
+}
+
+/** A participation hub: a confirmed school whose entry has `hub`. */
+export const isHub = (b: SchoolBrief): b is SchoolBrief & { hub: NonNullable<SchoolBrief["hub"]> } => schoolRelationship(b) === "confirmed" && Boolean(b.hub);
+
+/** Confirmed schools' hubs, in `confirmedSchools` order. */
+export const schoolHubs = confirmedSchools.flatMap((s) => schoolBriefs.filter((b) => b.school === s && isHub(b))) as (SchoolBrief & {
+  hub: NonNullable<SchoolBrief["hub"]>;
+})[];

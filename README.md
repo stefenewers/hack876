@@ -26,7 +26,7 @@ Almost everything lives in **`src/data/event.ts`**:
 | Date and time zone | `event.date`, `event.timeZone` | the date is final; `null` shows “Date TBA” |
 | Contact email, socials | `event.contactEmail`, `event.socials` | hidden until set |
 | Venue | `venue` | address, plus `room` and `arrival` (shown as “to be shared” while `null`) |
-| Schools + crests | `schools`, `schoolLogos` | crests live in `public/schools/` (St. Andrew is missing one) |
+| Schools + crests | `schools`, `schoolLogos`, `confirmedSchools`, `schoolsInTalks` | crests live in `public/schools/`. `confirmedSchools` decides which schools get a hub (see below) |
 | Registration and submission links | `registration` | MLH registration, event page and Challenges page; `/apply` redirects to `registration.url` |
 | MLH | `mlh` | Code of Conduct, incident email, Standard Rules, the “An official MLH Hack Day” wording and the logo |
 | Best Hack Built with GitHub Copilot | `copilotChallenge` | summary and docs links; nothing on offer is stated |
@@ -37,6 +37,17 @@ Almost everything lives in **`src/data/event.ts`**:
 | Prizes | `prizes` | `reward: null` shows “Prize announced soon” |
 | Sponsors and event partners | `sponsors` | **only `confirmed: true` renders**. `level: "program" \| "challenge"` are event partners (MLH, GitHub), never listed as funders; use `localSponsors` for funder lists |
 | FAQ, parents info | `faqs`, `parents` | `pending: true` adds a “details coming” tag |
+
+## School hubs (`/schools`)
+
+`confirmedSchools` in `src/data/event.ts` is the only source of truth for which schools are taking part. Every confirmed school has a participation hub at `/schools/<slug>`, listed on `/schools`; any other school's entry in `src/data/schoolBriefs.ts` is a participation brief, reachable by direct link only (`schoolRelationship`, `isHub`, `schoolHubs`). Tests fail if a confirmed school has no hub, or if a school that is not confirmed could look confirmed.
+
+Each hub is built from `event.ts` plus the school's entry (`src/data/schoolHub.ts` holds the shared answers). It comes with:
+
+- **Share graphics and a QR code**, generated at build time from the same data: `/schools/<slug>/media/hack876-<slug>-{feed,square,story,landscape,qr,og}.png` (`src/lib/schoolMedia.tsx`). The `og` image is the hub's link preview.
+- **One-page PDFs** (student flyer, parent information, faculty overview, poster), printed from `/schools/<slug>/sheets/<sheet>` into `public/proposals/` by `npm run print:schools` (needs Chrome). Re-run it whenever event or school details change.
+
+**To add a confirmed school:** add it to `confirmedSchools`, give its `schoolBriefs.ts` entry a `hub` (status, card line, ambassador status, faculty notes, school channel and any `schoolGuidance`), add its crest to `public/schools/`, then run `npm run print:schools` and `npm test`. Never copy another school's people or achievements into the entry.
 
 ## Form submissions
 
