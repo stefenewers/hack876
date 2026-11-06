@@ -6,7 +6,6 @@ import { Icon } from "@/components/art/Icons";
 import { TailLine } from "@/components/art/Marks";
 import { RegisterLink } from "@/components/site/RegisterLink";
 import { eligibility, event, eventWhen, foodNote, mlh, registration, schedule, schoolLogos, schoolStatus, schools, venue, venueArrivalPending } from "@/data/event";
-import { schoolHubs } from "@/data/schoolBriefs";
 
 const DOORS = schedule[0]?.time ?? "";
 const WRAP = schedule[schedule.length - 1]?.time ?? "";
@@ -187,7 +186,6 @@ export function Attend() {
               const logo = schoolLogos[s];
               const status = schoolStatus(s);
               const pending = status === "pending";
-              const hub = schoolHubs.find((h) => h.school === s);
               return (
                 <li
                   key={s}
@@ -217,11 +215,6 @@ export function Attend() {
                     <span className="-mt-1 rounded-full border-2 border-ink bg-mint px-2.5 py-0.5 text-[0.7rem] font-extrabold tracking-wide text-emerald-deep uppercase">
                       Confirmed
                     </span>
-                  )}
-                  {hub && (
-                    <Link href={`/schools/${hub.slug}`} className="text-sm font-bold underline decoration-emerald decoration-2 underline-offset-4">
-                      School hub<span className="sr-only"> for {s}</span> <span aria-hidden>→</span>
-                    </Link>
                   )}
                 </li>
               );
