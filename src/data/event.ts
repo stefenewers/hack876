@@ -540,6 +540,8 @@ export const sponsors: Sponsor[] = [
   { name: "Frankies", logo: "/sponsors/frankies.jpg", url: "", level: "partner", confirmed: true },
   { name: ".xyz", logo: "/sponsors/xyz.png", url: "https://gen.xyz", level: "partner", confirmed: true },
   { name: "Big Media Ja", logo: "/sponsors/big-media.jpg", url: "https://www.instagram.com/bigmediaja/", level: "partner", confirmed: true },
+  // WATA, Wisynco's water brand. Logo from wisynco.com, unaltered.
+  { name: "WATA", logo: "/sponsors/wata.png", url: "https://wisynco.com", level: "partner", alt: "WATA logo", confirmed: true },
   // In-kind: stationery for every student.
   { name: "SOS Ltd", logo: "/sponsors/sos-ltd.png", url: "https://www.sosjm.com", level: "partner", confirmed: true },
 ];
