@@ -91,6 +91,27 @@ export const reportingNote = "We will document the recognition delivered and rep
 /** No approved event budget exists yet. Shown on every Gold and Platinum request until one does. See decisions.ts. */
 export const budgetFollows = "A detailed event budget will follow before any formal commitment is asked for.";
 
+/**
+ * The organisers' estimated event budget, in JMD (November 2026). An estimate,
+ * not an approved budget: always shown labelled as one. The venue is hosted
+ * in kind, so it carries no cost. Prize lines follow the prizes in event.ts.
+ */
+export const budgetEstimate: { k: string; note: string; amount: number }[] = [
+  { k: "Prizes", note: "The podium and special-award prizes listed on the Hack876 website", amount: 700000 },
+  { k: "Food and drink", note: "Lunch, snacks and water for about 100 students, judges, mentors and crew", amount: 350000 },
+  { k: "Shirts and participant materials", note: "Event shirts, badges, lanyards and printed materials", amount: 250000 },
+  { k: "Production", note: "Sound, screens, staging, power and connectivity for the room", amount: 250000 },
+  { k: "Equipment for teams", note: "Power strips, extension cords and build supplies", amount: 100000 },
+  { k: "Signage and photography", note: "Wayfinding, stage signage and event photos", amount: 75000 },
+  { k: "Contingency", note: "About 4% for prices that change before the day", amount: 75000 },
+  { k: "Venue", note: "Hosted in kind", amount: 0 },
+];
+
+export const budgetTotal = budgetEstimate.reduce((sum, l) => sum + l.amount, 0);
+
+/** Formats a JMD amount, e.g. "J$1,800,000". */
+export const jmd = (n: number) => `J$${n.toLocaleString("en-US")}`;
+
 /** Why a first-year event can be trusted to happen as described. */
 export const deliveryFacts: { label: string; text: string }[] = [
   {

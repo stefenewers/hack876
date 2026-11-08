@@ -81,7 +81,7 @@ export const deckRegistry: DeckEntry[] = [
     aka: "GraceKennedy GK Insurance",
     category: "Corporate & Professional Services",
     readiness: "intro",
-    focus: "Platinum invitation built around resilience and protecting what students build.",
+    focus: "Short Platinum ask with the estimated event budget and current sponsors; any amount welcome.",
     route: "/gracekennedyopportunity",
     pdf: `${P}gracekennedy-partnership-proposal.pdf`,
     filename: "Hack876 x GK General Insurance - Partnership Proposal.pdf",
