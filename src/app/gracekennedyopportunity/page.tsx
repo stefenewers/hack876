@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import QRCode from "qrcode";
 import type { CSSProperties } from "react";
 import { BirdMark } from "@/components/art/DoctorBird";
 import { Logo } from "@/components/art/Wordmark";
@@ -31,6 +32,9 @@ import { band, benefitNotes } from "@/data/sponsorship";
 
 const SPONSOR = "GK General Insurance";
 const DECK_LABEL = `Hack876 × ${SPONSOR}`;
+
+/* This proposal online, opened at the sponsor hub. Printed on the PDF with a QR code. */
+const HUB_URL = `${event.siteUrl}/gracekennedyopportunity#sponsor-hub`;
 
 /* The level this proposal suggests. Name, range and benefits come from sponsorship.ts. */
 const PLATINUM = band("platinum");
@@ -179,7 +183,8 @@ function Budget() {
 /*  02 The ask                                                                */
 /* -------------------------------------------------------------------------- */
 
-function Ask() {
+async function Ask() {
+  const qr = await QRCode.toString(HUB_URL, { type: "svg", margin: 1, errorCorrectionLevel: "M", color: { dark: "#141716", light: "#ffffff" } });
   return (
     <section aria-labelledby="lp-ask" className="lp-section lp-dense lp-center">
       <div className="lp-wrap">
@@ -202,7 +207,20 @@ function Ask() {
             <div className="mt-5">
               <BandStrip recommended="platinum" />
             </div>
-            <p className="lp-note mt-3">{benefitNotes[0]}</p>
+            {/* Said in the card above; dropped from the PDF to make room for the hub link. */}
+            <p className="lp-note mt-3 print:hidden">{benefitNotes[0]}</p>
+
+            {/* PDF only: the online version carries the hub itself. */}
+            <div className="lp-keep mt-4 hidden items-center gap-[1rem] rounded-2xl border-2 border-ink bg-paper px-[1rem] py-[0.8rem] print:flex">
+              <span aria-hidden className="block h-[5.6rem] w-[5.6rem] shrink-0 rounded-md bg-white" dangerouslySetInnerHTML={{ __html: qr }} />
+              <div className="min-w-0">
+                <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Online sponsor hub</p>
+                <p className="mt-0.5 text-[1.15rem] leading-snug font-bold">
+                  Schedule, schools, budget, recognition, payment, safeguarding and 30+ answered questions.
+                </p>
+                <p className="mt-0.5 text-[1.1rem] font-extrabold break-all text-emerald-deep">{HUB_URL.replace(/^https?:\/\/(www\.)?/, "")}</p>
+              </div>
+            </div>
           </div>
 
           <div>
