@@ -9,6 +9,7 @@ import { Check, Kicker, Ref } from "@/components/proposal/primitives";
 import { BandStrip } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 import { OpeningSummary, SourcesFooter } from "@/components/proposal/PartnershipSections";
+import { OpenHubLink } from "@/components/proposal/OpenHubLink";
 import { BudgetTable, SponsorHub } from "@/components/proposal/SponsorHub";
 import { event, eventPartners, eventWhen, localSponsors } from "@/data/event";
 import { budgetTotal, contact, jmd, reporting, safeguards } from "@/data/partnership";
@@ -76,9 +77,9 @@ export default function GraceKennedyOpportunityPage() {
           <Logo className="text-[1.5rem]" />
         </Link>
         <div className="flex items-center gap-4">
-          <a href="#sponsor-hub" className="lp-no-print hidden text-sm font-bold underline decoration-2 underline-offset-4 sm:inline">
+          <OpenHubLink className="lp-no-print hidden text-sm font-bold underline decoration-2 underline-offset-4 sm:inline">
             Sponsor hub <span aria-hidden>↓</span>
-          </a>
+          </OpenHubLink>
           <DownloadDeck href="/proposals/hack876-gracekennedy-partnership-proposal.pdf" filename={`Hack876 x ${SPONSOR} - Partnership Proposal.pdf`} />
         </div>
       </header>

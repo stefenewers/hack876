@@ -95,18 +95,35 @@ export function SponsorHub({ org, recommended }: { org: string; recommended: Ban
   const partners = eventPartners.filter((s) => s.confirmed);
   const vars = { "--sb-primary": "var(--color-emerald-deep)", "--sb-secondary": "var(--color-sun)" } as CSSProperties;
   return (
-    <section id="sponsor-hub" aria-labelledby="sponsor-hub-title" className="hub lp-no-print border-t-2 border-ink py-14 sm:py-20" style={vars}>
+    <section aria-labelledby="sponsor-hub-title" className="hub lp-no-print border-t-2 border-ink py-12 sm:py-16" style={vars}>
       <div className="hub-wrap">
-        <p className="hub-kicker">Sponsor hub</p>
-        <h2 id="sponsor-hub-title" className="hub-h2 mt-2">
-          Everything about Hack876, for {org}.
-        </h2>
-        <p className="hub-lead mt-3">
-          The proposal above is the short version. Below is the detail: open any section, or search for a question. Anything not yet decided is
-          marked, and arrangements such as payment are agreed with each sponsor.
+        {/* The whole hub starts closed, so the page reads as the short proposal until a sponsor wants more. */}
+        <details id="sponsor-hub" className="group/hub scroll-mt-6">
+          <summary className="hub-card flex cursor-pointer list-none flex-wrap items-center justify-between gap-4 p-5 transition-shadow hover:shadow-[3px_4px_0_0_var(--color-ink)] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-aqua sm:p-6 [&::-webkit-details-marker]:hidden">
+            <span className="min-w-0 flex-1 basis-72">
+              <span className="hub-kicker block">Sponsor hub</span>
+              <span id="sponsor-hub-title" className="hub-h2 mt-2 block">
+                Everything about Hack876, for {org}.
+              </span>
+              <span className="mt-2 block text-[1.02rem] leading-snug text-ink-2">
+                The schedule, schools, budget, recognition, payment and paperwork, safeguarding, and answers to {faqs.length} questions.
+              </span>
+            </span>
+            <span className="btn btn-primary shrink-0">
+              <span className="group-open/hub:hidden">Open the hub</span>
+              <span className="hidden group-open/hub:inline">Close the hub</span>
+              <svg viewBox="0 0 20 20" aria-hidden className="h-4 w-4 transition-transform group-open/hub:rotate-180">
+                <path d="m5 7.5 5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </summary>
+
+        <p className="hub-lead mt-6">
+          The proposal above is the short version. Open any section below, or search for a question. Anything not yet decided is marked, and
+          arrangements such as payment are agreed with each sponsor.
         </p>
 
-        <div className="mt-8 grid gap-2.5">
+        <div className="mt-6 grid gap-2.5">
           <Panel id="hub-glance" title="At a glance" summary="Date, venue, students, schools and status." open>
             <dl className="grid gap-2 sm:grid-cols-2">
               {sponsorGlance().map((f) => (
@@ -297,6 +314,7 @@ export function SponsorHub({ org, recommended }: { org: string; recommended: Ban
             )}
           </div>
         </div>
+        </details>
       </div>
     </section>
   );
