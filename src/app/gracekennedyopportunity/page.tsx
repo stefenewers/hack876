@@ -218,7 +218,11 @@ async function Ask() {
                 <p className="mt-0.5 text-[1.15rem] leading-snug font-bold">
                   Schedule, schools, budget, recognition, payment, safeguarding and 30+ answered questions.
                 </p>
-                <p className="mt-0.5 text-[1.1rem] font-extrabold break-all text-emerald-deep">{HUB_URL.replace(/^https?:\/\/(www\.)?/, "")}</p>
+                <p className="mt-0.5 text-[1.1rem] font-extrabold break-all">
+                  <a href={HUB_URL} className="text-emerald-deep underline decoration-2 underline-offset-2">
+                    {HUB_URL.replace(/^https?:\/\/(www\.)?/, "")}
+                  </a>
+                </p>
               </div>
             </div>
           </div>
