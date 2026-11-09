@@ -53,7 +53,7 @@ export const statusLabel: Record<HubStatus, string> = {
 /** The one label used for anything not yet decided. */
 export const TODO_LABEL = "Still to be confirmed";
 
-export type HubAudience = "students" | "parents" | "teachers";
+export type HubAudience = "students" | "parents" | "teachers" | "sponsors";
 
 export const hubCategories = [
   "The basics",

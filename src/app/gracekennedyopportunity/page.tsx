@@ -9,14 +9,16 @@ import { Check, Kicker, Ref } from "@/components/proposal/primitives";
 import { BandStrip } from "@/components/proposal/Sponsorship";
 import "@/components/proposal/proposal.css";
 import { OpeningSummary, SourcesFooter } from "@/components/proposal/PartnershipSections";
+import { BudgetTable, SponsorHub } from "@/components/proposal/SponsorHub";
 import { event, eventPartners, eventWhen, localSponsors } from "@/data/event";
-import { budgetEstimate, budgetTotal, contact, jmd, reporting, safeguards } from "@/data/partnership";
+import { budgetTotal, contact, jmd, reporting, safeguards } from "@/data/partnership";
 import { band, benefitNotes } from "@/data/sponsorship";
 
 /*
  * Private partnership proposal for GK General Insurance (GraceKennedy Group).
  * The short version: three pages. The opening summary, the estimated budget
- * with who is already on board, and the ask. Not linked from the public site;
+ * with who is already on board, and the ask. Online, the sponsor hub follows
+ * (web only, hidden in print). Not linked from the public site;
  * noindex/nofollow here and via an X-Robots-Tag header in next.config.ts.
  *
  * The budget is the organisers' estimate (partnership.ts) and is always
@@ -68,12 +70,17 @@ const SOURCES = [
 export default function GraceKennedyOpportunityPage() {
   return (
     <div className="lp" style={{ "--lp-deck-label": `"${DECK_LABEL}"` } as CSSProperties}>
-      <header className="lp-wrap flex items-center justify-between gap-4 py-5">
+      <header className="lp-wrap flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-5">
         <Link href="/" className="flex items-center gap-2 rounded-lg" aria-label="Hack876 home">
           <BirdMark className="h-6 w-10" />
           <Logo className="text-[1.5rem]" />
         </Link>
-        <DownloadDeck href="/proposals/hack876-gracekennedy-partnership-proposal.pdf" filename={`Hack876 x ${SPONSOR} - Partnership Proposal.pdf`} />
+        <div className="flex items-center gap-4">
+          <a href="#sponsor-hub" className="lp-no-print hidden text-sm font-bold underline decoration-2 underline-offset-4 sm:inline">
+            Sponsor hub <span aria-hidden>↓</span>
+          </a>
+          <DownloadDeck href="/proposals/hack876-gracekennedy-partnership-proposal.pdf" filename={`Hack876 x ${SPONSOR} - Partnership Proposal.pdf`} />
+        </div>
       </header>
 
       <main id="main">
@@ -107,6 +114,7 @@ export default function GraceKennedyOpportunityPage() {
         <div className="lp-page">
           <Ask />
         </div>
+        <SponsorHub org={SPONSOR} recommended="platinum" />
       </main>
     </div>
   );
@@ -128,35 +136,7 @@ function Budget() {
         <div className="mt-8 grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12 print:mt-6 print:grid-cols-[1.15fr_1fr] print:gap-[2.4rem]">
           <div className="lp-keep rounded-2xl border-2 border-ink bg-paper p-5 print:p-[1.3rem]">
             <p className="text-xs font-extrabold tracking-[0.16em] text-ink-soft uppercase">Estimated event budget</p>
-            <table className="mt-3 w-full border-collapse text-left">
-              <tbody>
-                {budgetEstimate.map((l) => (
-                  <tr key={l.k} className="border-b border-ink/10 align-top">
-                    <th scope="row" className="py-2 pr-4 font-normal">
-                      <span className="block font-extrabold print:text-[1.32rem]">{l.k}</span>
-                      <span className="block text-[0.88rem] leading-snug text-ink-soft print:text-[1.12rem]">{l.note}</span>
-                    </th>
-                    <td className="py-2 text-right font-extrabold whitespace-nowrap tabular-nums print:text-[1.32rem]">
-                      {l.amount ? jmd(l.amount) : "In kind"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th scope="row" className="pt-3 text-lg font-extrabold print:text-[1.6rem]">
-                    Estimated total
-                  </th>
-                  <td className="pt-3 text-right text-lg font-extrabold whitespace-nowrap text-emerald-deep tabular-nums print:text-[1.6rem]">
-                    {jmd(budgetTotal)}
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-            <p className="lp-note mt-3">
-              Estimates in Jamaican dollars. Final costs depend on prices and on support given in kind. Every contributor receives a written
-              account of how their contribution was used.
-            </p>
+            <BudgetTable className="mt-3" />
           </div>
 
           <div>

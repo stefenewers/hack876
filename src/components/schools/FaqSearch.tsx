@@ -2,6 +2,9 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { statusLabel, TODO_LABEL, type HubAudience, type HubFaq } from "@/data/schoolHub";
+
+/** Any authored answer with a topic, from a school hub or the sponsor hub. */
+export type SearchFaq = Omit<HubFaq, "category"> & { category: string };
 import { statusClass } from "./status";
 
 /*
@@ -39,7 +42,23 @@ const norm = (s: string) =>
     .normalize("NFKD")
     .replace(/[^a-z0-9+\s]/g, " ");
 
-export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; categories: readonly string[]; contactEmail: string | null }) {
+export function FaqSearch({
+  faqs,
+  categories,
+  contactEmail,
+  audiences = AUDIENCES,
+  placeholder = "e.g. Do I need to know how to code?",
+  hint = ["food", "cost", "laptop"],
+}: {
+  faqs: SearchFaq[];
+  categories: readonly string[];
+  contactEmail: string | null;
+  /** Audience filter chips. An empty list hides the filter. */
+  audiences?: { key: HubAudience | "all"; label: string }[];
+  placeholder?: string;
+  /** Single words suggested when nothing matches. */
+  hint?: string[];
+}) {
   const [query, setQuery] = useState("");
   const [audience, setAudience] = useState<HubAudience | "all">("all");
   const [category, setCategory] = useState<string>("all");
@@ -129,7 +148,7 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="e.g. Do I need to know how to code?"
+            placeholder={placeholder}
             autoComplete="off"
             enterKeyHint="search"
             aria-describedby="hub-search-count"
@@ -137,10 +156,11 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
           />
         </div>
 
+        {audiences.length > 0 && (
         <fieldset className="mt-4 min-w-0">
           <legend className="text-xs font-extrabold tracking-[0.12em] text-ink-soft uppercase">Show answers for</legend>
           <div className="mt-2 flex flex-wrap gap-2">
-            {AUDIENCES.map((a) => (
+            {audiences.map((a) => (
               <button
                 key={a.key}
                 type="button"
@@ -156,6 +176,7 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
             ))}
           </div>
         </fieldset>
+        )}
 
         <fieldset className="mt-3 min-w-0">
           <legend className="text-xs font-extrabold tracking-[0.12em] text-ink-soft uppercase">Topic</legend>
@@ -185,7 +206,12 @@ export function FaqSearch({ faqs, categories, contactEmail }: { faqs: HubFaq[]; 
         <div className="hub-card mt-3 p-6 text-center">
           <p className="text-lg font-extrabold">No answer found for that.</p>
           <p className="mx-auto mt-2 max-w-md text-ink-2">
-            Try a single word such as &ldquo;food&rdquo;, &ldquo;cost&rdquo; or &ldquo;laptop&rdquo;.
+            Try a single word such as {hint.map((w, i) => (
+              <span key={w}>
+                {i > 0 && (i === hint.length - 1 ? " or " : ", ")}&ldquo;{w}&rdquo;
+              </span>
+            ))}
+            .
             {contactEmail && (
               <>
                 {" "}
